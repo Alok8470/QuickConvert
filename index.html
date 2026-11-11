@@ -144,6 +144,9 @@
   <!-- jsPDF Production CDN -->
   <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
 
+  <!-- QRCode.js Production CDN -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+
   <!-- Custom Stylesheet -->
   <link rel="stylesheet" href="css/styles.css">
 </head>
@@ -173,12 +176,15 @@
       </a>
 
       <!-- Desktop Navigation Links (Visible on lg: 1024px and above) -->
-      <nav class="hidden lg:flex items-center gap-6 xl:gap-8 text-sm font-semibold text-slate-600 shrink-0">
+      <nav class="hidden lg:flex items-center gap-5 xl:gap-7 text-sm font-semibold text-slate-600 shrink-0">
         <a href="#suite-tools" class="hover:text-brand-600 transition whitespace-nowrap">All Tools</a>
         <a href="#how-to-use" class="hover:text-brand-600 transition whitespace-nowrap">How to Use</a>
         <a href="#security-advantage" class="hover:text-brand-600 transition whitespace-nowrap">Security &amp; Privacy</a>
-        <a href="#comparison" class="hover:text-brand-600 transition whitespace-nowrap">Why Us</a>
         <a href="#faqs" class="hover:text-brand-600 transition whitespace-nowrap">FAQs</a>
+        <a href="#" data-modal-open="modal-feedback" class="hover:text-brand-600 transition whitespace-nowrap flex items-center gap-1.5 text-brand-600">
+          <i class="fa-solid fa-comment-dots text-xs"></i>
+          <span>Feedback</span>
+        </a>
       </nav>
 
       <!-- Action Button & Privacy Pill -->
@@ -218,6 +224,9 @@
       </a>
       <a href="#faqs" class="block px-3 py-2.5 rounded-xl hover:bg-slate-50 text-slate-700 hover:text-brand-600 transition">
         <i class="fa-solid fa-circle-question text-slate-400 mr-2 w-5"></i> FAQs
+      </a>
+      <a href="#" data-modal-open="modal-feedback" class="block px-3 py-2.5 rounded-xl hover:bg-slate-50 text-brand-600 font-semibold transition">
+        <i class="fa-solid fa-comment-dots text-brand-500 mr-2 w-5"></i> Feedback &amp; Review
       </a>
 
       <!-- Quick Action inside Mobile/Tablet Drawer for Mobile users -->
@@ -260,27 +269,42 @@
         </p>
 
         <!-- Tool Switcher Tabs (Hero Bar) -->
-        <div id="suite-tools" class="mt-10 max-w-4xl mx-auto">
-          <div class="p-1.5 bg-slate-100/90 rounded-2xl border border-slate-200/90 flex flex-wrap sm:flex-nowrap gap-1.5 shadow-inner" role="tablist">
+        <div id="suite-tools" class="mt-10 max-w-5xl mx-auto">
+          <div class="p-1.5 bg-slate-100/90 rounded-2xl border border-slate-200/90 grid grid-cols-2 sm:grid-cols-4 lg:grid-cols-7 gap-1.5 shadow-inner" role="tablist">
             
-            <button data-tool-target="tool-images-to-pdf" class="flex-1 min-w-[140px] px-4 py-3 rounded-xl text-xs sm:text-sm font-semibold transition flex items-center justify-center gap-2 bg-indigo-600 text-white shadow-md shadow-indigo-200" role="tab">
+            <button data-tool-target="tool-images-to-pdf" class="px-3 py-2.5 rounded-xl text-xs font-semibold transition flex items-center justify-center gap-1.5 bg-indigo-600 text-white shadow-md shadow-indigo-200" role="tab" title="Convert PNG/JPG to PDF">
               <i class="fa-solid fa-file-pdf"></i>
-              <span>PNG/JPG to PDF</span>
+              <span class="truncate">Images to PDF</span>
             </button>
 
-            <button data-tool-target="tool-image-compressor" class="flex-1 min-w-[140px] px-4 py-3 rounded-xl text-xs sm:text-sm font-semibold transition flex items-center justify-center gap-2 bg-white text-slate-700 hover:bg-slate-100" role="tab">
+            <button data-tool-target="tool-image-compressor" class="px-3 py-2.5 rounded-xl text-xs font-semibold transition flex items-center justify-center gap-1.5 bg-white text-slate-700 hover:bg-slate-100" role="tab" title="Compress & Resize Images">
               <i class="fa-solid fa-compress"></i>
-              <span>Compress &amp; Resize</span>
+              <span class="truncate">Compress</span>
             </button>
 
-            <button data-tool-target="tool-text-to-pdf" class="flex-1 min-w-[140px] px-4 py-3 rounded-xl text-xs sm:text-sm font-semibold transition flex items-center justify-center gap-2 bg-white text-slate-700 hover:bg-slate-100" role="tab">
+            <button data-tool-target="tool-image-converter" class="px-3 py-2.5 rounded-xl text-xs font-semibold transition flex items-center justify-center gap-1.5 bg-white text-slate-700 hover:bg-slate-100" role="tab" title="Convert PNG, JPG, WebP">
+              <i class="fa-solid fa-right-left"></i>
+              <span class="truncate">Format Shift</span>
+            </button>
+
+            <button data-tool-target="tool-text-to-pdf" class="px-3 py-2.5 rounded-xl text-xs font-semibold transition flex items-center justify-center gap-1.5 bg-white text-slate-700 hover:bg-slate-100" role="tab" title="Convert Text to PDF">
               <i class="fa-solid fa-file-lines"></i>
-              <span>Text to PDF</span>
+              <span class="truncate">Text to PDF</span>
             </button>
 
-            <button data-tool-target="tool-unit-converter" class="flex-1 min-w-[140px] px-4 py-3 rounded-xl text-xs sm:text-sm font-semibold transition flex items-center justify-center gap-2 bg-white text-slate-700 hover:bg-slate-100" role="tab">
+            <button data-tool-target="tool-qr-generator" class="px-3 py-2.5 rounded-xl text-xs font-semibold transition flex items-center justify-center gap-1.5 bg-white text-slate-700 hover:bg-slate-100" role="tab" title="Generate QR Codes">
+              <i class="fa-solid fa-qrcode"></i>
+              <span class="truncate">QR Code</span>
+            </button>
+
+            <button data-tool-target="tool-password-generator" class="px-3 py-2.5 rounded-xl text-xs font-semibold transition flex items-center justify-center gap-1.5 bg-white text-slate-700 hover:bg-slate-100" role="tab" title="Generate Secure Passwords">
+              <i class="fa-solid fa-key"></i>
+              <span class="truncate">Password</span>
+            </button>
+
+            <button data-tool-target="tool-unit-converter" class="px-3 py-2.5 rounded-xl text-xs font-semibold transition flex items-center justify-center gap-1.5 bg-white text-slate-700 hover:bg-slate-100 col-span-2 sm:col-span-1" role="tab" title="Universal Unit Converter">
               <i class="fa-solid fa-calculator"></i>
-              <span>Unit Converter</span>
+              <span class="truncate">Units</span>
             </button>
 
           </div>
@@ -1163,6 +1187,307 @@
 
       </div>
 
+      <!-- ==================================================== -->
+      <!-- TOOL 5: IMAGE FORMAT CONVERTER (PNG, JPG, WEBP)      -->
+      <!-- ==================================================== -->
+      <div id="tool-image-converter" class="tool-panel hidden">
+        <div class="bg-white rounded-3xl shadow-xl shadow-slate-200/50 border border-slate-200/80 p-6 sm:p-10 mb-8">
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between pb-6 mb-6 border-b border-slate-100 gap-4">
+            <div>
+              <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold bg-indigo-50 text-indigo-700 border border-indigo-200/70 mb-2">
+                <i class="fa-solid fa-right-left"></i> Client-Side Format Converter
+              </span>
+              <h2 class="text-xl sm:text-2xl font-black text-slate-900 tracking-tight">Image Format Converter</h2>
+              <p class="text-xs sm:text-sm text-slate-500 mt-1">Convert single or batch images seamlessly between PNG, JPG, and WebP directly in memory.</p>
+            </div>
+            <div class="flex items-center gap-2">
+              <span class="text-xs font-semibold px-2.5 py-1 rounded-lg bg-emerald-50 text-emerald-700 border border-emerald-200">
+                <i class="fa-solid fa-bolt"></i> Lossless &amp; Lossy
+              </span>
+            </div>
+          </div>
+
+          <!-- Drag and Drop Area -->
+          <div id="fmt-dropzone" class="border-2 border-dashed border-slate-300 hover:border-brand-500 rounded-2xl p-8 text-center cursor-pointer transition-all duration-200 bg-slate-50/50 hover:bg-brand-50/20 group">
+            <input type="file" id="fmt-file-input" accept="image/png,image/jpeg,image/webp,image/bmp,image/gif" multiple class="hidden" />
+            <div class="w-16 h-16 mx-auto mb-4 rounded-2xl bg-brand-50 text-brand-600 flex items-center justify-center text-2xl group-hover:scale-110 transition-transform shadow-sm">
+              <i class="fa-solid fa-images"></i>
+            </div>
+            <p class="text-sm sm:text-base font-bold text-slate-800">Drop images here or <span class="text-brand-600 underline">browse files</span></p>
+            <p class="text-xs text-slate-400 mt-1">Supports PNG, JPG, JPEG, WebP, BMP, and GIF</p>
+          </div>
+
+          <!-- Settings Bar (When files loaded) -->
+          <div id="fmt-settings" class="hidden mt-6 p-5 bg-slate-50 rounded-2xl border border-slate-200">
+            <div class="grid grid-cols-1 sm:grid-cols-3 gap-4 items-center">
+              <div>
+                <label for="fmt-target-select" class="block text-xs font-bold text-slate-700 mb-1.5">Convert Target Format</label>
+                <select id="fmt-target-select" class="w-full bg-white border border-slate-300 rounded-xl px-3 py-2 text-xs sm:text-sm font-semibold text-slate-800 focus:outline-none focus:ring-2 focus:ring-brand-500">
+                  <option value="image/webp">WebP (Modern, Smallest Size)</option>
+                  <option value="image/jpeg">JPG / JPEG (Universal Compatibility)</option>
+                  <option value="image/png">PNG (Lossless Transparency)</option>
+                </select>
+              </div>
+              <div id="fmt-quality-wrapper">
+                <label for="fmt-quality-range" class="block text-xs font-bold text-slate-700 mb-1.5 flex justify-between">
+                  <span>Output Quality</span>
+                  <span id="fmt-quality-val" class="text-brand-600 font-bold">90%</span>
+                </label>
+                <input type="range" id="fmt-quality-range" min="10" max="100" value="90" class="w-full accent-brand-600" />
+              </div>
+              <div class="flex items-end gap-2">
+                <button id="fmt-convert-all-btn" class="flex-1 py-2.5 px-4 rounded-xl bg-brand-600 hover:bg-brand-700 text-white font-bold text-xs sm:text-sm shadow-sm transition active:scale-95 flex items-center justify-center gap-2">
+                  <i class="fa-solid fa-bolt"></i>
+                  <span>Convert All Files</span>
+                </button>
+                <button id="fmt-clear-btn" class="p-2.5 rounded-xl border border-slate-300 text-slate-600 hover:bg-slate-100 transition" title="Clear All">
+                  <i class="fa-solid fa-trash-can text-sm"></i>
+                </button>
+              </div>
+            </div>
+          </div>
+
+          <!-- Conversion Queue List -->
+          <div id="fmt-queue" class="hidden mt-6 space-y-3"></div>
+        </div>
+
+        <!-- How To & FAQ -->
+        <section aria-label="How to use the Image Format Converter" class="mt-6 space-y-6">
+          <article class="bg-white rounded-2xl border border-slate-200/80 p-6 sm:p-8 shadow-xs">
+            <h3 class="text-base font-bold text-slate-900 mb-2 flex items-center gap-2">
+              <i class="fa-solid fa-circle-info text-brand-600"></i> How to Convert Image Formats
+            </h3>
+            <p class="text-xs sm:text-sm text-slate-600 leading-relaxed">
+              Upload any combination of PNG, JPG, or WebP images. Choose your target format and quality slider, then click <strong>Convert All Files</strong>. Each image is decoded in an offscreen HTML5 canvas element and re-encoded using native browser codecs. Download individual files or all converted assets instantly with zero cloud transfers.
+            </p>
+          </article>
+        </section>
+      </div>
+
+      <!-- ==================================================== -->
+      <!-- TOOL 6: QR CODE GENERATOR                            -->
+      <!-- ==================================================== -->
+      <div id="tool-qr-generator" class="tool-panel hidden">
+        <div class="bg-white rounded-3xl shadow-xl shadow-slate-200/50 border border-slate-200/80 p-6 sm:p-10 mb-8">
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between pb-6 mb-6 border-b border-slate-100 gap-4">
+            <div>
+              <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold bg-indigo-50 text-indigo-700 border border-indigo-200/70 mb-2">
+                <i class="fa-solid fa-qrcode"></i> Instant Client-Side QR Generator
+              </span>
+              <h2 class="text-xl sm:text-2xl font-black text-slate-900 tracking-tight">QR Code Generator</h2>
+              <p class="text-xs sm:text-sm text-slate-500 mt-1">Create customized high-resolution QR codes from any text, URL, phone number, or Wi-Fi code instantly.</p>
+            </div>
+            <span class="text-xs font-semibold px-2.5 py-1 rounded-lg bg-emerald-50 text-emerald-700 border border-emerald-200 self-start sm:self-auto">
+              <i class="fa-solid fa-shield-halved"></i> 100% Private (No Tracking)
+            </span>
+          </div>
+
+          <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+            <!-- Left Form Controls -->
+            <div class="lg:col-span-7 space-y-4">
+              <div>
+                <label for="qr-input-text" class="block text-xs font-bold text-slate-700 mb-1.5">Enter URL or Content</label>
+                <textarea id="qr-input-text" rows="3" placeholder="https://example.com or any text..." class="w-full bg-slate-50 border border-slate-300 rounded-xl px-3.5 py-2.5 text-xs sm:text-sm text-slate-800 focus:outline-none focus:ring-2 focus:ring-brand-500 focus:bg-white leading-relaxed">https://quickconvert.in/</textarea>
+              </div>
+
+              <!-- Quick Templates -->
+              <div class="flex flex-wrap gap-2 text-xs">
+                <span class="text-slate-400 font-semibold self-center">Templates:</span>
+                <button type="button" class="qr-template-btn px-2.5 py-1 rounded-lg bg-slate-100 text-slate-700 hover:bg-brand-50 hover:text-brand-600 transition" data-template="https://">Website URL</button>
+                <button type="button" class="qr-template-btn px-2.5 py-1 rounded-lg bg-slate-100 text-slate-700 hover:bg-brand-50 hover:text-brand-600 transition" data-template="mailto:hello@example.com?subject=Hello">Email</button>
+                <button type="button" class="qr-template-btn px-2.5 py-1 rounded-lg bg-slate-100 text-slate-700 hover:bg-brand-50 hover:text-brand-600 transition" data-template="tel:+1234567890">Phone</button>
+                <button type="button" class="qr-template-btn px-2.5 py-1 rounded-lg bg-slate-100 text-slate-700 hover:bg-brand-50 hover:text-brand-600 transition" data-template="WIFI:S:MyNetwork;T:WPA;P:MyPassword;;">Wi-Fi</button>
+              </div>
+
+              <!-- Styling Customization Grid -->
+              <div class="grid grid-cols-2 sm:grid-cols-3 gap-3 pt-2">
+                <div>
+                  <label for="qr-size-select" class="block text-xs font-bold text-slate-700 mb-1">Pixel Size</label>
+                  <select id="qr-size-select" class="w-full bg-slate-50 border border-slate-300 rounded-xl px-2.5 py-2 text-xs text-slate-800 focus:outline-none focus:ring-2 focus:ring-brand-500">
+                    <option value="160">Small (160px)</option>
+                    <option value="256" selected>Medium (256px)</option>
+                    <option value="384">Large (384px)</option>
+                    <option value="512">Ultra (512px)</option>
+                  </select>
+                </div>
+
+                <div>
+                  <label for="qr-color-dark" class="block text-xs font-bold text-slate-700 mb-1">Pattern Color</label>
+                  <div class="flex items-center gap-2 border border-slate-300 rounded-xl px-2 py-1.5 bg-slate-50">
+                    <input type="color" id="qr-color-dark" value="#0f172a" class="w-7 h-7 rounded-lg border-0 cursor-pointer bg-transparent" />
+                    <span id="qr-color-dark-label" class="text-xs text-slate-600 font-mono">#0f172a</span>
+                  </div>
+                </div>
+
+                <div>
+                  <label for="qr-color-light" class="block text-xs font-bold text-slate-700 mb-1">Background Color</label>
+                  <div class="flex items-center gap-2 border border-slate-300 rounded-xl px-2 py-1.5 bg-slate-50">
+                    <input type="color" id="qr-color-light" value="#ffffff" class="w-7 h-7 rounded-lg border-0 cursor-pointer bg-transparent" />
+                    <span id="qr-color-light-label" class="text-xs text-slate-600 font-mono">#ffffff</span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="pt-2">
+                <button id="qr-generate-btn" class="w-full py-3 rounded-xl bg-brand-600 hover:bg-brand-700 text-white font-bold text-xs sm:text-sm shadow-sm transition active:scale-95 flex items-center justify-center gap-2">
+                  <i class="fa-solid fa-arrows-rotate"></i>
+                  <span>Regenerate QR Code</span>
+                </button>
+              </div>
+            </div>
+
+            <!-- Right QR Preview -->
+            <div class="lg:col-span-5 flex flex-col items-center justify-center p-6 bg-slate-50 rounded-2xl border border-slate-200">
+              <div id="qr-render-box" class="p-4 bg-white rounded-2xl shadow-md border border-slate-200 flex items-center justify-center min-w-[200px] min-h-[200px]"></div>
+              
+              <div class="mt-4 flex flex-col sm:flex-row gap-2 w-full max-w-xs">
+                <button id="qr-download-btn" class="flex-1 py-2.5 px-4 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs shadow-sm transition active:scale-95 flex items-center justify-center gap-1.5">
+                  <i class="fa-solid fa-download"></i>
+                  <span>Download PNG</span>
+                </button>
+                <button id="qr-copy-btn" class="py-2.5 px-4 rounded-xl border border-slate-300 bg-white hover:bg-slate-100 text-slate-700 font-bold text-xs transition active:scale-95 flex items-center justify-center gap-1.5">
+                  <i class="fa-regular fa-copy"></i>
+                  <span>Copy</span>
+                </button>
+              </div>
+              <p class="text-[11px] text-slate-400 mt-2 text-center">Crisp PNG rendered 100% inside your browser.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- How To -->
+        <section aria-label="How to use the QR code generator" class="mt-6 space-y-6">
+          <article class="bg-white rounded-2xl border border-slate-200/80 p-6 sm:p-8 shadow-xs">
+            <h3 class="text-base font-bold text-slate-900 mb-2 flex items-center gap-2">
+              <i class="fa-solid fa-circle-info text-brand-600"></i> Free &amp; Private QR Code Generator
+            </h3>
+            <p class="text-xs sm:text-sm text-slate-600 leading-relaxed">
+              QuickConvert generates standard QR codes directly in your browser without communicating with any third-party tracking APIs. Your Wi-Fi passwords, personal URLs, and contact info remain strictly confidential. Download high-resolution PNGs ready for printing on business cards, menus, flyers, and digital screens.
+            </p>
+          </article>
+        </section>
+      </div>
+
+      <!-- ==================================================== -->
+      <!-- TOOL 7: SECURE PASSWORD GENERATOR                    -->
+      <!-- ==================================================== -->
+      <div id="tool-password-generator" class="tool-panel hidden">
+        <div class="bg-white rounded-3xl shadow-xl shadow-slate-200/50 border border-slate-200/80 p-6 sm:p-10 mb-8">
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between pb-6 mb-6 border-b border-slate-100 gap-4">
+            <div>
+              <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold bg-indigo-50 text-indigo-700 border border-indigo-200/70 mb-2">
+                <i class="fa-solid fa-key"></i> Cryptographically Secure Randomness
+              </span>
+              <h2 class="text-xl sm:text-2xl font-black text-slate-900 tracking-tight">Secure Password Generator</h2>
+              <p class="text-xs sm:text-sm text-slate-500 mt-1">Generate ultra-strong passwords using the browser's native cryptographic entropy API (<code class="text-indigo-600 font-mono text-xs">crypto.getRandomValues</code>).</p>
+            </div>
+            <span class="text-xs font-semibold px-2.5 py-1 rounded-lg bg-emerald-50 text-emerald-700 border border-emerald-200 self-start sm:self-auto">
+              <i class="fa-solid fa-lock"></i> Zero Cloud Transmission
+            </span>
+          </div>
+
+          <!-- Password Output Display -->
+          <div class="p-5 bg-slate-900 text-white rounded-2xl mb-6 shadow-inner">
+            <div class="flex items-center justify-between gap-3 flex-wrap">
+              <span id="pwd-output" class="font-mono text-lg sm:text-2xl tracking-wider select-all break-all text-emerald-400 font-bold">Generating...</span>
+              <div class="flex items-center gap-2">
+                <button id="pwd-copy-btn" class="px-3.5 py-2 rounded-xl bg-white/10 hover:bg-white/20 text-white text-xs font-bold transition flex items-center gap-1.5 active:scale-95">
+                  <i class="fa-regular fa-copy"></i>
+                  <span>Copy</span>
+                </button>
+                <button id="pwd-refresh-btn" class="p-2 rounded-xl bg-white/10 hover:bg-white/20 text-white text-xs transition active:scale-95" title="Generate New">
+                  <i class="fa-solid fa-rotate-right"></i>
+                </button>
+              </div>
+            </div>
+
+            <!-- Strength Meter Bar -->
+            <div class="mt-4 pt-3 border-t border-slate-800 flex items-center justify-between gap-4">
+              <div class="flex-1">
+                <div class="h-2 w-full bg-slate-800 rounded-full overflow-hidden">
+                  <div id="pwd-strength-bar" class="h-full bg-emerald-500 transition-all duration-300 w-full"></div>
+                </div>
+              </div>
+              <span id="pwd-strength-label" class="text-xs font-bold text-emerald-400 uppercase tracking-wider shrink-0">Very Strong</span>
+            </div>
+          </div>
+
+          <!-- Configuration Controls -->
+          <div class="space-y-5 bg-slate-50 p-6 rounded-2xl border border-slate-200">
+            <!-- Length Slider -->
+            <div>
+              <div class="flex items-center justify-between mb-2">
+                <label for="pwd-length-slider" class="text-xs sm:text-sm font-bold text-slate-800">Password Length</label>
+                <span id="pwd-length-val" class="font-mono font-bold text-sm text-brand-600 bg-white px-3 py-1 rounded-lg border border-slate-200">16 characters</span>
+              </div>
+              <input type="range" id="pwd-length-slider" min="6" max="64" value="16" class="w-full accent-brand-600" />
+              <div class="flex justify-between text-[11px] text-slate-400 font-mono mt-1">
+                <span>6 (Min)</span>
+                <span>16 (Recommended)</span>
+                <span>32</span>
+                <span>64 (Max)</span>
+              </div>
+            </div>
+
+            <!-- Character Types Checkboxes -->
+            <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-3 pt-2">
+              <label class="flex items-center gap-2.5 p-3 rounded-xl bg-white border border-slate-200 cursor-pointer hover:border-brand-500 transition">
+                <input type="checkbox" id="pwd-opt-uppercase" checked class="w-4 h-4 accent-brand-600 rounded" />
+                <div>
+                  <p class="text-xs font-bold text-slate-800">Uppercase (A-Z)</p>
+                  <p class="text-[10px] text-slate-400 font-mono">ABCDEF...</p>
+                </div>
+              </label>
+
+              <label class="flex items-center gap-2.5 p-3 rounded-xl bg-white border border-slate-200 cursor-pointer hover:border-brand-500 transition">
+                <input type="checkbox" id="pwd-opt-lowercase" checked class="w-4 h-4 accent-brand-600 rounded" />
+                <div>
+                  <p class="text-xs font-bold text-slate-800">Lowercase (a-z)</p>
+                  <p class="text-[10px] text-slate-400 font-mono">abcdef...</p>
+                </div>
+              </label>
+
+              <label class="flex items-center gap-2.5 p-3 rounded-xl bg-white border border-slate-200 cursor-pointer hover:border-brand-500 transition">
+                <input type="checkbox" id="pwd-opt-numbers" checked class="w-4 h-4 accent-brand-600 rounded" />
+                <div>
+                  <p class="text-xs font-bold text-slate-800">Numbers (0-9)</p>
+                  <p class="text-[10px] text-slate-400 font-mono">0123456789</p>
+                </div>
+              </label>
+
+              <label class="flex items-center gap-2.5 p-3 rounded-xl bg-white border border-slate-200 cursor-pointer hover:border-brand-500 transition">
+                <input type="checkbox" id="pwd-opt-symbols" checked class="w-4 h-4 accent-brand-600 rounded" />
+                <div>
+                  <p class="text-xs font-bold text-slate-800">Symbols (!@#)</p>
+                  <p class="text-[10px] text-slate-400 font-mono">!@#$%^&amp;*()_+</p>
+                </div>
+              </label>
+            </div>
+
+            <!-- Quick Bulk Passwords Generator Option -->
+            <div class="pt-2">
+              <button id="pwd-bulk-btn" class="text-xs font-bold text-brand-600 hover:text-brand-700 flex items-center gap-1.5 focus:outline-none">
+                <i class="fa-solid fa-list-ol"></i>
+                <span>Generate Batch of 5 Passwords</span>
+              </button>
+              <div id="pwd-bulk-list" class="hidden mt-3 space-y-1.5 font-mono text-xs bg-white p-3 rounded-xl border border-slate-200"></div>
+            </div>
+          </div>
+        </div>
+
+        <!-- How To -->
+        <section aria-label="How to use the Secure Password Generator" class="mt-6 space-y-6">
+          <article class="bg-white rounded-2xl border border-slate-200/80 p-6 sm:p-8 shadow-xs">
+            <h3 class="text-base font-bold text-slate-900 mb-2 flex items-center gap-2">
+              <i class="fa-solid fa-shield-halved text-brand-600"></i> Why Browser Cryptography Matters
+            </h3>
+            <p class="text-xs sm:text-sm text-slate-600 leading-relaxed">
+              Unlike cloud-hosted password generators that create credentials on remote servers, QuickConvert generates every character locally utilizing your browser's cryptographically secure pseudo-random number generator (<code class="text-indigo-600 font-mono text-xs">crypto.getRandomValues</code>). Passwords are never sent over the internet or logged in any database.
+            </p>
+          </article>
+        </section>
+      </div>
+
     </section>
 
     <!-- CONTENT-RICH SECTION 1: HOW TO USE QUICKCONVERT (AdSense High Value Requirement) -->
@@ -1601,7 +1926,10 @@
           <ul class="space-y-2">
             <li><a href="#suite-tools" data-tool-target="tool-images-to-pdf" class="hover:text-brand-600 transition">PNG/JPG to PDF Converter</a></li>
             <li><a href="#suite-tools" data-tool-target="tool-image-compressor" class="hover:text-brand-600 transition">Image Compressor &amp; Resizer</a></li>
+            <li><a href="#suite-tools" data-tool-target="tool-image-converter" class="hover:text-brand-600 transition">Image Format Converter</a></li>
             <li><a href="#suite-tools" data-tool-target="tool-text-to-pdf" class="hover:text-brand-600 transition">Text &amp; Markdown to PDF</a></li>
+            <li><a href="#suite-tools" data-tool-target="tool-qr-generator" class="hover:text-brand-600 transition">QR Code Generator</a></li>
+            <li><a href="#suite-tools" data-tool-target="tool-password-generator" class="hover:text-brand-600 transition">Secure Password Generator</a></li>
             <li><a href="#suite-tools" data-tool-target="tool-unit-converter" class="hover:text-brand-600 transition">Universal Unit Converter</a></li>
           </ul>
         </div>
@@ -1625,6 +1953,7 @@
             <li><a href="#" data-modal-open="modal-terms" class="hover:text-brand-600 transition">Terms of Service</a></li>
             <li><a href="#" data-modal-open="modal-about" class="hover:text-brand-600 transition">About QuickConvert</a></li>
             <li><a href="#" data-modal-open="modal-contact" class="hover:text-brand-600 transition">Contact &amp; Support</a></li>
+            <li><a href="#" data-modal-open="modal-feedback" class="text-brand-600 font-semibold hover:text-brand-700 transition flex items-center gap-1.5"><i class="fa-solid fa-star text-amber-400 text-xs"></i> User Feedback</a></li>
           </ul>
         </div>
 
@@ -1814,6 +2143,66 @@
           </button>
           <button type="submit" class="px-5 py-2.5 rounded-xl bg-brand-600 text-white font-bold text-xs hover:bg-brand-700 transition shadow-sm">
             Send Message
+          </button>
+        </div>
+      </form>
+
+    </div>
+  </div>
+
+  <!-- ==================================================== -->
+  <!-- MODAL: DEDICATED USER FEEDBACK & REVIEW              -->
+  <!-- ==================================================== -->
+  <div id="modal-feedback" class="app-modal fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-xs flex items-center justify-center p-4 hidden">
+    <div class="bg-white rounded-2xl max-w-lg w-full max-h-[90vh] flex flex-col shadow-2xl border border-slate-200">
+      
+      <div class="p-5 border-b border-slate-100 flex items-center justify-between">
+        <h3 class="text-lg font-bold text-slate-900 flex items-center gap-2">
+          <i class="fa-solid fa-comment-dots text-brand-600"></i>
+          Share Your Feedback
+        </h3>
+        <button data-modal-close class="p-2 text-slate-400 hover:text-slate-600 rounded-lg">
+          <i class="fa-solid fa-xmark text-lg"></i>
+        </button>
+      </div>
+
+      <form id="quickconvert-feedback-form" action="https://formspree.io/f/mqaejvzy" method="POST" class="p-6 space-y-4 text-xs sm:text-sm">
+        <div>
+          <label for="fb-name" class="block font-bold text-slate-700 mb-1">Your Name</label>
+          <input type="text" id="fb-name" name="name" required placeholder="Alex Morgan" class="w-full bg-white border border-slate-300 rounded-xl px-3.5 py-2.5 focus:outline-none focus:ring-2 focus:ring-brand-500" />
+        </div>
+
+        <div>
+          <label for="fb-email" class="block font-bold text-slate-700 mb-1">Email Address</label>
+          <input type="email" id="fb-email" name="email" required placeholder="alex@example.com" class="w-full bg-white border border-slate-300 rounded-xl px-3.5 py-2.5 focus:outline-none focus:ring-2 focus:ring-brand-500" />
+        </div>
+
+        <!-- Star Rating 1-5 -->
+        <div>
+          <label class="block font-bold text-slate-700 mb-1.5">How would you rate QuickConvert?</label>
+          <input type="hidden" id="fb-rating" name="rating" value="5" />
+          <div id="fb-star-container" class="flex items-center gap-2 text-2xl text-amber-400 cursor-pointer select-none">
+            <i class="fa-solid fa-star fb-star" data-rating="1"></i>
+            <i class="fa-solid fa-star fb-star" data-rating="2"></i>
+            <i class="fa-solid fa-star fb-star" data-rating="3"></i>
+            <i class="fa-solid fa-star fb-star" data-rating="4"></i>
+            <i class="fa-solid fa-star fb-star" data-rating="5"></i>
+            <span id="fb-rating-text" class="text-xs font-bold text-slate-600 ml-2">5 - Excellent!</span>
+          </div>
+        </div>
+
+        <div>
+          <label for="fb-message" class="block font-bold text-slate-700 mb-1">Your Thoughts &amp; Feature Suggestions</label>
+          <textarea id="fb-message" name="message" rows="4" required placeholder="Tell us what you loved, or what tools we should add next..." class="w-full bg-white border border-slate-300 rounded-xl px-3.5 py-2.5 focus:outline-none focus:ring-2 focus:ring-brand-500 leading-relaxed"></textarea>
+        </div>
+
+        <div class="pt-2 flex justify-end gap-2">
+          <button type="button" data-modal-close class="px-4 py-2.5 rounded-xl border border-slate-300 text-slate-700 font-semibold text-xs hover:bg-slate-50 transition">
+            Cancel
+          </button>
+          <button type="submit" id="fb-submit-btn" class="px-5 py-2.5 rounded-xl bg-brand-600 text-white font-bold text-xs hover:bg-brand-700 transition shadow-sm flex items-center gap-1.5">
+            <i class="fa-solid fa-paper-plane"></i>
+            <span>Submit Feedback</span>
           </button>
         </div>
       </form>

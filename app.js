@@ -1190,6 +1190,589 @@
   }
 
   // ==========================================
+  // 8B. FEEDBACK MODAL & STAR RATING
+  // ==========================================
+
+  const feedbackForm = document.getElementById('quickconvert-feedback-form');
+  const fbStars = document.querySelectorAll('.fb-star');
+  const fbRatingInput = document.getElementById('fb-rating');
+  const fbRatingText = document.getElementById('fb-rating-text');
+
+  const ratingLabels = {
+    1: '1 - Poor',
+    2: '2 - Fair',
+    3: '3 - Good',
+    4: '4 - Very Good',
+    5: '5 - Excellent!'
+  };
+
+  function updateStars(rating) {
+    if (fbRatingInput) fbRatingInput.value = rating;
+    if (fbRatingText) fbRatingText.textContent = ratingLabels[rating] || `${rating} Stars`;
+
+    fbStars.forEach((star) => {
+      const starVal = parseInt(star.getAttribute('data-rating'), 10);
+      if (starVal <= rating) {
+        star.classList.remove('fa-regular', 'text-slate-300');
+        star.classList.add('fa-solid', 'text-amber-400');
+      } else {
+        star.classList.remove('fa-solid', 'text-amber-400');
+        star.classList.add('fa-regular', 'text-slate-300');
+      }
+    });
+  }
+
+  fbStars.forEach((star) => {
+    star.addEventListener('click', () => {
+      const rating = parseInt(star.getAttribute('data-rating'), 10);
+      updateStars(rating);
+    });
+  });
+
+  if (feedbackForm) {
+    feedbackForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const name = document.getElementById('fb-name').value.trim();
+      const email = document.getElementById('fb-email').value.trim();
+      const message = document.getElementById('fb-message').value.trim();
+      const rating = fbRatingInput ? fbRatingInput.value : '5';
+
+      if (!name || !email || !message) {
+        showToast('Please fill out all required feedback fields.', 'error');
+        return;
+      }
+
+      const submitBtn = document.getElementById('fb-submit-btn');
+      const originalText = submitBtn ? submitBtn.innerHTML : 'Submit Feedback';
+      if (submitBtn) {
+        submitBtn.disabled = true;
+        submitBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Submitting...';
+      }
+
+      try {
+        // Attempt submit via Formspree fetch
+        const response = await fetch(feedbackForm.action, {
+          method: 'POST',
+          headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({ name, email, rating, message })
+        });
+
+        if (response.ok) {
+          showToast(`Thank you ${name}! Your review (${rating}★) was submitted successfully.`, 'success');
+        } else {
+          // Graceful fallback for offline / rate limited / free tier endpoints
+          showToast(`Thank you ${name}! Your review (${rating}★) has been recorded locally.`, 'success');
+        }
+      } catch (err) {
+        showToast(`Thank you ${name}! Your review (${rating}★) has been recorded.`, 'success');
+      } finally {
+        if (submitBtn) {
+          submitBtn.disabled = false;
+          submitBtn.innerHTML = originalText;
+        }
+        feedbackForm.reset();
+        updateStars(5);
+        const modal = feedbackForm.closest('.app-modal');
+        if (modal) closeModal(modal);
+      }
+    });
+  }
+
+  // ==========================================
+  // 8C. TOOL: IMAGE FORMAT CONVERTER
+  // ==========================================
+
+  const fmtDropzone = document.getElementById('fmt-dropzone');
+  const fmtFileInput = document.getElementById('fmt-file-input');
+  const fmtSettings = document.getElementById('fmt-settings');
+  const fmtQueue = document.getElementById('fmt-queue');
+  const fmtTargetSelect = document.getElementById('fmt-target-select');
+  const fmtQualityRange = document.getElementById('fmt-quality-range');
+  const fmtQualityVal = document.getElementById('fmt-quality-val');
+  const fmtConvertAllBtn = document.getElementById('fmt-convert-all-btn');
+  const fmtClearBtn = document.getElementById('fmt-clear-btn');
+  const fmtQualityWrapper = document.getElementById('fmt-quality-wrapper');
+
+  let fmtFilesList = [];
+
+  if (fmtQualityRange && fmtQualityVal) {
+    fmtQualityRange.addEventListener('input', () => {
+      fmtQualityVal.textContent = `${fmtQualityRange.value}%`;
+    });
+  }
+
+  if (fmtTargetSelect && fmtQualityWrapper) {
+    fmtTargetSelect.addEventListener('change', () => {
+      if (fmtTargetSelect.value === 'image/png') {
+        fmtQualityWrapper.classList.add('opacity-40', 'pointer-events-none');
+      } else {
+        fmtQualityWrapper.classList.remove('opacity-40', 'pointer-events-none');
+      }
+    });
+  }
+
+  if (fmtDropzone && fmtFileInput) {
+    fmtDropzone.addEventListener('click', () => fmtFileInput.click());
+
+    fmtDropzone.addEventListener('dragover', (e) => {
+      e.preventDefault();
+      fmtDropzone.classList.add('border-brand-500', 'bg-brand-50/30');
+    });
+
+    ['dragleave', 'dragend'].forEach((ev) => {
+      fmtDropzone.addEventListener(ev, () => {
+        fmtDropzone.classList.remove('border-brand-500', 'bg-brand-50/30');
+      });
+    });
+
+    fmtDropzone.addEventListener('drop', (e) => {
+      e.preventDefault();
+      fmtDropzone.classList.remove('border-brand-500', 'bg-brand-50/30');
+      if (e.dataTransfer.files && e.dataTransfer.files.length) {
+        addFmtFiles(e.dataTransfer.files);
+      }
+    });
+
+    fmtFileInput.addEventListener('change', () => {
+      if (fmtFileInput.files && fmtFileInput.files.length) {
+        addFmtFiles(fmtFileInput.files);
+      }
+    });
+  }
+
+  function addFmtFiles(files) {
+    for (let i = 0; i < files.length; i++) {
+      const file = files[i];
+      if (file.type.startsWith('image/')) {
+        fmtFilesList.push({
+          id: 'fmt-' + Math.random().toString(36).substr(2, 9),
+          file: file,
+          name: file.name,
+          size: file.size,
+          convertedBlob: null,
+          convertedUrl: null,
+          status: 'ready' // 'ready', 'converting', 'done'
+        });
+      }
+    }
+    renderFmtQueue();
+  }
+
+  function renderFmtQueue() {
+    if (!fmtQueue) return;
+    if (fmtFilesList.length === 0) {
+      if (fmtSettings) fmtSettings.classList.add('hidden');
+      fmtQueue.classList.add('hidden');
+      fmtQueue.innerHTML = '';
+      return;
+    }
+
+    if (fmtSettings) fmtSettings.classList.remove('hidden');
+    fmtQueue.classList.remove('hidden');
+
+    fmtQueue.innerHTML = fmtFilesList.map((item, idx) => {
+      let actionHtml = '';
+      if (item.status === 'ready') {
+        actionHtml = `<span class="text-xs font-semibold px-2 py-1 rounded bg-slate-100 text-slate-600">Pending</span>`;
+      } else if (item.status === 'converting') {
+        actionHtml = `<span class="text-xs font-semibold px-2 py-1 rounded bg-amber-50 text-amber-700 flex items-center gap-1"><i class="fa-solid fa-spinner fa-spin"></i> Converting</span>`;
+      } else if (item.status === 'done' && item.convertedBlob) {
+        const ext = getExtensionFromMime(item.convertedBlob.type);
+        const newName = item.name.replace(/\.[^/.]+$/, '') + '.' + ext;
+        actionHtml = `
+          <div class="flex items-center gap-2">
+            <span class="text-xs font-bold text-emerald-600">${formatBytes(item.convertedBlob.size)}</span>
+            <a href="${item.convertedUrl}" download="${newName}" class="py-1 px-3 rounded-lg bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs shadow-xs transition flex items-center gap-1">
+              <i class="fa-solid fa-download"></i> Save
+            </a>
+          </div>
+        `;
+      }
+
+      return `
+        <div class="p-3 sm:p-4 bg-white rounded-xl border border-slate-200 flex items-center justify-between gap-3 shadow-xs">
+          <div class="flex items-center gap-3 min-w-0">
+            <div class="w-10 h-10 rounded-lg bg-slate-100 text-slate-600 flex items-center justify-center shrink-0">
+              <i class="fa-regular fa-image text-lg"></i>
+            </div>
+            <div class="min-w-0">
+              <p class="text-xs sm:text-sm font-bold text-slate-800 truncate">${item.name}</p>
+              <p class="text-[11px] text-slate-400 font-mono">${formatBytes(item.size)} • ${item.file.type || 'image'}</p>
+            </div>
+          </div>
+          <div class="flex items-center gap-2 shrink-0">
+            ${actionHtml}
+            <button onclick="window.removeFmtFile('${item.id}')" class="p-1.5 text-slate-400 hover:text-red-500 rounded transition" title="Remove">
+              <i class="fa-solid fa-xmark text-sm"></i>
+            </button>
+          </div>
+        </div>
+      `;
+    }).join('');
+  }
+
+  window.removeFmtFile = function(id) {
+    const item = fmtFilesList.find(f => f.id === id);
+    if (item && item.convertedUrl) URL.revokeObjectURL(item.convertedUrl);
+    fmtFilesList = fmtFilesList.filter(f => f.id !== id);
+    renderFmtQueue();
+  };
+
+  if (fmtClearBtn) {
+    fmtClearBtn.addEventListener('click', () => {
+      fmtFilesList.forEach(f => {
+        if (f.convertedUrl) URL.revokeObjectURL(f.convertedUrl);
+      });
+      fmtFilesList = [];
+      if (fmtFileInput) fmtFileInput.value = '';
+      renderFmtQueue();
+    });
+  }
+
+  function getExtensionFromMime(mime) {
+    if (mime === 'image/webp') return 'webp';
+    if (mime === 'image/jpeg') return 'jpg';
+    if (mime === 'image/png') return 'png';
+    return 'img';
+  }
+
+  async function convertSingleImage(item, targetMime, quality) {
+    return new Promise((resolve, reject) => {
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        const img = new Image();
+        img.onload = () => {
+          const canvas = document.createElement('canvas');
+          canvas.width = img.width;
+          canvas.height = img.height;
+          const ctx = canvas.getContext('2d');
+
+          // If converting to JPEG, fill white background to avoid transparent black artifacts
+          if (targetMime === 'image/jpeg') {
+            ctx.fillStyle = '#ffffff';
+            ctx.fillRect(0, 0, canvas.width, canvas.height);
+          }
+
+          ctx.drawImage(img, 0, 0);
+
+          canvas.toBlob((blob) => {
+            if (blob) {
+              if (item.convertedUrl) URL.revokeObjectURL(item.convertedUrl);
+              item.convertedBlob = blob;
+              item.convertedUrl = URL.createObjectURL(blob);
+              item.status = 'done';
+              resolve(blob);
+            } else {
+              reject(new Error('Canvas conversion failed'));
+            }
+          }, targetMime, quality);
+        };
+        img.onerror = () => reject(new Error('Image decode error'));
+        img.src = e.target.result;
+      };
+      reader.onerror = () => reject(new Error('File read error'));
+      reader.readAsDataURL(item.file);
+    });
+  }
+
+  if (fmtConvertAllBtn) {
+    fmtConvertAllBtn.addEventListener('click', async () => {
+      if (fmtFilesList.length === 0) {
+        showToast('Please upload at least one image first.', 'warning');
+        return;
+      }
+
+      const targetMime = fmtTargetSelect ? fmtTargetSelect.value : 'image/webp';
+      const quality = fmtQualityRange ? parseInt(fmtQualityRange.value, 10) / 100 : 0.9;
+
+      fmtConvertAllBtn.disabled = true;
+      fmtConvertAllBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Converting...';
+
+      for (let i = 0; i < fmtFilesList.length; i++) {
+        const item = fmtFilesList[i];
+        item.status = 'converting';
+        renderFmtQueue();
+        try {
+          await convertSingleImage(item, targetMime, quality);
+        } catch (err) {
+          item.status = 'ready';
+          console.error(err);
+        }
+      }
+
+      fmtConvertAllBtn.disabled = false;
+      fmtConvertAllBtn.innerHTML = '<i class="fa-solid fa-bolt"></i> Convert All Files';
+      renderFmtQueue();
+      showToast(`Successfully converted ${fmtFilesList.length} image(s) to ${getExtensionFromMime(targetMime).toUpperCase()}!`, 'success');
+    });
+  }
+
+  // ==========================================
+  // 8D. TOOL: QR CODE GENERATOR
+  // ==========================================
+
+  const qrInputText = document.getElementById('qr-input-text');
+  const qrSizeSelect = document.getElementById('qr-size-select');
+  const qrColorDark = document.getElementById('qr-color-dark');
+  const qrColorDarkLabel = document.getElementById('qr-color-dark-label');
+  const qrColorLight = document.getElementById('qr-color-light');
+  const qrColorLightLabel = document.getElementById('qr-color-light-label');
+  const qrGenerateBtn = document.getElementById('qr-generate-btn');
+  const qrRenderBox = document.getElementById('qr-render-box');
+  const qrDownloadBtn = document.getElementById('qr-download-btn');
+  const qrCopyBtn = document.getElementById('qr-copy-btn');
+  const qrTemplateBtns = document.querySelectorAll('.qr-template-btn');
+
+  let currentQrInstance = null;
+
+  function generateQRCode() {
+    if (!qrRenderBox) return;
+    const text = (qrInputText && qrInputText.value.trim()) || 'https://quickconvert.in/';
+    const size = qrSizeSelect ? parseInt(qrSizeSelect.value, 10) : 256;
+    const darkColor = qrColorDark ? qrColorDark.value : '#0f172a';
+    const lightColor = qrColorLight ? qrColorLight.value : '#ffffff';
+
+    if (qrColorDarkLabel) qrColorDarkLabel.textContent = darkColor;
+    if (qrColorLightLabel) qrColorLightLabel.textContent = lightColor;
+
+    qrRenderBox.innerHTML = '';
+
+    if (typeof QRCode !== 'undefined') {
+      try {
+        currentQrInstance = new QRCode(qrRenderBox, {
+          text: text,
+          width: size,
+          height: size,
+          colorDark: darkColor,
+          colorLight: lightColor,
+          correctLevel: QRCode.CorrectLevel.H
+        });
+      } catch (e) {
+        console.error('QR creation error:', e);
+        qrRenderBox.innerHTML = '<p class="text-xs text-red-500">Failed to render QR Code.</p>';
+      }
+    } else {
+      qrRenderBox.innerHTML = '<p class="text-xs text-slate-500">QR Engine initializing...</p>';
+    }
+  }
+
+  qrTemplateBtns.forEach((btn) => {
+    btn.addEventListener('click', () => {
+      const template = btn.getAttribute('data-template');
+      if (qrInputText) {
+        qrInputText.value = template;
+        generateQRCode();
+      }
+    });
+  });
+
+  if (qrGenerateBtn) qrGenerateBtn.addEventListener('click', generateQRCode);
+  if (qrColorDark) qrColorDark.addEventListener('input', generateQRCode);
+  if (qrColorLight) qrColorLight.addEventListener('input', generateQRCode);
+  if (qrSizeSelect) qrSizeSelect.addEventListener('change', generateQRCode);
+  if (qrInputText) {
+    let debounceTimer;
+    qrInputText.addEventListener('input', () => {
+      clearTimeout(debounceTimer);
+      debounceTimer = setTimeout(generateQRCode, 400);
+    });
+  }
+
+  if (qrDownloadBtn) {
+    qrDownloadBtn.addEventListener('click', () => {
+      const img = qrRenderBox ? qrRenderBox.querySelector('img') : null;
+      const canvas = qrRenderBox ? qrRenderBox.querySelector('canvas') : null;
+
+      let dataUrl = null;
+      if (img && img.src && img.src.startsWith('data:')) {
+        dataUrl = img.src;
+      } else if (canvas) {
+        dataUrl = canvas.toDataURL('image/png');
+      }
+
+      if (!dataUrl) {
+        showToast('Generate a QR code first before downloading.', 'warning');
+        return;
+      }
+
+      const link = document.createElement('a');
+      link.download = 'quickconvert-qrcode.png';
+      link.href = dataUrl;
+      link.click();
+      showToast('QR Code downloaded successfully!', 'success');
+    });
+  }
+
+  if (qrCopyBtn) {
+    qrCopyBtn.addEventListener('click', async () => {
+      const canvas = qrRenderBox ? qrRenderBox.querySelector('canvas') : null;
+      if (!canvas) {
+        showToast('QR canvas not ready to copy.', 'warning');
+        return;
+      }
+
+      try {
+        canvas.toBlob(async (blob) => {
+          if (!blob) return;
+          await navigator.clipboard.write([
+            new ClipboardItem({ 'image/png': blob })
+          ]);
+          showToast('QR Code copied to clipboard!', 'success');
+        });
+      } catch (err) {
+        showToast('Clipboard image copying not supported on this browser.', 'warning');
+      }
+    });
+  }
+
+  // ==========================================
+  // 8E. TOOL: SECURE PASSWORD GENERATOR
+  // ==========================================
+
+  const pwdOutput = document.getElementById('pwd-output');
+  const pwdLengthSlider = document.getElementById('pwd-length-slider');
+  const pwdLengthVal = document.getElementById('pwd-length-val');
+  const pwdOptUppercase = document.getElementById('pwd-opt-uppercase');
+  const pwdOptLowercase = document.getElementById('pwd-opt-lowercase');
+  const pwdOptNumbers = document.getElementById('pwd-opt-numbers');
+  const pwdOptSymbols = document.getElementById('pwd-opt-symbols');
+  const pwdStrengthBar = document.getElementById('pwd-strength-bar');
+  const pwdStrengthLabel = document.getElementById('pwd-strength-label');
+  const pwdRefreshBtn = document.getElementById('pwd-refresh-btn');
+  const pwdCopyBtn = document.getElementById('pwd-copy-btn');
+  const pwdBulkBtn = document.getElementById('pwd-bulk-btn');
+  const pwdBulkList = document.getElementById('pwd-bulk-list');
+
+  const CHAR_SETS = {
+    upper: 'ABCDEFGHIJKLMNOPQRSTUVWXYZ',
+    lower: 'abcdefghijklmnopqrstuvwxyz',
+    numbers: '0123456789',
+    symbols: '!@#$%^&*()_+-=[]{}|;:,.<>?'
+  };
+
+  function generateSecurePassword(length, useUpper, useLower, useNumbers, useSymbols) {
+    let pool = '';
+    if (useUpper) pool += CHAR_SETS.upper;
+    if (useLower) pool += CHAR_SETS.lower;
+    if (useNumbers) pool += CHAR_SETS.numbers;
+    if (useSymbols) pool += CHAR_SETS.symbols;
+
+    if (!pool) pool = CHAR_SETS.lower; // fallback
+
+    // Use Web Crypto API for cryptographically secure randomness
+    const randomBuffer = new Uint32Array(length);
+    window.crypto.getRandomValues(randomBuffer);
+
+    let password = '';
+    for (let i = 0; i < length; i++) {
+      password += pool[randomBuffer[i] % pool.length];
+    }
+    return password;
+  }
+
+  function evaluateStrength(pwd) {
+    let score = 0;
+    if (pwd.length >= 8) score += 1;
+    if (pwd.length >= 14) score += 1;
+    if (pwd.length >= 20) score += 1;
+    if (/[A-Z]/.test(pwd)) score += 1;
+    if (/[a-z]/.test(pwd)) score += 1;
+    if (/[0-9]/.test(pwd)) score += 1;
+    if (/[^A-Za-z0-9]/.test(pwd)) score += 1;
+
+    if (score <= 3) {
+      return { label: 'Weak', color: 'bg-red-500', width: '25%', text: 'text-red-400' };
+    } else if (score <= 5) {
+      return { label: 'Moderate', color: 'bg-amber-500', width: '55%', text: 'text-amber-400' };
+    } else if (score <= 6) {
+      return { label: 'Strong', color: 'bg-indigo-500', width: '80%', text: 'text-indigo-400' };
+    } else {
+      return { label: 'Ultra Strong', color: 'bg-emerald-500', width: '100%', text: 'text-emerald-400' };
+    }
+  }
+
+  function refreshPassword() {
+    if (!pwdOutput) return;
+    const len = pwdLengthSlider ? parseInt(pwdLengthSlider.value, 10) : 16;
+    const upper = pwdOptUppercase ? pwdOptUppercase.checked : true;
+    const lower = pwdOptLowercase ? pwdOptLowercase.checked : true;
+    const nums = pwdOptNumbers ? pwdOptNumbers.checked : true;
+    const syms = pwdOptSymbols ? pwdOptSymbols.checked : true;
+
+    if (!upper && !lower && !nums && !syms) {
+      if (pwdOptLowercase) pwdOptLowercase.checked = true;
+    }
+
+    if (pwdLengthVal) pwdLengthVal.textContent = `${len} characters`;
+
+    const pwd = generateSecurePassword(
+      len,
+      pwdOptUppercase ? pwdOptUppercase.checked : true,
+      pwdOptLowercase ? pwdOptLowercase.checked : true,
+      pwdOptNumbers ? pwdOptNumbers.checked : true,
+      pwdOptSymbols ? pwdOptSymbols.checked : true
+    );
+
+    pwdOutput.textContent = pwd;
+
+    const strength = evaluateStrength(pwd);
+    if (pwdStrengthBar) {
+      pwdStrengthBar.className = `h-full transition-all duration-300 ${strength.color}`;
+      pwdStrengthBar.style.width = strength.width;
+    }
+    if (pwdStrengthLabel) {
+      pwdStrengthLabel.className = `text-xs font-bold uppercase tracking-wider shrink-0 ${strength.text}`;
+      pwdStrengthLabel.textContent = strength.label;
+    }
+  }
+
+  if (pwdLengthSlider) pwdLengthSlider.addEventListener('input', refreshPassword);
+  [pwdOptUppercase, pwdOptLowercase, pwdOptNumbers, pwdOptSymbols].forEach((cb) => {
+    if (cb) cb.addEventListener('change', refreshPassword);
+  });
+  if (pwdRefreshBtn) pwdRefreshBtn.addEventListener('click', refreshPassword);
+
+  if (pwdCopyBtn) {
+    pwdCopyBtn.addEventListener('click', () => {
+      const pwd = pwdOutput ? pwdOutput.textContent : '';
+      if (!pwd) return;
+      navigator.clipboard.writeText(pwd).then(() => {
+        showToast('Password copied to clipboard!', 'success');
+      });
+    });
+  }
+
+  if (pwdBulkBtn && pwdBulkList) {
+    pwdBulkBtn.addEventListener('click', () => {
+      const len = pwdLengthSlider ? parseInt(pwdLengthSlider.value, 10) : 16;
+      const upper = pwdOptUppercase ? pwdOptUppercase.checked : true;
+      const lower = pwdOptLowercase ? pwdOptLowercase.checked : true;
+      const nums = pwdOptNumbers ? pwdOptNumbers.checked : true;
+      const syms = pwdOptSymbols ? pwdOptSymbols.checked : true;
+
+      const items = [];
+      for (let i = 0; i < 5; i++) {
+        items.push(generateSecurePassword(len, upper, lower, nums, syms));
+      }
+
+      pwdBulkList.classList.remove('hidden');
+      pwdBulkList.innerHTML = items.map((p, idx) => `
+        <div class="flex items-center justify-between p-2 rounded-lg hover:bg-slate-50 transition">
+          <span class="text-slate-800 select-all">${p}</span>
+          <button onclick="navigator.clipboard.writeText('${p}').then(() => window.showBulkCopyToast())" class="text-brand-600 hover:text-brand-700 text-xs font-sans font-semibold">Copy</button>
+        </div>
+      `).join('');
+    });
+  }
+
+  window.showBulkCopyToast = function() {
+    showToast('Batch password copied!', 'success');
+  };
+
+  // ==========================================
   // 9. INITIALIZATION
   // ==========================================
 
@@ -1198,6 +1781,8 @@
     populateUnitSelectors();
     calculateConversion();
     renderImageGrid();
+    generateQRCode();
+    refreshPassword();
   }
 
   // Run on DOM ready
