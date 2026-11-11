@@ -37,13 +37,13 @@ code, pre, .font-mono {
 
 /* Card hover elevations */
 .tool-card-hover {
-  transition: all 0.22s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: all 0.24s cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .tool-card-hover:hover {
-  border-color: rgba(99, 102, 241, 0.35);
-  box-shadow: 0 10px 25px -5px rgba(15, 23, 42, 0.05), 0 8px 10px -6px rgba(15, 23, 42, 0.04);
-  transform: translateY(-1.5px);
+  border-color: rgba(99, 102, 241, 0.45);
+  box-shadow: 0 12px 28px -6px rgba(15, 23, 42, 0.08), 0 0 0 1px rgba(99, 102, 241, 0.15);
+  transform: translateY(-4px);
 }
 
 /* Drag-over active states */
