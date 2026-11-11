@@ -1,0 +1,1272 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>QuickConvert - Free Online File & Document Converters</title>
+
+  <!-- Comprehensive SEO Meta Tags -->
+  <meta name="description" content="QuickConvert is a lightning-fast, 100% private online converter suite. Convert PNG/JPG images to PDF, compress and resize photos, generate formatted PDFs from text, and calculate universal units in your browser with zero server uploads." />
+  <meta name="keywords" content="QuickConvert, PNG to PDF, JPG to PDF, image compressor, image resizer, text to PDF, unit converter, online file converter, free PDF converter, client side converter, private file tools" />
+  <meta name="author" content="QuickConvert Team" />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="https://quickconvert.local/" />
+
+  <!-- Open Graph / Facebook Meta Tags -->
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://quickconvert.local/" />
+  <meta property="og:title" content="QuickConvert - Free Online File & Document Converters" />
+  <meta property="og:description" content="Convert images to PDF, compress photos, generate PDFs, and convert units client-side with zero server storage. Free, lightning-fast, and secure." />
+  <meta property="og:site_name" content="QuickConvert" />
+
+  <!-- Twitter Meta Tags -->
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="QuickConvert - Free Online File & Document Converters" />
+  <meta name="twitter:description" content="100% in-browser document & image conversion suite. Zero upload, maximum privacy, lightning speed." />
+
+  <!-- Schema.org JSON-LD Structured Data for Google AdSense & Search Rich Snippets -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "WebApplication",
+        "@id": "https://quickconvert.local/#webapp",
+        "name": "QuickConvert",
+        "url": "https://quickconvert.local/",
+        "applicationCategory": "UtilitiesApplication",
+        "operatingSystem": "All modern browsers (Chrome, Edge, Firefox, Safari)",
+        "offers": {
+          "@type": "Offer",
+          "price": "0",
+          "priceCurrency": "USD"
+        },
+        "description": "Client-side file utility platform providing instant PNG to PDF, JPG to PDF, Image Compression, Text to PDF, and Universal Unit Conversion with zero server storage."
+      },
+      {
+        "@type": "FAQPage",
+        "@id": "https://quickconvert.local/#faq",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "Are my uploaded files and images stored on a remote server?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "No. QuickConvert operates 100% client-side inside your browser runtime using the HTML5 File API, Canvas, and jsPDF. Your files never leave your device and are never transmitted to any external server."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Is QuickConvert free to use, and is there a file size limit?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "QuickConvert is completely free with no subscription or account required. Because files are processed by your computer's browser rather than limited server queues, you can convert large batches without artificial paywalls."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "How does QuickConvert compress images without quality loss?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "QuickConvert utilizes high-performance browser Canvas scaling and modern compression codecs (such as WebP and optimized JPEG quantization), stripping unnecessary metadata while preserving visual clarity."
+            }
+          }
+        ]
+      }
+    ]
+  }
+  </script>
+
+  <!-- Google Fonts & FontAwesome -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              50: '#eef2ff',
+              100: '#e0e7ff',
+              200: '#c7d2fe',
+              300: '#a5b4fc',
+              400: '#818cf8',
+              500: '#6366f1',
+              600: '#4f46e5',
+              700: '#4338ca',
+              800: '#3730a3',
+              900: '#312e81',
+            },
+            accent: {
+              500: '#0284c7',
+              600: '#0369a1',
+            }
+          },
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+            mono: ['"JetBrains Mono"', 'monospace'],
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- jsPDF Production CDN -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
+  <!-- Custom Stylesheet -->
+  <link rel="stylesheet" href="css/styles.css">
+</head>
+
+<body class="bg-slate-50 text-slate-800 antialiased flex flex-col min-h-screen selection:bg-indigo-500 selection:text-white">
+
+  <!-- Toast Notification Container -->
+  <div id="toast-container" class="fixed bottom-5 right-5 z-50 flex flex-col gap-2 max-w-sm w-full pointer-events-auto"></div>
+
+  <!-- STICKY TOP NAVBAR -->
+  <header class="sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-slate-200/80 shadow-xs">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-18 flex items-center justify-between">
+      
+      <!-- Brand Logo -->
+      <a href="#" class="flex items-center gap-3 group focus:outline-none">
+        <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-brand-600 via-indigo-600 to-accent-500 flex items-center justify-center text-white shadow-md shadow-brand-500/25 group-hover:scale-105 transition-transform duration-200">
+          <i class="fa-solid fa-bolt-lightning text-lg"></i>
+        </div>
+        <div class="flex flex-col">
+          <span class="text-xl font-extrabold tracking-tight bg-gradient-to-r from-brand-600 to-accent-600 bg-clip-text text-transparent">
+            QuickConvert
+          </span>
+          <span class="text-[10px] font-semibold text-slate-400 tracking-wider uppercase -mt-1 hidden sm:block">
+            Universal Client-Side Suite
+          </span>
+        </div>
+      </a>
+
+      <!-- Desktop Navigation Links -->
+      <nav class="hidden md:flex items-center gap-7 text-sm font-semibold text-slate-600">
+        <a href="#suite-tools" class="hover:text-brand-600 transition">All Tools</a>
+        <a href="#how-to-use" class="hover:text-brand-600 transition">How to Use</a>
+        <a href="#security-advantage" class="hover:text-brand-600 transition">Security & Privacy</a>
+        <a href="#comparison" class="hover:text-brand-600 transition">Why Us</a>
+        <a href="#faqs" class="hover:text-brand-600 transition">FAQs</a>
+      </nav>
+
+      <!-- Action Button & Privacy Pill -->
+      <div class="hidden sm:flex items-center gap-3">
+        <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-emerald-50 text-emerald-700 border border-emerald-200/80">
+          <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+          100% Client-Side
+        </span>
+        <a href="#suite-tools" class="inline-flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-semibold text-white bg-brand-600 hover:bg-brand-700 shadow-sm hover:shadow transition active:scale-95">
+          <span>Start Converting</span>
+          <i class="fa-solid fa-arrow-right text-xs"></i>
+        </a>
+      </div>
+
+      <!-- Mobile Hamburger Button -->
+      <button id="mobile-menu-btn" class="md:hidden p-2 text-slate-600 hover:text-slate-900 rounded-lg hover:bg-slate-100 transition" aria-label="Toggle Navigation Menu">
+        <i class="fa-solid fa-bars text-xl"></i>
+      </button>
+    </div>
+
+    <!-- Mobile Dropdown Menu -->
+    <div id="mobile-menu" class="hidden md:hidden bg-white border-b border-slate-200 px-4 pt-2 pb-4 space-y-2 text-sm font-medium">
+      <a href="#suite-tools" class="block px-3 py-2 rounded-lg hover:bg-slate-50 text-slate-700 font-semibold">All Tools</a>
+      <a href="#how-to-use" class="block px-3 py-2 rounded-lg hover:bg-slate-50 text-slate-700">How to Use</a>
+      <a href="#security-advantage" class="block px-3 py-2 rounded-lg hover:bg-slate-50 text-slate-700">Security & Architecture</a>
+      <a href="#comparison" class="block px-3 py-2 rounded-lg hover:bg-slate-50 text-slate-700">Why QuickConvert</a>
+      <a href="#faqs" class="block px-3 py-2 rounded-lg hover:bg-slate-50 text-slate-700">FAQs</a>
+      <div class="pt-2 border-t border-slate-100 flex flex-col gap-2">
+        <span class="inline-flex items-center justify-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-emerald-50 text-emerald-700 border border-emerald-200">
+          <span class="w-2 h-2 rounded-full bg-emerald-500"></span> 100% In-Browser Privacy
+        </span>
+      </div>
+    </div>
+  </header>
+
+  <main class="flex-1">
+    
+    <!-- HERO SECTION -->
+    <section class="relative bg-white pt-12 pb-16 border-b border-slate-200/70 overflow-hidden bg-grid-pattern">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
+        
+        <!-- Trust Badge -->
+        <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs sm:text-sm font-medium bg-brand-50 text-brand-700 border border-brand-200/80 mb-6 shadow-xs">
+          <i class="fa-solid fa-shield-halved text-brand-600"></i>
+          <span>Zero Server Storage • Instant Browser Processing • Completely Free</span>
+        </div>
+
+        <!-- Hero Headline -->
+        <h1 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold text-slate-900 tracking-tight max-w-4xl mx-auto leading-tight sm:leading-tight">
+          Lightning-Fast Free File &amp; Document Converters
+        </h1>
+
+        <!-- Hero Subheadline -->
+        <p class="mt-5 text-base sm:text-lg text-slate-600 max-w-2xl mx-auto leading-relaxed">
+          QuickConvert delivers instant, client-side document compilation, image compression, and unit calculations. Everything executes securely inside your web browser without file size caps or data logging.
+        </p>
+
+        <!-- Tool Switcher Tabs (Hero Bar) -->
+        <div id="suite-tools" class="mt-10 max-w-4xl mx-auto">
+          <div class="p-1.5 bg-slate-100/90 rounded-2xl border border-slate-200/90 flex flex-wrap sm:flex-nowrap gap-1.5 shadow-inner" role="tablist">
+            
+            <button data-tool-target="tool-images-to-pdf" class="flex-1 min-w-[140px] px-4 py-3 rounded-xl text-xs sm:text-sm font-semibold transition flex items-center justify-center gap-2 bg-indigo-600 text-white shadow-md shadow-indigo-200" role="tab">
+              <i class="fa-solid fa-file-pdf"></i>
+              <span>PNG/JPG to PDF</span>
+            </button>
+
+            <button data-tool-target="tool-image-compressor" class="flex-1 min-w-[140px] px-4 py-3 rounded-xl text-xs sm:text-sm font-semibold transition flex items-center justify-center gap-2 bg-white text-slate-700 hover:bg-slate-100" role="tab">
+              <i class="fa-solid fa-compress"></i>
+              <span>Compress &amp; Resize</span>
+            </button>
+
+            <button data-tool-target="tool-text-to-pdf" class="flex-1 min-w-[140px] px-4 py-3 rounded-xl text-xs sm:text-sm font-semibold transition flex items-center justify-center gap-2 bg-white text-slate-700 hover:bg-slate-100" role="tab">
+              <i class="fa-solid fa-file-lines"></i>
+              <span>Text to PDF</span>
+            </button>
+
+            <button data-tool-target="tool-unit-converter" class="flex-1 min-w-[140px] px-4 py-3 rounded-xl text-xs sm:text-sm font-semibold transition flex items-center justify-center gap-2 bg-white text-slate-700 hover:bg-slate-100" role="tab">
+              <i class="fa-solid fa-calculator"></i>
+              <span>Unit Converter</span>
+            </button>
+
+          </div>
+        </div>
+
+        <!-- Quick Spec Counters -->
+        <div class="mt-8 grid grid-cols-2 md:grid-cols-4 gap-4 max-w-3xl mx-auto text-left">
+          <div class="p-3 bg-slate-50/80 rounded-xl border border-slate-200 flex items-center gap-3">
+            <div class="w-9 h-9 rounded-lg bg-emerald-100 text-emerald-700 flex items-center justify-center shrink-0">
+              <i class="fa-solid fa-lock"></i>
+            </div>
+            <div>
+              <p class="text-xs text-slate-500 font-medium">Privacy Standard</p>
+              <p class="text-sm font-bold text-slate-800">100% Client-Side</p>
+            </div>
+          </div>
+
+          <div class="p-3 bg-slate-50/80 rounded-xl border border-slate-200 flex items-center gap-3">
+            <div class="w-9 h-9 rounded-lg bg-indigo-100 text-indigo-700 flex items-center justify-center shrink-0">
+              <i class="fa-solid fa-gauge-high"></i>
+            </div>
+            <div>
+              <p class="text-xs text-slate-500 font-medium">Conversion Latency</p>
+              <p class="text-sm font-bold text-slate-800">&lt; 300ms Average</p>
+            </div>
+          </div>
+
+          <div class="p-3 bg-slate-50/80 rounded-xl border border-slate-200 flex items-center gap-3">
+            <div class="w-9 h-9 rounded-lg bg-amber-100 text-amber-700 flex items-center justify-center shrink-0">
+              <i class="fa-solid fa-infinity"></i>
+            </div>
+            <div>
+              <p class="text-xs text-slate-500 font-medium">Usage Limit</p>
+              <p class="text-sm font-bold text-slate-800">Unlimited Files</p>
+            </div>
+          </div>
+
+          <div class="p-3 bg-slate-50/80 rounded-xl border border-slate-200 flex items-center gap-3">
+            <div class="w-9 h-9 rounded-lg bg-sky-100 text-sky-700 flex items-center justify-center shrink-0">
+              <i class="fa-solid fa-cloud-slash"></i>
+            </div>
+            <div>
+              <p class="text-xs text-slate-500 font-medium">Server Footprint</p>
+              <p class="text-sm font-bold text-slate-800">Zero Bandwidth Cost</p>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- TOP AD PLACEHOLDER (AdSense Optimized Responsive Placement) -->
+    <div class="max-w-5xl mx-auto px-4 py-6">
+      <div class="adsense-box rounded-xl p-4 min-h-[90px] flex items-center justify-center text-center">
+        <div class="text-slate-400 text-xs">
+          <i class="fa-regular fa-rectangle-ad text-lg mb-1 block"></i>
+          <span>Advertisement / Sponsored Placement (High-Value AdSense Responsive Leaderboard)</span>
+        </div>
+      </div>
+    </div>
+
+    <!-- CORE INTERACTIVE TOOLS SUITE -->
+    <section class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 py-4">
+
+      <!-- ==================================================== -->
+      <!-- TOOL 1: PNG / JPG TO PDF CONVERTER                   -->
+      <!-- ==================================================== -->
+      <div id="tool-images-to-pdf" class="tool-panel">
+        <div class="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden">
+          
+          <div class="p-6 border-b border-slate-100 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+            <div>
+              <h2 class="text-xl font-bold text-slate-900 flex items-center gap-2">
+                <i class="fa-solid fa-file-pdf text-brand-600"></i>
+                Batch Image to PDF Converter
+              </h2>
+              <p class="text-xs text-slate-500 mt-1">
+                Combine PNG, JPG, or WEBP photos into a polished PDF document with custom margins and orientations.
+              </p>
+            </div>
+            <div class="flex items-center gap-2">
+              <span id="img2pdf-count" class="text-xs font-semibold px-2.5 py-1 rounded-full bg-slate-100 text-slate-700">
+                0 images selected
+              </span>
+              <button id="img2pdf-clear-btn" class="hidden text-xs font-semibold px-3 py-1 rounded-full text-rose-600 hover:bg-rose-50 border border-rose-200 transition">
+                Clear All
+              </button>
+            </div>
+          </div>
+
+          <!-- Configuration Controls Bar -->
+          <div class="bg-slate-50/70 px-6 py-3 border-b border-slate-200/80 grid grid-cols-1 sm:grid-cols-3 gap-3 text-xs">
+            <div>
+              <label for="img2pdf-orientation" class="font-semibold text-slate-700 block mb-1">Page Orientation</label>
+              <select id="img2pdf-orientation" class="w-full bg-white border border-slate-300 rounded-lg px-2.5 py-1.5 focus:outline-none focus:ring-2 focus:ring-brand-500">
+                <option value="auto">Auto (Match Image Ratio)</option>
+                <option value="portrait">Portrait</option>
+                <option value="landscape">Landscape</option>
+              </select>
+            </div>
+
+            <div>
+              <label for="img2pdf-pagesize" class="font-semibold text-slate-700 block mb-1">Target Page Size</label>
+              <select id="img2pdf-pagesize" class="w-full bg-white border border-slate-300 rounded-lg px-2.5 py-1.5 focus:outline-none focus:ring-2 focus:ring-brand-500">
+                <option value="a4">Standard A4 (210 × 297 mm)</option>
+                <option value="letter">US Letter (8.5 × 11 in)</option>
+                <option value="fit">Fit Page to Image Exactly</option>
+              </select>
+            </div>
+
+            <div>
+              <label for="img2pdf-margin" class="font-semibold text-slate-700 block mb-1">Page Margins</label>
+              <select id="img2pdf-margin" class="w-full bg-white border border-slate-300 rounded-lg px-2.5 py-1.5 focus:outline-none focus:ring-2 focus:ring-brand-500">
+                <option value="10">Small Margin (10 mm)</option>
+                <option value="0">No Margin (Full Bleed 0 mm)</option>
+                <option value="20">Generous Margin (20 mm)</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="p-6">
+            <!-- Drag and Drop Zone -->
+            <div id="img2pdf-dropzone" class="dropzone border-2 border-dashed border-slate-300 hover:border-brand-500 bg-slate-50/50 hover:bg-brand-50/20 rounded-2xl p-8 text-center cursor-pointer transition duration-200">
+              <input type="file" id="img2pdf-input" multiple accept="image/png, image/jpeg, image/jpg, image/webp" class="hidden" />
+              <div class="w-14 h-14 mx-auto mb-3 rounded-full bg-indigo-50 text-brand-600 flex items-center justify-center shadow-xs">
+                <i class="fa-solid fa-cloud-arrow-up text-2xl"></i>
+              </div>
+              <p class="text-sm font-bold text-slate-800">
+                Drag &amp; drop your images here, or <span class="text-brand-600 underline">browse files</span>
+              </p>
+              <p class="text-xs text-slate-500 mt-1">
+                Supports PNG, JPG, JPEG, and WEBP formats • Batch compilation • Unlimited file count
+              </p>
+            </div>
+
+            <!-- Uploaded Image Cards Grid -->
+            <div id="img2pdf-list" class="mt-6 grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 gap-4 empty:hidden"></div>
+
+            <!-- Conversion Progress Indicator -->
+            <div id="img2pdf-progress-wrap" class="mt-6 hidden">
+              <div class="flex justify-between text-xs font-semibold text-slate-700 mb-1">
+                <span id="img2pdf-progress-text">Compiling PDF pages...</span>
+                <span class="text-brand-600"><i class="fa-solid fa-spinner fa-spin"></i> Processing in Browser</span>
+              </div>
+              <div class="w-full bg-slate-100 rounded-full h-2.5 overflow-hidden">
+                <div id="img2pdf-progress-bar" class="bg-brand-600 h-2.5 rounded-full transition-all duration-300" style="width: 0%"></div>
+              </div>
+            </div>
+
+            <!-- Action Controls -->
+            <div class="mt-6 pt-4 border-t border-slate-100 flex flex-col sm:flex-row items-center justify-between gap-3">
+              <div class="text-xs text-slate-500 flex items-center gap-1.5">
+                <i class="fa-solid fa-shield text-emerald-600"></i>
+                <span>Files are compiled directly in RAM and never transmitted to our servers.</span>
+              </div>
+              <button id="img2pdf-convert-btn" disabled class="w-full sm:w-auto px-6 py-3 rounded-xl font-bold text-sm text-white bg-brand-600 hover:bg-brand-700 disabled:opacity-50 disabled:pointer-events-none shadow-md shadow-brand-500/20 transition flex items-center justify-center gap-2">
+                <i class="fa-solid fa-file-arrow-down"></i>
+                <span>Generate &amp; Download PDF</span>
+              </button>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+      <!-- ==================================================== -->
+      <!-- TOOL 2: IMAGE COMPRESSOR & RESIZER                  -->
+      <!-- ==================================================== -->
+      <div id="tool-image-compressor" class="tool-panel hidden">
+        <div class="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden">
+          
+          <div class="p-6 border-b border-slate-100 flex items-center justify-between">
+            <div>
+              <h2 class="text-xl font-bold text-slate-900 flex items-center gap-2">
+                <i class="fa-solid fa-compress text-brand-600"></i>
+                Image Compressor &amp; Resizer
+              </h2>
+              <p class="text-xs text-slate-500 mt-1">
+                Shrink image file size, customize exact pixel dimensions, and convert to lightweight WebP or JPEG.
+              </p>
+            </div>
+          </div>
+
+          <div class="p-6">
+            
+            <!-- Empty Upload State -->
+            <div id="comp-empty-state">
+              <div id="comp-dropzone" class="dropzone border-2 border-dashed border-slate-300 hover:border-brand-500 bg-slate-50/50 hover:bg-brand-50/20 rounded-2xl p-8 text-center cursor-pointer transition duration-200">
+                <input type="file" id="comp-input" accept="image/png, image/jpeg, image/jpg, image/webp" class="hidden" />
+                <div class="w-14 h-14 mx-auto mb-3 rounded-full bg-indigo-50 text-brand-600 flex items-center justify-center shadow-xs">
+                  <i class="fa-solid fa-image text-2xl"></i>
+                </div>
+                <p class="text-sm font-bold text-slate-800">
+                  Drop a high-resolution photo here, or <span class="text-brand-600 underline">browse device</span>
+                </p>
+                <p class="text-xs text-slate-500 mt-1">
+                  Works with large photos up to 50MB • HTML5 Canvas accelerated compression
+                </p>
+              </div>
+            </div>
+
+            <!-- Active Workspace (Hidden until file selected) -->
+            <div id="comp-workspace" class="hidden space-y-6">
+              
+              <!-- Original File Snapshot -->
+              <div class="flex items-center justify-between p-3.5 bg-slate-50 rounded-xl border border-slate-200 text-xs">
+                <div class="flex items-center gap-3">
+                  <img id="comp-orig-thumb" src="" alt="Thumbnail" class="w-12 h-12 rounded-lg object-cover border border-slate-200" />
+                  <div>
+                    <p id="comp-orig-name" class="font-bold text-slate-800 truncate max-w-xs">filename.jpg</p>
+                    <p class="text-slate-500">
+                      Original: <span id="comp-orig-dims" class="font-mono">0 x 0 px</span> • <span id="comp-orig-size" class="font-mono">0 KB</span>
+                    </p>
+                  </div>
+                </div>
+                <button id="comp-reset-btn" class="px-3 py-1.5 rounded-lg border border-slate-300 hover:bg-white text-slate-700 font-semibold transition">
+                  Change Photo
+                </button>
+              </div>
+
+              <!-- Controls Grid -->
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                
+                <!-- Dimension Controls -->
+                <div class="p-4 bg-slate-50/70 rounded-xl border border-slate-200 space-y-3">
+                  <h3 class="text-xs font-bold uppercase tracking-wider text-slate-500 flex items-center justify-between">
+                    <span>1. Resize Dimensions</span>
+                    <label class="flex items-center gap-1.5 cursor-pointer text-slate-700 font-medium normal-case">
+                      <input type="checkbox" id="comp-lock-ratio" checked class="rounded text-brand-600 focus:ring-brand-500" />
+                      <span>Lock Aspect Ratio</span>
+                    </label>
+                  </h3>
+
+                  <div class="grid grid-cols-2 gap-3 text-xs">
+                    <div>
+                      <label for="comp-width" class="block font-semibold text-slate-700 mb-1">Width (px)</label>
+                      <input type="number" id="comp-width" class="w-full bg-white border border-slate-300 rounded-lg px-3 py-2 font-mono text-sm focus:outline-none focus:ring-2 focus:ring-brand-500" />
+                    </div>
+                    <div>
+                      <label for="comp-height" class="block font-semibold text-slate-700 mb-1">Height (px)</label>
+                      <input type="number" id="comp-height" class="w-full bg-white border border-slate-300 rounded-lg px-3 py-2 font-mono text-sm focus:outline-none focus:ring-2 focus:ring-brand-500" />
+                    </div>
+                  </div>
+
+                  <!-- Quick Percentage Scale Presets -->
+                  <div class="flex items-center gap-1.5 pt-1">
+                    <span class="text-[11px] text-slate-500 font-medium mr-1">Scale:</span>
+                    <button data-comp-scale="0.25" class="px-2 py-1 rounded bg-white hover:bg-slate-200 border border-slate-200 text-[11px] font-semibold text-slate-700">25%</button>
+                    <button data-comp-scale="0.50" class="px-2 py-1 rounded bg-white hover:bg-slate-200 border border-slate-200 text-[11px] font-semibold text-slate-700">50%</button>
+                    <button data-comp-scale="0.75" class="px-2 py-1 rounded bg-white hover:bg-slate-200 border border-slate-200 text-[11px] font-semibold text-slate-700">75%</button>
+                    <button data-comp-scale="1.00" class="px-2 py-1 rounded bg-white hover:bg-slate-200 border border-slate-200 text-[11px] font-semibold text-slate-700">100%</button>
+                  </div>
+                </div>
+
+                <!-- Quality & Format Controls -->
+                <div class="p-4 bg-slate-50/70 rounded-xl border border-slate-200 space-y-3">
+                  <h3 class="text-xs font-bold uppercase tracking-wider text-slate-500">2. Compression &amp; Format</h3>
+
+                  <div>
+                    <div class="flex justify-between items-center text-xs font-semibold text-slate-700 mb-1">
+                      <span>Compression Quality</span>
+                      <span id="comp-quality-val" class="font-mono text-brand-600 bg-brand-50 px-2 py-0.5 rounded">80%</span>
+                    </div>
+                    <input type="range" id="comp-quality" min="10" max="100" value="80" class="w-full cursor-pointer" />
+                    <div class="flex justify-between text-[10px] text-slate-400 mt-1">
+                      <span>Smallest Size (10%)</span>
+                      <span>Balanced (80%)</span>
+                      <span>Maximum Quality (100%)</span>
+                    </div>
+                  </div>
+
+                  <div>
+                    <label for="comp-format" class="block font-semibold text-xs text-slate-700 mb-1">Output Format</label>
+                    <select id="comp-format" class="w-full bg-white border border-slate-300 rounded-lg px-3 py-1.5 text-xs focus:outline-none focus:ring-2 focus:ring-brand-500">
+                      <option value="original">Keep Original Format</option>
+                      <option value="image/jpeg">JPEG (.jpg) - Universal compatibility</option>
+                      <option value="image/webp">WEBP (.webp) - Maximum modern web compression</option>
+                      <option value="image/png">PNG (.png) - Lossless with alpha transparency</option>
+                    </select>
+                  </div>
+                </div>
+
+              </div>
+
+              <!-- Output Statistics & Download -->
+              <div class="p-4 bg-brand-50/50 rounded-xl border border-brand-100 flex flex-col sm:flex-row items-center justify-between gap-4">
+                <div class="flex items-center gap-4">
+                  <div class="w-16 h-16 rounded-lg bg-slate-200 overflow-hidden shrink-0 border border-slate-300 flex items-center justify-center">
+                    <img id="comp-result-preview" src="" alt="Compressed Preview" class="w-full h-full object-cover" />
+                  </div>
+                  <div>
+                    <div class="flex items-center gap-2">
+                      <span class="text-xs text-slate-600 font-medium">Estimated New Size:</span>
+                      <span id="comp-result-size" class="text-sm font-extrabold text-slate-900 font-mono">0 KB</span>
+                      <span id="comp-savings-badge" class="px-2 py-0.5 rounded-full text-xs font-semibold bg-emerald-100 text-emerald-800">-0%</span>
+                    </div>
+                    <p class="text-xs text-slate-500 mt-0.5">
+                      Target dimensions: <span id="comp-result-dims" class="font-mono">0 x 0 px</span>
+                    </p>
+                  </div>
+                </div>
+
+                <button id="comp-download-btn" class="w-full sm:w-auto px-6 py-3 rounded-xl font-bold text-sm text-white bg-brand-600 hover:bg-brand-700 shadow-md shadow-brand-500/20 transition flex items-center justify-center gap-2">
+                  <i class="fa-solid fa-download"></i>
+                  <span>Download Optimized Image</span>
+                </button>
+              </div>
+
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+      <!-- ==================================================== -->
+      <!-- TOOL 3: TEXT / MARKDOWN TO PDF CONVERTER            -->
+      <!-- ==================================================== -->
+      <div id="tool-text-to-pdf" class="tool-panel hidden">
+        <div class="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden">
+          
+          <div class="p-6 border-b border-slate-100 flex flex-col sm:flex-row sm:items-center justify-between gap-4">
+            <div>
+              <h2 class="text-xl font-bold text-slate-900 flex items-center gap-2">
+                <i class="fa-solid fa-file-lines text-brand-600"></i>
+                Text &amp; Markdown to PDF Converter
+              </h2>
+              <p class="text-xs text-slate-500 mt-1">
+                Type, paste notes, or format minutes of meetings into an executive, multi-page PDF document.
+              </p>
+            </div>
+            <div class="flex items-center gap-2">
+              <button id="text2pdf-sample-btn" class="text-xs font-semibold px-3 py-1.5 rounded-lg bg-indigo-50 hover:bg-indigo-100 text-brand-700 transition">
+                <i class="fa-solid fa-wand-magic-sparkles mr-1"></i> Load Sample Text
+              </button>
+              <button id="text2pdf-clear-btn" class="text-xs font-semibold px-3 py-1.5 rounded-lg border border-slate-300 hover:bg-slate-100 text-slate-700 transition">
+                Clear
+              </button>
+            </div>
+          </div>
+
+          <!-- Document Settings Bar -->
+          <div class="bg-slate-50/70 px-6 py-3 border-b border-slate-200/80 grid grid-cols-1 sm:grid-cols-4 gap-3 text-xs">
+            <div>
+              <label for="text2pdf-font" class="font-semibold text-slate-700 block mb-1">Typography Font</label>
+              <select id="text2pdf-font" class="w-full bg-white border border-slate-300 rounded-lg px-2.5 py-1.5 focus:outline-none focus:ring-2 focus:ring-brand-500">
+                <option value="helvetica">Clean Sans (Helvetica)</option>
+                <option value="times">Classic Editorial (Times New Roman)</option>
+                <option value="courier">Monospace / Code (Courier)</option>
+              </select>
+            </div>
+
+            <div>
+              <label for="text2pdf-fontsize" class="font-semibold text-slate-700 block mb-1">Body Text Size</label>
+              <select id="text2pdf-fontsize" class="w-full bg-white border border-slate-300 rounded-lg px-2.5 py-1.5 focus:outline-none focus:ring-2 focus:ring-brand-500">
+                <option value="10">Small (10 pt)</option>
+                <option value="11" selected>Normal (11 pt)</option>
+                <option value="13">Large (13 pt)</option>
+                <option value="15">Extra Large (15 pt)</option>
+              </select>
+            </div>
+
+            <div>
+              <label for="text2pdf-margin" class="font-semibold text-slate-700 block mb-1">Document Margins</label>
+              <select id="text2pdf-margin" class="w-full bg-white border border-slate-300 rounded-lg px-2.5 py-1.5 focus:outline-none focus:ring-2 focus:ring-brand-500">
+                <option value="15">Narrow (15 mm)</option>
+                <option value="20" selected>Normal (20 mm)</option>
+                <option value="25">Wide (25 mm)</option>
+              </select>
+            </div>
+
+            <div class="flex items-center pt-5">
+              <label class="flex items-center gap-2 cursor-pointer font-semibold text-slate-700">
+                <input type="checkbox" id="text2pdf-pagenum" checked class="rounded text-brand-600 focus:ring-brand-500" />
+                <span>Show Page Numbers</span>
+              </label>
+            </div>
+          </div>
+
+          <div class="p-6 space-y-4">
+            <!-- Document Title Field -->
+            <div>
+              <label for="text2pdf-title" class="block text-xs font-bold text-slate-700 mb-1">
+                Document Header / Title (Optional)
+              </label>
+              <input type="text" id="text2pdf-title" placeholder="e.g., Weekly Sprint Brief & Architectural Notes" class="w-full bg-white border border-slate-300 rounded-xl px-4 py-2.5 text-sm focus:outline-none focus:ring-2 focus:ring-brand-500" />
+            </div>
+
+            <!-- Main Textarea -->
+            <div>
+              <div class="flex items-center justify-between text-xs text-slate-500 mb-1">
+                <label for="text2pdf-input" class="font-bold text-slate-700">Content / Document Body</label>
+                <div class="flex gap-3 font-mono">
+                  <span id="text2pdf-word-count">0 words</span>
+                  <span>•</span>
+                  <span id="text2pdf-char-count">0 chars</span>
+                </div>
+              </div>
+              <textarea id="text2pdf-input" rows="11" placeholder="Type or paste your text, meeting notes, articles, or documentation here..." class="w-full bg-slate-50/50 border border-slate-300 rounded-xl p-4 text-sm font-sans focus:outline-none focus:ring-2 focus:ring-brand-500 leading-relaxed"></textarea>
+            </div>
+
+            <!-- Action Controls -->
+            <div class="pt-2 flex flex-col sm:flex-row items-center justify-between gap-3">
+              <div class="text-xs text-slate-500 flex items-center gap-1.5">
+                <i class="fa-solid fa-circle-check text-emerald-600"></i>
+                <span>Automated page-breaks &amp; dynamic word wrapping included.</span>
+              </div>
+              <button id="text2pdf-convert-btn" class="w-full sm:w-auto px-6 py-3 rounded-xl font-bold text-sm text-white bg-brand-600 hover:bg-brand-700 shadow-md shadow-brand-500/20 transition flex items-center justify-center gap-2">
+                <i class="fa-solid fa-file-pdf"></i>
+                <span>Compile &amp; Download PDF</span>
+              </button>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+      <!-- ==================================================== -->
+      <!-- TOOL 4: UNIVERSAL UNIT CONVERTER                    -->
+      <!-- ==================================================== -->
+      <div id="tool-unit-converter" class="tool-panel hidden">
+        <div class="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden">
+          
+          <div class="p-6 border-b border-slate-100">
+            <h2 class="text-xl font-bold text-slate-900 flex items-center gap-2">
+              <i class="fa-solid fa-calculator text-brand-600"></i>
+              Universal High-Precision Unit Converter
+            </h2>
+            <p class="text-xs text-slate-500 mt-1">
+              Live mathematical conversion for length, mass, digital storage, area, speed, and temperature.
+            </p>
+          </div>
+
+          <div class="p-6 space-y-6">
+            
+            <!-- Category Pills Bar -->
+            <div>
+              <p class="text-xs font-bold uppercase tracking-wider text-slate-500 mb-2">Select Measurement Domain</p>
+              <div id="unit-categories" class="flex flex-wrap gap-2"></div>
+            </div>
+
+            <!-- Conversion Input/Output Box -->
+            <div class="p-6 bg-slate-50 rounded-2xl border border-slate-200">
+              <div class="grid grid-cols-1 md:grid-cols-[1fr,auto,1fr] gap-4 items-center">
+                
+                <!-- From Column -->
+                <div class="space-y-2">
+                  <label for="unit-from-val" class="block text-xs font-bold text-slate-700">From Quantity</label>
+                  <input type="number" id="unit-from-val" value="1" step="any" class="w-full bg-white border border-slate-300 rounded-xl px-4 py-3 text-lg font-bold font-mono focus:outline-none focus:ring-2 focus:ring-brand-500" />
+                  <select id="unit-from-select" class="w-full bg-white border border-slate-300 rounded-lg px-3 py-2 text-xs font-semibold focus:outline-none focus:ring-2 focus:ring-brand-500"></select>
+                </div>
+
+                <!-- Swap Button -->
+                <div class="flex justify-center pt-4 md:pt-0">
+                  <button id="unit-swap-btn" class="w-10 h-10 rounded-full bg-white border border-slate-300 hover:border-brand-500 text-slate-600 hover:text-brand-600 shadow-xs flex items-center justify-center transition active:scale-95" title="Swap Units">
+                    <i class="fa-solid fa-arrow-right-arrow-left"></i>
+                  </button>
+                </div>
+
+                <!-- To Column -->
+                <div class="space-y-2">
+                  <div class="flex items-center justify-between">
+                    <label for="unit-to-val" class="block text-xs font-bold text-slate-700">Converted Output</label>
+                    <button id="unit-copy-btn" class="text-xs font-semibold text-brand-600 hover:text-brand-800 transition flex items-center gap-1">
+                      <i class="fa-regular fa-copy"></i> Copy
+                    </button>
+                  </div>
+                  <input type="text" id="unit-to-val" readonly class="w-full bg-slate-100 border border-slate-300 rounded-xl px-4 py-3 text-lg font-bold font-mono text-brand-700 focus:outline-none select-all" />
+                  <select id="unit-to-select" class="w-full bg-white border border-slate-300 rounded-lg px-3 py-2 text-xs font-semibold focus:outline-none focus:ring-2 focus:ring-brand-500"></select>
+                </div>
+
+              </div>
+
+              <!-- Live Formula Text -->
+              <div class="mt-4 pt-3 border-t border-slate-200/80 flex items-center justify-between text-xs text-slate-500">
+                <span id="unit-formula-text" class="font-mono">1 Meter = 3.2808 Feet</span>
+                <span class="text-emerald-600 font-semibold"><i class="fa-solid fa-bolt"></i> Real-Time Calculation</span>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+    </section>
+
+    <!-- CONTENT-RICH SECTION 1: HOW TO USE QUICKCONVERT (AdSense High Value Requirement) -->
+    <section id="how-to-use" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+      <div class="text-center max-w-3xl mx-auto mb-12">
+        <span class="text-xs font-extrabold uppercase tracking-widest text-brand-600">Quick-Start Manual</span>
+        <h2 class="text-2xl sm:text-4xl font-extrabold text-slate-900 mt-2">
+          How to Use QuickConvert in 3 Simple Steps
+        </h2>
+        <p class="text-slate-600 text-sm sm:text-base mt-3">
+          Designed for maximum productivity and zero friction. Follow these straightforward steps to convert or optimize your digital assets immediately.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        
+        <!-- Step 1 -->
+        <article class="bg-white p-6 rounded-2xl border border-slate-200 shadow-xs relative">
+          <div class="w-12 h-12 rounded-xl bg-brand-50 text-brand-600 font-extrabold text-xl flex items-center justify-center mb-4">
+            01
+          </div>
+          <h3 class="text-lg font-bold text-slate-900 mb-2">Select &amp; Upload Files</h3>
+          <p class="text-xs sm:text-sm text-slate-600 leading-relaxed">
+            Drag and drop your images or enter your document text directly into the tool's conversion zone. QuickConvert utilizes the browser’s native FileReader API, loading your file contents instantly into memory without network latency.
+          </p>
+        </article>
+
+        <!-- Step 2 -->
+        <article class="bg-white p-6 rounded-2xl border border-slate-200 shadow-xs relative">
+          <div class="w-12 h-12 rounded-xl bg-brand-50 text-brand-600 font-extrabold text-xl flex items-center justify-center mb-4">
+            02
+          </div>
+          <h3 class="text-lg font-bold text-slate-900 mb-2">Customize Preferences</h3>
+          <p class="text-xs sm:text-sm text-slate-600 leading-relaxed">
+            Adjust orientation, margin widths, quality sliders, or target pixel resolutions. With our real-time reactive feedback, you can inspect the exact size reduction and visual dimensions before committing to the export.
+          </p>
+        </article>
+
+        <!-- Step 3 -->
+        <article class="bg-white p-6 rounded-2xl border border-slate-200 shadow-xs relative">
+          <div class="w-12 h-12 rounded-xl bg-brand-50 text-brand-600 font-extrabold text-xl flex items-center justify-center mb-4">
+            03
+          </div>
+          <h3 class="text-lg font-bold text-slate-900 mb-2">Instant In-Browser Export</h3>
+          <p class="text-xs sm:text-sm text-slate-600 leading-relaxed">
+            Click download to compile your PDF or compressed asset on the fly. The file is generated in pure JavaScript and delivered directly to your device’s download folder, ensuring zero data leakage and zero wait time.
+          </p>
+        </article>
+
+      </div>
+    </section>
+
+    <!-- CONTENT-RICH SECTION 2: ARCHITECTURE & SECURITY ADVANTAGE -->
+    <section id="security-advantage" class="bg-slate-900 text-white py-16">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+          <div>
+            <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 mb-4">
+              <i class="fa-solid fa-shield-virus"></i> Zero-Knowledge Architecture
+            </span>
+            <h2 class="text-2xl sm:text-4xl font-extrabold tracking-tight text-white mb-5">
+              Why In-Browser Processing is Strictly Superior for Document Privacy
+            </h2>
+            <div class="space-y-4 text-slate-300 text-sm sm:text-base leading-relaxed">
+              <p>
+                Traditional online converters require you to upload private contracts, confidential scans, and personal photographs to remote cloud servers. Once uploaded, your files sit in third-party temporary directories, creating vulnerability vectors for data breaches and unintended archival.
+              </p>
+              <p>
+                <strong class="text-white">QuickConvert disrupts this obsolete paradigm.</strong> By leveraging client-side WebAssembly, the HTML5 Canvas API, and <code class="text-indigo-300 bg-indigo-950/60 px-1 py-0.5 rounded">jsPDF</code>, every pixel calculation and byte serialization happens locally within your browser's isolated JavaScript sandbox.
+              </p>
+              <p>
+                Your files are never transmitted across the network, eliminating both security hazards and costly cloud hosting bills.
+              </p>
+            </div>
+
+            <div class="mt-8 grid grid-cols-2 gap-4">
+              <div class="border border-slate-800 bg-slate-800/50 p-4 rounded-xl">
+                <p class="text-indigo-400 font-bold text-lg">0 Bytes</p>
+                <p class="text-xs text-slate-400 mt-1">Transmitted over external networks</p>
+              </div>
+              <div class="border border-slate-800 bg-slate-800/50 p-4 rounded-xl">
+                <p class="text-emerald-400 font-bold text-lg">GDPR &amp; CCPA</p>
+                <p class="text-xs text-slate-400 mt-1">Inherently compliant by design</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Feature Cards Grid -->
+          <div class="space-y-4">
+            
+            <div class="p-5 rounded-2xl bg-slate-800/80 border border-slate-700/80 flex items-start gap-4">
+              <div class="w-10 h-10 rounded-xl bg-brand-500/20 text-brand-400 flex items-center justify-center shrink-0">
+                <i class="fa-solid fa-microchip text-lg"></i>
+              </div>
+              <div>
+                <h3 class="font-bold text-white text-base">Harness Local Hardware</h3>
+                <p class="text-xs sm:text-sm text-slate-300 mt-1">
+                  Instead of waiting in shared cloud queuing pools, QuickConvert uses your device’s multi-core CPU and GPU acceleration for near-instantaneous operations.
+                </p>
+              </div>
+            </div>
+
+            <div class="p-5 rounded-2xl bg-slate-800/80 border border-slate-700/80 flex items-start gap-4">
+              <div class="w-10 h-10 rounded-xl bg-accent-500/20 text-accent-400 flex items-center justify-center shrink-0">
+                <i class="fa-solid fa-wifi-slash text-lg"></i>
+              </div>
+              <div>
+                <h3 class="font-bold text-white text-base">Works Offline Once Loaded</h3>
+                <p class="text-xs sm:text-sm text-slate-300 mt-1">
+                  Once cached in your browser, QuickConvert can process image conversions and compress documents even without an active internet connection.
+                </p>
+              </div>
+            </div>
+
+            <div class="p-5 rounded-2xl bg-slate-800/80 border border-slate-700/80 flex items-start gap-4">
+              <div class="w-10 h-10 rounded-xl bg-emerald-500/20 text-emerald-400 flex items-center justify-center shrink-0">
+                <i class="fa-solid fa-ban text-lg"></i>
+              </div>
+              <div>
+                <h3 class="font-bold text-white text-base">No Account, Paywall, or Captcha</h3>
+                <p class="text-xs sm:text-sm text-slate-300 mt-1">
+                  Zero mandatory registration or monthly credit limitations. Open the site, accomplish your work in seconds, and get back to your day.
+                </p>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- CONTENT-RICH SECTION 3: COMPARISON TABLE -->
+    <section id="comparison" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+      <div class="text-center max-w-3xl mx-auto mb-12">
+        <span class="text-xs font-extrabold uppercase tracking-widest text-brand-600">Architectural Benchmark</span>
+        <h2 class="text-2xl sm:text-4xl font-extrabold text-slate-900 mt-2">
+          QuickConvert vs. Legacy Cloud Converters
+        </h2>
+        <p class="text-slate-600 text-sm sm:text-base mt-3">
+          See why modern software developers and privacy-conscious users are migrating to browser-native processing.
+        </p>
+      </div>
+
+      <div class="overflow-x-auto">
+        <table class="w-full text-left border-collapse bg-white rounded-2xl border border-slate-200 shadow-xs overflow-hidden">
+          <thead>
+            <tr class="bg-slate-50 border-b border-slate-200 text-xs font-bold uppercase tracking-wider text-slate-600">
+              <th class="p-4 sm:p-5">Feature &amp; Privacy Metric</th>
+              <th class="p-4 sm:p-5 bg-brand-50/60 text-brand-800">QuickConvert (Browser Native)</th>
+              <th class="p-4 sm:p-5 text-slate-500">Typical Cloud Converters</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-slate-100 text-xs sm:text-sm">
+            <tr>
+              <td class="p-4 sm:p-5 font-semibold text-slate-800">File Storage &amp; Transmission</td>
+              <td class="p-4 sm:p-5 bg-brand-50/30 text-emerald-700 font-semibold flex items-center gap-1.5">
+                <i class="fa-solid fa-check text-emerald-500"></i> Never leaves user's RAM
+              </td>
+              <td class="p-4 sm:p-5 text-rose-600">
+                <i class="fa-solid fa-xmark text-rose-400"></i> Uploaded to third-party servers
+              </td>
+            </tr>
+            <tr>
+              <td class="p-4 sm:p-5 font-semibold text-slate-800">Processing Speed</td>
+              <td class="p-4 sm:p-5 bg-brand-50/30 text-emerald-700 font-semibold">
+                Instant (No upload / download latency)
+              </td>
+              <td class="p-4 sm:p-5 text-slate-500">
+                Slow (Dependent on upload bandwidth &amp; queues)
+              </td>
+            </tr>
+            <tr>
+              <td class="p-4 sm:p-5 font-semibold text-slate-800">Daily File &amp; Size Caps</td>
+              <td class="p-4 sm:p-5 bg-brand-50/30 text-emerald-700 font-semibold">
+                Unlimited (Constrained only by client memory)
+              </td>
+              <td class="p-4 sm:p-5 text-slate-500">
+                Strict quotas (Usually 2-5 files/day free)
+              </td>
+            </tr>
+            <tr>
+              <td class="p-4 sm:p-5 font-semibold text-slate-800">Account Requirement</td>
+              <td class="p-4 sm:p-5 bg-brand-50/30 text-emerald-700 font-semibold">
+                None (Instant zero-friction usage)
+              </td>
+              <td class="p-4 sm:p-5 text-slate-500">
+                Email verification or subscription prompt
+              </td>
+            </tr>
+            <tr>
+              <td class="p-4 sm:p-5 font-semibold text-slate-800">Compliance &amp; Legal Liability</td>
+              <td class="p-4 sm:p-5 bg-brand-50/30 text-emerald-700 font-semibold">
+                Zero data controller liability under GDPR
+              </td>
+              <td class="p-4 sm:p-5 text-slate-500">
+                Requires complex DPA and third-party consent
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- CONTENT-RICH SECTION 4: FAQS ACCORDION (AdSense Crucial Content) -->
+    <section id="faqs" class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+      <div class="text-center max-w-2xl mx-auto mb-10">
+        <span class="text-xs font-extrabold uppercase tracking-widest text-brand-600">Got Questions?</span>
+        <h2 class="text-2xl sm:text-4xl font-extrabold text-slate-900 mt-2">
+          Frequently Asked Questions
+        </h2>
+        <p class="text-slate-600 text-sm sm:text-base mt-2">
+          Transparent insights into QuickConvert's client-side technology, file security, and supported standards.
+        </p>
+      </div>
+
+      <div class="space-y-3">
+        
+        <!-- FAQ 1 -->
+        <div class="faq-item bg-white rounded-2xl border border-slate-200 overflow-hidden shadow-xs">
+          <button class="faq-trigger w-full px-6 py-4.5 text-left flex items-center justify-between text-sm sm:text-base font-bold text-slate-900 hover:text-brand-600 transition focus:outline-none">
+            <span>Are my files, images, or documents ever stored on a remote server?</span>
+            <i class="faq-icon fa-solid fa-chevron-down text-slate-400 transition-transform duration-200"></i>
+          </button>
+          <div class="faq-content px-6 text-xs sm:text-sm text-slate-600 leading-relaxed border-t border-slate-100">
+            <div class="py-4">
+              <strong>Absolutely not.</strong> QuickConvert executes 100% inside your browser environment using HTML5 File APIs, Canvas 2D contexts, and client-side JavaScript libraries. The files you convert never travel across the internet and cannot be accessed, inspected, or retained by QuickConvert or any third party.
+            </div>
+          </div>
+        </div>
+
+        <!-- FAQ 2 -->
+        <div class="faq-item bg-white rounded-2xl border border-slate-200 overflow-hidden shadow-xs">
+          <button class="faq-trigger w-full px-6 py-4.5 text-left flex items-center justify-between text-sm sm:text-base font-bold text-slate-900 hover:text-brand-600 transition focus:outline-none">
+            <span>How does the PNG/JPG to PDF converter work?</span>
+            <i class="faq-icon fa-solid fa-chevron-down text-slate-400 transition-transform duration-200"></i>
+          </button>
+          <div class="faq-content px-6 text-xs sm:text-sm text-slate-600 leading-relaxed border-t border-slate-100">
+            <div class="py-4">
+              When you load images into QuickConvert, the browser reads them as local Data URIs. Our engine calculates optimal page layout dimensions (either standard A4, US Letter, or tailored to your image aspect ratio) and leverages the industry-standard <code class="text-indigo-600 bg-indigo-50 px-1 py-0.5 rounded">jsPDF</code> library to compile a binary PDF stream in memory, triggering a direct browser file download.
+            </div>
+          </div>
+        </div>
+
+        <!-- FAQ 3 -->
+        <div class="faq-item bg-white rounded-2xl border border-slate-200 overflow-hidden shadow-xs">
+          <button class="faq-trigger w-full px-6 py-4.5 text-left flex items-center justify-between text-sm sm:text-base font-bold text-slate-900 hover:text-brand-600 transition focus:outline-none">
+            <span>Can I convert high-resolution photos without quality degradation?</span>
+            <i class="faq-icon fa-solid fa-chevron-down text-slate-400 transition-transform duration-200"></i>
+          </button>
+          <div class="faq-content px-6 text-xs sm:text-sm text-slate-600 leading-relaxed border-t border-slate-100">
+            <div class="py-4">
+              Yes. With our Image Compressor &amp; Resizer tool, you maintain exact control over compression quality and target resolution. By using modern WebP or adjusted JPEG quantization settings, you can reduce file weights by up to 80% while retaining crisp, high-fidelity visual clarity suitable for both web and print.
+            </div>
+          </div>
+        </div>
+
+        <!-- FAQ 4 -->
+        <div class="faq-item bg-white rounded-2xl border border-slate-200 overflow-hidden shadow-xs">
+          <button class="faq-trigger w-full px-6 py-4.5 text-left flex items-center justify-between text-sm sm:text-base font-bold text-slate-900 hover:text-brand-600 transition focus:outline-none">
+            <span>Does QuickConvert work on mobile phones and tablets?</span>
+            <i class="faq-icon fa-solid fa-chevron-down text-slate-400 transition-transform duration-200"></i>
+          </button>
+          <div class="faq-content px-6 text-xs sm:text-sm text-slate-600 leading-relaxed border-t border-slate-100">
+            <div class="py-4">
+              Yes! QuickConvert is responsive and compatible across iOS Safari, Android Chrome, and modern tablet browsers. Because it relies entirely on standardized Web APIs, no app installation or permissions are required.
+            </div>
+          </div>
+        </div>
+
+        <!-- FAQ 5 -->
+        <div class="faq-item bg-white rounded-2xl border border-slate-200 overflow-hidden shadow-xs">
+          <button class="faq-trigger w-full px-6 py-4.5 text-left flex items-center justify-between text-sm sm:text-base font-bold text-slate-900 hover:text-brand-600 transition focus:outline-none">
+            <span>Is there a hidden cost, subscription, or watermark added?</span>
+            <i class="faq-icon fa-solid fa-chevron-down text-slate-400 transition-transform duration-200"></i>
+          </button>
+          <div class="faq-content px-6 text-xs sm:text-sm text-slate-600 leading-relaxed border-t border-slate-100">
+            <div class="py-4">
+              QuickConvert is 100% free and does not place watermarks, branding stamps, or artificial limits on your output documents. We support ongoing maintenance through clean, unobtrusive web advertisements.
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- BOTTOM AD PLACEHOLDER (AdSense Placement) -->
+    <div class="max-w-5xl mx-auto px-4 py-8">
+      <div class="adsense-box rounded-xl p-4 min-h-[90px] flex items-center justify-center text-center">
+        <div class="text-slate-400 text-xs">
+          <i class="fa-regular fa-rectangle-ad text-lg mb-1 block"></i>
+          <span>Advertisement / Sponsored Placement (AdSense Native Responsive Unit)</span>
+        </div>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="bg-white border-t border-slate-200 text-slate-600 text-xs">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+      <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
+        
+        <!-- Brand Info -->
+        <div class="space-y-3">
+          <div class="flex items-center gap-2">
+            <div class="w-7 h-7 rounded-lg bg-brand-600 flex items-center justify-center text-white">
+              <i class="fa-solid fa-bolt-lightning text-xs"></i>
+            </div>
+            <span class="text-base font-extrabold text-slate-900 tracking-tight">QuickConvert</span>
+          </div>
+          <p class="text-slate-500 leading-relaxed">
+            The privacy-first, lightning-fast multi-tool utility suite. Convert, optimize, and calculate client-side with zero server footprints.
+          </p>
+          <div class="pt-1 flex items-center gap-3 text-slate-400 text-base">
+            <a href="#" class="hover:text-brand-600 transition"><i class="fa-brands fa-github"></i></a>
+            <a href="#" class="hover:text-brand-600 transition"><i class="fa-brands fa-x-twitter"></i></a>
+            <a href="#" class="hover:text-brand-600 transition"><i class="fa-brands fa-linkedin"></i></a>
+          </div>
+        </div>
+
+        <!-- Tool Suite Links -->
+        <div>
+          <h4 class="font-bold text-slate-900 uppercase tracking-wider mb-3">Converter Tools</h4>
+          <ul class="space-y-2">
+            <li><a href="#suite-tools" data-tool-target="tool-images-to-pdf" class="hover:text-brand-600 transition">PNG/JPG to PDF Converter</a></li>
+            <li><a href="#suite-tools" data-tool-target="tool-image-compressor" class="hover:text-brand-600 transition">Image Compressor &amp; Resizer</a></li>
+            <li><a href="#suite-tools" data-tool-target="tool-text-to-pdf" class="hover:text-brand-600 transition">Text &amp; Markdown to PDF</a></li>
+            <li><a href="#suite-tools" data-tool-target="tool-unit-converter" class="hover:text-brand-600 transition">Universal Unit Converter</a></li>
+          </ul>
+        </div>
+
+        <!-- Resources & Content -->
+        <div>
+          <h4 class="font-bold text-slate-900 uppercase tracking-wider mb-3">Knowledge &amp; Docs</h4>
+          <ul class="space-y-2">
+            <li><a href="#how-to-use" class="hover:text-brand-600 transition">Step-by-Step User Manual</a></li>
+            <li><a href="#security-advantage" class="hover:text-brand-600 transition">Client-Side Architecture</a></li>
+            <li><a href="#comparison" class="hover:text-brand-600 transition">Benchmark Comparison</a></li>
+            <li><a href="#faqs" class="hover:text-brand-600 transition">Frequently Asked Questions</a></li>
+          </ul>
+        </div>
+
+        <!-- Legal Policies (Mandatory for Google AdSense) -->
+        <div>
+          <h4 class="font-bold text-slate-900 uppercase tracking-wider mb-3">Trust &amp; Legal</h4>
+          <ul class="space-y-2">
+            <li><a href="#" data-modal-open="modal-privacy" class="hover:text-brand-600 transition">Privacy Policy (Zero Storage)</a></li>
+            <li><a href="#" data-modal-open="modal-terms" class="hover:text-brand-600 transition">Terms of Service</a></li>
+            <li><a href="#" data-modal-open="modal-about" class="hover:text-brand-600 transition">About QuickConvert</a></li>
+            <li><a href="#" data-modal-open="modal-contact" class="hover:text-brand-600 transition">Contact &amp; Support</a></li>
+          </ul>
+        </div>
+
+      </div>
+
+      <div class="pt-8 border-t border-slate-100 flex flex-col sm:flex-row items-center justify-between gap-4 text-slate-500">
+        <p>&copy; 2026 QuickConvert. All rights reserved. Free Online File &amp; Document Converters.</p>
+        <p class="text-[11px]">Protected by Client-Side Isolation • No User Tracking</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ==================================================== -->
+  <!-- MODAL: PRIVACY POLICY (AdSense Essential)           -->
+  <!-- ==================================================== -->
+  <div id="modal-privacy" class="app-modal fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-xs flex items-center justify-center p-4 hidden">
+    <div class="bg-white rounded-2xl max-w-2xl w-full max-h-[85vh] flex flex-col shadow-2xl border border-slate-200">
+      
+      <div class="p-5 border-b border-slate-100 flex items-center justify-between">
+        <h3 class="text-lg font-bold text-slate-900 flex items-center gap-2">
+          <i class="fa-solid fa-shield-halved text-brand-600"></i>
+          Privacy Policy
+        </h3>
+        <button data-modal-close class="p-2 text-slate-400 hover:text-slate-600 rounded-lg">
+          <i class="fa-solid fa-xmark text-lg"></i>
+        </button>
+      </div>
+
+      <div class="p-6 overflow-y-auto space-y-4 text-xs sm:text-sm text-slate-600 leading-relaxed">
+        <p class="font-semibold text-slate-800">Effective Date: November 2026</p>
+        <p>
+          At <strong>QuickConvert</strong>, your privacy is our architectural foundation. Unlike conventional web utility services that stream your personal photographs and documents to third-party cloud servers, QuickConvert processes <strong>100% of your data locally within your browser</strong>.
+        </p>
+
+        <h4 class="font-bold text-slate-900 text-sm">1. Zero Server Storage &amp; Transmission</h4>
+        <p>
+          When you drag and drop a PNG, JPG, or text document into QuickConvert, the file is read using the standard HTML5 File and Canvas APIs. The file contents reside solely in your computer’s temporary volatile memory (RAM) for the duration of the conversion process. At no point is any file byte transmitted to an external server, database, or analytics endpoint.
+        </p>
+
+        <h4 class="font-bold text-slate-900 text-sm">2. Instant Deletion</h4>
+        <p>
+          Once you complete your download or close/refresh the browser tab, the memory allocated for your conversion is automatically reclaimed by your operating system and browser garbage collector. No traces are left behind.
+        </p>
+
+        <h4 class="font-bold text-slate-900 text-sm">3. Cookies &amp; Third-Party Advertisers</h4>
+        <p>
+          QuickConvert may partner with ad networks such as Google AdSense to serve non-intrusive advertisements that fund ongoing development. These ad partners may use standard cookies to serve relevant ads according to their respective privacy disclosures. You can adjust your cookie settings at any time in your browser.
+        </p>
+
+        <h4 class="font-bold text-slate-900 text-sm">4. GDPR &amp; CCPA Compliance</h4>
+        <p>
+          Because we never collect, store, or process personal identifying documents on our servers, QuickConvert is privacy-compliant by design, fully satisfying GDPR Article 6 principles and CCPA privacy protections.
+        </p>
+      </div>
+
+      <div class="p-4 bg-slate-50 border-t border-slate-100 flex justify-end">
+        <button data-modal-close class="px-5 py-2 rounded-xl bg-slate-900 text-white font-semibold text-xs hover:bg-slate-800 transition">
+          I Understand &amp; Close
+        </button>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ==================================================== -->
+  <!-- MODAL: TERMS OF SERVICE                              -->
+  <!-- ==================================================== -->
+  <div id="modal-terms" class="app-modal fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-xs flex items-center justify-center p-4 hidden">
+    <div class="bg-white rounded-2xl max-w-2xl w-full max-h-[85vh] flex flex-col shadow-2xl border border-slate-200">
+      
+      <div class="p-5 border-b border-slate-100 flex items-center justify-between">
+        <h3 class="text-lg font-bold text-slate-900 flex items-center gap-2">
+          <i class="fa-solid fa-file-contract text-brand-600"></i>
+          Terms of Service
+        </h3>
+        <button data-modal-close class="p-2 text-slate-400 hover:text-slate-600 rounded-lg">
+          <i class="fa-solid fa-xmark text-lg"></i>
+        </button>
+      </div>
+
+      <div class="p-6 overflow-y-auto space-y-4 text-xs sm:text-sm text-slate-600 leading-relaxed">
+        <p class="font-semibold text-slate-800">Last Modified: November 2026</p>
+        <p>
+          By accessing and using <strong>QuickConvert</strong>, you agree to comply with and be bound by the following Terms of Service.
+        </p>
+
+        <h4 class="font-bold text-slate-900 text-sm">1. Authorized Use</h4>
+        <p>
+          QuickConvert is provided free of charge for personal, educational, and commercial conversion tasks. You agree not to use the suite to compile or process material that violates applicable local or international laws.
+        </p>
+
+        <h4 class="font-bold text-slate-900 text-sm">2. Ownership of Converted Content</h4>
+        <p>
+          You retain 100% intellectual property rights over all images, documents, and texts converted using QuickConvert. We claim zero copyright, ownership, or licensing interests in your content.
+        </p>
+
+        <h4 class="font-bold text-slate-900 text-sm">3. Disclaimer of Warranties</h4>
+        <p>
+          QuickConvert is delivered "as is" and "as available" without warranties of any kind, whether express or implied. While we strive for extreme mathematical precision and image fidelity, QuickConvert shall not be liable for any data loss resulting from local browser limitations.
+        </p>
+      </div>
+
+      <div class="p-4 bg-slate-50 border-t border-slate-100 flex justify-end">
+        <button data-modal-close class="px-5 py-2 rounded-xl bg-slate-900 text-white font-semibold text-xs hover:bg-slate-800 transition">
+          Accept &amp; Close
+        </button>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ==================================================== -->
+  <!-- MODAL: ABOUT US                                      -->
+  <!-- ==================================================== -->
+  <div id="modal-about" class="app-modal fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-xs flex items-center justify-center p-4 hidden">
+    <div class="bg-white rounded-2xl max-w-2xl w-full max-h-[85vh] flex flex-col shadow-2xl border border-slate-200">
+      
+      <div class="p-5 border-b border-slate-100 flex items-center justify-between">
+        <h3 class="text-lg font-bold text-slate-900 flex items-center gap-2">
+          <i class="fa-solid fa-circle-info text-brand-600"></i>
+          About QuickConvert
+        </h3>
+        <button data-modal-close class="p-2 text-slate-400 hover:text-slate-600 rounded-lg">
+          <i class="fa-solid fa-xmark text-lg"></i>
+        </button>
+      </div>
+
+      <div class="p-6 overflow-y-auto space-y-4 text-xs sm:text-sm text-slate-600 leading-relaxed">
+        <p class="text-slate-800 font-semibold">
+          Building the next generation of privacy-first, zero-overhead web utilities.
+        </p>
+        <p>
+          QuickConvert was created by modern web engineers frustrated with bloated online converter websites filled with paywalls, slow cloud queues, and questionable data handling practices.
+        </p>
+        <p>
+          With modern advances in browser execution engines (V8, JavaScriptCanvas, and WebAssembly), there is no valid technical reason to send personal images or sensitive documents across the network just to convert them to a PDF or reduce their resolution.
+        </p>
+        <p>
+          Our mission is to provide lightning-fast, high-utility tools that execute instantly on the user’s device at zero cost, setting a new gold standard for consumer privacy and web performance.
+        </p>
+      </div>
+
+      <div class="p-4 bg-slate-50 border-t border-slate-100 flex justify-end">
+        <button data-modal-close class="px-5 py-2 rounded-xl bg-brand-600 text-white font-semibold text-xs hover:bg-brand-700 transition">
+          Close
+        </button>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ==================================================== -->
+  <!-- MODAL: CONTACT US                                    -->
+  <!-- ==================================================== -->
+  <div id="modal-contact" class="app-modal fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-xs flex items-center justify-center p-4 hidden">
+    <div class="bg-white rounded-2xl max-w-lg w-full max-h-[90vh] flex flex-col shadow-2xl border border-slate-200">
+      
+      <div class="p-5 border-b border-slate-100 flex items-center justify-between">
+        <h3 class="text-lg font-bold text-slate-900 flex items-center gap-2">
+          <i class="fa-solid fa-envelope text-brand-600"></i>
+          Contact QuickConvert Team
+        </h3>
+        <button data-modal-close class="p-2 text-slate-400 hover:text-slate-600 rounded-lg">
+          <i class="fa-solid fa-xmark text-lg"></i>
+        </button>
+      </div>
+
+      <form id="quickconvert-contact-form" class="p-6 space-y-4 text-xs sm:text-sm">
+        <div>
+          <label for="contact-name" class="block font-bold text-slate-700 mb-1">Your Full Name</label>
+          <input type="text" id="contact-name" required placeholder="Alex Morgan" class="w-full bg-white border border-slate-300 rounded-xl px-3.5 py-2.5 focus:outline-none focus:ring-2 focus:ring-brand-500" />
+        </div>
+
+        <div>
+          <label for="contact-email" class="block font-bold text-slate-700 mb-1">Email Address</label>
+          <input type="email" id="contact-email" required placeholder="alex@example.com" class="w-full bg-white border border-slate-300 rounded-xl px-3.5 py-2.5 focus:outline-none focus:ring-2 focus:ring-brand-500" />
+        </div>
+
+        <div>
+          <label for="contact-message" class="block font-bold text-slate-700 mb-1">Inquiry / Feedback</label>
+          <textarea id="contact-message" rows="4" required placeholder="How can we assist you with QuickConvert or feature requests?" class="w-full bg-white border border-slate-300 rounded-xl px-3.5 py-2.5 focus:outline-none focus:ring-2 focus:ring-brand-500 leading-relaxed"></textarea>
+        </div>
+
+        <div class="pt-2 flex justify-end gap-2">
+          <button type="button" data-modal-close class="px-4 py-2.5 rounded-xl border border-slate-300 text-slate-700 font-semibold text-xs hover:bg-slate-50 transition">
+            Cancel
+          </button>
+          <button type="submit" class="px-5 py-2.5 rounded-xl bg-brand-600 text-white font-bold text-xs hover:bg-brand-700 transition shadow-sm">
+            Send Message
+          </button>
+        </div>
+      </form>
+
+    </div>
+  </div>
+
+  <!-- Main Vanilla JavaScript -->
+  <script src="js/app.js"></script>
+
+</body>
+</html>
