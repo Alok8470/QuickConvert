@@ -131,61 +131,84 @@
 
   <!-- STICKY TOP NAVBAR -->
   <header class="sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-slate-200/80 shadow-xs">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-18 flex items-center justify-between">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 h-18 flex items-center justify-between gap-4">
       
       <!-- Brand Logo -->
-      <a href="#" class="flex items-center gap-3 group focus:outline-none">
-        <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-brand-600 via-indigo-600 to-accent-500 flex items-center justify-center text-white shadow-md shadow-brand-500/25 group-hover:scale-105 transition-transform duration-200">
+      <a href="#" class="flex items-center gap-3 shrink-0 group focus:outline-none">
+        <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-brand-600 via-indigo-600 to-accent-500 flex items-center justify-center text-white shadow-md shadow-brand-500/25 group-hover:scale-105 transition-transform duration-200 shrink-0">
           <i class="fa-solid fa-bolt-lightning text-lg"></i>
         </div>
         <div class="flex flex-col">
-          <span class="text-xl font-extrabold tracking-tight bg-gradient-to-r from-brand-600 to-accent-600 bg-clip-text text-transparent">
+          <span class="text-xl font-extrabold tracking-tight bg-gradient-to-r from-brand-600 to-accent-600 bg-clip-text text-transparent leading-none">
             QuickConvert
           </span>
-          <span class="text-[10px] font-semibold text-slate-400 tracking-wider uppercase -mt-1 hidden sm:block">
+          <span class="text-[10px] font-semibold text-slate-400 tracking-wider uppercase mt-1 hidden xl:block">
             Universal Client-Side Suite
           </span>
         </div>
       </a>
 
-      <!-- Desktop Navigation Links -->
-      <nav class="hidden md:flex items-center gap-7 text-sm font-semibold text-slate-600">
-        <a href="#suite-tools" class="hover:text-brand-600 transition">All Tools</a>
-        <a href="#how-to-use" class="hover:text-brand-600 transition">How to Use</a>
-        <a href="#security-advantage" class="hover:text-brand-600 transition">Security & Privacy</a>
-        <a href="#comparison" class="hover:text-brand-600 transition">Why Us</a>
-        <a href="#faqs" class="hover:text-brand-600 transition">FAQs</a>
+      <!-- Desktop Navigation Links (Visible on lg: 1024px and above) -->
+      <nav class="hidden lg:flex items-center gap-6 xl:gap-8 text-sm font-semibold text-slate-600 shrink-0">
+        <a href="#suite-tools" class="hover:text-brand-600 transition whitespace-nowrap">All Tools</a>
+        <a href="#how-to-use" class="hover:text-brand-600 transition whitespace-nowrap">How to Use</a>
+        <a href="#security-advantage" class="hover:text-brand-600 transition whitespace-nowrap">Security &amp; Privacy</a>
+        <a href="#comparison" class="hover:text-brand-600 transition whitespace-nowrap">Why Us</a>
+        <a href="#faqs" class="hover:text-brand-600 transition whitespace-nowrap">FAQs</a>
       </nav>
 
       <!-- Action Button & Privacy Pill -->
-      <div class="hidden sm:flex items-center gap-3">
-        <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-emerald-50 text-emerald-700 border border-emerald-200/80">
+      <div class="flex items-center gap-2 sm:gap-3 shrink-0">
+        <!-- 100% Client-Side badge only on xl: 1280px+ to preserve breathing room -->
+        <span class="hidden xl:inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-emerald-50 text-emerald-700 border border-emerald-200/80 whitespace-nowrap">
           <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
           100% Client-Side
         </span>
-        <a href="#suite-tools" class="inline-flex items-center gap-2 px-4 py-2 rounded-xl text-sm font-semibold text-white bg-brand-600 hover:bg-brand-700 shadow-sm hover:shadow transition active:scale-95">
+
+        <!-- CTA button visible on sm: (640px+) -->
+        <a href="#suite-tools" class="hidden sm:inline-flex items-center gap-2 px-3.5 sm:px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold text-white bg-brand-600 hover:bg-brand-700 shadow-sm hover:shadow transition active:scale-95 whitespace-nowrap">
+          <span>Start Converting</span>
+          <i class="fa-solid fa-arrow-right text-xs"></i>
+        </a>
+
+        <!-- Mobile & Tablet Hamburger Button (Visible below lg: < 1024px) -->
+        <button id="mobile-menu-btn" class="lg:hidden p-2 text-slate-600 hover:text-slate-900 rounded-lg hover:bg-slate-100 transition focus:outline-none" aria-label="Toggle Navigation Menu">
+          <i id="mobile-menu-icon" class="fa-solid fa-bars text-xl"></i>
+        </button>
+      </div>
+    </div>
+
+    <!-- Mobile & Tablet Dropdown Menu (Hidden on lg: 1024px and above) -->
+    <div id="mobile-menu" class="hidden lg:hidden bg-white border-b border-slate-200 px-4 pt-3 pb-5 space-y-1 text-sm font-medium shadow-lg">
+      <a href="#suite-tools" class="block px-3 py-2.5 rounded-xl hover:bg-slate-50 text-slate-800 font-semibold hover:text-brand-600 transition">
+        <i class="fa-solid fa-layer-group text-slate-400 mr-2 w-5"></i> All Tools
+      </a>
+      <a href="#how-to-use" class="block px-3 py-2.5 rounded-xl hover:bg-slate-50 text-slate-700 hover:text-brand-600 transition">
+        <i class="fa-solid fa-book-open text-slate-400 mr-2 w-5"></i> How to Use
+      </a>
+      <a href="#security-advantage" class="block px-3 py-2.5 rounded-xl hover:bg-slate-50 text-slate-700 hover:text-brand-600 transition">
+        <i class="fa-solid fa-shield-halved text-slate-400 mr-2 w-5"></i> Security &amp; Architecture
+      </a>
+      <a href="#comparison" class="block px-3 py-2.5 rounded-xl hover:bg-slate-50 text-slate-700 hover:text-brand-600 transition">
+        <i class="fa-solid fa-scale-balanced text-slate-400 mr-2 w-5"></i> Why QuickConvert
+      </a>
+      <a href="#faqs" class="block px-3 py-2.5 rounded-xl hover:bg-slate-50 text-slate-700 hover:text-brand-600 transition">
+        <i class="fa-solid fa-circle-question text-slate-400 mr-2 w-5"></i> FAQs
+      </a>
+
+      <!-- Quick Action inside Mobile/Tablet Drawer for Mobile users -->
+      <div class="pt-3 mt-2 border-t border-slate-100 flex flex-col gap-2.5 sm:hidden">
+        <a href="#suite-tools" class="w-full py-2.5 rounded-xl text-center text-sm font-bold text-white bg-brand-600 hover:bg-brand-700 shadow-sm flex items-center justify-center gap-2">
           <span>Start Converting</span>
           <i class="fa-solid fa-arrow-right text-xs"></i>
         </a>
       </div>
 
-      <!-- Mobile Hamburger Button -->
-      <button id="mobile-menu-btn" class="md:hidden p-2 text-slate-600 hover:text-slate-900 rounded-lg hover:bg-slate-100 transition" aria-label="Toggle Navigation Menu">
-        <i class="fa-solid fa-bars text-xl"></i>
-      </button>
-    </div>
-
-    <!-- Mobile Dropdown Menu -->
-    <div id="mobile-menu" class="hidden md:hidden bg-white border-b border-slate-200 px-4 pt-2 pb-4 space-y-2 text-sm font-medium">
-      <a href="#suite-tools" class="block px-3 py-2 rounded-lg hover:bg-slate-50 text-slate-700 font-semibold">All Tools</a>
-      <a href="#how-to-use" class="block px-3 py-2 rounded-lg hover:bg-slate-50 text-slate-700">How to Use</a>
-      <a href="#security-advantage" class="block px-3 py-2 rounded-lg hover:bg-slate-50 text-slate-700">Security & Architecture</a>
-      <a href="#comparison" class="block px-3 py-2 rounded-lg hover:bg-slate-50 text-slate-700">Why QuickConvert</a>
-      <a href="#faqs" class="block px-3 py-2 rounded-lg hover:bg-slate-50 text-slate-700">FAQs</a>
-      <div class="pt-2 border-t border-slate-100 flex flex-col gap-2">
-        <span class="inline-flex items-center justify-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-emerald-50 text-emerald-700 border border-emerald-200">
+      <div class="pt-2 flex items-center justify-between text-xs text-slate-500">
+        <span class="inline-flex items-center gap-1.5 font-semibold text-emerald-700">
           <span class="w-2 h-2 rounded-full bg-emerald-500"></span> 100% In-Browser Privacy
         </span>
+        <span class="text-slate-400">Zero Server Uploads</span>
       </div>
     </div>
   </header>
