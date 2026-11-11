@@ -79,15 +79,15 @@
       targetSection.classList.remove('hidden');
     }
 
-    // Update active tab styles
+    // Update active tab styles (Modern SaaS / Vercel Segmented Control)
     toolTabs.forEach((tab) => {
       const isCurrent = tab.getAttribute('data-tool-target') === targetId;
       if (isCurrent) {
-        tab.classList.add('bg-indigo-600', 'text-white', 'shadow-md', 'shadow-indigo-200');
-        tab.classList.remove('bg-white', 'text-slate-700', 'hover:bg-slate-100');
+        tab.classList.add('bg-slate-900', 'text-white', 'shadow-sm');
+        tab.classList.remove('bg-white', 'text-slate-700', 'hover:bg-slate-50', 'border-transparent', 'hover:border-slate-200');
       } else {
-        tab.classList.remove('bg-indigo-600', 'text-white', 'shadow-md', 'shadow-indigo-200');
-        tab.classList.add('bg-white', 'text-slate-700', 'hover:bg-slate-100');
+        tab.classList.remove('bg-slate-900', 'text-white', 'shadow-sm', 'bg-indigo-600', 'shadow-md', 'shadow-indigo-200');
+        tab.classList.add('bg-white', 'text-slate-700', 'hover:bg-slate-50', 'border', 'border-transparent', 'hover:border-slate-200');
       }
     });
 
