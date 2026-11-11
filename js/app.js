@@ -492,10 +492,35 @@
     const targetWidth = parseInt(compWidthInput.value, 10) || compOriginalImage.naturalWidth;
     const targetHeight = parseInt(compHeightInput.value, 10) || compOriginalImage.naturalHeight;
     const quality = parseFloat(compQualitySlider.value) / 100;
-    let format = compFormatSelect.value;
+    let format = compFormatSelect ? compFormatSelect.value : 'smart';
 
-    if (format === 'original') {
-      format = compOriginalFile.type || 'image/jpeg';
+    // Show/hide PNG notice
+    const pngNotice = document.getElementById('comp-png-notice');
+    if (pngNotice) {
+      if (format === 'image/png') {
+        pngNotice.classList.remove('hidden');
+      } else {
+        pngNotice.classList.add('hidden');
+      }
+    }
+
+    let exportMime = 'image/jpeg';
+
+    if (format === 'smart') {
+      // Smart Auto: If original is PNG, use WebP to preserve alpha channel while enabling quality compression!
+      if (compOriginalFile && compOriginalFile.type === 'image/png') {
+        exportMime = 'image/webp';
+      } else {
+        exportMime = 'image/jpeg';
+      }
+    } else if (format === 'original') {
+      if (compOriginalFile && compOriginalFile.type === 'image/png') {
+        exportMime = 'image/webp';
+      } else {
+        exportMime = compOriginalFile ? compOriginalFile.type : 'image/jpeg';
+      }
+    } else {
+      exportMime = format;
     }
 
     const canvas = document.createElement('canvas');
@@ -507,8 +532,8 @@
     ctx.imageSmoothingEnabled = true;
     ctx.imageSmoothingQuality = 'high';
 
-    // If JPEG/WEBP, draw white background to prevent black PNG transparency artifacts
-    if (format === 'image/jpeg') {
+    // If JPEG, draw pure white background to prevent black PNG transparency artifacts
+    if (exportMime === 'image/jpeg') {
       ctx.fillStyle = '#ffffff';
       ctx.fillRect(0, 0, targetWidth, targetHeight);
     }
@@ -545,7 +570,7 @@
           compSavingsBadge.textContent = `Same size`;
         }
       },
-      format,
+      exportMime,
       quality
     );
   }
@@ -636,17 +661,25 @@
     });
   }
 
+  const compSwitchSmartBtn = document.getElementById('comp-switch-smart-btn');
+  if (compSwitchSmartBtn) {
+    compSwitchSmartBtn.addEventListener('click', () => {
+      if (compFormatSelect) {
+        compFormatSelect.value = 'smart';
+        processImageCompression();
+        showToast('Switched to Smart Auto Compression (WebP)!', 'success');
+      }
+    });
+  }
+
   if (compDownloadBtn) {
     compDownloadBtn.addEventListener('click', () => {
       if (!compCurrentBlob) return;
 
-      const format = compFormatSelect.value;
       let ext = 'jpg';
-      if (format === 'image/png') ext = 'png';
-      else if (format === 'image/webp') ext = 'webp';
-      else if (format === 'original' && compOriginalFile) {
-        ext = compOriginalFile.name.split('.').pop() || 'jpg';
-      }
+      if (compCurrentBlob.type === 'image/webp') ext = 'webp';
+      else if (compCurrentBlob.type === 'image/png') ext = 'png';
+      else if (compCurrentBlob.type === 'image/jpeg') ext = 'jpg';
 
       const originalBaseName = compOriginalFile
         ? compOriginalFile.name.substring(0, compOriginalFile.name.lastIndexOf('.')) || 'image'
@@ -656,7 +689,7 @@
       downloadLink.href = URL.createObjectURL(compCurrentBlob);
       downloadLink.download = `${originalBaseName}_optimized.${ext}`;
       downloadLink.click();
-      showToast('Optimized image downloaded!', 'success');
+      showToast(`Optimized image downloaded as .${ext}!`, 'success');
     });
   }
 

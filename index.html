@@ -507,12 +507,16 @@
 
                   <div>
                     <label for="comp-format" class="block font-semibold text-xs text-slate-700 mb-1">Output Format</label>
-                    <select id="comp-format" class="w-full bg-white border border-slate-300 rounded-lg px-3 py-1.5 text-xs focus:outline-none focus:ring-2 focus:ring-brand-500">
-                      <option value="original">Keep Original Format</option>
-                      <option value="image/jpeg">JPEG (.jpg) - Universal compatibility</option>
-                      <option value="image/webp">WEBP (.webp) - Maximum modern web compression</option>
-                      <option value="image/png">PNG (.png) - Lossless with alpha transparency</option>
+                    <select id="comp-format" class="w-full bg-white border border-slate-300 rounded-lg px-3 py-1.5 text-xs font-medium focus:outline-none focus:ring-2 focus:ring-brand-500">
+                      <option value="smart" selected>⚡ Smart Auto (Best Compression: WebP / JPEG)</option>
+                      <option value="image/webp">WEBP (.webp) - Ultra-lightweight (keeps transparency)</option>
+                      <option value="image/jpeg">JPEG (.jpg) - Universal photographic standard</option>
+                      <option value="image/png">PNG (.png) - Strict Lossless (resize dimensions to shrink)</option>
                     </select>
+                    <div id="comp-png-notice" class="hidden mt-2 text-amber-800 bg-amber-50 border border-amber-200 rounded-lg p-2 text-[11px] leading-tight">
+                      <span><i class="fa-solid fa-circle-info mr-1"></i> PNG standard is lossless and ignores quality compression. To reduce file size by 80-95%, use <strong>Smart Auto</strong> or <strong>WEBP</strong>.</span>
+                      <button id="comp-switch-smart-btn" type="button" class="underline font-bold text-brand-600 hover:text-brand-800 ml-1.5">Switch to Smart</button>
+                    </div>
                   </div>
                 </div>
 
