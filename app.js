@@ -79,15 +79,13 @@
       targetSection.classList.remove('hidden');
     }
 
-    // Update active tab styles (Modern SaaS / Vercel Segmented Control)
+    // Update active card styles in the overview grid
     toolTabs.forEach((tab) => {
       const isCurrent = tab.getAttribute('data-tool-target') === targetId;
       if (isCurrent) {
-        tab.classList.add('bg-slate-900', 'text-white', 'shadow-sm');
-        tab.classList.remove('bg-white', 'text-slate-700', 'hover:bg-slate-50', 'border-transparent', 'hover:border-slate-200');
+        tab.classList.add('border-brand-500', 'ring-1', 'ring-brand-500/30', 'bg-slate-50/50');
       } else {
-        tab.classList.remove('bg-slate-900', 'text-white', 'shadow-sm', 'bg-indigo-600', 'shadow-md', 'shadow-indigo-200');
-        tab.classList.add('bg-white', 'text-slate-700', 'hover:bg-slate-50', 'border', 'border-transparent', 'hover:border-slate-200');
+        tab.classList.remove('border-brand-500', 'ring-1', 'ring-brand-500/30', 'bg-slate-50/50');
       }
     });
 
@@ -99,9 +97,23 @@
 
   toolTabs.forEach((tab) => {
     tab.addEventListener('click', (e) => {
+      // If the target is an anchor link to #suite-tools, allow normal anchor behavior
+      const href = tab.getAttribute('href');
+      if (href && href.startsWith('#') && !tab.getAttribute('data-tool-target')) {
+        return;
+      }
+
       e.preventDefault();
       const target = tab.getAttribute('data-tool-target');
-      switchTool(target);
+      if (target) {
+        switchTool(target);
+
+        // Smoothly scroll down to the active workspace view
+        const workspace = document.getElementById('workspace-section') || document.getElementById(target);
+        if (workspace) {
+          workspace.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+      }
     });
   });
 
