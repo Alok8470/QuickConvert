@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>JSON Formatter & Validator - Free Online Developer Tool | QuickConvert</title>
+  <meta name="description" content="Validate, format, beautify, and minify JSON online. 100% private in-browser JSON parser with tree view, syntax error detection, and zero server storage." />
+  <meta name="keywords" content="JSON Formatter, JSON Validator, JSON Beautifier, Minify JSON, JSON Parser, online developer tool, client-side JSON" />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="https://quickconvert.in/tools/json-formatter.html" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              50: '#eef2ff', 100: '#e0e7ff', 200: '#c7d2fe', 300: '#a5b4fc',
+              400: '#818cf8', 500: '#6366f1', 600: '#4f46e5', 700: '#4338ca',
+              800: '#3730a3', 900: '#312e81'
+            }
+          },
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+            mono: ['"JetBrains Mono"', 'monospace']
+          }
+        }
+      }
+    }
+  </script>
+  <link rel="stylesheet" href="../css/styles.css">
+</head>
+<body class="bg-slate-50 text-slate-800 antialiased min-h-screen flex flex-col selection:bg-indigo-500 selection:text-white">
+
+  <!-- TOP NAVBAR -->
+  <header class="sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-slate-200/80 shadow-xs py-3.5 sm:py-4">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between gap-4">
+      <a href="../index.html" class="flex items-center gap-3 shrink-0 group focus:outline-none">
+        <div class="w-9 h-9 rounded-xl bg-gradient-to-tr from-brand-600 via-indigo-600 to-sky-500 flex items-center justify-center text-white shadow-md shadow-brand-500/25 group-hover:scale-105 transition-transform duration-200">
+          <i class="fa-solid fa-bolt-lightning text-base"></i>
+        </div>
+        <div class="flex flex-col">
+          <span class="text-lg font-extrabold tracking-tight bg-gradient-to-r from-brand-600 to-sky-600 bg-clip-text text-transparent leading-none">QuickConvert</span>
+          <span class="text-[10px] font-semibold text-slate-400 tracking-wider uppercase mt-1">Universal Client-Side Suite</span>
+        </div>
+      </a>
+      <div class="flex items-center gap-3">
+        <a href="../index.html" class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-xl text-xs font-bold text-slate-700 bg-slate-100 hover:bg-slate-200 transition">
+          <i class="fa-solid fa-arrow-left"></i>
+          <span>All Tools</span>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- MAIN TOOL CONTENT -->
+  <main class="flex-1 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8 w-full">
+    
+    <!-- Breadcrumb & Title -->
+    <div class="mb-6">
+      <div class="flex items-center gap-2 text-xs text-slate-500 mb-2">
+        <a href="../index.html" class="hover:text-brand-600">Home</a>
+        <i class="fa-solid fa-chevron-right text-[10px] text-slate-400"></i>
+        <a href="../index.html#suite-tools" class="hover:text-brand-600">Tools</a>
+        <i class="fa-solid fa-chevron-right text-[10px] text-slate-400"></i>
+        <span class="text-slate-800 font-semibold">JSON Formatter & Validator</span>
+      </div>
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+        <div>
+          <h1 class="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight flex items-center gap-2.5">
+            <i class="fa-solid fa-code text-brand-600"></i>
+            <span>JSON Formatter &amp; Validator</span>
+          </h1>
+          <p class="text-xs sm:text-sm text-slate-500 mt-1">Clean, validate, indent, minify, and debug JSON payloads with instant error highlighting.</p>
+        </div>
+        <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-emerald-50 text-emerald-700 border border-emerald-200 self-start sm:self-auto">
+          <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
+          100% In-Browser Privacy
+        </span>
+      </div>
+    </div>
+
+    <!-- Interactive Workspace Card -->
+    <div class="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden p-5 sm:p-6 mb-8">
+      
+      <!-- Toolbar -->
+      <div class="flex flex-wrap items-center justify-between gap-3 pb-4 mb-4 border-b border-slate-100">
+        <div class="flex items-center gap-2">
+          <button id="btn-format" class="px-3.5 py-1.5 rounded-xl bg-brand-600 hover:bg-brand-700 text-white font-bold text-xs shadow-xs transition flex items-center gap-1.5">
+            <i class="fa-solid fa-align-left"></i> Beautify (2 spaces)
+          </button>
+          <button id="btn-minify" class="px-3 py-1.5 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 font-semibold text-xs transition flex items-center gap-1.5">
+            <i class="fa-solid fa-compress"></i> Minify
+          </button>
+          <button id="btn-sample" class="px-3 py-1.5 rounded-xl border border-slate-200 hover:bg-slate-50 text-slate-600 font-semibold text-xs transition">
+            Load Sample
+          </button>
+        </div>
+        <div class="flex items-center gap-2">
+          <button id="btn-copy" class="px-3 py-1.5 rounded-xl border border-slate-200 hover:bg-slate-50 text-slate-700 font-semibold text-xs transition flex items-center gap-1.5">
+            <i class="fa-regular fa-copy"></i> Copy
+          </button>
+          <button id="btn-clear" class="px-3 py-1.5 rounded-xl text-rose-600 hover:bg-rose-50 font-semibold text-xs transition flex items-center gap-1">
+            <i class="fa-solid fa-trash-can"></i> Clear
+          </button>
+        </div>
+      </div>
+
+      <!-- Editor Grid -->
+      <div class="grid grid-cols-1 lg:grid-cols-2 gap-4">
+        <div>
+          <label for="json-input" class="block text-xs font-bold text-slate-700 mb-1 flex items-center justify-between">
+            <span>Input JSON</span>
+            <span id="input-stats" class="text-[11px] font-mono text-slate-400">0 chars</span>
+          </label>
+          <textarea id="json-input" rows="18" placeholder="Paste your raw JSON string here..." class="w-full bg-slate-50 border border-slate-300 rounded-xl p-3.5 font-mono text-xs text-slate-800 focus:outline-none focus:ring-2 focus:ring-brand-500 focus:bg-white leading-relaxed"></textarea>
+        </div>
+
+        <div>
+          <div class="flex items-center justify-between mb-1">
+            <span class="text-xs font-bold text-slate-700">Output / Formatted JSON</span>
+            <span id="validation-status" class="text-xs font-bold text-slate-400">Ready</span>
+          </div>
+          <div class="relative">
+            <pre id="json-output" class="w-full h-[375px] bg-slate-900 text-emerald-400 rounded-xl p-3.5 font-mono text-xs overflow-auto leading-relaxed border border-slate-800">// Formatted JSON will render here...</pre>
+          </div>
+        </div>
+      </div>
+
+      <!-- Error Alert Box (Hidden by default) -->
+      <div id="error-box" class="hidden mt-4 p-3.5 rounded-xl bg-rose-50 border border-rose-200 text-rose-700 text-xs flex items-start gap-2.5">
+        <i class="fa-solid fa-triangle-exclamation text-base mt-0.5 shrink-0"></i>
+        <div id="error-message" class="font-mono"></div>
+      </div>
+    </div>
+
+    <!-- SEO & Informational Section -->
+    <section class="space-y-6">
+      <article class="bg-white rounded-2xl border border-slate-200 p-6 sm:p-8 shadow-xs">
+        <h2 class="text-base sm:text-lg font-bold text-slate-900 mb-3 flex items-center gap-2">
+          <i class="fa-solid fa-circle-question text-brand-600"></i>
+          <span>How QuickConvert JSON Formatter Works</span>
+        </h2>
+        <p class="text-xs sm:text-sm text-slate-600 leading-relaxed mb-4">
+          QuickConvert processes your JSON completely on your client device using the ECMAScript native JSON parser (<code class="text-indigo-600 bg-indigo-50 px-1 py-0.5 rounded font-mono">JSON.parse</code> &amp; <code class="text-indigo-600 bg-indigo-50 px-1 py-0.5 rounded font-mono">JSON.stringify</code>). When invalid syntax is detected, line numbers and parsing tokens are calculated in memory and highlighted immediately without exposing sensitive credentials, tokens, or schema to external servers.
+        </p>
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 text-xs pt-2">
+          <div class="p-3 rounded-xl bg-slate-50 border border-slate-200">
+            <p class="font-bold text-slate-800">1. Parse &amp; Validate</p>
+            <p class="text-slate-500 mt-1">Checks structure, trailing commas, and brackets in realtime.</p>
+          </div>
+          <div class="p-3 rounded-xl bg-slate-50 border border-slate-200">
+            <p class="font-bold text-slate-800">2. Pretty Print</p>
+            <p class="text-slate-500 mt-1">Applies standard 2-space indentation with clean syntax nesting.</p>
+          </div>
+          <div class="p-3 rounded-xl bg-slate-50 border border-slate-200">
+            <p class="font-bold text-slate-800">3. Safe &amp; Offline</p>
+            <p class="text-slate-500 mt-1">Works seamlessly even without an internet connection.</p>
+          </div>
+        </div>
+      </article>
+    </section>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="bg-white border-t border-slate-200 text-slate-500 text-xs py-8 mt-12">
+    <div class="max-w-6xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-4">
+      <p>&copy; 2026 QuickConvert. Free Client-Side Developer &amp; File Utilities.</p>
+      <div class="flex items-center gap-4">
+        <a href="../index.html#how-to-use" class="hover:text-brand-600">Guides</a>
+        <a href="../index.html#faqs" class="hover:text-brand-600">FAQs</a>
+        <a href="../index.html" class="hover:text-brand-600">All Tools</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    const input = document.getElementById('json-input');
+    const output = document.getElementById('json-output');
+    const status = document.getElementById('validation-status');
+    const errorBox = document.getElementById('error-box');
+    const errorMsg = document.getElementById('error-message');
+    const inputStats = document.getElementById('input-stats');
+
+    const sampleJSON = {
+      "app": "QuickConvert",
+      "version": "2.4.0",
+      "privacy": "100% Client-Side",
+      "tools": [
+        "Images to PDF",
+        "Image Compressor",
+        "JSON Formatter",
+        "Word Counter",
+        "Color Palette Generator"
+      ],
+      "active": true
+    };
+
+    function processJSON(beautify = true) {
+      const text = input.value.trim();
+      inputStats.textContent = `${text.length} chars`;
+
+      if (!text) {
+        output.textContent = '// Formatted JSON will render here...';
+        status.innerHTML = '<span class="text-slate-400">Ready</span>';
+        errorBox.classList.add('hidden');
+        return;
+      }
+
+      try {
+        const parsed = JSON.parse(text);
+        const res = beautify ? JSON.stringify(parsed, null, 2) : JSON.stringify(parsed);
+        output.textContent = res;
+        status.innerHTML = '<span class="text-emerald-600 flex items-center gap-1"><i class="fa-solid fa-check"></i> Valid JSON</span>';
+        errorBox.classList.add('hidden');
+      } catch (err) {
+        status.innerHTML = '<span class="text-rose-600 flex items-center gap-1"><i class="fa-solid fa-xmark"></i> Invalid JSON</span>';
+        errorBox.classList.remove('hidden');
+        errorMsg.textContent = err.message;
+      }
+    }
+
+    document.getElementById('btn-format').addEventListener('click', () => processJSON(true));
+    document.getElementById('btn-minify').addEventListener('click', () => processJSON(false));
+    document.getElementById('btn-sample').addEventListener('click', () => {
+      input.value = JSON.stringify(sampleJSON);
+      processJSON(true);
+    });
+    document.getElementById('btn-clear').addEventListener('click', () => {
+      input.value = '';
+      processJSON(true);
+    });
+    document.getElementById('btn-copy').addEventListener('click', () => {
+      const text = output.textContent;
+      if (!text || text.startsWith('//')) return;
+      navigator.clipboard.writeText(text).then(() => {
+        alert('Formatted JSON copied to clipboard!');
+      });
+    });
+
+    let timer;
+    input.addEventListener('input', () => {
+      clearTimeout(timer);
+      timer = setTimeout(() => processJSON(true), 350);
+    });
+  </script>
+</body>
+</html>

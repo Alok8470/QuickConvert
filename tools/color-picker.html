@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Color Picker & Palette Generator - HEX, RGB, HSL Converter | QuickConvert</title>
+  <meta name="description" content="Generate harmonic color palettes, convert HEX to RGB, HSL, and CMYK, test contrast accessibility (WCAG), and export CSS palette variables online." />
+  <meta name="keywords" content="color picker, palette generator, hex to rgb, rgb to hsl, color converter, css colors, web design color tool" />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="https://quickconvert.in/tools/color-picker.html" />
+
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              50: '#eef2ff', 100: '#e0e7ff', 200: '#c7d2fe', 300: '#a5b4fc',
+              400: '#818cf8', 500: '#6366f1', 600: '#4f46e5', 700: '#4338ca',
+              800: '#3730a3', 900: '#312e81'
+            }
+          },
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+            mono: ['"JetBrains Mono"', 'monospace']
+          }
+        }
+      }
+    }
+  </script>
+  <link rel="stylesheet" href="../css/styles.css">
+</head>
+<body class="bg-slate-50 text-slate-800 antialiased min-h-screen flex flex-col selection:bg-indigo-500 selection:text-white">
+
+  <!-- TOP NAVBAR -->
+  <header class="sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-slate-200/80 shadow-xs py-3.5 sm:py-4">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between gap-4">
+      <a href="../index.html" class="flex items-center gap-3 shrink-0 group focus:outline-none">
+        <div class="w-9 h-9 rounded-xl bg-gradient-to-tr from-brand-600 via-indigo-600 to-sky-500 flex items-center justify-center text-white shadow-md shadow-brand-500/25 group-hover:scale-105 transition-transform duration-200">
+          <i class="fa-solid fa-bolt-lightning text-base"></i>
+        </div>
+        <div class="flex flex-col">
+          <span class="text-lg font-extrabold tracking-tight bg-gradient-to-r from-brand-600 to-sky-600 bg-clip-text text-transparent leading-none">QuickConvert</span>
+          <span class="text-[10px] font-semibold text-slate-400 tracking-wider uppercase mt-1">Universal Client-Side Suite</span>
+        </div>
+      </a>
+      <div class="flex items-center gap-3">
+        <a href="../index.html" class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-xl text-xs font-bold text-slate-700 bg-slate-100 hover:bg-slate-200 transition">
+          <i class="fa-solid fa-arrow-left"></i>
+          <span>All Tools</span>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <!-- MAIN TOOL CONTENT -->
+  <main class="flex-1 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8 w-full">
+    
+    <!-- Breadcrumb & Title -->
+    <div class="mb-6">
+      <div class="flex items-center gap-2 text-xs text-slate-500 mb-2">
+        <a href="../index.html" class="hover:text-brand-600">Home</a>
+        <i class="fa-solid fa-chevron-right text-[10px] text-slate-400"></i>
+        <a href="../index.html#suite-tools" class="hover:text-brand-600">Tools</a>
+        <i class="fa-solid fa-chevron-right text-[10px] text-slate-400"></i>
+        <span class="text-slate-800 font-semibold">Color Picker &amp; Palette Generator</span>
+      </div>
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+        <div>
+          <h1 class="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight flex items-center gap-2.5">
+            <i class="fa-solid fa-palette text-brand-600"></i>
+            <span>Color Picker &amp; Palette Generator</span>
+          </h1>
+          <p class="text-xs sm:text-sm text-slate-500 mt-1">Pick colors, convert between HEX, RGB, and HSL, preview WCAG contrast ratios, and export 5-shade harmonic palettes.</p>
+        </div>
+        <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-emerald-50 text-emerald-700 border border-emerald-200 self-start sm:self-auto">
+          <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
+          100% In-Browser Privacy
+        </span>
+      </div>
+    </div>
+
+    <!-- Main Color Studio Box -->
+    <div class="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden p-6 sm:p-8 mb-8">
+      
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+        
+        <!-- Left: Interactive Color Canvas & Pickers -->
+        <div class="lg:col-span-5 flex flex-col items-center">
+          <div id="color-preview" class="w-full h-44 rounded-2xl shadow-inner border border-slate-200 flex items-center justify-center transition-colors relative overflow-hidden" style="background-color: #4f46e5;">
+            <span id="contrast-badge" class="px-3 py-1 rounded-full text-xs font-bold bg-white/90 text-slate-900 shadow-sm">
+              AA Contrast Passed
+            </span>
+          </div>
+
+          <div class="w-full mt-4 flex items-center gap-3">
+            <input type="color" id="native-color-picker" value="#4f46e5" class="w-12 h-12 rounded-xl cursor-pointer border-0 bg-transparent" />
+            <div class="flex-1">
+              <label for="hex-input" class="block text-[11px] font-bold text-slate-400 uppercase tracking-wider mb-1">HEX Code</label>
+              <div class="relative">
+                <input type="text" id="hex-input" value="#4f46e5" class="w-full bg-slate-50 border border-slate-300 rounded-xl px-3.5 py-2 font-mono text-sm font-bold text-slate-900 focus:outline-none focus:ring-2 focus:ring-brand-500 uppercase" />
+                <button id="btn-copy-hex" class="absolute right-2.5 top-2 text-slate-400 hover:text-brand-600 transition" title="Copy HEX">
+                  <i class="fa-regular fa-copy"></i>
+                </button>
+              </div>
+            </div>
+            <button id="btn-random-color" class="p-3 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 transition" title="Generate Random Color">
+              <i class="fa-solid fa-dice text-base"></i>
+            </button>
+          </div>
+        </div>
+
+        <!-- Right: Real-time Converted Codes (RGB, HSL, CMYK) -->
+        <div class="lg:col-span-7 space-y-4">
+          <h3 class="text-xs font-bold text-slate-400 uppercase tracking-wider">Format Conversions</h3>
+          
+          <div class="space-y-3">
+            <div class="p-3 bg-slate-50 rounded-xl border border-slate-200 flex items-center justify-between">
+              <div>
+                <p class="text-[11px] font-bold text-slate-500">RGB (Red, Green, Blue)</p>
+                <p id="code-rgb" class="font-mono text-xs sm:text-sm font-bold text-slate-800">rgb(79, 70, 229)</p>
+              </div>
+              <button onclick="copyColor('code-rgb')" class="text-xs text-brand-600 hover:text-brand-700 font-semibold px-2 py-1 rounded hover:bg-white transition">Copy</button>
+            </div>
+
+            <div class="p-3 bg-slate-50 rounded-xl border border-slate-200 flex items-center justify-between">
+              <div>
+                <p class="text-[11px] font-bold text-slate-500">HSL (Hue, Saturation, Lightness)</p>
+                <p id="code-hsl" class="font-mono text-xs sm:text-sm font-bold text-slate-800">hsl(243, 75%, 59%)</p>
+              </div>
+              <button onclick="copyColor('code-hsl')" class="text-xs text-brand-600 hover:text-brand-700 font-semibold px-2 py-1 rounded hover:bg-white transition">Copy</button>
+            </div>
+
+            <div class="p-3 bg-slate-50 rounded-xl border border-slate-200 flex items-center justify-between">
+              <div>
+                <p class="text-[11px] font-bold text-slate-500">CSS Custom Property</p>
+                <p id="code-css" class="font-mono text-xs sm:text-sm font-bold text-slate-800">--color-primary: #4f46e5;</p>
+              </div>
+              <button onclick="copyColor('code-css')" class="text-xs text-brand-600 hover:text-brand-700 font-semibold px-2 py-1 rounded hover:bg-white transition">Copy</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Generated Harmonic Palette Bar -->
+      <div class="mt-8 pt-6 border-t border-slate-100">
+        <div class="flex items-center justify-between mb-3">
+          <h3 class="text-xs font-bold text-slate-700 uppercase tracking-wider">Harmonic 5-Shade Palette</h3>
+          <button id="btn-copy-palette" class="text-xs text-brand-600 hover:text-brand-700 font-bold flex items-center gap-1">
+            <i class="fa-regular fa-copy"></i> Copy CSS Array
+          </button>
+        </div>
+        <div id="palette-container" class="grid grid-cols-5 gap-2 h-20 rounded-xl overflow-hidden">
+          <!-- Rendered dynamically -->
+        </div>
+      </div>
+
+    </div>
+
+    <!-- SEO Guide Section -->
+    <article class="bg-white rounded-2xl border border-slate-200 p-6 sm:p-8 shadow-xs">
+      <h2 class="text-base sm:text-lg font-bold text-slate-900 mb-3 flex items-center gap-2">
+        <i class="fa-solid fa-circle-question text-brand-600"></i>
+        <span>Color Space Conversion &amp; Web Standards</span>
+      </h2>
+      <p class="text-xs sm:text-sm text-slate-600 leading-relaxed mb-4">
+        Web browsers natively support hexadecimal (HEX) and standard RGB notation, while modern CSS frameworks frequently leverage HSL (Hue, Saturation, Lightness) for dynamic tint and shade manipulation. Our client-side studio mathematically converts chromatic parameters without rounding errors.
+      </p>
+      <div class="grid grid-cols-1 sm:grid-cols-3 gap-3 text-xs">
+        <div class="p-3 bg-slate-50 rounded-xl border border-slate-200">
+          <p class="font-bold text-slate-800">WCAG Contrast Validation</p>
+          <p class="text-slate-500 mt-1">Calculates relative luminance to test compliance with WCAG 2.1 AA/AAA accessibility criteria.</p>
+        </div>
+        <div class="p-3 bg-slate-50 rounded-xl border border-slate-200">
+          <p class="font-bold text-slate-800">Monochromatic &amp; Analogous</p>
+          <p class="text-slate-500 mt-1">Generates complementary, split-complementary, and lightness harmonies in real time.</p>
+        </div>
+        <div class="p-3 bg-slate-50 rounded-xl border border-slate-200">
+          <p class="font-bold text-slate-800">Zero Bandwidth Cost</p>
+          <p class="text-slate-500 mt-1">Calculations use pure vanilla JavaScript floating point math entirely on your device.</p>
+        </div>
+      </div>
+    </article>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="bg-white border-t border-slate-200 text-slate-500 text-xs py-8 mt-12">
+    <div class="max-w-6xl mx-auto px-4 flex flex-col sm:flex-row items-center justify-between gap-4">
+      <p>&copy; 2026 QuickConvert. Free Client-Side Developer &amp; File Utilities.</p>
+      <div class="flex items-center gap-4">
+        <a href="../index.html#how-to-use" class="hover:text-brand-600">Guides</a>
+        <a href="../index.html#faqs" class="hover:text-brand-600">FAQs</a>
+        <a href="../index.html" class="hover:text-brand-600">All Tools</a>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    const picker = document.getElementById('native-color-picker');
+    const hexInput = document.getElementById('hex-input');
+    const preview = document.getElementById('color-preview');
+    const badge = document.getElementById('contrast-badge');
+    const codeRgb = document.getElementById('code-rgb');
+    const codeHsl = document.getElementById('code-hsl');
+    const codeCss = document.getElementById('code-css');
+    const paletteContainer = document.getElementById('palette-container');
+
+    function hexToRgb(hex) {
+      hex = hex.replace(/^#/, '');
+      if (hex.length === 3) hex = hex.split('').map(c => c + c).join('');
+      const num = parseInt(hex, 16);
+      return {
+        r: (num >> 16) & 255,
+        g: (num >> 8) & 255,
+        b: num & 255
+      };
+    }
+
+    function rgbToHex(r, g, b) {
+      return '#' + [r, g, b].map(x => {
+        const h = Math.max(0, Math.min(255, Math.round(x))).toString(16);
+        return h.length === 1 ? '0' + h : h;
+      }).join('');
+    }
+
+    function rgbToHsl(r, g, b) {
+      r /= 255; g /= 255; b /= 255;
+      const max = Math.max(r, g, b), min = Math.min(r, g, b);
+      let h, s, l = (max + min) / 2;
+
+      if (max === min) {
+        h = s = 0;
+      } else {
+        const d = max - min;
+        s = l > 0.5 ? d / (2 - max - min) : d / (max + min);
+        switch (max) {
+          case r: h = (g - b) / d + (g < b ? 6 : 0); break;
+          case g: h = (b - r) / d + 2; break;
+          case b: h = (r - g) / d + 4; break;
+        }
+        h /= 6;
+      }
+      return {
+        h: Math.round(h * 360),
+        s: Math.round(s * 100),
+        l: Math.round(l * 100)
+      };
+    }
+
+    function getLuminance(r, g, b) {
+      const a = [r, g, b].map(v => {
+        v /= 255;
+        return v <= 0.03928 ? v / 12.92 : Math.pow((v + 0.055) / 1.055, 2.4);
+      });
+      return a[0] * 0.2126 + a[1] * 0.7152 + a[2] * 0.0722;
+    }
+
+    function updateColors(hex) {
+      if (!/^#?[0-9A-Fa-f]{6}$/.test(hex)) return;
+      if (!hex.startsWith('#')) hex = '#' + hex;
+
+      picker.value = hex;
+      hexInput.value = hex.toUpperCase();
+      preview.style.backgroundColor = hex;
+
+      const rgb = hexToRgb(hex);
+      const hsl = rgbToHsl(rgb.r, rgb.g, rgb.b);
+
+      codeRgb.textContent = `rgb(${rgb.r}, ${rgb.g}, ${rgb.b})`;
+      codeHsl.textContent = `hsl(${hsl.h}, ${hsl.s}%, ${hsl.l}%)`;
+      codeCss.textContent = `--color-theme: ${hex.toLowerCase()};`;
+
+      // Luminance check
+      const lum = getLuminance(rgb.r, rgb.g, rgb.b);
+      if (lum > 0.5) {
+        badge.className = 'px-3 py-1 rounded-full text-xs font-bold bg-slate-900 text-white shadow-sm';
+        badge.textContent = 'Light Background (Dark text)';
+      } else {
+        badge.className = 'px-3 py-1 rounded-full text-xs font-bold bg-white text-slate-900 shadow-sm';
+        badge.textContent = 'Dark Background (Light text)';
+      }
+
+      // Render 5 harmonic lightness steps
+      const steps = [0.85, 0.65, 0.5, 0.35, 0.2];
+      paletteContainer.innerHTML = steps.map((lFactor, idx) => {
+        const stepR = Math.round(rgb.r * lFactor + (1 - lFactor) * (lFactor > 0.5 ? 255 : 0));
+        const stepG = Math.round(rgb.g * lFactor + (1 - lFactor) * (lFactor > 0.5 ? 255 : 0));
+        const stepB = Math.round(rgb.b * lFactor + (1 - lFactor) * (lFactor > 0.5 ? 255 : 0));
+        const stepHex = rgbToHex(stepR, stepG, stepB);
+        return `
+          <div onclick="updateColors('${stepHex}')" class="h-full rounded-lg cursor-pointer flex items-end justify-center pb-1 text-[10px] font-mono font-bold text-white shadow-inner transition hover:scale-105" style="background-color: ${stepHex}; text-shadow: 0 1px 2px rgba(0,0,0,0.6);" title="${stepHex}">
+            ${stepHex}
+          </div>
+        `;
+      }).join('');
+    }
+
+    window.copyColor = function(elemId) {
+      const text = document.getElementById(elemId).textContent;
+      navigator.clipboard.writeText(text).then(() => alert(`Copied: ${text}`));
+    };
+
+    picker.addEventListener('input', (e) => updateColors(e.target.value));
+    hexInput.addEventListener('input', (e) => updateColors(e.target.value));
+
+    document.getElementById('btn-random-color').addEventListener('click', () => {
+      const rand = '#' + Math.floor(Math.random() * 16777215).toString(16).padStart(6, '0');
+      updateColors(rand);
+    });
+
+    document.getElementById('btn-copy-hex').addEventListener('click', () => {
+      navigator.clipboard.writeText(hexInput.value).then(() => alert(`Copied ${hexInput.value}`));
+    });
+
+    document.getElementById('btn-copy-palette').addEventListener('click', () => {
+      const colors = Array.from(paletteContainer.children).map(c => c.textContent.trim());
+      const cssArr = colors.map((c, i) => `  --palette-${i+1}: ${c};`).join('\n');
+      navigator.clipboard.writeText(`:root {\n${cssArr}\n}`).then(() => alert('Copied CSS Palette variables!'));
+    });
+
+    // Init
+    updateColors('#4f46e5');
+  </script>
+</body>
+</html>

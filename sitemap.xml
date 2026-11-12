@@ -67,9 +67,89 @@
   <!-- User Feedback & Review Modal -->
   <url>
     <loc>https://quickconvert.in/#feedback</loc>
-    <lastmod>2026-11-11</lastmod>
+    <lastmod>2026-11-12</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.6</priority>
+  </url>
+
+  <!-- Dedicated Tool Page: JSON Formatter -->
+  <url>
+    <loc>https://quickconvert.in/tools/json-formatter.html</loc>
+    <lastmod>2026-11-12</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+
+  <!-- Dedicated Tool Page: Word Counter -->
+  <url>
+    <loc>https://quickconvert.in/tools/word-counter.html</loc>
+    <lastmod>2026-11-12</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+
+  <!-- Dedicated Tool Page: Color Studio & Palette Generator -->
+  <url>
+    <loc>https://quickconvert.in/tools/color-picker.html</loc>
+    <lastmod>2026-11-12</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+
+  <!-- Dedicated Tool Page: Image to PDF -->
+  <url>
+    <loc>https://quickconvert.in/tools/image-to-pdf.html</loc>
+    <lastmod>2026-11-12</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+
+  <!-- Dedicated Tool Page: Image Compressor -->
+  <url>
+    <loc>https://quickconvert.in/tools/image-compressor.html</loc>
+    <lastmod>2026-11-12</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+
+  <!-- Dedicated Tool Page: Image Format Converter -->
+  <url>
+    <loc>https://quickconvert.in/tools/image-converter.html</loc>
+    <lastmod>2026-11-12</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+
+  <!-- Dedicated Tool Page: Text to PDF -->
+  <url>
+    <loc>https://quickconvert.in/tools/text-to-pdf.html</loc>
+    <lastmod>2026-11-12</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+
+  <!-- Dedicated Tool Page: QR Code Generator -->
+  <url>
+    <loc>https://quickconvert.in/tools/qr-generator.html</loc>
+    <lastmod>2026-11-12</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+
+  <!-- Dedicated Tool Page: Secure Password Generator -->
+  <url>
+    <loc>https://quickconvert.in/tools/password-generator.html</loc>
+    <lastmod>2026-11-12</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+
+  <!-- Dedicated Tool Page: Unit Converter -->
+  <url>
+    <loc>https://quickconvert.in/tools/unit-converter.html</loc>
+    <lastmod>2026-11-12</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
   </url>
 
   <!-- Documentation & User Guides -->

@@ -25,6 +25,7 @@ if (!fs.existsSync('dist')) {
 if (fs.existsSync('index.html')) fs.copyFileSync('index.html', path.join('dist', 'index.html'));
 if (fs.existsSync('robots.txt')) fs.copyFileSync('robots.txt', path.join('dist', 'robots.txt'));
 if (fs.existsSync('sitemap.xml')) fs.copyFileSync('sitemap.xml', path.join('dist', 'sitemap.xml'));
+if (fs.existsSync('tools')) copyRecursiveSync('tools', path.join('dist', 'tools'));
 if (fs.existsSync('js')) copyRecursiveSync('js', path.join('dist', 'js'));
 if (fs.existsSync('css')) copyRecursiveSync('css', path.join('dist', 'css'));
 
