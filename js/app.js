@@ -1268,13 +1268,8 @@
   }
 
   // ==========================================
-  // 8B. FEEDBACK MODAL & STAR RATING
+  // 8B. FEEDBACK HANDLER (MODAL & DEDICATED PAGE)
   // ==========================================
-
-  const feedbackForm = document.getElementById('quickconvert-feedback-form');
-  const fbStars = document.querySelectorAll('.fb-star');
-  const fbRatingInput = document.getElementById('fb-rating');
-  const fbRatingText = document.getElementById('fb-rating-text');
 
   const ratingLabels = {
     1: '1 - Poor',
@@ -1283,6 +1278,22 @@
     4: '4 - Very Good',
     5: '5 - Excellent!'
   };
+
+  // Helper to record feedback in localStorage
+  function saveFeedbackLocally(data) {
+    try {
+      const history = JSON.parse(localStorage.getItem('qc_feedback_submissions') || '[]');
+      history.unshift({ ...data, timestamp: new Date().toISOString() });
+      localStorage.setItem('qc_feedback_submissions', JSON.stringify(history.slice(0, 20)));
+    } catch (e) {
+      // Ignore localStorage errors
+    }
+  }
+
+  // 1) Modal Feedback Star Rating
+  const fbStars = document.querySelectorAll('.fb-star');
+  const fbRatingInput = document.getElementById('fb-rating');
+  const fbRatingText = document.getElementById('fb-rating-text');
 
   function updateStars(rating) {
     if (fbRatingInput) fbRatingInput.value = rating;
@@ -1307,12 +1318,14 @@
     });
   });
 
+  // Modal Form Submission Handler
+  const feedbackForm = document.getElementById('quickconvert-feedback-form');
   if (feedbackForm) {
     feedbackForm.addEventListener('submit', async (e) => {
       e.preventDefault();
-      const name = document.getElementById('fb-name').value.trim();
-      const email = document.getElementById('fb-email').value.trim();
-      const message = document.getElementById('fb-message').value.trim();
+      const name = document.getElementById('fb-name')?.value.trim();
+      const email = document.getElementById('fb-email')?.value.trim();
+      const message = document.getElementById('fb-message')?.value.trim();
       const rating = fbRatingInput ? fbRatingInput.value : '5';
 
       if (!name || !email || !message) {
@@ -1327,8 +1340,9 @@
         submitBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Submitting...';
       }
 
+      saveFeedbackLocally({ name, email, rating, message, form: 'modal' });
+
       try {
-        // Attempt submit via Formspree fetch
         const response = await fetch(feedbackForm.action, {
           method: 'POST',
           headers: {
@@ -1339,13 +1353,12 @@
         });
 
         if (response.ok) {
-          showToast(`Thank you ${name}! Your review (${rating}★) was submitted successfully.`, 'success');
+          showToast(`Thank you ${name}! Your review (${rating}★) was sent successfully.`, 'success');
         } else {
-          // Graceful fallback for offline / rate limited / free tier endpoints
-          showToast(`Thank you ${name}! Your review (${rating}★) has been recorded locally.`, 'success');
+          showToast(`Thank you ${name}! Your feedback (${rating}★) has been recorded.`, 'success');
         }
       } catch (err) {
-        showToast(`Thank you ${name}! Your review (${rating}★) has been recorded.`, 'success');
+        showToast(`Thank you ${name}! Your feedback (${rating}★) has been recorded.`, 'success');
       } finally {
         if (submitBtn) {
           submitBtn.disabled = false;
@@ -1357,6 +1370,106 @@
         if (modal) closeModal(modal);
       }
     });
+  }
+
+  // 2) Dedicated /feedback Page Star Rating & Form Handler
+  const pageFbStars = document.querySelectorAll('.page-star');
+  const pageFbRatingInput = document.getElementById('page-fb-rating');
+  const pageFbRatingText = document.getElementById('page-fb-rating-text');
+
+  function updatePageStars(rating) {
+    if (pageFbRatingInput) pageFbRatingInput.value = rating;
+    if (pageFbRatingText) pageFbRatingText.textContent = ratingLabels[rating] || `${rating} Stars`;
+
+    pageFbStars.forEach((star) => {
+      const starVal = parseInt(star.getAttribute('data-rating'), 10);
+      if (starVal <= rating) {
+        star.classList.remove('fa-regular', 'text-slate-300');
+        star.classList.add('fa-solid', 'text-amber-400');
+      } else {
+        star.classList.remove('fa-solid', 'text-amber-400');
+        star.classList.add('fa-regular', 'text-slate-300');
+      }
+    });
+  }
+
+  pageFbStars.forEach((star) => {
+    star.addEventListener('click', () => {
+      const rating = parseInt(star.getAttribute('data-rating'), 10);
+      updatePageStars(rating);
+    });
+  });
+
+  const dedicatedFeedbackForm = document.getElementById('dedicated-feedback-form');
+  const feedbackSuccessState = document.getElementById('feedback-success-state');
+  const feedbackResetBtn = document.getElementById('feedback-reset-btn');
+
+  if (dedicatedFeedbackForm) {
+    dedicatedFeedbackForm.addEventListener('submit', async (e) => {
+      e.preventDefault();
+      const name = document.getElementById('page-fb-name')?.value.trim();
+      const email = document.getElementById('page-fb-email')?.value.trim();
+      const category = document.getElementById('page-fb-category')?.value || 'General Review';
+      const message = document.getElementById('page-fb-message')?.value.trim();
+      const rating = pageFbRatingInput ? pageFbRatingInput.value : '5';
+
+      if (!name || !email || !message) {
+        showToast('Please fill out all required fields before submitting.', 'error');
+        return;
+      }
+
+      const submitBtn = document.getElementById('page-fb-submit-btn');
+      const originalText = submitBtn ? submitBtn.innerHTML : 'Submit Feedback';
+      if (submitBtn) {
+        submitBtn.disabled = true;
+        submitBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Submitting...';
+      }
+
+      saveFeedbackLocally({ name, email, rating, category, message, form: 'page' });
+
+      try {
+        const response = await fetch(dedicatedFeedbackForm.action, {
+          method: 'POST',
+          headers: {
+            'Accept': 'application/json',
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify({ name, email, rating, category, message })
+        });
+
+        if (response.ok) {
+          showToast(`Thank you, ${name}! Your review (${rating}★) was delivered.`, 'success');
+        } else {
+          showToast(`Thank you, ${name}! Your review has been recorded.`, 'success');
+        }
+      } catch (err) {
+        showToast(`Thank you, ${name}! Your feedback has been recorded.`, 'success');
+      } finally {
+        if (submitBtn) {
+          submitBtn.disabled = false;
+          submitBtn.innerHTML = originalText;
+        }
+
+        // Display inline success card
+        if (feedbackSuccessState) {
+          dedicatedFeedbackForm.classList.add('hidden');
+          feedbackSuccessState.classList.remove('hidden');
+          const title = document.getElementById('feedback-success-title');
+          const desc = document.getElementById('feedback-success-desc');
+          if (title) title.textContent = `Thank You, ${name}!`;
+          if (desc) desc.textContent = `Your ${rating}★ feedback regarding "${category}" has been received. We review every suggestion to make QuickConvert better.`;
+        }
+      }
+    });
+
+    if (feedbackResetBtn) {
+      feedbackResetBtn.addEventListener('click', () => {
+        if (feedbackSuccessState) feedbackSuccessState.classList.add('hidden');
+        dedicatedFeedbackForm.classList.remove('hidden');
+        dedicatedFeedbackForm.reset();
+        updatePageStars(5);
+      });
+    }
   }
 
   // ==========================================

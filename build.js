@@ -23,6 +23,8 @@ if (!fs.existsSync('dist')) {
 
 // Copy essential files to dist
 if (fs.existsSync('index.html')) fs.copyFileSync('index.html', path.join('dist', 'index.html'));
+if (fs.existsSync('feedback.html')) fs.copyFileSync('feedback.html', path.join('dist', 'feedback.html'));
+if (fs.existsSync('favicon.svg')) fs.copyFileSync('favicon.svg', path.join('dist', 'favicon.svg'));
 if (fs.existsSync('robots.txt')) fs.copyFileSync('robots.txt', path.join('dist', 'robots.txt'));
 if (fs.existsSync('sitemap.xml')) fs.copyFileSync('sitemap.xml', path.join('dist', 'sitemap.xml'));
 if (fs.existsSync('tools')) copyRecursiveSync('tools', path.join('dist', 'tools'));

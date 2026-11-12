@@ -72,6 +72,14 @@
     <priority>0.6</priority>
   </url>
 
+  <!-- Dedicated Feedback & Review Page -->
+  <url>
+    <loc>https://quickconvert.in/feedback.html</loc>
+    <lastmod>2026-11-12</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+
   <!-- Dedicated Tool Page: JSON Formatter -->
   <url>
     <loc>https://quickconvert.in/tools/json-formatter.html</loc>
