@@ -1,0 +1,540 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <!-- Google Tag Manager / Google Analytics -->
+  <script async src="https://www.googletagmanager.com/gtm.js?id=GTM-PF96NZS9"></script>
+  <script>
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+  </script>
+
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Edit PDF Online - Annotate & Add Text Directly - QuickConvert</title>
+  <meta name="description" content="Add text annotations, notes, highlight boxes, and date stamps directly onto PDF pages in your browser runtime without third-party server uploads." />
+  <meta name="keywords" content="edit pdf, annotate pdf, add text to pdf, write on pdf, modify pdf online" />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="https://quickconvert.in/tools/edit-pdf.html" />
+
+  <!-- Website Favicon (Tab Logo) -->
+  <link rel="icon" type="image/svg+xml" href="../favicon.svg" />
+  <link rel="alternate icon" href="../favicon.svg" />
+
+  <!-- Fonts & Icons -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              50: '#eef2ff',
+              100: '#e0e7ff',
+              200: '#c7d2fe',
+              300: '#a5b4fc',
+              400: '#818cf8',
+              500: '#6366f1',
+              600: '#4f46e5',
+              700: '#4338ca',
+              800: '#3730a3',
+              900: '#312e81',
+            },
+            accent: {
+              500: '#0284c7',
+              600: '#0369a1',
+            }
+          },
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+            mono: ['"JetBrains Mono"', 'monospace'],
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- Client-Side PDF Processing Engines -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf-lib/1.17.1/pdf-lib.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+  <script>
+    if (typeof pdfjsLib !== 'undefined') {
+      pdfjsLib.GlobalWorkerOptions.workerSrc = 'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+    }
+  </script>
+
+  <link rel="stylesheet" href="../css/styles.css">
+</head>
+<body class="bg-slate-50 text-slate-800 antialiased min-h-screen flex flex-col selection:bg-indigo-500 selection:text-white">
+
+  <!-- Toast Notification Container -->
+  <div id="toast-container" class="fixed bottom-5 right-5 z-50 flex flex-col gap-2 max-w-sm w-full pointer-events-auto"></div>
+
+  <!-- TOP NAVBAR -->
+  <header class="sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-slate-200/80 shadow-xs py-3.5 sm:py-4">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between gap-4">
+      
+      <!-- Brand Logo -->
+      <a href="../index.html" class="flex items-center gap-3 shrink-0 group focus:outline-none">
+        <div class="w-9 h-9 rounded-xl bg-gradient-to-tr from-brand-600 via-indigo-600 to-accent-500 flex items-center justify-center text-white shadow-md shadow-brand-500/25 group-hover:scale-105 transition-transform duration-200 shrink-0">
+          <i class="fa-solid fa-bolt-lightning text-base"></i>
+        </div>
+        <div class="flex flex-col">
+          <span class="text-lg font-extrabold tracking-tight bg-gradient-to-r from-brand-600 to-accent-600 bg-clip-text text-transparent leading-none">
+            QuickConvert
+          </span>
+          <span class="text-[10px] font-semibold text-slate-400 tracking-wider uppercase mt-1">
+            Universal Client-Side Suite
+          </span>
+        </div>
+      </a>
+
+      <!-- Navigation Actions -->
+      <div class="flex items-center gap-2.5">
+        
+        <!-- Interactive All Tools Dropdown Mega-Menu -->
+        <div class="relative group/mega" id="nav-tools-dropdown-container">
+          <button 
+            type="button" 
+            id="nav-tools-dropdown-btn" 
+            aria-expanded="false" 
+            aria-haspopup="true" 
+            class="flex items-center gap-1.5 px-3 py-1.5 rounded-xl text-xs font-bold text-slate-700 bg-slate-100 hover:bg-slate-200 hover:text-brand-600 transition cursor-pointer focus:outline-none"
+          >
+            <i class="fa-solid fa-layer-group text-brand-600 text-xs"></i>
+            <span>All Tools</span>
+            <i id="nav-tools-arrow" class="fa-solid fa-chevron-down text-[10px] text-slate-400 group-hover/mega:text-brand-600 group-hover/mega:rotate-180 transition-transform duration-200"></i>
+          </button>
+
+          <!-- Floating Mega-Menu Panel -->
+          <div 
+            id="nav-tools-mega-menu" 
+            class="mega-menu-panel absolute right-0 top-full pt-3 w-[740px] max-w-[94vw] z-50 pointer-events-none invisible opacity-0 -translate-y-1 transition-all duration-200 ease-out group-hover/mega:pointer-events-auto group-hover/mega:visible group-hover/mega:opacity-100 group-hover/mega:translate-y-0"
+          >
+            <div class="bg-white rounded-2xl border border-slate-200/90 shadow-2xl shadow-slate-900/12 overflow-hidden ring-1 ring-slate-900/5 text-left">
+              
+              <!-- 4-Category Grid -->
+              <div class="grid grid-cols-2 md:grid-cols-4 gap-4 p-5 bg-gradient-to-b from-slate-50/50 to-white text-xs">
+                
+                <!-- Category 1: PDF Essentials -->
+                <div class="space-y-1.5">
+                  <div class="flex items-center gap-1.5 px-2 pb-1 text-[11px] font-bold uppercase tracking-wider text-indigo-600 border-b border-indigo-100/60">
+                    <i class="fa-solid fa-file-pdf text-xs"></i>
+                    <span>PDF Core</span>
+                  </div>
+                  <div class="space-y-0.5 pt-1">
+                    <a href="merge-pdf.html" class="flex items-start gap-2 p-1.5 rounded-lg hover:bg-indigo-50/60 transition group/item">
+                      <i class="fa-solid fa-object-group text-indigo-600 text-xs mt-0.5"></i>
+                      <span class="font-bold text-slate-800 group-hover/item:text-indigo-600 transition truncate">Merge PDF</span>
+                    </a>
+                    <a href="split-pdf.html" class="flex items-start gap-2 p-1.5 rounded-lg hover:bg-indigo-50/60 transition group/item">
+                      <i class="fa-solid fa-scissors text-indigo-600 text-xs mt-0.5"></i>
+                      <span class="font-bold text-slate-800 group-hover/item:text-indigo-600 transition truncate">Split PDF</span>
+                    </a>
+                    <a href="rotate-pdf.html" class="flex items-start gap-2 p-1.5 rounded-lg hover:bg-indigo-50/60 transition group/item">
+                      <i class="fa-solid fa-rotate text-indigo-600 text-xs mt-0.5"></i>
+                      <span class="font-bold text-slate-800 group-hover/item:text-indigo-600 transition truncate">Rotate PDF</span>
+                    </a>
+                    <a href="image-to-pdf.html" class="flex items-start gap-2 p-1.5 rounded-lg hover:bg-indigo-50/60 transition group/item">
+                      <i class="fa-solid fa-images text-indigo-600 text-xs mt-0.5"></i>
+                      <span class="font-bold text-slate-800 group-hover/item:text-indigo-600 transition truncate">Images to PDF</span>
+                    </a>
+                    <a href="text-to-pdf.html" class="flex items-start gap-2 p-1.5 rounded-lg hover:bg-indigo-50/60 transition group/item">
+                      <i class="fa-solid fa-file-lines text-indigo-600 text-xs mt-0.5"></i>
+                      <span class="font-bold text-slate-800 group-hover/item:text-indigo-600 transition truncate">Text to PDF</span>
+                    </a>
+                  </div>
+                </div>
+
+                <!-- Category 2: PDF Edit & Sign -->
+                <div class="space-y-1.5">
+                  <div class="flex items-center gap-1.5 px-2 pb-1 text-[11px] font-bold uppercase tracking-wider text-rose-600 border-b border-rose-100/60">
+                    <i class="fa-solid fa-pen-nib text-xs"></i>
+                    <span>Edit &amp; Security</span>
+                  </div>
+                  <div class="space-y-0.5 pt-1">
+                    <a href="sign-pdf.html" class="flex items-start gap-2 p-1.5 rounded-lg hover:bg-rose-50/60 transition group/item">
+                      <i class="fa-solid fa-signature text-rose-600 text-xs mt-0.5"></i>
+                      <span class="font-bold text-slate-800 group-hover/item:text-rose-600 transition truncate">Sign PDF</span>
+                    </a>
+                    <a href="edit-pdf.html" class="flex items-start gap-2 p-1.5 rounded-lg hover:bg-rose-50/60 transition group/item">
+                      <i class="fa-solid fa-pen-to-square text-rose-600 text-xs mt-0.5"></i>
+                      <span class="font-bold text-slate-800 group-hover/item:text-rose-600 transition truncate">Edit PDF</span>
+                    </a>
+                    <a href="watermark-pdf.html" class="flex items-start gap-2 p-1.5 rounded-lg hover:bg-rose-50/60 transition group/item">
+                      <i class="fa-solid fa-stamp text-rose-600 text-xs mt-0.5"></i>
+                      <span class="font-bold text-slate-800 group-hover/item:text-rose-600 transition truncate">Add Watermark</span>
+                    </a>
+                    <a href="image-compressor.html" class="flex items-start gap-2 p-1.5 rounded-lg hover:bg-rose-50/60 transition group/item">
+                      <i class="fa-solid fa-compress text-rose-600 text-xs mt-0.5"></i>
+                      <span class="font-bold text-slate-800 group-hover/item:text-rose-600 transition truncate">Image Compress</span>
+                    </a>
+                    <a href="image-converter.html" class="flex items-start gap-2 p-1.5 rounded-lg hover:bg-rose-50/60 transition group/item">
+                      <i class="fa-solid fa-arrow-right-arrow-left text-rose-600 text-xs mt-0.5"></i>
+                      <span class="font-bold text-slate-800 group-hover/item:text-rose-600 transition truncate">Image Convert</span>
+                    </a>
+                  </div>
+                </div>
+
+                <!-- Category 3: Convert to/from Office -->
+                <div class="space-y-1.5">
+                  <div class="flex items-center gap-1.5 px-2 pb-1 text-[11px] font-bold uppercase tracking-wider text-blue-600 border-b border-blue-100/60">
+                    <i class="fa-solid fa-file-word text-xs"></i>
+                    <span>Office Suite</span>
+                  </div>
+                  <div class="space-y-0.5 pt-1">
+                    <a href="pdf-to-word.html" class="flex items-start gap-2 p-1.5 rounded-lg hover:bg-blue-50/60 transition group/item">
+                      <i class="fa-solid fa-file-word text-blue-600 text-xs mt-0.5"></i>
+                      <span class="font-bold text-slate-800 group-hover/item:text-blue-600 transition truncate">PDF to Word</span>
+                    </a>
+                    <a href="word-to-pdf.html" class="flex items-start gap-2 p-1.5 rounded-lg hover:bg-blue-50/60 transition group/item">
+                      <i class="fa-solid fa-file-lines text-blue-600 text-xs mt-0.5"></i>
+                      <span class="font-bold text-slate-800 group-hover/item:text-blue-600 transition truncate">Word to PDF</span>
+                    </a>
+                    <a href="pdf-to-excel.html" class="flex items-start gap-2 p-1.5 rounded-lg hover:bg-blue-50/60 transition group/item">
+                      <i class="fa-solid fa-file-excel text-emerald-600 text-xs mt-0.5"></i>
+                      <span class="font-bold text-slate-800 group-hover/item:text-blue-600 transition truncate">PDF to Excel</span>
+                    </a>
+                    <a href="pdf-to-powerpoint.html" class="flex items-start gap-2 p-1.5 rounded-lg hover:bg-blue-50/60 transition group/item">
+                      <i class="fa-solid fa-file-powerpoint text-orange-600 text-xs mt-0.5"></i>
+                      <span class="font-bold text-slate-800 group-hover/item:text-blue-600 transition truncate">PDF to PPT</span>
+                    </a>
+                    <a href="qr-generator.html" class="flex items-start gap-2 p-1.5 rounded-lg hover:bg-blue-50/60 transition group/item">
+                      <i class="fa-solid fa-qrcode text-purple-600 text-xs mt-0.5"></i>
+                      <span class="font-bold text-slate-800 group-hover/item:text-blue-600 transition truncate">QR Generator</span>
+                    </a>
+                  </div>
+                </div>
+
+                <!-- Category 4: Developer & Daily -->
+                <div class="space-y-1.5">
+                  <div class="flex items-center gap-1.5 px-2 pb-1 text-[11px] font-bold uppercase tracking-wider text-teal-600 border-b border-teal-100/60">
+                    <i class="fa-solid fa-code text-xs"></i>
+                    <span>Dev &amp; Daily</span>
+                  </div>
+                  <div class="space-y-0.5 pt-1">
+                    <a href="json-formatter.html" class="flex items-start gap-2 p-1.5 rounded-lg hover:bg-teal-50/60 transition group/item">
+                      <i class="fa-solid fa-code text-sky-600 text-xs mt-0.5"></i>
+                      <span class="font-bold text-slate-800 group-hover/item:text-teal-600 transition truncate">JSON Formatter</span>
+                    </a>
+                    <a href="color-picker.html" class="flex items-start gap-2 p-1.5 rounded-lg hover:bg-teal-50/60 transition group/item">
+                      <i class="fa-solid fa-palette text-pink-600 text-xs mt-0.5"></i>
+                      <span class="font-bold text-slate-800 group-hover/item:text-teal-600 transition truncate">Color Studio</span>
+                    </a>
+                    <a href="word-counter.html" class="flex items-start gap-2 p-1.5 rounded-lg hover:bg-teal-50/60 transition group/item">
+                      <i class="fa-solid fa-font text-teal-600 text-xs mt-0.5"></i>
+                      <span class="font-bold text-slate-800 group-hover/item:text-teal-600 transition truncate">Word Counter</span>
+                    </a>
+                    <a href="password-generator.html" class="flex items-start gap-2 p-1.5 rounded-lg hover:bg-teal-50/60 transition group/item">
+                      <i class="fa-solid fa-key text-blue-600 text-xs mt-0.5"></i>
+                      <span class="font-bold text-slate-800 group-hover/item:text-teal-600 transition truncate">Password Gen</span>
+                    </a>
+                    <a href="unit-converter.html" class="flex items-start gap-2 p-1.5 rounded-lg hover:bg-teal-50/60 transition group/item">
+                      <i class="fa-solid fa-scale-balanced text-indigo-600 text-xs mt-0.5"></i>
+                      <span class="font-bold text-slate-800 group-hover/item:text-teal-600 transition truncate">Unit Converter</span>
+                    </a>
+                  </div>
+                </div>
+
+              </div>
+
+              <!-- Mega-Menu Footer Utility Bar -->
+              <div class="px-5 py-3 bg-slate-50 border-t border-slate-100 flex items-center justify-between text-xs">
+                <div class="flex items-center gap-2 text-slate-500 font-medium">
+                  <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+                  <span>100% In-Browser Privacy • Zero Server Uploads</span>
+                </div>
+                <div class="flex items-center gap-3">
+                  <a href="../index.html#suite-tools" class="text-slate-600 hover:text-brand-600 font-semibold transition flex items-center gap-1">
+                    <span>View Grid</span>
+                    <i class="fa-solid fa-arrow-right text-[10px]"></i>
+                  </a>
+                </div>
+              </div>
+
+            </div>
+          </div>
+        </div>
+
+        <!-- Back to Homepage Link -->
+        <a href="../index.html" class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-xl text-xs font-bold text-slate-700 bg-slate-100 hover:bg-slate-200 transition">
+          <i class="fa-solid fa-house text-xs"></i>
+          <span class="hidden sm:inline">Home</span>
+        </a>
+      </div>
+
+    </div>
+  </header>
+
+  <!-- MAIN TOOL CONTENT -->
+  <main class="flex-1 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8 w-full">
+    
+    <!-- Breadcrumb & Title -->
+    <div class="mb-6">
+      <div class="flex items-center gap-2 text-xs text-slate-500 mb-2">
+        <a href="../index.html" class="hover:text-brand-600">Home</a>
+        <i class="fa-solid fa-chevron-right text-[10px] text-slate-400"></i>
+        <a href="../index.html#suite-tools" class="hover:text-brand-600">PDF Tools</a>
+        <i class="fa-solid fa-chevron-right text-[10px] text-slate-400"></i>
+        <span class="text-slate-800 font-semibold">Edit PDF Online</span>
+      </div>
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+        <div>
+          <h1 class="text-2xl sm:text-3xl font-black text-slate-900 tracking-tight flex items-center gap-2.5">
+            <i class="fa-solid fa-pen-to-square text-brand-600"></i>
+            <span>Edit PDF Online</span>
+          </h1>
+          <p class="text-xs sm:text-sm text-slate-500 mt-1">Add text comments, annotations, boxes, and date stamps directly to any page.</p>
+        </div>
+        <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-emerald-50 text-emerald-700 border border-emerald-200 self-start sm:self-auto">
+          <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
+          In-Browser Annotations
+        </span>
+      </div>
+    </div>
+
+    
+    <div class="bg-white rounded-3xl border border-slate-200/90 shadow-xl shadow-slate-900/5 p-6 sm:p-8 mb-8">
+      
+      <div id="edit-dropzone" class="border-2 border-dashed border-slate-300 hover:border-brand-500 rounded-2xl p-8 sm:p-12 text-center transition-all bg-slate-50/60 hover:bg-indigo-50/20 cursor-pointer">
+        <input type="file" id="edit-input" accept=".pdf,application/pdf" class="hidden" />
+        <div class="w-16 h-16 rounded-2xl bg-rose-50 border border-rose-100 text-rose-600 flex items-center justify-center text-2xl mx-auto mb-4 shadow-xs">
+          <i class="fa-solid fa-pen-to-square"></i>
+        </div>
+        <h3 class="text-base sm:text-lg font-bold text-slate-900">Select a PDF file to edit</h3>
+        <p class="text-xs sm:text-sm text-slate-500 mt-1.5">Add text notes, highlight remarks, and annotations in your browser</p>
+        <button type="button" onclick="document.getElementById('edit-input').click()" class="mt-4 px-5 py-2.5 rounded-xl bg-brand-600 hover:bg-brand-700 text-white font-bold text-xs sm:text-sm transition shadow-sm">
+          Browse PDF Document
+        </button>
+      </div>
+
+      <div id="edit-options" class="hidden mt-6 space-y-5">
+        <div class="p-4 rounded-2xl bg-slate-50 border border-slate-200 flex items-center justify-between">
+          <div class="flex items-center gap-3">
+            <i class="fa-solid fa-file-pdf text-rose-600 text-2xl"></i>
+            <div>
+              <h4 id="edit-filename" class="text-xs font-bold text-slate-900 truncate">document.pdf</h4>
+              <p id="edit-pages-info" class="text-[11px] text-slate-500 font-mono">0 pages detected</p>
+            </div>
+          </div>
+          <button id="edit-change-file" class="text-xs font-semibold text-brand-600 hover:underline">Change File</button>
+        </div>
+
+        <div>
+          <label class="block text-xs font-bold text-slate-700 mb-1.5">Annotation Text / Note</label>
+          <textarea id="edit-text" rows="3" placeholder="Enter text note or annotation to stamp onto document..." class="w-full p-3 rounded-xl border border-slate-300 text-xs focus:ring-2 focus:ring-brand-500 focus:outline-none"></textarea>
+        </div>
+
+        <div class="grid grid-cols-1 sm:grid-cols-3 gap-4">
+          <div>
+            <label class="block text-xs font-bold text-slate-700 mb-1.5">Target Page</label>
+            <input type="number" id="edit-page-num" min="1" value="1" class="w-full p-2.5 rounded-xl border border-slate-300 text-xs font-bold bg-white focus:ring-2 focus:ring-brand-500 focus:outline-none" />
+          </div>
+
+          <div>
+            <label class="block text-xs font-bold text-slate-700 mb-1.5">Placement Position</label>
+            <select id="edit-position" class="w-full p-2.5 rounded-xl border border-slate-300 text-xs font-bold bg-white focus:ring-2 focus:ring-brand-500 focus:outline-none">
+              <option value="top-left">Top-Left Margin</option>
+              <option value="top-right">Top-Right Margin</option>
+              <option value="center">Center of Page</option>
+              <option value="bottom-left" selected>Bottom-Left Margin</option>
+              <option value="bottom-right">Bottom-Right Margin</option>
+            </select>
+          </div>
+
+          <div>
+            <label class="block text-xs font-bold text-slate-700 mb-1.5">Highlight Box</label>
+            <select id="edit-box-style" class="w-full p-2.5 rounded-xl border border-slate-300 text-xs font-bold bg-white focus:ring-2 focus:ring-brand-500 focus:outline-none">
+              <option value="yellow">Yellow Highlight Box</option>
+              <option value="white">White Opaque Box</option>
+              <option value="none">Text Only (No Background)</option>
+            </select>
+          </div>
+        </div>
+
+        <div class="pt-4 border-t border-slate-100 flex justify-end">
+          <button id="edit-action-btn" class="px-6 py-3 rounded-xl bg-brand-600 hover:bg-brand-700 text-white font-bold text-xs sm:text-sm shadow-md transition flex items-center gap-2">
+            <i class="fa-solid fa-pen-to-square"></i>
+            <span>Apply Edits &amp; Download</span>
+          </button>
+        </div>
+      </div>
+
+    </div>
+        
+
+    <!-- Content & AdSense Value Section -->
+    <div class="bg-white rounded-2xl border border-slate-200/80 p-6 sm:p-8 space-y-6 text-xs sm:text-sm text-slate-600 leading-relaxed">
+      <h2 class="text-base sm:text-lg font-bold text-slate-900">How to use QuickConvert's Edit PDF Online</h2>
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-4 text-xs">
+        <div class="p-4 rounded-xl bg-slate-50 border border-slate-100">
+          <span class="font-bold text-slate-900 block mb-1">1. Select Files</span>
+          <span>Drop your documents directly into the browser box or browse from your device.</span>
+        </div>
+        <div class="p-4 rounded-xl bg-slate-50 border border-slate-100">
+          <span class="font-bold text-slate-900 block mb-1">2. Configure Options</span>
+          <span>Adjust formatting, ranges, orientation, or custom settings in real-time.</span>
+        </div>
+        <div class="p-4 rounded-xl bg-slate-50 border border-slate-100">
+          <span class="font-bold text-slate-900 block mb-1">3. Instant Download</span>
+          <span>Click execute and download your newly compiled file instantly with zero wait times.</span>
+        </div>
+      </div>
+      <div class="pt-4 border-t border-slate-100 flex items-center gap-2 text-slate-400 text-xs">
+        <i class="fa-solid fa-lock text-emerald-600"></i>
+        <span>100% In-Browser Privacy: Your files never leave your device and are never sent to external cloud servers.</span>
+      </div>
+    </div>
+
+  </main>
+
+  <script>
+    document.addEventListener('DOMContentLoaded', () => {
+      
+  let editFile = null;
+  let editDoc = null;
+
+  const dropzone = document.getElementById('edit-dropzone');
+  const input = document.getElementById('edit-input');
+  const options = document.getElementById('edit-options');
+  const filename = document.getElementById('edit-filename');
+  const pagesInfo = document.getElementById('edit-pages-info');
+  const textInput = document.getElementById('edit-text');
+  const pageNumInput = document.getElementById('edit-page-num');
+  const positionSelect = document.getElementById('edit-position');
+  const boxSelect = document.getElementById('edit-box-style');
+  const actionBtn = document.getElementById('edit-action-btn');
+
+  dropzone.addEventListener('click', (e) => { if (e.target !== input) input.click(); });
+  dropzone.addEventListener('dragover', (e) => { e.preventDefault(); dropzone.classList.add('border-brand-500'); });
+  dropzone.addEventListener('dragleave', () => { dropzone.classList.remove('border-brand-500'); });
+  dropzone.addEventListener('drop', (e) => {
+    e.preventDefault();
+    if (e.dataTransfer.files[0]) loadFile(e.dataTransfer.files[0]);
+  });
+  input.addEventListener('change', () => {
+    if (input.files[0]) loadFile(input.files[0]);
+  });
+
+  async function loadFile(file) {
+    editFile = file;
+    const buf = await file.arrayBuffer();
+    editDoc = await PDFLib.PDFDocument.load(buf);
+    filename.textContent = file.name;
+    const count = editDoc.getPageCount();
+    pagesInfo.textContent = `${count} pages detected`;
+    pageNumInput.max = count;
+    dropzone.classList.add('hidden');
+    options.classList.remove('hidden');
+  }
+
+  actionBtn.addEventListener('click', async () => {
+    if (!editDoc) return;
+    const text = textInput.value.trim();
+    if (!text) {
+      if (typeof showToast === 'function') showToast('Please enter text to annotate.', 'error');
+      return;
+    }
+    const pageIdx = Math.max(0, Math.min(parseInt(pageNumInput.value, 10) - 1, editDoc.getPageCount() - 1));
+    const pos = positionSelect.value;
+    const box = boxSelect.value;
+    const origText = actionBtn.innerHTML;
+    actionBtn.disabled = true;
+    actionBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin"></i> Saving Edits...';
+
+    try {
+      const { rgb, StandardFonts } = PDFLib;
+      const font = await editDoc.embedFont(StandardFonts.HelveticaBold);
+      const page = editDoc.getPage(pageIdx);
+      const { width, height } = page.getSize();
+      const fontSize = 12;
+      const textWidth = font.widthOfTextAtSize(text, fontSize);
+      const textHeight = font.heightAtSize(fontSize);
+
+      let x = 40;
+      let y = 40;
+      if (pos === 'top-left') { x = 40; y = height - 50; }
+      else if (pos === 'top-right') { x = width - textWidth - 50; y = height - 50; }
+      else if (pos === 'center') { x = (width - textWidth) / 2; y = (height - textHeight) / 2; }
+      else if (pos === 'bottom-right') { x = width - textWidth - 50; y = 40; }
+
+      if (box === 'yellow') {
+        page.drawRectangle({
+          x: x - 6,
+          y: y - 4,
+          width: textWidth + 12,
+          height: textHeight + 8,
+          color: rgb(1, 0.96, 0.65),
+          opacity: 0.85
+        });
+      } else if (box === 'white') {
+        page.drawRectangle({
+          x: x - 6,
+          y: y - 4,
+          width: textWidth + 12,
+          height: textHeight + 8,
+          color: rgb(1, 1, 1),
+          opacity: 0.95
+        });
+      }
+
+      page.drawText(text, {
+        x: x,
+        y: y,
+        size: fontSize,
+        font: font,
+        color: rgb(0.09, 0.09, 0.11)
+      });
+
+      const bytes = await editDoc.save();
+      const blob = new Blob([bytes], { type: 'application/pdf' });
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url;
+      a.download = 'edited-' + editFile.name;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      URL.revokeObjectURL(url);
+      if (typeof showToast === 'function') showToast('PDF edited successfully!', 'success');
+    } catch (e) {
+      if (typeof showToast === 'function') showToast('Edit error: ' + e.message, 'error');
+    } finally {
+      actionBtn.disabled = false;
+      actionBtn.innerHTML = origText;
+    }
+  });
+        
+    });
+  </script>
+
+  <!-- FOOTER -->
+  <footer class="bg-white border-t border-slate-200 text-slate-600 text-xs mt-16">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 flex flex-col sm:flex-row items-center justify-between gap-4">
+      <div class="flex items-center gap-2">
+        <div class="w-6 h-6 rounded-lg bg-brand-600 flex items-center justify-center text-white">
+          <i class="fa-solid fa-bolt-lightning text-xs"></i>
+        </div>
+        <span class="font-extrabold text-slate-900">QuickConvert</span>
+        <span class="text-slate-400">• Universal Client-Side Engine</span>
+      </div>
+      <div class="flex items-center gap-4 text-xs font-medium text-slate-500">
+        <a href="../index.html" class="hover:text-brand-600">Home</a>
+        <a href="../index.html#suite-tools" class="hover:text-brand-600">All Tools</a>
+        <a href="../index.html#security-advantage" class="hover:text-brand-600">Privacy Policy</a>
+        <a href="../feedback.html" class="text-brand-600 font-bold">Feedback</a>
+      </div>
+    </div>
+  </footer>
+
+  <script src="../js/app.js"></script>
+</body>
+</html>

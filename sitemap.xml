@@ -196,4 +196,84 @@
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
+  <!-- Dedicated Tool Page: Merge PDF -->
+  <url>
+    <loc>https://quickconvert.in/tools/merge-pdf.html</loc>
+    <lastmod>2026-11-12</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+
+  <!-- Dedicated Tool Page: Split PDF -->
+  <url>
+    <loc>https://quickconvert.in/tools/split-pdf.html</loc>
+    <lastmod>2026-11-12</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+
+  <!-- Dedicated Tool Page: Rotate PDF -->
+  <url>
+    <loc>https://quickconvert.in/tools/rotate-pdf.html</loc>
+    <lastmod>2026-11-12</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+
+  <!-- Dedicated Tool Page: Add Watermark to PDF -->
+  <url>
+    <loc>https://quickconvert.in/tools/watermark-pdf.html</loc>
+    <lastmod>2026-11-12</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+
+  <!-- Dedicated Tool Page: Sign PDF -->
+  <url>
+    <loc>https://quickconvert.in/tools/sign-pdf.html</loc>
+    <lastmod>2026-11-12</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+
+  <!-- Dedicated Tool Page: Edit PDF -->
+  <url>
+    <loc>https://quickconvert.in/tools/edit-pdf.html</loc>
+    <lastmod>2026-11-12</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+
+  <!-- Dedicated Tool Page: PDF to Word -->
+  <url>
+    <loc>https://quickconvert.in/tools/pdf-to-word.html</loc>
+    <lastmod>2026-11-12</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+
+  <!-- Dedicated Tool Page: Word to PDF -->
+  <url>
+    <loc>https://quickconvert.in/tools/word-to-pdf.html</loc>
+    <lastmod>2026-11-12</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+
+  <!-- Dedicated Tool Page: PDF to Excel -->
+  <url>
+    <loc>https://quickconvert.in/tools/pdf-to-excel.html</loc>
+    <lastmod>2026-11-12</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+
+  <!-- Dedicated Tool Page: PDF to PowerPoint -->
+  <url>
+    <loc>https://quickconvert.in/tools/pdf-to-powerpoint.html</loc>
+    <lastmod>2026-11-12</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+
 </urlset>

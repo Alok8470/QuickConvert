@@ -106,139 +106,129 @@
           <!-- Floating Mega-Menu Panel -->
           <div 
             id="nav-tools-mega-menu" 
-            class="mega-menu-panel absolute right-0 top-full pt-3 w-[720px] max-w-[92vw] z-50 pointer-events-none invisible opacity-0 -translate-y-1 transition-all duration-200 ease-out group-hover/mega:pointer-events-auto group-hover/mega:visible group-hover/mega:opacity-100 group-hover/mega:translate-y-0"
+            class="mega-menu-panel absolute -left-6 xl:-left-12 top-full pt-3 w-[720px] max-w-[90vw] z-50 pointer-events-none invisible opacity-0 -translate-y-1 transition-all duration-200 ease-out group-hover/mega:pointer-events-auto group-hover/mega:visible group-hover/mega:opacity-100 group-hover/mega:translate-y-0"
           >
-            <div class="bg-white rounded-2xl border border-slate-200/90 shadow-2xl shadow-slate-900/12 overflow-hidden ring-1 ring-slate-900/5 text-left">
+            <div class="bg-white rounded-2xl border border-slate-200/90 shadow-2xl shadow-slate-900/12 overflow-hidden ring-1 ring-slate-900/5">
               
-              <!-- 4-Category Grid -->
-              <div class="grid grid-cols-2 md:grid-cols-4 gap-4 p-5 bg-gradient-to-b from-slate-50/50 to-white">
+                            <!-- 4-Category Grid -->
+              <div class="grid grid-cols-2 md:grid-cols-4 gap-4 p-5 bg-gradient-to-b from-slate-50/50 to-white text-xs">
                 
-                <!-- Category 1: PDF Tools -->
+                <!-- Category 1: PDF Essentials -->
                 <div class="space-y-1.5">
                   <div class="flex items-center gap-1.5 px-2 pb-1 text-[11px] font-bold uppercase tracking-wider text-indigo-600 border-b border-indigo-100/60">
                     <i class="fa-solid fa-file-pdf text-xs"></i>
-                    <span>PDF Tools</span>
+                    <span>PDF Core</span>
                   </div>
                   <div class="space-y-0.5 pt-1">
-                    <a href="tools/image-to-pdf.html" class="flex items-start gap-2.5 p-2 rounded-xl hover:bg-indigo-50/60 transition group/item">
-                      <div class="w-7 h-7 rounded-lg bg-indigo-50 text-indigo-600 border border-indigo-100 flex items-center justify-center shrink-0 group-hover/item:bg-indigo-600 group-hover/item:text-white transition">
-                        <i class="fa-solid fa-file-pdf text-xs"></i>
-                      </div>
-                      <div>
-                        <span class="block text-xs font-bold text-slate-800 group-hover/item:text-indigo-600 transition leading-tight">Images to PDF</span>
-                        <span class="block text-[10px] text-slate-400 leading-tight mt-0.5">JPG/PNG to PDF</span>
-                      </div>
+                    <a href="tools/merge-pdf.html" class="flex items-start gap-2 p-1.5 rounded-lg hover:bg-indigo-50/60 transition group/item">
+                      <i class="fa-solid fa-object-group text-indigo-600 text-xs mt-0.5"></i>
+                      <span class="font-bold text-slate-800 group-hover/item:text-indigo-600 transition truncate">Merge PDF</span>
                     </a>
-                    <a href="tools/text-to-pdf.html" class="flex items-start gap-2.5 p-2 rounded-xl hover:bg-indigo-50/60 transition group/item">
-                      <div class="w-7 h-7 rounded-lg bg-rose-50 text-rose-600 border border-rose-100 flex items-center justify-center shrink-0 group-hover/item:bg-rose-600 group-hover/item:text-white transition">
-                        <i class="fa-solid fa-file-lines text-xs"></i>
-                      </div>
-                      <div>
-                        <span class="block text-xs font-bold text-slate-800 group-hover/item:text-indigo-600 transition leading-tight">Text to PDF</span>
-                        <span class="block text-[10px] text-slate-400 leading-tight mt-0.5">Notes &amp; code to PDF</span>
-                      </div>
+                    <a href="tools/split-pdf.html" class="flex items-start gap-2 p-1.5 rounded-lg hover:bg-indigo-50/60 transition group/item">
+                      <i class="fa-solid fa-scissors text-indigo-600 text-xs mt-0.5"></i>
+                      <span class="font-bold text-slate-800 group-hover/item:text-indigo-600 transition truncate">Split PDF</span>
+                    </a>
+                    <a href="tools/rotate-pdf.html" class="flex items-start gap-2 p-1.5 rounded-lg hover:bg-indigo-50/60 transition group/item">
+                      <i class="fa-solid fa-rotate text-indigo-600 text-xs mt-0.5"></i>
+                      <span class="font-bold text-slate-800 group-hover/item:text-indigo-600 transition truncate">Rotate PDF</span>
+                    </a>
+                    <a href="tools/image-to-pdf.html" class="flex items-start gap-2 p-1.5 rounded-lg hover:bg-indigo-50/60 transition group/item">
+                      <i class="fa-solid fa-images text-indigo-600 text-xs mt-0.5"></i>
+                      <span class="font-bold text-slate-800 group-hover/item:text-indigo-600 transition truncate">Images to PDF</span>
+                    </a>
+                    <a href="tools/text-to-pdf.html" class="flex items-start gap-2 p-1.5 rounded-lg hover:bg-indigo-50/60 transition group/item">
+                      <i class="fa-solid fa-file-lines text-indigo-600 text-xs mt-0.5"></i>
+                      <span class="font-bold text-slate-800 group-hover/item:text-indigo-600 transition truncate">Text to PDF</span>
                     </a>
                   </div>
                 </div>
 
-                <!-- Category 2: Image Tools -->
+                <!-- Category 2: PDF Edit & Sign -->
+                <div class="space-y-1.5">
+                  <div class="flex items-center gap-1.5 px-2 pb-1 text-[11px] font-bold uppercase tracking-wider text-rose-600 border-b border-rose-100/60">
+                    <i class="fa-solid fa-pen-nib text-xs"></i>
+                    <span>Edit &amp; Security</span>
+                  </div>
+                  <div class="space-y-0.5 pt-1">
+                    <a href="tools/sign-pdf.html" class="flex items-start gap-2 p-1.5 rounded-lg hover:bg-rose-50/60 transition group/item">
+                      <i class="fa-solid fa-signature text-rose-600 text-xs mt-0.5"></i>
+                      <span class="font-bold text-slate-800 group-hover/item:text-rose-600 transition truncate">Sign PDF</span>
+                    </a>
+                    <a href="tools/edit-pdf.html" class="flex items-start gap-2 p-1.5 rounded-lg hover:bg-rose-50/60 transition group/item">
+                      <i class="fa-solid fa-pen-to-square text-rose-600 text-xs mt-0.5"></i>
+                      <span class="font-bold text-slate-800 group-hover/item:text-rose-600 transition truncate">Edit PDF</span>
+                    </a>
+                    <a href="tools/watermark-pdf.html" class="flex items-start gap-2 p-1.5 rounded-lg hover:bg-rose-50/60 transition group/item">
+                      <i class="fa-solid fa-stamp text-rose-600 text-xs mt-0.5"></i>
+                      <span class="font-bold text-slate-800 group-hover/item:text-rose-600 transition truncate">Add Watermark</span>
+                    </a>
+                    <a href="tools/image-compressor.html" class="flex items-start gap-2 p-1.5 rounded-lg hover:bg-rose-50/60 transition group/item">
+                      <i class="fa-solid fa-compress text-rose-600 text-xs mt-0.5"></i>
+                      <span class="font-bold text-slate-800 group-hover/item:text-rose-600 transition truncate">Image Compress</span>
+                    </a>
+                    <a href="tools/image-converter.html" class="flex items-start gap-2 p-1.5 rounded-lg hover:bg-rose-50/60 transition group/item">
+                      <i class="fa-solid fa-arrow-right-arrow-left text-rose-600 text-xs mt-0.5"></i>
+                      <span class="font-bold text-slate-800 group-hover/item:text-rose-600 transition truncate">Image Convert</span>
+                    </a>
+                  </div>
+                </div>
+
+                <!-- Category 3: Convert to/from Office -->
                 <div class="space-y-1.5">
                   <div class="flex items-center gap-1.5 px-2 pb-1 text-[11px] font-bold uppercase tracking-wider text-blue-600 border-b border-blue-100/60">
-                    <i class="fa-solid fa-image text-xs"></i>
-                    <span>Image Tools</span>
+                    <i class="fa-solid fa-file-word text-xs"></i>
+                    <span>Office Suite</span>
                   </div>
                   <div class="space-y-0.5 pt-1">
-                    <a href="tools/image-compressor.html" class="flex items-start gap-2.5 p-2 rounded-xl hover:bg-blue-50/60 transition group/item">
-                      <div class="w-7 h-7 rounded-lg bg-emerald-50 text-emerald-600 border border-emerald-100 flex items-center justify-center shrink-0 group-hover/item:bg-emerald-600 group-hover/item:text-white transition">
-                        <i class="fa-solid fa-compress text-xs"></i>
-                      </div>
-                      <div>
-                        <span class="block text-xs font-bold text-slate-800 group-hover/item:text-blue-600 transition leading-tight">Image Compressor</span>
-                        <span class="block text-[10px] text-slate-400 leading-tight mt-0.5">Reduce image sizes</span>
-                      </div>
+                    <a href="tools/pdf-to-word.html" class="flex items-start gap-2 p-1.5 rounded-lg hover:bg-blue-50/60 transition group/item">
+                      <i class="fa-solid fa-file-word text-blue-600 text-xs mt-0.5"></i>
+                      <span class="font-bold text-slate-800 group-hover/item:text-blue-600 transition truncate">PDF to Word</span>
                     </a>
-                    <a href="tools/image-converter.html" class="flex items-start gap-2.5 p-2 rounded-xl hover:bg-blue-50/60 transition group/item">
-                      <div class="w-7 h-7 rounded-lg bg-amber-50 text-amber-600 border border-amber-100 flex items-center justify-center shrink-0 group-hover/item:bg-amber-600 group-hover/item:text-white transition">
-                        <i class="fa-solid fa-arrow-right-arrow-left text-xs"></i>
-                      </div>
-                      <div>
-                        <span class="block text-xs font-bold text-slate-800 group-hover/item:text-blue-600 transition leading-tight">Image Converter</span>
-                        <span class="block text-[10px] text-slate-400 leading-tight mt-0.5">PNG, JPG, WebP</span>
-                      </div>
+                    <a href="tools/word-to-pdf.html" class="flex items-start gap-2 p-1.5 rounded-lg hover:bg-blue-50/60 transition group/item">
+                      <i class="fa-solid fa-file-lines text-blue-600 text-xs mt-0.5"></i>
+                      <span class="font-bold text-slate-800 group-hover/item:text-blue-600 transition truncate">Word to PDF</span>
+                    </a>
+                    <a href="tools/pdf-to-excel.html" class="flex items-start gap-2 p-1.5 rounded-lg hover:bg-blue-50/60 transition group/item">
+                      <i class="fa-solid fa-file-excel text-emerald-600 text-xs mt-0.5"></i>
+                      <span class="font-bold text-slate-800 group-hover/item:text-blue-600 transition truncate">PDF to Excel</span>
+                    </a>
+                    <a href="tools/pdf-to-powerpoint.html" class="flex items-start gap-2 p-1.5 rounded-lg hover:bg-blue-50/60 transition group/item">
+                      <i class="fa-solid fa-file-powerpoint text-orange-600 text-xs mt-0.5"></i>
+                      <span class="font-bold text-slate-800 group-hover/item:text-blue-600 transition truncate">PDF to PPT</span>
+                    </a>
+                    <a href="tools/qr-generator.html" class="flex items-start gap-2 p-1.5 rounded-lg hover:bg-blue-50/60 transition group/item">
+                      <i class="fa-solid fa-qrcode text-purple-600 text-xs mt-0.5"></i>
+                      <span class="font-bold text-slate-800 group-hover/item:text-blue-600 transition truncate">QR Generator</span>
                     </a>
                   </div>
                 </div>
 
-                <!-- Category 3: Developer & Data -->
-                <div class="space-y-1.5">
-                  <div class="flex items-center gap-1.5 px-2 pb-1 text-[11px] font-bold uppercase tracking-wider text-sky-600 border-b border-sky-100/60">
-                    <i class="fa-solid fa-code text-xs"></i>
-                    <span>Developer</span>
-                  </div>
-                  <div class="space-y-0.5 pt-1">
-                    <a href="tools/json-formatter.html" class="flex items-start gap-2.5 p-2 rounded-xl hover:bg-sky-50/60 transition group/item">
-                      <div class="w-7 h-7 rounded-lg bg-sky-50 text-sky-600 border border-sky-100 flex items-center justify-center shrink-0 group-hover/item:bg-sky-600 group-hover/item:text-white transition">
-                        <i class="fa-solid fa-code text-xs"></i>
-                      </div>
-                      <div>
-                        <span class="block text-xs font-bold text-slate-800 group-hover/item:text-sky-600 transition leading-tight">JSON Formatter</span>
-                        <span class="block text-[10px] text-slate-400 leading-tight mt-0.5">Validate &amp; format</span>
-                      </div>
-                    </a>
-                    <a href="tools/qr-generator.html" class="flex items-start gap-2.5 p-2 rounded-xl hover:bg-sky-50/60 transition group/item">
-                      <div class="w-7 h-7 rounded-lg bg-purple-50 text-purple-600 border border-purple-100 flex items-center justify-center shrink-0 group-hover/item:bg-purple-600 group-hover/item:text-white transition">
-                        <i class="fa-solid fa-qrcode text-xs"></i>
-                      </div>
-                      <div>
-                        <span class="block text-xs font-bold text-slate-800 group-hover/item:text-sky-600 transition leading-tight">QR Generator</span>
-                        <span class="block text-[10px] text-slate-400 leading-tight mt-0.5">Custom instant codes</span>
-                      </div>
-                    </a>
-                    <a href="tools/color-picker.html" class="flex items-start gap-2.5 p-2 rounded-xl hover:bg-sky-50/60 transition group/item">
-                      <div class="w-7 h-7 rounded-lg bg-pink-50 text-pink-600 border border-pink-100 flex items-center justify-center shrink-0 group-hover/item:bg-pink-600 group-hover/item:text-white transition">
-                        <i class="fa-solid fa-palette text-xs"></i>
-                      </div>
-                      <div>
-                        <span class="block text-xs font-bold text-slate-800 group-hover/item:text-sky-600 transition leading-tight">Color Studio</span>
-                        <span class="block text-[10px] text-slate-400 leading-tight mt-0.5">HEX, RGB, shades</span>
-                      </div>
-                    </a>
-                  </div>
-                </div>
-
-                <!-- Category 4: Daily Utilities -->
+                <!-- Category 4: Developer & Daily -->
                 <div class="space-y-1.5">
                   <div class="flex items-center gap-1.5 px-2 pb-1 text-[11px] font-bold uppercase tracking-wider text-teal-600 border-b border-teal-100/60">
-                    <i class="fa-solid fa-wrench text-xs"></i>
-                    <span>Utilities</span>
+                    <i class="fa-solid fa-code text-xs"></i>
+                    <span>Dev &amp; Daily</span>
                   </div>
                   <div class="space-y-0.5 pt-1">
-                    <a href="tools/word-counter.html" class="flex items-start gap-2.5 p-2 rounded-xl hover:bg-teal-50/60 transition group/item">
-                      <div class="w-7 h-7 rounded-lg bg-teal-50 text-teal-600 border border-teal-100 flex items-center justify-center shrink-0 group-hover/item:bg-teal-600 group-hover/item:text-white transition">
-                        <i class="fa-solid fa-font text-xs"></i>
-                      </div>
-                      <div>
-                        <span class="block text-xs font-bold text-slate-800 group-hover/item:text-teal-600 transition leading-tight">Word Counter</span>
-                        <span class="block text-[10px] text-slate-400 leading-tight mt-0.5">Words &amp; reading time</span>
-                      </div>
+                    <a href="tools/json-formatter.html" class="flex items-start gap-2 p-1.5 rounded-lg hover:bg-teal-50/60 transition group/item">
+                      <i class="fa-solid fa-code text-sky-600 text-xs mt-0.5"></i>
+                      <span class="font-bold text-slate-800 group-hover/item:text-teal-600 transition truncate">JSON Formatter</span>
                     </a>
-                    <a href="tools/password-generator.html" class="flex items-start gap-2.5 p-2 rounded-xl hover:bg-teal-50/60 transition group/item">
-                      <div class="w-7 h-7 rounded-lg bg-blue-50 text-blue-600 border border-blue-100 flex items-center justify-center shrink-0 group-hover/item:bg-blue-600 group-hover/item:text-white transition">
-                        <i class="fa-solid fa-key text-xs"></i>
-                      </div>
-                      <div>
-                        <span class="block text-xs font-bold text-slate-800 group-hover/item:text-teal-600 transition leading-tight">Password Gen</span>
-                        <span class="block text-[10px] text-slate-400 leading-tight mt-0.5">Secure cryptography</span>
-                      </div>
+                    <a href="tools/color-picker.html" class="flex items-start gap-2 p-1.5 rounded-lg hover:bg-teal-50/60 transition group/item">
+                      <i class="fa-solid fa-palette text-pink-600 text-xs mt-0.5"></i>
+                      <span class="font-bold text-slate-800 group-hover/item:text-teal-600 transition truncate">Color Studio</span>
                     </a>
-                    <a href="tools/unit-converter.html" class="flex items-start gap-2.5 p-2 rounded-xl hover:bg-teal-50/60 transition group/item">
-                      <div class="w-7 h-7 rounded-lg bg-indigo-50 text-indigo-600 border border-indigo-100 flex items-center justify-center shrink-0 group-hover/item:bg-indigo-600 group-hover/item:text-white transition">
-                        <i class="fa-solid fa-scale-balanced text-xs"></i>
-                      </div>
-                      <div>
-                        <span class="block text-xs font-bold text-slate-800 group-hover/item:text-teal-600 transition leading-tight">Unit Converter</span>
-                        <span class="block text-[10px] text-slate-400 leading-tight mt-0.5">Metric &amp; Imperial</span>
-                      </div>
+                    <a href="tools/word-counter.html" class="flex items-start gap-2 p-1.5 rounded-lg hover:bg-teal-50/60 transition group/item">
+                      <i class="fa-solid fa-font text-teal-600 text-xs mt-0.5"></i>
+                      <span class="font-bold text-slate-800 group-hover/item:text-teal-600 transition truncate">Word Counter</span>
+                    </a>
+                    <a href="tools/password-generator.html" class="flex items-start gap-2 p-1.5 rounded-lg hover:bg-teal-50/60 transition group/item">
+                      <i class="fa-solid fa-key text-blue-600 text-xs mt-0.5"></i>
+                      <span class="font-bold text-slate-800 group-hover/item:text-teal-600 transition truncate">Password Gen</span>
+                    </a>
+                    <a href="tools/unit-converter.html" class="flex items-start gap-2 p-1.5 rounded-lg hover:bg-teal-50/60 transition group/item">
+                      <i class="fa-solid fa-scale-balanced text-indigo-600 text-xs mt-0.5"></i>
+                      <span class="font-bold text-slate-800 group-hover/item:text-teal-600 transition truncate">Unit Converter</span>
                     </a>
                   </div>
                 </div>
@@ -249,18 +239,1413 @@
               <div class="px-5 py-3 bg-slate-50 border-t border-slate-100 flex items-center justify-between text-xs">
                 <div class="flex items-center gap-2 text-slate-500 font-medium">
                   <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
-                  <span>100% In-Browser Privacy • Zero Server Uploads</span>
+                  <span>100% In-Browser Engine • Zero Server Uploads</span>
                 </div>
                 <div class="flex items-center gap-3">
-                  <a href="index.html#suite-tools" class="text-slate-600 hover:text-brand-600 font-semibold transition flex items-center gap-1">
+                  <a href="#suite-tools" class="text-slate-600 hover:text-brand-600 font-semibold transition flex items-center gap-1">
                     <span>View Grid</span>
                     <i class="fa-solid fa-arrow-right text-[10px]"></i>
+                  </a>
+                  <span class="text-slate-300">•</span>
+                  <a href="feedback.html" data-modal-open="modal-feedback" class="text-brand-600 hover:text-brand-700 font-bold transition flex items-center gap-1">
+                    <i class="fa-solid fa-plus-circle text-xs"></i>
+                    <span>Request Tool</span>
                   </a>
                 </div>
               </div>
 
             </div>
           </div>
+        </div>
+
+        <a href="#how-to-use" class="hover:text-brand-600 transition whitespace-nowrap">How to Use</a>
+        <a href="#security-advantage" class="hover:text-brand-600 transition whitespace-nowrap">Security &amp; Privacy</a>
+        <a href="#faqs" class="hover:text-brand-600 transition whitespace-nowrap">FAQs</a>
+        <a href="feedback.html" data-modal-open="modal-feedback" class="hover:text-brand-600 transition whitespace-nowrap flex items-center gap-1.5 text-brand-600">
+          <i class="fa-solid fa-comment-dots text-xs"></i>
+          <span>Feedback</span>
+        </a>
+      </nav>
+
+      <!-- Action Button & Privacy Pill -->
+      <div class="flex items-center gap-2 sm:gap-3 shrink-0">
+        <!-- 100% Client-Side badge only on xl: 1280px+ to preserve breathing room -->
+        <span class="hidden xl:inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-emerald-50 text-emerald-700 border border-emerald-200/80 whitespace-nowrap">
+          <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+          100% Client-Side
+        </span>
+
+        <!-- CTA button visible on sm: (640px+) -->
+        <a href="#suite-tools" class="hidden sm:inline-flex items-center gap-2 px-3.5 sm:px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold text-white bg-brand-600 hover:bg-brand-700 shadow-sm hover:shadow transition active:scale-95 whitespace-nowrap">
+          <span>Start Converting</span>
+          <i class="fa-solid fa-arrow-right text-xs"></i>
+        </a>
+
+        <!-- Mobile & Tablet Hamburger Button (Visible below lg: < 1024px) -->
+        <button id="mobile-menu-btn" class="lg:hidden p-2 text-slate-600 hover:text-slate-900 rounded-lg hover:bg-slate-100 transition focus:outline-none" aria-label="Toggle Navigation Menu">
+          <i id="mobile-menu-icon" class="fa-solid fa-bars text-xl"></i>
+        </button>
+      </div>
+    </div>
+
+    <!-- Mobile & Tablet Dropdown Menu (Hidden on lg: 1024px and above) -->
+    <div id="mobile-menu" class="hidden lg:hidden bg-white border-b border-slate-200 px-4 pt-3 pb-5 space-y-1 text-sm font-medium shadow-lg">
+      
+      <!-- Mobile All Tools Accordion -->
+      <div class="border-b border-slate-100 pb-2 mb-2">
+        <button id="mobile-tools-toggle" type="button" class="w-full flex items-center justify-between px-3 py-2.5 rounded-xl hover:bg-slate-50 text-slate-800 font-bold hover:text-brand-600 transition">
+          <span class="flex items-center">
+            <i class="fa-solid fa-layer-group text-brand-600 mr-2 w-5"></i>
+            <span>Browse All Tools (10 Services)</span>
+          </span>
+          <i id="mobile-tools-chevron" class="fa-solid fa-chevron-down text-xs text-slate-400 transition-transform duration-200"></i>
+        </button>
+        <div id="mobile-tools-sublist" class="hidden pl-3 pr-2 py-2 space-y-3 bg-slate-50/70 rounded-xl my-1 border border-slate-100">
+          <!-- PDF Tools -->
+          <div>
+            <span class="text-[10px] font-bold uppercase tracking-wider text-indigo-600 block mb-1">PDF Tools</span>
+            <div class="grid grid-cols-2 gap-1.5">
+              <a href="tools/merge-pdf.html" class="flex items-center gap-1.5 p-2 rounded-lg bg-white border border-slate-200 text-xs font-semibold text-slate-700 hover:text-brand-600 shadow-2xs">
+                <i class="fa-solid fa-object-group text-indigo-600 text-xs"></i>
+                <span class="truncate">Merge PDF</span>
+              </a>
+              <a href="tools/split-pdf.html" class="flex items-center gap-1.5 p-2 rounded-lg bg-white border border-slate-200 text-xs font-semibold text-slate-700 hover:text-brand-600 shadow-2xs">
+                <i class="fa-solid fa-scissors text-indigo-600 text-xs"></i>
+                <span class="truncate">Split PDF</span>
+              </a>
+              <a href="tools/rotate-pdf.html" class="flex items-center gap-1.5 p-2 rounded-lg bg-white border border-slate-200 text-xs font-semibold text-slate-700 hover:text-brand-600 shadow-2xs">
+                <i class="fa-solid fa-rotate text-indigo-600 text-xs"></i>
+                <span class="truncate">Rotate PDF</span>
+              </a>
+              <a href="tools/image-to-pdf.html" class="flex items-center gap-1.5 p-2 rounded-lg bg-white border border-slate-200 text-xs font-semibold text-slate-700 hover:text-brand-600 shadow-2xs">
+                <i class="fa-solid fa-file-pdf text-indigo-600 text-xs"></i>
+                <span class="truncate">Images to PDF</span>
+              </a>
+              <a href="tools/text-to-pdf.html" class="flex items-center gap-1.5 p-2 rounded-lg bg-white border border-slate-200 text-xs font-semibold text-slate-700 hover:text-brand-600 shadow-2xs">
+                <i class="fa-solid fa-file-lines text-rose-600 text-xs"></i>
+                <span class="truncate">Text to PDF</span>
+              </a>
+              <a href="tools/sign-pdf.html" class="flex items-center gap-1.5 p-2 rounded-lg bg-white border border-slate-200 text-xs font-semibold text-slate-700 hover:text-brand-600 shadow-2xs">
+                <i class="fa-solid fa-signature text-rose-600 text-xs"></i>
+                <span class="truncate">Sign PDF</span>
+              </a>
+              <a href="tools/edit-pdf.html" class="flex items-center gap-1.5 p-2 rounded-lg bg-white border border-slate-200 text-xs font-semibold text-slate-700 hover:text-brand-600 shadow-2xs">
+                <i class="fa-solid fa-pen-to-square text-rose-600 text-xs"></i>
+                <span class="truncate">Edit PDF</span>
+              </a>
+              <a href="tools/watermark-pdf.html" class="flex items-center gap-1.5 p-2 rounded-lg bg-white border border-slate-200 text-xs font-semibold text-slate-700 hover:text-brand-600 shadow-2xs">
+                <i class="fa-solid fa-stamp text-rose-600 text-xs"></i>
+                <span class="truncate">Watermark</span>
+              </a>
+              <a href="tools/pdf-to-word.html" class="flex items-center gap-1.5 p-2 rounded-lg bg-white border border-slate-200 text-xs font-semibold text-slate-700 hover:text-brand-600 shadow-2xs">
+                <i class="fa-solid fa-file-word text-blue-600 text-xs"></i>
+                <span class="truncate">PDF to Word</span>
+              </a>
+              <a href="tools/word-to-pdf.html" class="flex items-center gap-1.5 p-2 rounded-lg bg-white border border-slate-200 text-xs font-semibold text-slate-700 hover:text-brand-600 shadow-2xs">
+                <i class="fa-solid fa-file-lines text-blue-600 text-xs"></i>
+                <span class="truncate">Word to PDF</span>
+              </a>
+              <a href="tools/pdf-to-excel.html" class="flex items-center gap-1.5 p-2 rounded-lg bg-white border border-slate-200 text-xs font-semibold text-slate-700 hover:text-brand-600 shadow-2xs">
+                <i class="fa-solid fa-file-excel text-emerald-600 text-xs"></i>
+                <span class="truncate">PDF to Excel</span>
+              </a>
+              <a href="tools/pdf-to-powerpoint.html" class="flex items-center gap-1.5 p-2 rounded-lg bg-white border border-slate-200 text-xs font-semibold text-slate-700 hover:text-brand-600 shadow-2xs">
+                <i class="fa-solid fa-file-powerpoint text-orange-600 text-xs"></i>
+                <span class="truncate">PDF to PPT</span>
+              </a>
+            </div>
+          </div>
+          <!-- Image Tools -->
+          <div>
+            <span class="text-[10px] font-bold uppercase tracking-wider text-blue-600 block mb-1">Image Tools</span>
+            <div class="grid grid-cols-2 gap-1.5">
+              <a href="tools/image-compressor.html" class="flex items-center gap-1.5 p-2 rounded-lg bg-white border border-slate-200 text-xs font-semibold text-slate-700 hover:text-brand-600 shadow-2xs">
+                <i class="fa-solid fa-compress text-emerald-600 text-xs"></i>
+                <span class="truncate">Compressor</span>
+              </a>
+              <a href="tools/image-converter.html" class="flex items-center gap-1.5 p-2 rounded-lg bg-white border border-slate-200 text-xs font-semibold text-slate-700 hover:text-brand-600 shadow-2xs">
+                <i class="fa-solid fa-arrow-right-arrow-left text-amber-600 text-xs"></i>
+                <span class="truncate">Converter</span>
+              </a>
+            </div>
+          </div>
+          <!-- Developer Tools -->
+          <div>
+            <span class="text-[10px] font-bold uppercase tracking-wider text-sky-600 block mb-1">Developer</span>
+            <div class="grid grid-cols-2 gap-1.5">
+              <a href="tools/json-formatter.html" class="flex items-center gap-1.5 p-2 rounded-lg bg-white border border-slate-200 text-xs font-semibold text-slate-700 hover:text-brand-600 shadow-2xs">
+                <i class="fa-solid fa-code text-sky-600 text-xs"></i>
+                <span class="truncate">JSON Formatter</span>
+              </a>
+              <a href="tools/qr-generator.html" class="flex items-center gap-1.5 p-2 rounded-lg bg-white border border-slate-200 text-xs font-semibold text-slate-700 hover:text-brand-600 shadow-2xs">
+                <i class="fa-solid fa-qrcode text-purple-600 text-xs"></i>
+                <span class="truncate">QR Gen</span>
+              </a>
+              <a href="tools/color-picker.html" class="col-span-2 flex items-center gap-1.5 p-2 rounded-lg bg-white border border-slate-200 text-xs font-semibold text-slate-700 hover:text-brand-600 shadow-2xs">
+                <i class="fa-solid fa-palette text-pink-600 text-xs"></i>
+                <span class="truncate">Color Studio &amp; Palette</span>
+              </a>
+            </div>
+          </div>
+          <!-- Utilities -->
+          <div>
+            <span class="text-[10px] font-bold uppercase tracking-wider text-teal-600 block mb-1">Daily Utilities</span>
+            <div class="grid grid-cols-2 gap-1.5">
+              <a href="tools/word-counter.html" class="flex items-center gap-1.5 p-2 rounded-lg bg-white border border-slate-200 text-xs font-semibold text-slate-700 hover:text-brand-600 shadow-2xs">
+                <i class="fa-solid fa-font text-teal-600 text-xs"></i>
+                <span class="truncate">Word Counter</span>
+              </a>
+              <a href="tools/password-generator.html" class="flex items-center gap-1.5 p-2 rounded-lg bg-white border border-slate-200 text-xs font-semibold text-slate-700 hover:text-brand-600 shadow-2xs">
+                <i class="fa-solid fa-key text-blue-600 text-xs"></i>
+                <span class="truncate">Password Gen</span>
+              </a>
+              <a href="tools/unit-converter.html" class="col-span-2 flex items-center gap-1.5 p-2 rounded-lg bg-white border border-slate-200 text-xs font-semibold text-slate-700 hover:text-brand-600 shadow-2xs">
+                <i class="fa-solid fa-scale-balanced text-indigo-600 text-xs"></i>
+                <span class="truncate">Unit Converter</span>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <a href="#suite-tools" class="block px-3 py-2 rounded-xl hover:bg-slate-50 text-slate-800 font-semibold hover:text-brand-600 transition">
+        <i class="fa-solid fa-table-cells text-slate-400 mr-2 w-5"></i> View Homepage Grid
+      </a>
+      <a href="#how-to-use" class="block px-3 py-2.5 rounded-xl hover:bg-slate-50 text-slate-700 hover:text-brand-600 transition">
+        <i class="fa-solid fa-book-open text-slate-400 mr-2 w-5"></i> How to Use
+      </a>
+      <a href="#security-advantage" class="block px-3 py-2.5 rounded-xl hover:bg-slate-50 text-slate-700 hover:text-brand-600 transition">
+        <i class="fa-solid fa-shield-halved text-slate-400 mr-2 w-5"></i> Security &amp; Architecture
+      </a>
+      <a href="#comparison" class="block px-3 py-2.5 rounded-xl hover:bg-slate-50 text-slate-700 hover:text-brand-600 transition">
+        <i class="fa-solid fa-scale-balanced text-slate-400 mr-2 w-5"></i> Why QuickConvert
+      </a>
+      <a href="#faqs" class="block px-3 py-2.5 rounded-xl hover:bg-slate-50 text-slate-700 hover:text-brand-600 transition">
+        <i class="fa-solid fa-circle-question text-slate-400 mr-2 w-5"></i> FAQs
+      </a>
+      <a href="feedback.html" data-modal-open="modal-feedback" class="block px-3 py-2.5 rounded-xl hover:bg-slate-50 text-brand-600 font-semibold transition">
+        <i class="fa-solid fa-comment-dots text-brand-500 mr-2 w-5"></i> Feedback &amp; Review
+      </a>
+
+      <!-- Quick Action inside Mobile/Tablet Drawer for Mobile users -->
+      <div class="pt-3 mt-2 border-t border-slate-100 flex flex-col gap-2.5 sm:hidden">
+        <a href="#suite-tools" class="w-full py-2.5 rounded-xl text-center text-sm font-bold text-white bg-brand-600 hover:bg-brand-700 shadow-sm flex items-center justify-center gap-2">
+          <span>Start Converting</span>
+          <i class="fa-solid fa-arrow-right text-xs"></i>
+        </a>
+      </div>
+
+      <div class="pt-2 flex items-center justify-between text-xs text-slate-500">
+        <span class="inline-flex items-center gap-1.5 font-semibold text-emerald-700">
+          <span class="w-2 h-2 rounded-full bg-emerald-500"></span> 100% In-Browser Privacy
+        </span>
+        <span class="text-slate-400">Zero Server Uploads</span>
+      </div>
+    </div>
+  </header>
+
+  <main class="flex-1">
+    
+    <!-- HERO SECTION (Wide Horizontal & Compact Layout) -->
+    <section class="relative bg-white pt-8 sm:pt-10 pb-8 sm:pb-10 border-b border-slate-200/80 overflow-hidden bg-grid-pattern">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
+        
+        <!-- Trust Badge (Vercel Pill Style) -->
+        <div class="inline-flex items-center gap-2 px-3 py-1 rounded-full text-xs font-semibold bg-slate-900 text-white mb-4 sm:mb-5 shadow-xs border border-slate-800 tracking-wide">
+          <span class="w-2 h-2 rounded-full bg-emerald-400 animate-pulse"></span>
+          <span>100% In-Browser Engine</span>
+          <span class="text-slate-500">•</span>
+          <span class="text-slate-300">Zero Cloud Storage</span>
+          <span class="text-slate-500">•</span>
+          <span class="text-emerald-400 font-bold">Free Forever</span>
+        </div>
+
+        <!-- Wide Horizontal Hero Headline -->
+        <h1 class="text-2xl sm:text-4xl md:text-5xl lg:text-[54px] font-extrabold text-slate-950 tracking-tight max-w-6xl mx-auto leading-tight sm:leading-tight">
+          <span>Lightning-fast files.</span>
+          <span class="bg-gradient-to-r from-brand-600 via-indigo-600 to-accent-600 bg-clip-text text-transparent sm:ml-2">Zero cloud footprints.</span>
+        </h1>
+
+        <!-- Compact Subheadline -->
+        <p class="mt-3 sm:mt-3.5 text-xs sm:text-sm md:text-base text-slate-500 max-w-4xl mx-auto leading-relaxed font-normal">
+          Instant client-side PDF compilation, image compression, format shifting, and developer utilities running 100% in your browser.
+        </p>
+
+      </div>
+    </section>
+
+    <!-- UTILITY SUITE SECTION (Direct flow under hero, iLovePDF style) -->
+    <section id="suite-tools" class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pt-6 sm:pt-8 pb-14">
+      
+      <!-- Category Filter Pills (iLovePDF Style Direct Tab Bar) -->
+      <div class="flex items-center justify-start sm:justify-center gap-2 overflow-x-auto pb-2 mb-8 no-scrollbar" id="category-filters">
+        <button data-category="all" class="cat-pill active px-4 py-2 rounded-xl text-xs font-bold transition whitespace-nowrap bg-slate-900 text-white shadow-xs">
+          All Utilities
+        </button>
+        <button data-category="pdf" class="cat-pill px-4 py-2 rounded-xl text-xs font-semibold transition whitespace-nowrap bg-white text-slate-700 hover:bg-slate-100 border border-slate-200">
+          <i class="fa-solid fa-file-pdf text-indigo-600 mr-1.5"></i> PDF Tools
+        </button>
+        <button data-category="image" class="cat-pill px-4 py-2 rounded-xl text-xs font-semibold transition whitespace-nowrap bg-white text-slate-700 hover:bg-slate-100 border border-slate-200">
+          <i class="fa-solid fa-image text-blue-600 mr-1.5"></i> Image Tools
+        </button>
+        <button data-category="developer" class="cat-pill px-4 py-2 rounded-xl text-xs font-semibold transition whitespace-nowrap bg-white text-slate-700 hover:bg-slate-100 border border-slate-200">
+          <i class="fa-solid fa-code text-sky-600 mr-1.5"></i> Developer &amp; Data
+        </button>
+        <button data-category="utilities" class="cat-pill px-4 py-2 rounded-xl text-xs font-semibold transition whitespace-nowrap bg-white text-slate-700 hover:bg-slate-100 border border-slate-200">
+          <i class="fa-solid fa-wrench text-teal-600 mr-1.5"></i> Daily Utilities
+        </button>
+      </div>
+
+      <!-- Modern Tool Cards Grid -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6" id="tools-grid">
+        
+        <!-- Card 1: Images to PDF -->
+        <a href="tools/image-to-pdf.html" data-tool-category="pdf image" class="tool-card-hover bg-white rounded-2xl border border-slate-200 p-5 cursor-pointer shadow-sm hover:shadow-md transition-all flex flex-col justify-between group">
+          <div>
+            <div class="w-11 h-11 rounded-xl bg-indigo-50 border border-indigo-100/80 text-brand-600 flex items-center justify-center text-lg mb-3.5 group-hover:scale-105 transition-transform">
+              <i class="fa-solid fa-file-pdf"></i>
+            </div>
+            <h3 class="font-bold text-sm text-slate-900 group-hover:text-brand-600 transition flex items-center justify-between">
+              <span>Images to PDF</span>
+              <i class="fa-solid fa-arrow-right text-xs opacity-0 -translate-x-1 group-hover:opacity-100 group-hover:translate-x-0 transition-all text-brand-600"></i>
+            </h3>
+            <p class="text-xs text-slate-500 mt-1.5 leading-relaxed">
+              Compile multiple PNG, JPG, or WebP images into a single sorted PDF.
+            </p>
+          </div>
+          <div class="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between text-[11px] text-slate-400 font-mono">
+            <span>A4 / Fit / Custom</span>
+            <span class="text-emerald-600 font-semibold font-sans">jsPDF</span>
+          </div>
+        </a>
+
+        <!-- Card 2: Image Compressor -->
+        <a href="tools/image-compressor.html" data-tool-category="image" class="tool-card-hover bg-white rounded-2xl border border-slate-200 p-5 cursor-pointer shadow-sm hover:shadow-md transition-all flex flex-col justify-between group">
+          <div>
+            <div class="w-11 h-11 rounded-xl bg-blue-50 border border-blue-100/80 text-blue-600 flex items-center justify-center text-lg mb-3.5 group-hover:scale-105 transition-transform">
+              <i class="fa-solid fa-compress"></i>
+            </div>
+            <h3 class="font-bold text-sm text-slate-900 group-hover:text-brand-600 transition flex items-center justify-between">
+              <span>Image Compressor</span>
+              <i class="fa-solid fa-arrow-right text-xs opacity-0 -translate-x-1 group-hover:opacity-100 group-hover:translate-x-0 transition-all text-brand-600"></i>
+            </h3>
+            <p class="text-xs text-slate-500 mt-1.5 leading-relaxed">
+              Shrink image file size by up to 90% with instant real-time canvas preview.
+            </p>
+          </div>
+          <div class="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between text-[11px] text-slate-400 font-mono">
+            <span>WebP / Smart Mode</span>
+            <span class="text-blue-600 font-semibold font-sans">Lossy / Lossless</span>
+          </div>
+        </a>
+
+        <!-- Card 3: Format Converter -->
+        <a href="tools/image-converter.html" data-tool-category="image" class="tool-card-hover bg-white rounded-2xl border border-slate-200 p-5 cursor-pointer shadow-sm hover:shadow-md transition-all flex flex-col justify-between group">
+          <div>
+            <div class="w-11 h-11 rounded-xl bg-emerald-50 border border-emerald-100/80 text-emerald-600 flex items-center justify-center text-lg mb-3.5 group-hover:scale-105 transition-transform">
+              <i class="fa-solid fa-right-left"></i>
+            </div>
+            <h3 class="font-bold text-sm text-slate-900 group-hover:text-brand-600 transition flex items-center justify-between">
+              <span>Format Shift</span>
+              <i class="fa-solid fa-arrow-right text-xs opacity-0 -translate-x-1 group-hover:opacity-100 group-hover:translate-x-0 transition-all text-brand-600"></i>
+            </h3>
+            <p class="text-xs text-slate-500 mt-1.5 leading-relaxed">
+              Fast batch convert images seamlessly between PNG, JPG, and modern WebP.
+            </p>
+          </div>
+          <div class="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between text-[11px] text-slate-400 font-mono">
+            <span>Batch Queue</span>
+            <span class="text-emerald-600 font-semibold font-sans">Multi-format</span>
+          </div>
+        </a>
+
+        <!-- Card 4: Text to PDF -->
+        <a href="tools/text-to-pdf.html" data-tool-category="pdf" class="tool-card-hover bg-white rounded-2xl border border-slate-200 p-5 cursor-pointer shadow-sm hover:shadow-md transition-all flex flex-col justify-between group">
+          <div>
+            <div class="w-11 h-11 rounded-xl bg-purple-50 border border-purple-100/80 text-purple-600 flex items-center justify-center text-lg mb-3.5 group-hover:scale-105 transition-transform">
+              <i class="fa-solid fa-file-lines"></i>
+            </div>
+            <h3 class="font-bold text-sm text-slate-900 group-hover:text-brand-600 transition flex items-center justify-between">
+              <span>Text to PDF</span>
+              <i class="fa-solid fa-arrow-right text-xs opacity-0 -translate-x-1 group-hover:opacity-100 group-hover:translate-x-0 transition-all text-brand-600"></i>
+            </h3>
+            <p class="text-xs text-slate-500 mt-1.5 leading-relaxed">
+              Convert plain text, notes, or Markdown into cleanly typeset multi-page PDFs.
+            </p>
+          </div>
+          <div class="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between text-[11px] text-slate-400 font-mono">
+            <span>Font &amp; Line Tuning</span>
+            <span class="text-purple-600 font-semibold font-sans">Page Breaks</span>
+          </div>
+        </a>
+
+        <!-- Card 5: QR Code Generator -->
+        <a href="tools/qr-generator.html" data-tool-category="developer utilities" class="tool-card-hover bg-white rounded-2xl border border-slate-200 p-5 cursor-pointer shadow-sm hover:shadow-md transition-all flex flex-col justify-between group">
+          <div>
+            <div class="w-11 h-11 rounded-xl bg-amber-50 border border-amber-100/80 text-amber-600 flex items-center justify-center text-lg mb-3.5 group-hover:scale-105 transition-transform">
+              <i class="fa-solid fa-qrcode"></i>
+            </div>
+            <h3 class="font-bold text-sm text-slate-900 group-hover:text-brand-600 transition flex items-center justify-between">
+              <span>QR Code Generator</span>
+              <i class="fa-solid fa-arrow-right text-xs opacity-0 -translate-x-1 group-hover:opacity-100 group-hover:translate-x-0 transition-all text-brand-600"></i>
+            </h3>
+            <p class="text-xs text-slate-500 mt-1.5 leading-relaxed">
+              Create high-resolution QR codes for websites, Wi-Fi, emails, and phone numbers.
+            </p>
+          </div>
+          <div class="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between text-[11px] text-slate-400 font-mono">
+            <span>Color &amp; Size</span>
+            <span class="text-amber-600 font-semibold font-sans">PNG / Copy</span>
+          </div>
+        </a>
+
+        <!-- Card 6: Password Generator -->
+        <a href="tools/password-generator.html" data-tool-category="developer utilities" class="tool-card-hover bg-white rounded-2xl border border-slate-200 p-5 cursor-pointer shadow-sm hover:shadow-md transition-all flex flex-col justify-between group">
+          <div>
+            <div class="w-11 h-11 rounded-xl bg-rose-50 border border-rose-100/80 text-rose-600 flex items-center justify-center text-lg mb-3.5 group-hover:scale-105 transition-transform">
+              <i class="fa-solid fa-key"></i>
+            </div>
+            <h3 class="font-bold text-sm text-slate-900 group-hover:text-brand-600 transition flex items-center justify-between">
+              <span>Password Generator</span>
+              <i class="fa-solid fa-arrow-right text-xs opacity-0 -translate-x-1 group-hover:opacity-100 group-hover:translate-x-0 transition-all text-brand-600"></i>
+            </h3>
+            <p class="text-xs text-slate-500 mt-1.5 leading-relaxed">
+              Create secure randomized credentials with hardware cryptographic entropy.
+            </p>
+          </div>
+          <div class="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between text-[11px] text-slate-400 font-mono">
+            <span>crypto.random</span>
+            <span class="text-rose-600 font-semibold font-sans">Batch 5x</span>
+          </div>
+        </a>
+
+        <!-- Card 7: Unit Converter -->
+        <a href="tools/unit-converter.html" data-tool-category="utilities" class="tool-card-hover bg-white rounded-2xl border border-slate-200 p-5 cursor-pointer shadow-sm hover:shadow-md transition-all flex flex-col justify-between group">
+          <div>
+            <div class="w-11 h-11 rounded-xl bg-teal-50 border border-teal-100/80 text-teal-600 flex items-center justify-center text-lg mb-3.5 group-hover:scale-105 transition-transform">
+              <i class="fa-solid fa-calculator"></i>
+            </div>
+            <h3 class="font-bold text-sm text-slate-900 group-hover:text-brand-600 transition flex items-center justify-between">
+              <span>Unit Converter</span>
+              <i class="fa-solid fa-arrow-right text-xs opacity-0 -translate-x-1 group-hover:opacity-100 group-hover:translate-x-0 transition-all text-brand-600"></i>
+            </h3>
+            <p class="text-xs text-slate-500 mt-1.5 leading-relaxed">
+              Convert across 8 categories: Length, Weight, Temp, Digital Bytes, Speed, and more.
+            </p>
+          </div>
+          <div class="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between text-[11px] text-slate-400 font-mono">
+            <span>IEEE 754</span>
+            <span class="text-teal-600 font-semibold font-sans">8 Categories</span>
+          </div>
+        </a>
+
+        <!-- Card 8: JSON Formatter & Validator -->
+        <a href="tools/json-formatter.html" data-tool-category="developer" class="tool-card-hover bg-white rounded-2xl border border-slate-200 p-5 cursor-pointer shadow-sm hover:shadow-md transition-all flex flex-col justify-between group">
+          <div>
+            <div class="w-11 h-11 rounded-xl bg-sky-50 border border-sky-100/80 text-sky-600 flex items-center justify-center text-lg mb-3.5 group-hover:scale-105 transition-transform">
+              <i class="fa-solid fa-code"></i>
+            </div>
+            <h3 class="font-bold text-sm text-slate-900 group-hover:text-brand-600 transition flex items-center justify-between">
+              <span>JSON Formatter</span>
+              <i class="fa-solid fa-arrow-right text-xs opacity-0 -translate-x-1 group-hover:opacity-100 group-hover:translate-x-0 transition-all text-brand-600"></i>
+            </h3>
+            <p class="text-xs text-slate-500 mt-1.5 leading-relaxed">
+              Validate, beautify, and minify JSON payloads with real-time error token inspection.
+            </p>
+          </div>
+          <div class="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between text-[11px] text-slate-400 font-mono">
+            <span>Pretty / Minify</span>
+            <span class="text-sky-600 font-semibold font-sans">Developer Tool</span>
+          </div>
+        </a>
+
+        <!-- Card 9: Word & Character Counter -->
+        <a href="tools/word-counter.html" data-tool-category="developer utilities" class="tool-card-hover bg-white rounded-2xl border border-slate-200 p-5 cursor-pointer shadow-sm hover:shadow-md transition-all flex flex-col justify-between group">
+          <div>
+            <div class="w-11 h-11 rounded-xl bg-orange-50 border border-orange-100/80 text-orange-600 flex items-center justify-center text-lg mb-3.5 group-hover:scale-105 transition-transform">
+              <i class="fa-solid fa-spell-check"></i>
+            </div>
+            <h3 class="font-bold text-sm text-slate-900 group-hover:text-brand-600 transition flex items-center justify-between">
+              <span>Word Counter</span>
+              <i class="fa-solid fa-arrow-right text-xs opacity-0 -translate-x-1 group-hover:opacity-100 group-hover:translate-x-0 transition-all text-brand-600"></i>
+            </h3>
+            <p class="text-xs text-slate-500 mt-1.5 leading-relaxed">
+              Real-time word, character, sentence analytics and reading/speaking estimations.
+            </p>
+          </div>
+          <div class="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between text-[11px] text-slate-400 font-mono">
+            <span>Reading Time</span>
+            <span class="text-orange-600 font-semibold font-sans">Text Analytics</span>
+          </div>
+        </a>
+
+        <!-- Card 10: Color Picker & Palette Generator -->
+        <a href="tools/color-picker.html" data-tool-category="developer" class="tool-card-hover bg-white rounded-2xl border border-slate-200 p-5 cursor-pointer shadow-sm hover:shadow-md transition-all flex flex-col justify-between group">
+          <div>
+            <div class="w-11 h-11 rounded-xl bg-pink-50 border border-pink-100/80 text-pink-600 flex items-center justify-center text-lg mb-3.5 group-hover:scale-105 transition-transform">
+              <i class="fa-solid fa-palette"></i>
+            </div>
+            <h3 class="font-bold text-sm text-slate-900 group-hover:text-brand-600 transition flex items-center justify-between">
+              <span>Color Studio</span>
+              <i class="fa-solid fa-arrow-right text-xs opacity-0 -translate-x-1 group-hover:opacity-100 group-hover:translate-x-0 transition-all text-brand-600"></i>
+            </h3>
+            <p class="text-xs text-slate-500 mt-1.5 leading-relaxed">
+              HEX, RGB, HSL converter with 5-shade palette generation and contrast accessibility.
+            </p>
+          </div>
+          <div class="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between text-[11px] text-slate-400 font-mono">
+            <span>HEX / RGB / HSL</span>
+            <span class="text-pink-600 font-semibold font-sans">Design Tool</span>
+          </div>
+        </a>
+
+        
+        <!-- Card: Merge PDF -->
+        <a href="tools/merge-pdf.html" data-tool-category="pdf" class="tool-card-hover bg-white rounded-2xl border border-slate-200 p-5 cursor-pointer shadow-sm hover:shadow-md transition-all flex flex-col justify-between group">
+          <div>
+            <div class="w-11 h-11 rounded-xl bg-indigo-50 border border-indigo-100/80 text-brand-600 flex items-center justify-center text-lg mb-3.5 group-hover:scale-105 transition-transform">
+              <i class="fa-solid fa-object-group"></i>
+            </div>
+            <h3 class="font-bold text-sm text-slate-900 group-hover:text-brand-600 transition flex items-center justify-between">
+              <span>Merge PDF</span>
+              <i class="fa-solid fa-arrow-right text-xs opacity-0 -translate-x-1 group-hover:opacity-100 group-hover:translate-x-0 transition-all text-brand-600"></i>
+            </h3>
+            <p class="text-xs text-slate-500 mt-1.5 leading-relaxed">
+              Combine multiple PDF files into one sorted, unified document.
+            </p>
+          </div>
+          <div class="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between text-[11px] text-slate-400 font-mono">
+            <span>Reorder &amp; Join</span>
+            <span class="text-indigo-600 font-semibold font-sans">pdf-lib</span>
+          </div>
+        </a>
+
+        <!-- Card: Split PDF -->
+        <a href="tools/split-pdf.html" data-tool-category="pdf" class="tool-card-hover bg-white rounded-2xl border border-slate-200 p-5 cursor-pointer shadow-sm hover:shadow-md transition-all flex flex-col justify-between group">
+          <div>
+            <div class="w-11 h-11 rounded-xl bg-indigo-50 border border-indigo-100/80 text-brand-600 flex items-center justify-center text-lg mb-3.5 group-hover:scale-105 transition-transform">
+              <i class="fa-solid fa-scissors"></i>
+            </div>
+            <h3 class="font-bold text-sm text-slate-900 group-hover:text-brand-600 transition flex items-center justify-between">
+              <span>Split PDF</span>
+              <i class="fa-solid fa-arrow-right text-xs opacity-0 -translate-x-1 group-hover:opacity-100 group-hover:translate-x-0 transition-all text-brand-600"></i>
+            </h3>
+            <p class="text-xs text-slate-500 mt-1.5 leading-relaxed">
+              Extract page ranges or separate every page into individual PDFs.
+            </p>
+          </div>
+          <div class="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between text-[11px] text-slate-400 font-mono">
+            <span>Range &amp; Extract</span>
+            <span class="text-indigo-600 font-semibold font-sans">Instant</span>
+          </div>
+        </a>
+
+        <!-- Card: Rotate PDF -->
+        <a href="tools/rotate-pdf.html" data-tool-category="pdf" class="tool-card-hover bg-white rounded-2xl border border-slate-200 p-5 cursor-pointer shadow-sm hover:shadow-md transition-all flex flex-col justify-between group">
+          <div>
+            <div class="w-11 h-11 rounded-xl bg-indigo-50 border border-indigo-100/80 text-brand-600 flex items-center justify-center text-lg mb-3.5 group-hover:scale-105 transition-transform">
+              <i class="fa-solid fa-rotate"></i>
+            </div>
+            <h3 class="font-bold text-sm text-slate-900 group-hover:text-brand-600 transition flex items-center justify-between">
+              <span>Rotate PDF</span>
+              <i class="fa-solid fa-arrow-right text-xs opacity-0 -translate-x-1 group-hover:opacity-100 group-hover:translate-x-0 transition-all text-brand-600"></i>
+            </h3>
+            <p class="text-xs text-slate-500 mt-1.5 leading-relaxed">
+              Rotate sideways or upside-down pages by 90°, 180°, or 270°.
+            </p>
+          </div>
+          <div class="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between text-[11px] text-slate-400 font-mono">
+            <span>90° / 180° / 270°</span>
+            <span class="text-indigo-600 font-semibold font-sans">Orientation</span>
+          </div>
+        </a>
+
+        <!-- Card: Sign PDF -->
+        <a href="tools/sign-pdf.html" data-tool-category="pdf" class="tool-card-hover bg-white rounded-2xl border border-slate-200 p-5 cursor-pointer shadow-sm hover:shadow-md transition-all flex flex-col justify-between group">
+          <div>
+            <div class="w-11 h-11 rounded-xl bg-rose-50 border border-rose-100/80 text-rose-600 flex items-center justify-center text-lg mb-3.5 group-hover:scale-105 transition-transform">
+              <i class="fa-solid fa-signature"></i>
+            </div>
+            <h3 class="font-bold text-sm text-slate-900 group-hover:text-brand-600 transition flex items-center justify-between">
+              <span>Sign PDF</span>
+              <i class="fa-solid fa-arrow-right text-xs opacity-0 -translate-x-1 group-hover:opacity-100 group-hover:translate-x-0 transition-all text-brand-600"></i>
+            </h3>
+            <p class="text-xs text-slate-500 mt-1.5 leading-relaxed">
+              Draw your digital signature on canvas and stamp it directly onto PDF.
+            </p>
+          </div>
+          <div class="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between text-[11px] text-slate-400 font-mono">
+            <span>Canvas Pad</span>
+            <span class="text-rose-600 font-semibold font-sans">E-Sign</span>
+          </div>
+        </a>
+
+        <!-- Card: Edit PDF -->
+        <a href="tools/edit-pdf.html" data-tool-category="pdf" class="tool-card-hover bg-white rounded-2xl border border-slate-200 p-5 cursor-pointer shadow-sm hover:shadow-md transition-all flex flex-col justify-between group">
+          <div>
+            <div class="w-11 h-11 rounded-xl bg-rose-50 border border-rose-100/80 text-rose-600 flex items-center justify-center text-lg mb-3.5 group-hover:scale-105 transition-transform">
+              <i class="fa-solid fa-pen-to-square"></i>
+            </div>
+            <h3 class="font-bold text-sm text-slate-900 group-hover:text-brand-600 transition flex items-center justify-between">
+              <span>Edit PDF</span>
+              <i class="fa-solid fa-arrow-right text-xs opacity-0 -translate-x-1 group-hover:opacity-100 group-hover:translate-x-0 transition-all text-brand-600"></i>
+            </h3>
+            <p class="text-xs text-slate-500 mt-1.5 leading-relaxed">
+              Add text notes, remarks, date stamps, and highlight boxes onto pages.
+            </p>
+          </div>
+          <div class="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between text-[11px] text-slate-400 font-mono">
+            <span>Text &amp; Boxes</span>
+            <span class="text-rose-600 font-semibold font-sans">Annotate</span>
+          </div>
+        </a>
+
+        <!-- Card: Add Watermark -->
+        <a href="tools/watermark-pdf.html" data-tool-category="pdf" class="tool-card-hover bg-white rounded-2xl border border-slate-200 p-5 cursor-pointer shadow-sm hover:shadow-md transition-all flex flex-col justify-between group">
+          <div>
+            <div class="w-11 h-11 rounded-xl bg-rose-50 border border-rose-100/80 text-rose-600 flex items-center justify-center text-lg mb-3.5 group-hover:scale-105 transition-transform">
+              <i class="fa-solid fa-stamp"></i>
+            </div>
+            <h3 class="font-bold text-sm text-slate-900 group-hover:text-brand-600 transition flex items-center justify-between">
+              <span>Add Watermark</span>
+              <i class="fa-solid fa-arrow-right text-xs opacity-0 -translate-x-1 group-hover:opacity-100 group-hover:translate-x-0 transition-all text-brand-600"></i>
+            </h3>
+            <p class="text-xs text-slate-500 mt-1.5 leading-relaxed">
+              Stamp custom text or draft watermarks with opacity and diagonal angle.
+            </p>
+          </div>
+          <div class="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between text-[11px] text-slate-400 font-mono">
+            <span>Opacity &amp; Angle</span>
+            <span class="text-rose-600 font-semibold font-sans">Stamp</span>
+          </div>
+        </a>
+
+        <!-- Card: PDF to Word -->
+        <a href="tools/pdf-to-word.html" data-tool-category="pdf" class="tool-card-hover bg-white rounded-2xl border border-slate-200 p-5 cursor-pointer shadow-sm hover:shadow-md transition-all flex flex-col justify-between group">
+          <div>
+            <div class="w-11 h-11 rounded-xl bg-blue-50 border border-blue-100/80 text-blue-600 flex items-center justify-center text-lg mb-3.5 group-hover:scale-105 transition-transform">
+              <i class="fa-solid fa-file-word"></i>
+            </div>
+            <h3 class="font-bold text-sm text-slate-900 group-hover:text-brand-600 transition flex items-center justify-between">
+              <span>PDF to Word</span>
+              <i class="fa-solid fa-arrow-right text-xs opacity-0 -translate-x-1 group-hover:opacity-100 group-hover:translate-x-0 transition-all text-brand-600"></i>
+            </h3>
+            <p class="text-xs text-slate-500 mt-1.5 leading-relaxed">
+              Convert PDF files into cleanly structured, editable Microsoft Word (.docx).
+            </p>
+          </div>
+          <div class="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between text-[11px] text-slate-400 font-mono">
+            <span>DocXML Export</span>
+            <span class="text-blue-600 font-semibold font-sans">DOCX</span>
+          </div>
+        </a>
+
+        <!-- Card: Word to PDF -->
+        <a href="tools/word-to-pdf.html" data-tool-category="pdf" class="tool-card-hover bg-white rounded-2xl border border-slate-200 p-5 cursor-pointer shadow-sm hover:shadow-md transition-all flex flex-col justify-between group">
+          <div>
+            <div class="w-11 h-11 rounded-xl bg-blue-50 border border-blue-100/80 text-blue-600 flex items-center justify-center text-lg mb-3.5 group-hover:scale-105 transition-transform">
+              <i class="fa-solid fa-file-import"></i>
+            </div>
+            <h3 class="font-bold text-sm text-slate-900 group-hover:text-brand-600 transition flex items-center justify-between">
+              <span>Word to PDF</span>
+              <i class="fa-solid fa-arrow-right text-xs opacity-0 -translate-x-1 group-hover:opacity-100 group-hover:translate-x-0 transition-all text-brand-600"></i>
+            </h3>
+            <p class="text-xs text-slate-500 mt-1.5 leading-relaxed">
+              Convert DOCX, Word files, and rich documents into pristine printable PDF.
+            </p>
+          </div>
+          <div class="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between text-[11px] text-slate-400 font-mono">
+            <span>DOCX to PDF</span>
+            <span class="text-blue-600 font-semibold font-sans">Compile</span>
+          </div>
+        </a>
+
+        <!-- Card: PDF to Excel -->
+        <a href="tools/pdf-to-excel.html" data-tool-category="pdf" class="tool-card-hover bg-white rounded-2xl border border-slate-200 p-5 cursor-pointer shadow-sm hover:shadow-md transition-all flex flex-col justify-between group">
+          <div>
+            <div class="w-11 h-11 rounded-xl bg-emerald-50 border border-emerald-100/80 text-emerald-600 flex items-center justify-center text-lg mb-3.5 group-hover:scale-105 transition-transform">
+              <i class="fa-solid fa-file-excel"></i>
+            </div>
+            <h3 class="font-bold text-sm text-slate-900 group-hover:text-brand-600 transition flex items-center justify-between">
+              <span>PDF to Excel</span>
+              <i class="fa-solid fa-arrow-right text-xs opacity-0 -translate-x-1 group-hover:opacity-100 group-hover:translate-x-0 transition-all text-brand-600"></i>
+            </h3>
+            <p class="text-xs text-slate-500 mt-1.5 leading-relaxed">
+              Extract tabular numbers, financial statements, and rows into Excel spreadsheets.
+            </p>
+          </div>
+          <div class="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between text-[11px] text-slate-400 font-mono">
+            <span>CSV / TSV Export</span>
+            <span class="text-emerald-600 font-semibold font-sans">Spreadsheet</span>
+          </div>
+        </a>
+
+        <!-- Card: PDF to PowerPoint -->
+        <a href="tools/pdf-to-powerpoint.html" data-tool-category="pdf" class="tool-card-hover bg-white rounded-2xl border border-slate-200 p-5 cursor-pointer shadow-sm hover:shadow-md transition-all flex flex-col justify-between group">
+          <div>
+            <div class="w-11 h-11 rounded-xl bg-orange-50 border border-orange-100/80 text-orange-600 flex items-center justify-center text-lg mb-3.5 group-hover:scale-105 transition-transform">
+              <i class="fa-solid fa-file-powerpoint"></i>
+            </div>
+            <h3 class="font-bold text-sm text-slate-900 group-hover:text-brand-600 transition flex items-center justify-between">
+              <span>PDF to PowerPoint</span>
+              <i class="fa-solid fa-arrow-right text-xs opacity-0 -translate-x-1 group-hover:opacity-100 group-hover:translate-x-0 transition-all text-brand-600"></i>
+            </h3>
+            <p class="text-xs text-slate-500 mt-1.5 leading-relaxed">
+              Convert PDF slides and presentation decks into Microsoft PowerPoint (.pptx).
+            </p>
+          </div>
+          <div class="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between text-[11px] text-slate-400 font-mono">
+            <span>Slide Deck Vector</span>
+            <span class="text-orange-600 font-semibold font-sans">PPTX</span>
+          </div>
+        </a>
+
+        <!-- Card 11: Feedback & Review -->
+        <div data-modal-open="modal-feedback" data-tool-category="utilities" class="tool-card-hover bg-gradient-to-br from-indigo-50/60 to-purple-50/40 rounded-2xl border border-indigo-100 p-5 cursor-pointer shadow-sm hover:shadow-md transition-all flex flex-col justify-between group">
+          <div>
+            <div class="w-11 h-11 rounded-xl bg-white border border-indigo-100 text-brand-600 flex items-center justify-center text-lg mb-3.5 group-hover:scale-105 transition-transform shadow-xs">
+              <i class="fa-solid fa-star text-amber-400"></i>
+            </div>
+            <h3 class="font-bold text-sm text-slate-900 group-hover:text-brand-600 transition flex items-center justify-between">
+              <span>User Feedback</span>
+              <i class="fa-solid fa-arrow-right text-xs opacity-0 -translate-x-1 group-hover:opacity-100 group-hover:translate-x-0 transition-all text-brand-600"></i>
+            </h3>
+            <p class="text-xs text-slate-500 mt-1.5 leading-relaxed">
+              Request a new tool, report an issue, or rate QuickConvert's client-side performance.
+            </p>
+          </div>
+          <div class="mt-4 pt-3 border-t border-indigo-100/60 flex items-center justify-between text-[11px] text-slate-400 font-mono">
+            <span>1-5 Star Rating</span>
+            <span class="text-brand-600 font-semibold font-sans">We Listen</span>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+
+<!-- CONTENT-RICH SECTION 1: HOW TO USE QUICKCONVERT (AdSense High Value Requirement) -->
+    <section id="how-to-use" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+      <div class="text-center max-w-3xl mx-auto mb-12">
+        <span class="text-xs font-extrabold uppercase tracking-widest text-brand-600">Quick-Start Manual</span>
+        <h2 class="text-2xl sm:text-4xl font-extrabold text-slate-900 mt-2">
+          How to Use QuickConvert in 3 Simple Steps
+        </h2>
+        <p class="text-slate-600 text-sm sm:text-base mt-3">
+          Designed for maximum productivity and zero friction. Follow these straightforward steps to convert or optimize your digital assets immediately.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+        
+        <!-- Step 1 -->
+        <article class="bg-white p-6 rounded-2xl border border-slate-200 shadow-xs relative">
+          <div class="w-12 h-12 rounded-xl bg-brand-50 text-brand-600 font-extrabold text-xl flex items-center justify-center mb-4">
+            01
+          </div>
+          <h3 class="text-lg font-bold text-slate-900 mb-2">Select &amp; Upload Files</h3>
+          <p class="text-xs sm:text-sm text-slate-600 leading-relaxed">
+            Drag and drop your images or enter your document text directly into the tool's conversion zone. QuickConvert utilizes the browser’s native FileReader API, loading your file contents instantly into memory without network latency.
+          </p>
+        </article>
+
+        <!-- Step 2 -->
+        <article class="bg-white p-6 rounded-2xl border border-slate-200 shadow-xs relative">
+          <div class="w-12 h-12 rounded-xl bg-brand-50 text-brand-600 font-extrabold text-xl flex items-center justify-center mb-4">
+            02
+          </div>
+          <h3 class="text-lg font-bold text-slate-900 mb-2">Customize Preferences</h3>
+          <p class="text-xs sm:text-sm text-slate-600 leading-relaxed">
+            Adjust orientation, margin widths, quality sliders, or target pixel resolutions. With our real-time reactive feedback, you can inspect the exact size reduction and visual dimensions before committing to the export.
+          </p>
+        </article>
+
+        <!-- Step 3 -->
+        <article class="bg-white p-6 rounded-2xl border border-slate-200 shadow-xs relative">
+          <div class="w-12 h-12 rounded-xl bg-brand-50 text-brand-600 font-extrabold text-xl flex items-center justify-center mb-4">
+            03
+          </div>
+          <h3 class="text-lg font-bold text-slate-900 mb-2">Instant In-Browser Export</h3>
+          <p class="text-xs sm:text-sm text-slate-600 leading-relaxed">
+            Click download to compile your PDF or compressed asset on the fly. The file is generated in pure JavaScript and delivered directly to your device’s download folder, ensuring zero data leakage and zero wait time.
+          </p>
+        </article>
+
+      </div>
+    </section>
+
+    <!-- CONTENT-RICH SECTION 2: ARCHITECTURE & SECURITY ADVANTAGE -->
+    <section id="security-advantage" class="bg-slate-900 text-white py-16">
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        
+        <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
+          <div>
+            <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 mb-4">
+              <i class="fa-solid fa-shield-virus"></i> Zero-Knowledge Architecture
+            </span>
+            <h2 class="text-2xl sm:text-4xl font-extrabold tracking-tight text-white mb-5">
+              Why In-Browser Processing is Strictly Superior for Document Privacy
+            </h2>
+            <div class="space-y-4 text-slate-300 text-sm sm:text-base leading-relaxed">
+              <p>
+                Traditional online converters require you to upload private contracts, confidential scans, and personal photographs to remote cloud servers. Once uploaded, your files sit in third-party temporary directories, creating vulnerability vectors for data breaches and unintended archival.
+              </p>
+              <p>
+                <strong class="text-white">QuickConvert disrupts this obsolete paradigm.</strong> By leveraging client-side WebAssembly, the HTML5 Canvas API, and <code class="text-indigo-300 bg-indigo-950/60 px-1 py-0.5 rounded">jsPDF</code>, every pixel calculation and byte serialization happens locally within your browser's isolated JavaScript sandbox.
+              </p>
+              <p>
+                Your files are never transmitted across the network, eliminating both security hazards and costly cloud hosting bills.
+              </p>
+            </div>
+
+            <div class="mt-8 grid grid-cols-2 gap-4">
+              <div class="border border-slate-800 bg-slate-800/50 p-4 rounded-xl">
+                <p class="text-indigo-400 font-bold text-lg">0 Bytes</p>
+                <p class="text-xs text-slate-400 mt-1">Transmitted over external networks</p>
+              </div>
+              <div class="border border-slate-800 bg-slate-800/50 p-4 rounded-xl">
+                <p class="text-emerald-400 font-bold text-lg">GDPR &amp; CCPA</p>
+                <p class="text-xs text-slate-400 mt-1">Inherently compliant by design</p>
+              </div>
+            </div>
+          </div>
+
+          <!-- Feature Cards Grid -->
+          <div class="space-y-4">
+            
+            <div class="p-5 rounded-2xl bg-slate-800/80 border border-slate-700/80 flex items-start gap-4">
+              <div class="w-10 h-10 rounded-xl bg-brand-500/20 text-brand-400 flex items-center justify-center shrink-0">
+                <i class="fa-solid fa-microchip text-lg"></i>
+              </div>
+              <div>
+                <h3 class="font-bold text-white text-base">Harness Local Hardware</h3>
+                <p class="text-xs sm:text-sm text-slate-300 mt-1">
+                  Instead of waiting in shared cloud queuing pools, QuickConvert uses your device’s multi-core CPU and GPU acceleration for near-instantaneous operations.
+                </p>
+              </div>
+            </div>
+
+            <div class="p-5 rounded-2xl bg-slate-800/80 border border-slate-700/80 flex items-start gap-4">
+              <div class="w-10 h-10 rounded-xl bg-accent-500/20 text-accent-400 flex items-center justify-center shrink-0">
+                <i class="fa-solid fa-wifi-slash text-lg"></i>
+              </div>
+              <div>
+                <h3 class="font-bold text-white text-base">Works Offline Once Loaded</h3>
+                <p class="text-xs sm:text-sm text-slate-300 mt-1">
+                  Once cached in your browser, QuickConvert can process image conversions and compress documents even without an active internet connection.
+                </p>
+              </div>
+            </div>
+
+            <div class="p-5 rounded-2xl bg-slate-800/80 border border-slate-700/80 flex items-start gap-4">
+              <div class="w-10 h-10 rounded-xl bg-emerald-500/20 text-emerald-400 flex items-center justify-center shrink-0">
+                <i class="fa-solid fa-ban text-lg"></i>
+              </div>
+              <div>
+                <h3 class="font-bold text-white text-base">No Account, Paywall, or Captcha</h3>
+                <p class="text-xs sm:text-sm text-slate-300 mt-1">
+                  Zero mandatory registration or monthly credit limitations. Open the site, accomplish your work in seconds, and get back to your day.
+                </p>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- CONTENT-RICH SECTION 3: COMPARISON TABLE -->
+    <section id="comparison" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+      <div class="text-center max-w-3xl mx-auto mb-12">
+        <span class="text-xs font-extrabold uppercase tracking-widest text-brand-600">Architectural Benchmark</span>
+        <h2 class="text-2xl sm:text-4xl font-extrabold text-slate-900 mt-2">
+          QuickConvert vs. Legacy Cloud Converters
+        </h2>
+        <p class="text-slate-600 text-sm sm:text-base mt-3">
+          See why modern software developers and privacy-conscious users are migrating to browser-native processing.
+        </p>
+      </div>
+
+      <div class="overflow-x-auto">
+        <table class="w-full text-left border-collapse bg-white rounded-2xl border border-slate-200 shadow-xs overflow-hidden">
+          <thead>
+            <tr class="bg-slate-50 border-b border-slate-200 text-xs font-bold uppercase tracking-wider text-slate-600">
+              <th class="p-4 sm:p-5">Feature &amp; Privacy Metric</th>
+              <th class="p-4 sm:p-5 bg-brand-50/60 text-brand-800">QuickConvert (Browser Native)</th>
+              <th class="p-4 sm:p-5 text-slate-500">Typical Cloud Converters</th>
+            </tr>
+          </thead>
+          <tbody class="divide-y divide-slate-100 text-xs sm:text-sm">
+            <tr>
+              <td class="p-4 sm:p-5 font-semibold text-slate-800">File Storage &amp; Transmission</td>
+              <td class="p-4 sm:p-5 bg-brand-50/30 text-emerald-700 font-semibold flex items-center gap-1.5">
+                <i class="fa-solid fa-check text-emerald-500"></i> Never leaves user's RAM
+              </td>
+              <td class="p-4 sm:p-5 text-rose-600">
+                <i class="fa-solid fa-xmark text-rose-400"></i> Uploaded to third-party servers
+              </td>
+            </tr>
+            <tr>
+              <td class="p-4 sm:p-5 font-semibold text-slate-800">Processing Speed</td>
+              <td class="p-4 sm:p-5 bg-brand-50/30 text-emerald-700 font-semibold">
+                Instant (No upload / download latency)
+              </td>
+              <td class="p-4 sm:p-5 text-slate-500">
+                Slow (Dependent on upload bandwidth &amp; queues)
+              </td>
+            </tr>
+            <tr>
+              <td class="p-4 sm:p-5 font-semibold text-slate-800">Daily File &amp; Size Caps</td>
+              <td class="p-4 sm:p-5 bg-brand-50/30 text-emerald-700 font-semibold">
+                Unlimited (Constrained only by client memory)
+              </td>
+              <td class="p-4 sm:p-5 text-slate-500">
+                Strict quotas (Usually 2-5 files/day free)
+              </td>
+            </tr>
+            <tr>
+              <td class="p-4 sm:p-5 font-semibold text-slate-800">Account Requirement</td>
+              <td class="p-4 sm:p-5 bg-brand-50/30 text-emerald-700 font-semibold">
+                None (Instant zero-friction usage)
+              </td>
+              <td class="p-4 sm:p-5 text-slate-500">
+                Email verification or subscription prompt
+              </td>
+            </tr>
+            <tr>
+              <td class="p-4 sm:p-5 font-semibold text-slate-800">Compliance &amp; Legal Liability</td>
+              <td class="p-4 sm:p-5 bg-brand-50/30 text-emerald-700 font-semibold">
+                Zero data controller liability under GDPR
+              </td>
+              <td class="p-4 sm:p-5 text-slate-500">
+                Requires complex DPA and third-party consent
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </section>
+
+    <!-- CONTENT-RICH SECTION 4: FAQS ACCORDION (AdSense Crucial Content) -->
+    <section id="faqs" class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+      <div class="text-center max-w-2xl mx-auto mb-10">
+        <span class="text-xs font-extrabold uppercase tracking-widest text-brand-600">Got Questions?</span>
+        <h2 class="text-2xl sm:text-4xl font-extrabold text-slate-900 mt-2">
+          Frequently Asked Questions
+        </h2>
+        <p class="text-slate-600 text-sm sm:text-base mt-2">
+          Transparent insights into QuickConvert's client-side technology, file security, and supported standards.
+        </p>
+      </div>
+
+      <div class="space-y-3">
+        
+        <!-- FAQ 1 -->
+        <div class="faq-item bg-white rounded-2xl border border-slate-200 overflow-hidden shadow-xs">
+          <button class="faq-trigger w-full px-6 py-4.5 text-left flex items-center justify-between text-sm sm:text-base font-bold text-slate-900 hover:text-brand-600 transition focus:outline-none">
+            <span>Are my files, images, or documents ever stored on a remote server?</span>
+            <i class="faq-icon fa-solid fa-chevron-down text-slate-400 transition-transform duration-200"></i>
+          </button>
+          <div class="faq-content px-6 text-xs sm:text-sm text-slate-600 leading-relaxed border-t border-slate-100">
+            <div class="py-4">
+              <strong>Absolutely not.</strong> QuickConvert executes 100% inside your browser environment using HTML5 File APIs, Canvas 2D contexts, and client-side JavaScript libraries. The files you convert never travel across the internet and cannot be accessed, inspected, or retained by QuickConvert or any third party.
+            </div>
+          </div>
+        </div>
+
+        <!-- FAQ 2 -->
+        <div class="faq-item bg-white rounded-2xl border border-slate-200 overflow-hidden shadow-xs">
+          <button class="faq-trigger w-full px-6 py-4.5 text-left flex items-center justify-between text-sm sm:text-base font-bold text-slate-900 hover:text-brand-600 transition focus:outline-none">
+            <span>How does the PNG/JPG to PDF converter work?</span>
+            <i class="faq-icon fa-solid fa-chevron-down text-slate-400 transition-transform duration-200"></i>
+          </button>
+          <div class="faq-content px-6 text-xs sm:text-sm text-slate-600 leading-relaxed border-t border-slate-100">
+            <div class="py-4">
+              When you load images into QuickConvert, the browser reads them as local Data URIs. Our engine calculates optimal page layout dimensions (either standard A4, US Letter, or tailored to your image aspect ratio) and leverages the industry-standard <code class="text-indigo-600 bg-indigo-50 px-1 py-0.5 rounded">jsPDF</code> library to compile a binary PDF stream in memory, triggering a direct browser file download.
+            </div>
+          </div>
+        </div>
+
+        <!-- FAQ 3 -->
+        <div class="faq-item bg-white rounded-2xl border border-slate-200 overflow-hidden shadow-xs">
+          <button class="faq-trigger w-full px-6 py-4.5 text-left flex items-center justify-between text-sm sm:text-base font-bold text-slate-900 hover:text-brand-600 transition focus:outline-none">
+            <span>Can I convert high-resolution photos without quality degradation?</span>
+            <i class="faq-icon fa-solid fa-chevron-down text-slate-400 transition-transform duration-200"></i>
+          </button>
+          <div class="faq-content px-6 text-xs sm:text-sm text-slate-600 leading-relaxed border-t border-slate-100">
+            <div class="py-4">
+              Yes. With our Image Compressor &amp; Resizer tool, you maintain exact control over compression quality and target resolution. By using modern WebP or adjusted JPEG quantization settings, you can reduce file weights by up to 80% while retaining crisp, high-fidelity visual clarity suitable for both web and print.
+            </div>
+          </div>
+        </div>
+
+        <!-- FAQ 4 -->
+        <div class="faq-item bg-white rounded-2xl border border-slate-200 overflow-hidden shadow-xs">
+          <button class="faq-trigger w-full px-6 py-4.5 text-left flex items-center justify-between text-sm sm:text-base font-bold text-slate-900 hover:text-brand-600 transition focus:outline-none">
+            <span>Does QuickConvert work on mobile phones and tablets?</span>
+            <i class="faq-icon fa-solid fa-chevron-down text-slate-400 transition-transform duration-200"></i>
+          </button>
+          <div class="faq-content px-6 text-xs sm:text-sm text-slate-600 leading-relaxed border-t border-slate-100">
+            <div class="py-4">
+              Yes! QuickConvert is responsive and compatible across iOS Safari, Android Chrome, and modern tablet browsers. Because it relies entirely on standardized Web APIs, no app installation or permissions are required.
+            </div>
+          </div>
+        </div>
+
+        <!-- FAQ 5 -->
+        <div class="faq-item bg-white rounded-2xl border border-slate-200 overflow-hidden shadow-xs">
+          <button class="faq-trigger w-full px-6 py-4.5 text-left flex items-center justify-between text-sm sm:text-base font-bold text-slate-900 hover:text-brand-600 transition focus:outline-none">
+            <span>Is there a hidden cost, subscription, or watermark added?</span>
+            <i class="faq-icon fa-solid fa-chevron-down text-slate-400 transition-transform duration-200"></i>
+          </button>
+          <div class="faq-content px-6 text-xs sm:text-sm text-slate-600 leading-relaxed border-t border-slate-100">
+            <div class="py-4">
+              QuickConvert is 100% free and does not place watermarks, branding stamps, or artificial limits on your output documents. We support ongoing maintenance through clean, unobtrusive web advertisements.
+            </div>
+          </div>
+        </div>
+
+        <!-- FAQ 6 (New) -->
+        <div class="faq-item bg-white rounded-2xl border border-slate-200 overflow-hidden shadow-xs">
+          <button class="faq-trigger w-full px-6 py-4.5 text-left flex items-center justify-between text-sm sm:text-base font-bold text-slate-900 hover:text-brand-600 transition focus:outline-none">
+            <span>How fast is the conversion — does it depend on my internet speed?</span>
+            <i class="faq-icon fa-solid fa-chevron-down text-slate-400 transition-transform duration-200"></i>
+          </button>
+          <div class="faq-content px-6 text-xs sm:text-sm text-slate-600 leading-relaxed border-t border-slate-100">
+            <div class="py-4">
+              QuickConvert's conversion speed depends entirely on your device's local CPU and browser engine — <strong>not your internet connection</strong>. Because files are processed in-browser with no network round-trip, typical conversions (e.g., a 10-image batch to PDF or an 8 MB image compression) complete in under 500 milliseconds, even on a moderate laptop. The only network activity is loading the page itself — after that, everything runs offline.
+            </div>
+          </div>
+        </div>
+
+        <!-- FAQ 7 (New) -->
+        <div class="faq-item bg-white rounded-2xl border border-slate-200 overflow-hidden shadow-xs">
+          <button class="faq-trigger w-full px-6 py-4.5 text-left flex items-center justify-between text-sm sm:text-base font-bold text-slate-900 hover:text-brand-600 transition focus:outline-none">
+            <span>What browsers are supported by QuickConvert?</span>
+            <i class="faq-icon fa-solid fa-chevron-down text-slate-400 transition-transform duration-200"></i>
+          </button>
+          <div class="faq-content px-6 text-xs sm:text-sm text-slate-600 leading-relaxed border-t border-slate-100">
+            <div class="py-4">
+              QuickConvert is fully supported on all modern evergreen browsers: <strong>Google Chrome 90+</strong>, <strong>Microsoft Edge 90+</strong>, <strong>Mozilla Firefox 88+</strong>, and <strong>Apple Safari 14+</strong> on macOS and iOS. All tools leverage standardized HTML5 APIs (FileReader, Canvas 2D, Blob) that are universally implemented across these browsers. Internet Explorer is not supported.
+            </div>
+          </div>
+        </div>
+
+        <!-- FAQ 8 (New) -->
+        <div class="faq-item bg-white rounded-2xl border border-slate-200 overflow-hidden shadow-xs">
+          <button class="faq-trigger w-full px-6 py-4.5 text-left flex items-center justify-between text-sm sm:text-base font-bold text-slate-900 hover:text-brand-600 transition focus:outline-none">
+            <span>Can I use QuickConvert for commercial or business purposes?</span>
+            <i class="faq-icon fa-solid fa-chevron-down text-slate-400 transition-transform duration-200"></i>
+          </button>
+          <div class="faq-content px-6 text-xs sm:text-sm text-slate-600 leading-relaxed border-t border-slate-100">
+            <div class="py-4">
+              Yes, QuickConvert is free for personal, educational, and commercial business use. Compress product photography for e-commerce sites, convert batch invoices or contracts to PDF for client delivery, or perform unit conversions for engineering calculations — all without any licensing costs, usage credits, or subscription fees. See our <a href="#" data-modal-open="modal-terms" class="text-brand-600 underline hover:text-brand-800">Terms of Service</a> for the full commercial usage policy.
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- NEW: BLOG / GUIDES CONTENT SECTION (AdSense High Value — Original Editorial Content) -->
+    <section id="guides" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16 border-t border-slate-200">
+      <div class="text-center max-w-3xl mx-auto mb-12">
+        <span class="text-xs font-extrabold uppercase tracking-widest text-brand-600">Expert Guides &amp; Tips</span>
+        <h2 class="text-2xl sm:text-4xl font-extrabold text-slate-900 mt-2">
+          Guides on File Optimization, PDF Creation &amp; Document Workflows
+        </h2>
+        <p class="text-slate-600 text-sm sm:text-base mt-3">
+          Practical knowledge on image compression standards, PDF document best practices, and digital conversion workflows used by professional developers and designers.
+        </p>
+      </div>
+
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+
+        <article class="bg-white rounded-2xl border border-slate-200 shadow-xs overflow-hidden hover:shadow-md transition group">
+          <div class="h-2 bg-gradient-to-r from-brand-500 to-indigo-400"></div>
+          <div class="p-6">
+            <div class="flex items-center gap-2 mb-3">
+              <span class="px-2.5 py-1 rounded-full text-[11px] font-bold bg-brand-50 text-brand-700 uppercase tracking-wide">Image Compression</span>
+            </div>
+            <h3 class="text-base font-bold text-slate-900 mb-2 group-hover:text-brand-600 transition">
+              WebP vs JPEG vs PNG — Which Format Should You Use in 2026?
+            </h3>
+            <p class="text-xs sm:text-sm text-slate-600 leading-relaxed">
+              A technical comparison of the three most common web image formats. WebP offers 25–35% smaller file sizes than JPEG at equivalent visual quality, with full alpha channel transparency support. JPEG remains the most universally compatible format for photographic content. PNG is the only option for strictly lossless images requiring precise pixel accuracy.
+            </p>
+            <p class="text-xs sm:text-sm text-slate-600 leading-relaxed mt-3">
+              For most modern websites, switching from PNG screenshots to WebP can reduce page weight by 60–80%, directly improving Google Core Web Vitals (LCP and FID scores), which are ranking signals for organic search position. QuickConvert's Smart Auto mode automatically selects the optimal format based on your source image type.
+            </p>
+          </div>
+        </article>
+
+        <article class="bg-white rounded-2xl border border-slate-200 shadow-xs overflow-hidden hover:shadow-md transition group">
+          <div class="h-2 bg-gradient-to-r from-emerald-500 to-teal-400"></div>
+          <div class="p-6">
+            <div class="flex items-center gap-2 mb-3">
+              <span class="px-2.5 py-1 rounded-full text-[11px] font-bold bg-emerald-50 text-emerald-700 uppercase tracking-wide">PDF Workflows</span>
+            </div>
+            <h3 class="text-base font-bold text-slate-900 mb-2 group-hover:text-brand-600 transition">
+              How to Compile Scanned Documents into a Professional PDF Archive
+            </h3>
+            <p class="text-xs sm:text-sm text-slate-600 leading-relaxed">
+              Scanning physical documents and photographs creates large image files (often 2–10 MB per page) that are difficult to email, store, or share. By converting your scanned JPG or PNG files into a single multi-page PDF, you create a compact, universally readable archive document.
+            </p>
+            <p class="text-xs sm:text-sm text-slate-600 leading-relaxed mt-3">
+              Best practice: scan at 150–200 DPI for digital-only viewing (keeps file small), or 300 DPI for documents that may also be printed. Use QuickConvert's A4 Portrait layout with 10 mm margins for clean, professional multi-page archival PDFs.
+            </p>
+          </div>
+        </article>
+
+        <article class="bg-white rounded-2xl border border-slate-200 shadow-xs overflow-hidden hover:shadow-md transition group">
+          <div class="h-2 bg-gradient-to-r from-amber-500 to-orange-400"></div>
+          <div class="p-6">
+            <div class="flex items-center gap-2 mb-3">
+              <span class="px-2.5 py-1 rounded-full text-[11px] font-bold bg-amber-50 text-amber-700 uppercase tracking-wide">Privacy &amp; Security</span>
+            </div>
+            <h3 class="text-base font-bold text-slate-900 mb-2 group-hover:text-brand-600 transition">
+              Why You Should Never Upload Sensitive Documents to Cloud Converters
+            </h3>
+            <p class="text-xs sm:text-sm text-slate-600 leading-relaxed">
+              Most free online converters require you to upload files to their servers. Under GDPR and CCPA, any service that processes EU or California residents' documents is a data controller — legally required to sign Data Processing Agreements (DPA) and maintain explicit security certifications.
+            </p>
+            <p class="text-xs sm:text-sm text-slate-600 leading-relaxed mt-3">
+              QuickConvert eliminates this legal and security risk entirely. Because all processing happens inside your browser's isolated JavaScript sandbox, we are architecturally incapable of accessing, reading, or storing your documents — no DPA required, no breach risk.
+            </p>
+          </div>
+        </article>
+
+      </div>
+    </section>
+
+    <!-- BOTTOM AD PLACEHOLDER (AdSense Placement) -->
+    <div class="max-w-5xl mx-auto px-4 py-8">
+      <div class="adsense-box rounded-xl p-4 min-h-[90px] flex items-center justify-center text-center">
+        <div class="text-slate-400 text-xs">
+          <i class="fa-regular fa-rectangle-ad text-lg mb-1 block"></i>
+          <span>Advertisement / Sponsored Placement (AdSense Native Responsive Unit)</span>
+        </div>
+      </div>
+    </div>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="bg-white border-t border-slate-200 text-slate-600 text-xs">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-12">
+      <div class="grid grid-cols-1 md:grid-cols-4 gap-8 mb-8">
+        
+        <!-- Brand Info -->
+        <div class="space-y-3">
+          <div class="flex items-center gap-2">
+            <div class="w-7 h-7 rounded-lg bg-brand-600 flex items-center justify-center text-white">
+              <i class="fa-solid fa-bolt-lightning text-xs"></i>
+            </div>
+            <span class="text-base font-extrabold text-slate-900 tracking-tight">QuickConvert</span>
+          </div>
+          <p class="text-slate-500 leading-relaxed">
+            The privacy-first, lightning-fast multi-tool utility suite. Convert, optimize, and calculate client-side with zero server footprints.
+          </p>
+          <div class="pt-1 flex items-center gap-3 text-slate-400 text-base">
+            <a href="#" class="hover:text-brand-600 transition"><i class="fa-brands fa-github"></i></a>
+            <a href="#" class="hover:text-brand-600 transition"><i class="fa-brands fa-x-twitter"></i></a>
+            <a href="#" class="hover:text-brand-600 transition"><i class="fa-brands fa-linkedin"></i></a>
+          </div>
+        </div>
+
+        <!-- Tool Suite Links -->
+        <div>
+          <h4 class="font-bold text-slate-900 uppercase tracking-wider mb-3">Converter &amp; Dev Tools</h4>
+          <ul class="space-y-2">
+            <li><a href="tools/image-to-pdf.html" class="hover:text-brand-600 transition">PNG/JPG to PDF</a></li>
+            <li><a href="tools/image-compressor.html" class="hover:text-brand-600 transition">Image Compressor</a></li>
+            <li><a href="tools/image-converter.html" class="hover:text-brand-600 transition">Image Format Converter</a></li>
+            <li><a href="tools/text-to-pdf.html" class="hover:text-brand-600 transition">Text &amp; Markdown to PDF</a></li>
+            <li><a href="tools/qr-generator.html" class="hover:text-brand-600 transition">QR Code Generator</a></li>
+            <li><a href="tools/password-generator.html" class="hover:text-brand-600 transition">Password Generator</a></li>
+            <li><a href="tools/unit-converter.html" class="hover:text-brand-600 transition">Universal Unit Converter</a></li>
+            <li><a href="tools/json-formatter.html" class="hover:text-brand-600 transition font-semibold text-brand-600">JSON Formatter &amp; Validator</a></li>
+            <li><a href="tools/word-counter.html" class="hover:text-brand-600 transition font-semibold text-brand-600">Word &amp; Character Counter</a></li>
+            <li><a href="tools/color-picker.html" class="hover:text-brand-600 transition font-semibold text-brand-600">Color Studio &amp; Palettes</a></li>
+          </ul>
+        </div>
+
+        <!-- Resources & Content -->
+        <div>
+          <h4 class="font-bold text-slate-900 uppercase tracking-wider mb-3">Knowledge &amp; Docs</h4>
+          <ul class="space-y-2">
+            <li><a href="#how-to-use" class="hover:text-brand-600 transition">Step-by-Step User Manual</a></li>
+            <li><a href="#security-advantage" class="hover:text-brand-600 transition">Client-Side Architecture</a></li>
+            <li><a href="#comparison" class="hover:text-brand-600 transition">Benchmark Comparison</a></li>
+            <li><a href="#faqs" class="hover:text-brand-600 transition">Frequently Asked Questions</a></li>
+          </ul>
+        </div>
+
+        <!-- Legal Policies (Mandatory for Google AdSense) -->
+        <div>
+          <h4 class="font-bold text-slate-900 uppercase tracking-wider mb-3">Trust &amp; Legal</h4>
+          <ul class="space-y-2">
+            <li><a href="#" data-modal-open="modal-privacy" class="hover:text-brand-600 transition">Privacy Policy (Zero Storage)</a></li>
+            <li><a href="#" data-modal-open="modal-terms" class="hover:text-brand-600 transition">Terms of Service</a></li>
+            <li><a href="#" data-modal-open="modal-about" class="hover:text-brand-600 transition">About QuickConvert</a></li>
+            <li><a href="#" data-modal-open="modal-contact" class="hover:text-brand-600 transition">Contact &amp; Support</a></li>
+            <li><a href="feedback.html" data-modal-open="modal-feedback" class="text-brand-600 font-semibold hover:text-brand-700 transition flex items-center gap-1.5"><i class="fa-solid fa-star text-amber-400 text-xs"></i> User Feedback</a></li>
+          </ul>
+        </div>
+
+      </div>
+
+      <div class="pt-8 border-t border-slate-100 flex flex-col sm:flex-row items-center justify-between gap-4 text-slate-500">
+        <p>&copy; 2026 QuickConvert. All rights reserved. Free Online File &amp; Document Converters.</p>
+        <p class="text-[11px]">Protected by Client-Side Isolation • No User Tracking</p>
+      </div>
+    </div>
+  </footer>
+
+  <!-- ==================================================== -->
+  <!-- MODAL: PRIVACY POLICY (AdSense Essential)           -->
+  <!-- ==================================================== -->
+  <div id="modal-privacy" class="app-modal fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-xs flex items-center justify-center p-4 hidden">
+    <div class="bg-white rounded-2xl max-w-2xl w-full max-h-[85vh] flex flex-col shadow-2xl border border-slate-200">
+      
+      <div class="p-5 border-b border-slate-100 flex items-center justify-between">
+        <h3 class="text-lg font-bold text-slate-900 flex items-center gap-2">
+          <i class="fa-solid fa-shield-halved text-brand-600"></i>
+          Privacy Policy
+        </h3>
+        <button data-modal-close class="p-2 text-slate-400 hover:text-slate-600 rounded-lg">
+          <i class="fa-solid fa-xmark text-lg"></i>
+        </button>
+      </div>
+
+      <div class="p-6 overflow-y-auto space-y-4 text-xs sm:text-sm text-slate-600 leading-relaxed">
+        <p class="font-semibold text-slate-800">Effective Date: November 2026</p>
+        <p>
+          At <strong>QuickConvert</strong>, your privacy is our architectural foundation. Unlike conventional web utility services that stream your personal photographs and documents to third-party cloud servers, QuickConvert processes <strong>100% of your data locally within your browser</strong>.
+        </p>
+
+        <h4 class="font-bold text-slate-900 text-sm">1. Zero Server Storage &amp; Transmission</h4>
+        <p>
+          When you drag and drop a PNG, JPG, or text document into QuickConvert, the file is read using the standard HTML5 File and Canvas APIs. The file contents reside solely in your computer’s temporary volatile memory (RAM) for the duration of the conversion process. At no point is any file byte transmitted to an external server, database, or analytics endpoint.
+        </p>
+
+        <h4 class="font-bold text-slate-900 text-sm">2. Instant Deletion</h4>
+        <p>
+          Once you complete your download or close/refresh the browser tab, the memory allocated for your conversion is automatically reclaimed by your operating system and browser garbage collector. No traces are left behind.
+        </p>
+
+        <h4 class="font-bold text-slate-900 text-sm">3. Cookies &amp; Third-Party Advertisers</h4>
+        <p>
+          QuickConvert may partner with ad networks such as Google AdSense to serve non-intrusive advertisements that fund ongoing development. These ad partners may use standard cookies to serve relevant ads according to their respective privacy disclosures. You can adjust your cookie settings at any time in your browser.
+        </p>
+
+        <h4 class="font-bold text-slate-900 text-sm">4. GDPR &amp; CCPA Compliance</h4>
+        <p>
+          Because we never collect, store, or process personal identifying documents on our servers, QuickConvert is privacy-compliant by design, fully satisfying GDPR Article 6 principles and CCPA privacy protections.
+        </p>
+      </div>
+
+      <div class="p-4 bg-slate-50 border-t border-slate-100 flex justify-end">
+        <button data-modal-close class="px-5 py-2 rounded-xl bg-slate-900 text-white font-semibold text-xs hover:bg-slate-800 transition">
+          I Understand &amp; Close
+        </button>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ==================================================== -->
+  <!-- MODAL: TERMS OF SERVICE                              -->
+  <!-- ==================================================== -->
+  <div id="modal-terms" class="app-modal fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-xs flex items-center justify-center p-4 hidden">
+    <div class="bg-white rounded-2xl max-w-2xl w-full max-h-[85vh] flex flex-col shadow-2xl border border-slate-200">
+      
+      <div class="p-5 border-b border-slate-100 flex items-center justify-between">
+        <h3 class="text-lg font-bold text-slate-900 flex items-center gap-2">
+          <i class="fa-solid fa-file-contract text-brand-600"></i>
+          Terms of Service
+        </h3>
+        <button data-modal-close class="p-2 text-slate-400 hover:text-slate-600 rounded-lg">
+          <i class="fa-solid fa-xmark text-lg"></i>
+        </button>
+      </div>
+
+      <div class="p-6 overflow-y-auto space-y-4 text-xs sm:text-sm text-slate-600 leading-relaxed">
+        <p class="font-semibold text-slate-800">Last Modified: November 2026</p>
+        <p>
+          By accessing and using <strong>QuickConvert</strong>, you agree to comply with and be bound by the following Terms of Service.
+        </p>
+
+        <h4 class="font-bold text-slate-900 text-sm">1. Authorized Use</h4>
+        <p>
+          QuickConvert is provided free of charge for personal, educational, and commercial conversion tasks. You agree not to use the suite to compile or process material that violates applicable local or international laws.
+        </p>
+
+        <h4 class="font-bold text-slate-900 text-sm">2. Ownership of Converted Content</h4>
+        <p>
+          You retain 100% intellectual property rights over all images, documents, and texts converted using QuickConvert. We claim zero copyright, ownership, or licensing interests in your content.
+        </p>
+
+        <h4 class="font-bold text-slate-900 text-sm">3. Disclaimer of Warranties</h4>
+        <p>
+          QuickConvert is delivered "as is" and "as available" without warranties of any kind, whether express or implied. While we strive for extreme mathematical precision and image fidelity, QuickConvert shall not be liable for any data loss resulting from local browser limitations.
+        </p>
+      </div>
+
+      <div class="p-4 bg-slate-50 border-t border-slate-100 flex justify-end">
+        <button data-modal-close class="px-5 py-2 rounded-xl bg-slate-900 text-white font-semibold text-xs hover:bg-slate-800 transition">
+          Accept &amp; Close
+        </button>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ==================================================== -->
+  <!-- MODAL: ABOUT US                                      -->
+  <!-- ==================================================== -->
+  <div id="modal-about" class="app-modal fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-xs flex items-center justify-center p-4 hidden">
+    <div class="bg-white rounded-2xl max-w-2xl w-full max-h-[85vh] flex flex-col shadow-2xl border border-slate-200">
+      
+      <div class="p-5 border-b border-slate-100 flex items-center justify-between">
+        <h3 class="text-lg font-bold text-slate-900 flex items-center gap-2">
+          <i class="fa-solid fa-circle-info text-brand-600"></i>
+          About QuickConvert
+        </h3>
+        <button data-modal-close class="p-2 text-slate-400 hover:text-slate-600 rounded-lg">
+          <i class="fa-solid fa-xmark text-lg"></i>
+        </button>
+      </div>
+
+      <div class="p-6 overflow-y-auto space-y-4 text-xs sm:text-sm text-slate-600 leading-relaxed">
+        <p class="text-slate-800 font-semibold">
+          Building the next generation of privacy-first, zero-overhead web utilities.
+        </p>
+        <p>
+          QuickConvert was created by modern web engineers frustrated with bloated online converter websites filled with paywalls, slow cloud queues, and questionable data handling practices.
+        </p>
+        <p>
+          With modern advances in browser execution engines (V8, JavaScriptCanvas, and WebAssembly), there is no valid technical reason to send personal images or sensitive documents across the network just to convert them to a PDF or reduce their resolution.
+        </p>
+        <p>
+          Our mission is to provide lightning-fast, high-utility tools that execute instantly on the user’s device at zero cost, setting a new gold standard for consumer privacy and web performance.
+        </p>
+      </div>
+
+      <div class="p-4 bg-slate-50 border-t border-slate-100 flex justify-end">
+        <button data-modal-close class="px-5 py-2 rounded-xl bg-brand-600 text-white font-semibold text-xs hover:bg-brand-700 transition">
+          Close
+        </button>
+      </div>
+
+    </div>
+  </div>
+
+  <!-- ==================================================== -->
+  <!-- MODAL: CONTACT US                                    -->
+  <!-- ==================================================== -->
+  <div id="modal-contact" class="app-modal fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-xs flex items-center justify-center p-4 hidden">
+    <div class="bg-white rounded-2xl max-w-lg w-full max-h-[90vh] flex flex-col shadow-2xl border border-slate-200">
+      
+      <div class="p-5 border-b border-slate-100 flex items-center justify-between">
+        <h3 class="text-lg font-bold text-slate-900 flex items-center gap-2">
+          <i class="fa-solid fa-envelope text-brand-600"></i>
+          Contact QuickConvert Team
+        </h3>
+        <button data-modal-close class="p-2 text-slate-400 hover:text-slate-600 rounded-lg">
+          <i class="fa-solid fa-xmark text-lg"></i>
+        </button>
+      </div>
+
+      <form id="quickconvert-contact-form" class="p-6 space-y-4 text-xs sm:text-sm">
+        <div>
+          <label for="contact-name" class="block font-bold text-slate-700 mb-1">Your Full Name</label>
+          <input type="text" id="contact-name" required placeholder="Alex Morgan" class="w-full bg-white border border-slate-300 rounded-xl px-3.5 py-2.5 focus:outline-none focus:ring-2 focus:ring-brand-500" />
+        </div>
+
+        <div>
+          <label for="contact-email" class="block font-bold text-slate-700 mb-1">Email Address</label>
+          <input type="email" id="contact-email" required placeholder="alex@example.com" class="w-full bg-white border border-slate-300 rounded-xl px-3.5 py-2.5 focus:outline-none focus:ring-2 focus:ring-brand-500" />
+        </div>
+
+        <div>
+          <label for="contact-message" class="block font-bold text-slate-700 mb-1">Inquiry / Feedback</label>
+          <textarea id="contact-message" rows="4" required placeholder="How can we assist you with QuickConvert or feature requests?" class="w-full bg-white border border-slate-300 rounded-xl px-3.5 py-2.5 focus:outline-none focus:ring-2 focus:ring-brand-500 leading-relaxed"></textarea>
+        </div>
+
+        <div class="pt-2 flex justify-end gap-2">
+          <button type="button" data-modal-close class="px-4 py-2.5 rounded-xl border border-slate-300 text-slate-700 font-semibold text-xs hover:bg-slate-50 transition">
+            Cancel
+          </button>
+          <button type="submit" class="px-5 py-2.5 rounded-xl bg-brand-600 text-white font-bold text-xs hover:bg-brand-700 transition shadow-sm">
+            Send Message
+          </button>
+        </div>
+      </form>
+
+    </div>
+  </div>
+
+  <!-- ==================================================== -->
+  <!-- MODAL: DEDICATED USER FEEDBACK & REVIEW              -->
+  <!-- ==================================================== -->
+  <div id="modal-feedback" class="app-modal fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-xs flex items-center justify-center p-4 hidden">
+    <div class="bg-white rounded-2xl max-w-lg w-full max-h-[90vh] flex flex-col shadow-2xl border border-slate-200">
+      
+      <div class="p-5 border-b border-slate-100 flex items-center justify-between">
+        <h3 class="text-lg font-bold text-slate-900 flex items-center gap-2">
+          <i class="fa-solid fa-comment-dots text-brand-600"></i>
+          Share Your Feedback
+        </h3>
+        <button data-modal-close class="p-2 text-slate-400 hover:text-slate-600 rounded-lg">
+          <i class="fa-solid fa-xmark text-lg"></i>
+        </button>
+      </div>
+
+      <form id="quickconvert-feedback-form" action="https://formspree.io/f/mqaejvzy" method="POST" class="p-6 space-y-4 text-xs sm:text-sm">
+        <div>
+          <label for="fb-name" class="block font-bold text-slate-700 mb-1">Your Name</label>
+          <input type="text" id="fb-name" name="name" required placeholder="Alex Morgan" class="w-full bg-white border border-slate-300 rounded-xl px-3.5 py-2.5 focus:outline-none focus:ring-2 focus:ring-brand-500" />
+        </div>
+
+        <div>
+          <label for="fb-email" class="block font-bold text-slate-700 mb-1">Email Address</label>
+          <input type="email" id="fb-email" name="email" required placeholder="alex@example.com" class="w-full bg-white border border-slate-300 rounded-xl px-3.5 py-2.5 focus:outline-none focus:ring-2 focus:ring-brand-500" />
+        </div>
+
+        <!-- Star Rating 1-5 -->
+        <div>
+          <label class="block font-bold text-slate-700 mb-1.5">How would you rate QuickConvert?</label>
+          <input type="hidden" id="fb-rating" name="rating" value="5" />
+          <div id="fb-star-container" class="flex items-center gap-2 text-2xl text-amber-400 cursor-pointer select-none">
+            <i class="fa-solid fa-star fb-star" data-rating="1"></i>
+            <i class="fa-solid fa-star fb-star" data-rating="2"></i>
+            <i class="fa-solid fa-star fb-star" data-rating="3"></i>
+            <i class="fa-solid fa-star fb-star" data-rating="4"></i>
+            <i class="fa-solid fa-star fb-star" data-rating="5"></i>
+            <span id="fb-rating-text" class="text-xs font-bold text-slate-600 ml-2">5 - Excellent!</span>
+          </div>
+        </div>
+
+        <div>
+          <label for="fb-message" class="block font-bold text-slate-700 mb-1">Your Thoughts &amp; Feature Suggestions</label>
+          <textarea id="fb-message" name="message" rows="4" required placeholder="Tell us what you loved, or what tools we should add next..." class="w-full bg-white border border-slate-300 rounded-xl px-3.5 py-2.5 focus:outline-none focus:ring-2 focus:ring-brand-500 leading-relaxed"></textarea>
+        </div>
+
+        <div class="pt-2 flex justify-end gap-2">
+          <button type="button" data-modal-close class="px-4 py-2.5 rounded-xl border border-slate-300 text-slate-700 font-semibold text-xs hover:bg-slate-50 transition">
+            Cancel
+          </button>
+          <button type="submit" id="fb-submit-btn" class="px-5 py-2.5 rounded-xl bg-brand-600 text-white font-bold text-xs hover:bg-brand-700 transition shadow-sm flex items-center gap-1.5">
+            <i class="fa-solid fa-paper-plane"></i>
+            <span>Submit Feedback</span>
+          </button>
+        </div>
+      </form>
+
+    </div>
+        
         </div>
 
         <!-- Back to Homepage Link -->
