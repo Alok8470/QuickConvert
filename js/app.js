@@ -61,58 +61,56 @@
   }
 
   // ==========================================
-  // 2. TOOL TABS & NAVIGATION
+  // 2. HOMEPAGE CATEGORY FILTER PILLS
   // ==========================================
 
+  const catPills = document.querySelectorAll('.cat-pill');
+  const toolCards = document.querySelectorAll('#tools-grid > [data-tool-category]');
+
+  catPills.forEach((pill) => {
+    pill.addEventListener('click', () => {
+      const selectedCategory = pill.getAttribute('data-category');
+
+      // Update pill active styling
+      catPills.forEach((p) => {
+        p.classList.remove('bg-slate-900', 'text-white', 'shadow-xs');
+        p.classList.add('bg-white', 'text-slate-700', 'border', 'border-slate-200');
+      });
+      pill.classList.add('bg-slate-900', 'text-white', 'shadow-xs');
+      pill.classList.remove('bg-white', 'text-slate-700', 'border', 'border-slate-200');
+
+      // Filter tool cards
+      toolCards.forEach((card) => {
+        const cardCats = card.getAttribute('data-tool-category') || '';
+        if (selectedCategory === 'all' || cardCats.includes(selectedCategory)) {
+          card.classList.remove('hidden');
+        } else {
+          card.classList.add('hidden');
+        }
+      });
+    });
+  });
+
+  // Legacy tab support for backward compatibility on standalone tool pages
   const toolTabs = document.querySelectorAll('[data-tool-target]');
   const toolSections = document.querySelectorAll('.tool-panel');
 
   function switchTool(targetId) {
-    // Hide all tool panels
     toolSections.forEach((section) => {
       section.classList.add('hidden');
     });
-
-    // Show target tool panel
     const targetSection = document.getElementById(targetId);
     if (targetSection) {
       targetSection.classList.remove('hidden');
-    }
-
-    // Update active card styles in the overview grid
-    toolTabs.forEach((tab) => {
-      const isCurrent = tab.getAttribute('data-tool-target') === targetId;
-      if (isCurrent) {
-        tab.classList.add('border-brand-500', 'ring-1', 'ring-brand-500/30', 'bg-slate-50/50');
-      } else {
-        tab.classList.remove('border-brand-500', 'ring-1', 'ring-brand-500/30', 'bg-slate-50/50');
-      }
-    });
-
-    // Update URL hash without jumping
-    if (history.replaceState) {
-      history.replaceState(null, null, `#${targetId}`);
     }
   }
 
   toolTabs.forEach((tab) => {
     tab.addEventListener('click', (e) => {
-      // If the target is an anchor link to #suite-tools, allow normal anchor behavior
-      const href = tab.getAttribute('href');
-      if (href && href.startsWith('#') && !tab.getAttribute('data-tool-target')) {
-        return;
-      }
-
-      e.preventDefault();
       const target = tab.getAttribute('data-tool-target');
-      if (target) {
+      if (target && document.getElementById(target)) {
+        e.preventDefault();
         switchTool(target);
-
-        // Smoothly scroll down to the active workspace view
-        const workspace = document.getElementById('workspace-section') || document.getElementById(target);
-        if (workspace) {
-          workspace.scrollIntoView({ behavior: 'smooth', block: 'start' });
-        }
       }
     });
   });
