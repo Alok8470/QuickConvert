@@ -1,69 +1,289 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="scroll-smooth">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Universal Unit Converter - Free Online Tool | QuickConvert</title>
-  <meta name="description" content="Fast client-side calculation across Length, Weight, Temperature, Digital Bytes, Speed, and more.">
-  <meta name="robots" content="index, follow">
-  <link rel="canonical" href="https://quickconvert.in/tools/unit-converter.html">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Universal Unit Converter - Scientific & Everyday Calculations | QuickConvert</title>
+  <meta name="description" content="Instant precision calculations across 8 categories: Length, Weight, Temperature, Digital Bytes, Speed, Area, Volume, and Time." />
+  <meta name="keywords" content="unit converter, length converter, weight converter, bytes converter, digital storage conversion, imperial to metric" />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="https://quickconvert.in/tools/unit-converter.html" />
+
+  <!-- Fonts & Icons -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+
+  <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              50: '#eef2ff', 100: '#e0e7ff', 200: '#c7d2fe', 300: '#a5b4fc',
+              400: '#818cf8', 500: '#6366f1', 600: '#4f46e5', 700: '#4338ca',
+              800: '#3730a3', 900: '#312e81'
+            },
+            accent: {
+              500: '#0284c7', 600: '#0369a1'
+            }
+          },
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+            mono: ['"JetBrains Mono"', 'monospace']
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- jsPDF Production CDN -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
+  <!-- QRCode.js Production CDN -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+
+  <!-- Custom Stylesheet -->
   <link rel="stylesheet" href="../css/styles.css">
 </head>
-<body class="bg-slate-50 text-slate-800 antialiased min-h-screen flex flex-col">
+<body class="bg-slate-50 text-slate-800 antialiased min-h-screen flex flex-col selection:bg-indigo-500 selection:text-white">
+
+  <!-- Toast Notification Container -->
+  <div id="toast-container" class="fixed bottom-5 right-5 z-50 flex flex-col gap-2 max-w-sm w-full pointer-events-auto"></div>
+
+  <!-- TOP NAVBAR -->
   <header class="sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-slate-200/80 shadow-xs py-3.5 sm:py-4">
     <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between gap-4">
-      <a href="../index.html#tool-unit-converter" class="flex items-center gap-3 shrink-0 group focus:outline-none">
-        <div class="w-9 h-9 rounded-xl bg-gradient-to-tr from-indigo-600 to-sky-500 flex items-center justify-center text-white shadow-md">
+      
+      <!-- Brand Logo -->
+      <a href="../index.html" class="flex items-center gap-3 shrink-0 group focus:outline-none">
+        <div class="w-9 h-9 rounded-xl bg-gradient-to-tr from-brand-600 via-indigo-600 to-accent-500 flex items-center justify-center text-white shadow-md shadow-brand-500/25 group-hover:scale-105 transition-transform duration-200 shrink-0">
           <i class="fa-solid fa-bolt-lightning text-base"></i>
         </div>
         <div class="flex flex-col">
-          <span class="text-lg font-extrabold tracking-tight bg-gradient-to-r from-indigo-600 to-sky-600 bg-clip-text text-transparent leading-none">QuickConvert</span>
-          <span class="text-[10px] font-semibold text-slate-400 tracking-wider uppercase mt-1">Universal Client-Side Suite</span>
+          <span class="text-lg font-extrabold tracking-tight bg-gradient-to-r from-brand-600 to-accent-600 bg-clip-text text-transparent leading-none">
+            QuickConvert
+          </span>
+          <span class="text-[10px] font-semibold text-slate-400 tracking-wider uppercase mt-1">
+            Universal Client-Side Suite
+          </span>
         </div>
       </a>
-      <a href="../index.html#tool-unit-converter" class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-xl text-xs font-bold text-slate-700 bg-slate-100 hover:bg-slate-200 transition">
-        <i class="fa-solid fa-arrow-left"></i>
-        <span>Back to Suite</span>
-      </a>
+
+      <!-- Navigation Actions -->
+      <div class="flex items-center gap-3">
+        <a href="../index.html" class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-xl text-xs font-bold text-slate-700 bg-slate-100 hover:bg-slate-200 transition">
+          <i class="fa-solid fa-arrow-left"></i>
+          <span>Back to All Tools</span>
+        </a>
+      </div>
+
     </div>
   </header>
 
-  <main class="flex-1 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12 text-center flex flex-col items-center justify-center">
-    <div class="w-16 h-16 rounded-2xl bg-indigo-50 border border-indigo-100 text-indigo-600 flex items-center justify-center text-2xl mb-4 shadow-sm">
-      <i class="fa-solid fa-bolt"></i>
-    </div>
-    <h1 class="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight mb-3">Universal Unit Converter</h1>
-    <p class="text-sm sm:text-base text-slate-600 max-w-xl mx-auto mb-8 leading-relaxed">Fast client-side calculation across Length, Weight, Temperature, Digital Bytes, Speed, and more.</p>
+  <!-- MAIN TOOL CONTENT -->
+  <main class="flex-1 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8 w-full">
     
-    <div class="p-6 bg-white rounded-2xl border border-slate-200 shadow-sm max-w-md w-full mb-6">
-      <div class="flex items-center justify-center gap-2 text-xs font-semibold text-emerald-700 bg-emerald-50 py-2 px-4 rounded-xl mb-4 border border-emerald-100">
-        <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
-        <span>100% In-Browser Execution Ready</span>
+    <!-- Breadcrumb & Header Title -->
+    <div class="mb-6">
+      <div class="flex items-center gap-2 text-xs text-slate-500 mb-2">
+        <a href="../index.html" class="hover:text-brand-600">Home</a>
+        <i class="fa-solid fa-chevron-right text-[10px] text-slate-400"></i>
+        <a href="../index.html#suite-tools" class="hover:text-brand-600">Tools</a>
+        <i class="fa-solid fa-chevron-right text-[10px] text-slate-400"></i>
+        <span class="text-slate-800 font-semibold">Calculators</span>
       </div>
-      <a href="../index.html#tool-unit-converter" class="w-full py-3 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-sm shadow-sm transition active:scale-95 flex items-center justify-center gap-2">
-        <span>Launch Universal Unit Converter</span>
-        <i class="fa-solid fa-arrow-right text-xs"></i>
-      </a>
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+        <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-emerald-50 text-emerald-700 border border-emerald-200 self-start sm:self-auto">
+          <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
+          100% Client-Side Processing • Zero Cloud Storage
+        </span>
+      </div>
     </div>
 
-    <p class="text-xs text-slate-400">Zero data leaves your browser. Protected by client-side sandbox isolation.</p>
+    <!-- Active Tool Interactive Workspace -->
+    <section class="mb-10">
+      <div id="tool-unit-converter" class="tool-panel">
+        <div class="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden">
+          
+          <div class="p-6 border-b border-slate-100">
+            <h2 class="text-xl font-bold text-slate-900 flex items-center gap-2">
+              <i class="fa-solid fa-calculator text-brand-600"></i>
+              Universal High-Precision Unit Converter
+            </h2>
+            <p class="text-xs text-slate-500 mt-1">
+              Live mathematical conversion for length, mass, digital storage, area, speed, and temperature.
+            </p>
+          </div>
+
+          <div class="p-6 space-y-6">
+            
+            <!-- Category Pills Bar -->
+            <div>
+              <p class="text-xs font-bold uppercase tracking-wider text-slate-500 mb-2">Select Measurement Domain</p>
+              <div id="unit-categories" class="flex flex-wrap gap-2"></div>
+            </div>
+
+            <!-- Conversion Input/Output Box -->
+            <div class="p-6 bg-slate-50 rounded-2xl border border-slate-200">
+              <div class="grid grid-cols-1 md:grid-cols-[1fr,auto,1fr] gap-4 items-center">
+                
+                <!-- From Column -->
+                <div class="space-y-2">
+                  <label for="unit-from-val" class="block text-xs font-bold text-slate-700">From Quantity</label>
+                  <input type="number" id="unit-from-val" value="1" step="any" class="w-full bg-white border border-slate-300 rounded-xl px-4 py-3 text-lg font-bold font-mono focus:outline-none focus:ring-2 focus:ring-brand-500" />
+                  <select id="unit-from-select" class="w-full bg-white border border-slate-300 rounded-lg px-3 py-2 text-xs font-semibold focus:outline-none focus:ring-2 focus:ring-brand-500"></select>
+                </div>
+
+                <!-- Swap Button -->
+                <div class="flex justify-center pt-4 md:pt-0">
+                  <button id="unit-swap-btn" class="w-10 h-10 rounded-full bg-white border border-slate-300 hover:border-brand-500 text-slate-600 hover:text-brand-600 shadow-xs flex items-center justify-center transition active:scale-95" title="Swap Units">
+                    <i class="fa-solid fa-arrow-right-arrow-left"></i>
+                  </button>
+                </div>
+
+                <!-- To Column -->
+                <div class="space-y-2">
+                  <div class="flex items-center justify-between">
+                    <label for="unit-to-val" class="block text-xs font-bold text-slate-700">Converted Output</label>
+                    <button id="unit-copy-btn" class="text-xs font-semibold text-brand-600 hover:text-brand-800 transition flex items-center gap-1">
+                      <i class="fa-regular fa-copy"></i> Copy
+                    </button>
+                  </div>
+                  <input type="text" id="unit-to-val" readonly class="w-full bg-slate-100 border border-slate-300 rounded-xl px-4 py-3 text-lg font-bold font-mono text-brand-700 focus:outline-none select-all" />
+                  <select id="unit-to-select" class="w-full bg-white border border-slate-300 rounded-lg px-3 py-2 text-xs font-semibold focus:outline-none focus:ring-2 focus:ring-brand-500"></select>
+                </div>
+
+              </div>
+
+              <!-- Live Formula Text -->
+              <div class="mt-4 pt-3 border-t border-slate-200/80 flex items-center justify-between text-xs text-slate-500">
+                <span id="unit-formula-text" class="font-mono">1 Meter = 3.2808 Feet</span>
+                <span class="text-emerald-600 font-semibold"><i class="fa-solid fa-bolt"></i> Real-Time Calculation</span>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- ═══ TOOL 4 CONTENT ENRICHMENT: How-To Guide + FAQs ═══ -->
+        <section aria-label="How to use the universal unit converter" class="mt-6 space-y-6">
+
+          <!-- Step-by-step Guide -->
+          <article class="bg-white rounded-2xl border border-slate-200 shadow-xs overflow-hidden">
+            <div class="px-6 py-5 border-b border-slate-100 flex items-center gap-3">
+              <div class="w-8 h-8 rounded-lg bg-brand-50 text-brand-600 flex items-center justify-center shrink-0">
+                <i class="fa-solid fa-list-ol text-sm"></i>
+              </div>
+              <h2 class="text-base font-bold text-slate-900">How to Use the Universal Unit Converter — Step-by-Step Guide</h2>
+            </div>
+            <div class="p-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+              <div class="flex gap-3">
+                <span class="w-7 h-7 rounded-full bg-brand-600 text-white text-xs font-bold flex items-center justify-center shrink-0 mt-0.5">1</span>
+                <div>
+                  <h3 class="text-sm font-bold text-slate-800 mb-1">Select a Measurement Category</h3>
+                  <p class="text-xs text-slate-600 leading-relaxed">Click any domain pill — Length &amp; Distance, Weight &amp; Mass, Digital Storage, Area, Speed, or Temperature. The input and output unit dropdowns instantly populate with all available units for that category.</p>
+                </div>
+              </div>
+              <div class="flex gap-3">
+                <span class="w-7 h-7 rounded-full bg-brand-600 text-white text-xs font-bold flex items-center justify-center shrink-0 mt-0.5">2</span>
+                <div>
+                  <h3 class="text-sm font-bold text-slate-800 mb-1">Choose From &amp; To Units</h3>
+                  <p class="text-xs text-slate-600 leading-relaxed">Select your source unit (From) and target unit (To) from the respective dropdown menus. Click the swap arrow button to instantly reverse the conversion direction.</p>
+                </div>
+              </div>
+              <div class="flex gap-3">
+                <span class="w-7 h-7 rounded-full bg-brand-600 text-white text-xs font-bold flex items-center justify-center shrink-0 mt-0.5">3</span>
+                <div>
+                  <h3 class="text-sm font-bold text-slate-800 mb-1">Enter Your Value</h3>
+                  <p class="text-xs text-slate-600 leading-relaxed">Type any numeric quantity into the <strong>From Quantity</strong> input field. The result updates instantaneously in the Converted Output field — no button press required. Decimal and large exponential values are both supported.</p>
+                </div>
+              </div>
+              <div class="flex gap-3">
+                <span class="w-7 h-7 rounded-full bg-brand-600 text-white text-xs font-bold flex items-center justify-center shrink-0 mt-0.5">4</span>
+                <div>
+                  <h3 class="text-sm font-bold text-slate-800 mb-1">Copy Your Result</h3>
+                  <p class="text-xs text-slate-600 leading-relaxed">Click the <strong>Copy</strong> button next to the output field to copy the converted value to your clipboard instantly. The live formula bar below shows the exact mathematical rate between your chosen units.</p>
+                </div>
+              </div>
+            </div>
+            <div class="px-6 pb-5">
+              <div class="bg-violet-50 border border-violet-100 rounded-xl p-4 text-xs text-violet-800 leading-relaxed">
+                <i class="fa-solid fa-lightbulb text-violet-600 mr-1.5"></i>
+                <strong>Pro Tip:</strong> Temperature conversion uses a special formula (not a simple ratio) — Celsius, Fahrenheit, and Kelvin are all supported. For Digital Storage, switching from Megabytes to Gigabytes uses standard binary factors (1 GB = 1,024 MB) rather than decimal SI factors, accurately reflecting how operating systems report file sizes.
+              </div>
+            </div>
+          </article>
+
+          <!-- Tool 4 FAQs -->
+          <article class="bg-white rounded-2xl border border-slate-200 shadow-xs overflow-hidden">
+            <div class="px-6 py-5 border-b border-slate-100 flex items-center gap-3">
+              <div class="w-8 h-8 rounded-lg bg-amber-50 text-amber-600 flex items-center justify-center shrink-0">
+                <i class="fa-solid fa-circle-question text-sm"></i>
+              </div>
+              <h2 class="text-base font-bold text-slate-900">Unit Converter — Frequently Asked Questions</h2>
+            </div>
+            <div class="divide-y divide-slate-100">
+              <div class="faq-item">
+                <button class="faq-trigger w-full px-6 py-4 text-left flex items-center justify-between text-sm font-semibold text-slate-800 hover:text-brand-600 transition focus:outline-none">
+                  <span>How precise are the conversion results for scientific calculations?</span>
+                  <i class="faq-icon fa-solid fa-chevron-down text-slate-400 transition-transform duration-200 shrink-0 ml-3"></i>
+                </button>
+                <div class="faq-content px-6 text-xs text-slate-600 leading-relaxed border-t border-slate-50 bg-slate-50/40">
+                  <div class="py-4">QuickConvert's unit converter uses IEEE 754 double-precision floating-point arithmetic — the same standard used by scientific calculators and spreadsheet applications. Results are shown to 6 decimal places for typical ranges and switch to exponential notation for very large (>1 billion) or very small (&lt;0.000001) values, ensuring accuracy across all magnitudes.</div>
+                </div>
+              </div>
+              <div class="faq-item">
+                <button class="faq-trigger w-full px-6 py-4 text-left flex items-center justify-between text-sm font-semibold text-slate-800 hover:text-brand-600 transition focus:outline-none">
+                  <span>Does the digital storage converter use binary (1024) or decimal (1000) factors?</span>
+                  <i class="faq-icon fa-solid fa-chevron-down text-slate-400 transition-transform duration-200 shrink-0 ml-3"></i>
+                </button>
+                <div class="faq-content px-6 text-xs text-slate-600 leading-relaxed border-t border-slate-50 bg-slate-50/40">
+                  <div class="py-4">QuickConvert uses <strong>binary (IEC standard) factors</strong>: 1 KB = 1,024 bytes, 1 MB = 1,048,576 bytes, 1 GB = 1,073,741,824 bytes, etc. This matches how Windows, macOS, Linux, and most file systems report sizes. Note that some storage manufacturers and internet providers use decimal (1 KB = 1,000 bytes) factors instead, which is why a "1 TB" hard drive shows ~931 GB in Windows Explorer.</div>
+                </div>
+              </div>
+              <div class="faq-item">
+                <button class="faq-trigger w-full px-6 py-4 text-left flex items-center justify-between text-sm font-semibold text-slate-800 hover:text-brand-600 transition focus:outline-none">
+                  <span>Can I convert between nautical miles, knots, and international units?</span>
+                  <i class="faq-icon fa-solid fa-chevron-down text-slate-400 transition-transform duration-200 shrink-0 ml-3"></i>
+                </button>
+                <div class="faq-content px-6 text-xs text-slate-600 leading-relaxed border-t border-slate-50 bg-slate-50/40">
+                  <div class="py-4">Yes. The Length category includes <strong>Nautical Miles (NM)</strong> alongside km, miles, feet, inches, and yards. The Speed category includes <strong>Knots (kn)</strong> alongside km/h, mph, m/s, and ft/s — making QuickConvert useful for maritime, aviation, and meteorological calculations.</div>
+                </div>
+              </div>
+            </div>
+          </article>
+
+        </section>
+        <!-- ═══ END TOOL 4 CONTENT ENRICHMENT ═══ -->
+
+      </div>
+
+      <!-- ==================================================== -->
+      <!-- TOOL 5: IMAGE FORMAT CONVERTER (PNG, JPG, WEBP)      -->
+      <!-- ==================================================== -->
+    </section>
+
   </main>
 
-  <footer class="bg-white border-t border-slate-200 text-slate-500 text-xs py-6 mt-12 text-center">
-    <p>&copy; 2026 QuickConvert. Free Client-Side Developer &amp; File Utilities.</p>
+  <!-- FOOTER -->
+  <footer class="bg-white border-t border-slate-200 text-slate-500 text-xs py-8 mt-12">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4">
+      <p>&copy; 2026 QuickConvert. All rights reserved. Free Online File &amp; Document Converters.</p>
+      <div class="flex items-center gap-4">
+        <a href="../index.html#how-to-use" class="hover:text-brand-600">Guides</a>
+        <a href="../index.html#faqs" class="hover:text-brand-600">FAQs</a>
+        <a href="../index.html" class="hover:text-brand-600">All Tools</a>
+      </div>
+    </div>
   </footer>
 
-  <script>
-    if (!window.location.search.includes('noredirect=true')) {
-      setTimeout(() => {
-        window.location.replace('../index.html#' + 'tool-unit-converter');
-      }, 100);
-    }
-  </script>
+  <!-- Main Vanilla JavaScript -->
+  <script src="../js/app.js"></script>
+
 </body>
 </html>

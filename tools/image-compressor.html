@@ -1,69 +1,384 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="scroll-smooth">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Image Compressor & Resizer - Free Online Tool | QuickConvert</title>
-  <meta name="description" content="Compress and resize images by up to 90% without losing quality using client-side WebP and JPEG codecs.">
-  <meta name="robots" content="index, follow">
-  <link rel="canonical" href="https://quickconvert.in/tools/image-compressor.html">
+  <meta name="description" content="Compress and resize images by up to 90% without losing quality using client-side WebP and JPEG codecs with real-time size previews." />
+  <meta name="keywords" content="image compressor, compress photo, resize image, reduce image size, webp converter, client side image compression" />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="https://quickconvert.in/tools/image-compressor.html" />
+
+  <!-- Fonts & Icons -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+
+  <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              50: '#eef2ff', 100: '#e0e7ff', 200: '#c7d2fe', 300: '#a5b4fc',
+              400: '#818cf8', 500: '#6366f1', 600: '#4f46e5', 700: '#4338ca',
+              800: '#3730a3', 900: '#312e81'
+            },
+            accent: {
+              500: '#0284c7', 600: '#0369a1'
+            }
+          },
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+            mono: ['"JetBrains Mono"', 'monospace']
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- jsPDF Production CDN -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
+  <!-- QRCode.js Production CDN -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+
+  <!-- Custom Stylesheet -->
   <link rel="stylesheet" href="../css/styles.css">
 </head>
-<body class="bg-slate-50 text-slate-800 antialiased min-h-screen flex flex-col">
+<body class="bg-slate-50 text-slate-800 antialiased min-h-screen flex flex-col selection:bg-indigo-500 selection:text-white">
+
+  <!-- Toast Notification Container -->
+  <div id="toast-container" class="fixed bottom-5 right-5 z-50 flex flex-col gap-2 max-w-sm w-full pointer-events-auto"></div>
+
+  <!-- TOP NAVBAR -->
   <header class="sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-slate-200/80 shadow-xs py-3.5 sm:py-4">
     <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between gap-4">
-      <a href="../index.html#tool-image-compressor" class="flex items-center gap-3 shrink-0 group focus:outline-none">
-        <div class="w-9 h-9 rounded-xl bg-gradient-to-tr from-indigo-600 to-sky-500 flex items-center justify-center text-white shadow-md">
+      
+      <!-- Brand Logo -->
+      <a href="../index.html" class="flex items-center gap-3 shrink-0 group focus:outline-none">
+        <div class="w-9 h-9 rounded-xl bg-gradient-to-tr from-brand-600 via-indigo-600 to-accent-500 flex items-center justify-center text-white shadow-md shadow-brand-500/25 group-hover:scale-105 transition-transform duration-200 shrink-0">
           <i class="fa-solid fa-bolt-lightning text-base"></i>
         </div>
         <div class="flex flex-col">
-          <span class="text-lg font-extrabold tracking-tight bg-gradient-to-r from-indigo-600 to-sky-600 bg-clip-text text-transparent leading-none">QuickConvert</span>
-          <span class="text-[10px] font-semibold text-slate-400 tracking-wider uppercase mt-1">Universal Client-Side Suite</span>
+          <span class="text-lg font-extrabold tracking-tight bg-gradient-to-r from-brand-600 to-accent-600 bg-clip-text text-transparent leading-none">
+            QuickConvert
+          </span>
+          <span class="text-[10px] font-semibold text-slate-400 tracking-wider uppercase mt-1">
+            Universal Client-Side Suite
+          </span>
         </div>
       </a>
-      <a href="../index.html#tool-image-compressor" class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-xl text-xs font-bold text-slate-700 bg-slate-100 hover:bg-slate-200 transition">
-        <i class="fa-solid fa-arrow-left"></i>
-        <span>Back to Suite</span>
-      </a>
+
+      <!-- Navigation Actions -->
+      <div class="flex items-center gap-3">
+        <a href="../index.html" class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-xl text-xs font-bold text-slate-700 bg-slate-100 hover:bg-slate-200 transition">
+          <i class="fa-solid fa-arrow-left"></i>
+          <span>Back to All Tools</span>
+        </a>
+      </div>
+
     </div>
   </header>
 
-  <main class="flex-1 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12 text-center flex flex-col items-center justify-center">
-    <div class="w-16 h-16 rounded-2xl bg-indigo-50 border border-indigo-100 text-indigo-600 flex items-center justify-center text-2xl mb-4 shadow-sm">
-      <i class="fa-solid fa-bolt"></i>
-    </div>
-    <h1 class="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight mb-3">Image Compressor & Resizer</h1>
-    <p class="text-sm sm:text-base text-slate-600 max-w-xl mx-auto mb-8 leading-relaxed">Compress and resize images by up to 90% without losing quality using client-side WebP and JPEG codecs.</p>
+  <!-- MAIN TOOL CONTENT -->
+  <main class="flex-1 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8 w-full">
     
-    <div class="p-6 bg-white rounded-2xl border border-slate-200 shadow-sm max-w-md w-full mb-6">
-      <div class="flex items-center justify-center gap-2 text-xs font-semibold text-emerald-700 bg-emerald-50 py-2 px-4 rounded-xl mb-4 border border-emerald-100">
-        <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
-        <span>100% In-Browser Execution Ready</span>
+    <!-- Breadcrumb & Header Title -->
+    <div class="mb-6">
+      <div class="flex items-center gap-2 text-xs text-slate-500 mb-2">
+        <a href="../index.html" class="hover:text-brand-600">Home</a>
+        <i class="fa-solid fa-chevron-right text-[10px] text-slate-400"></i>
+        <a href="../index.html#suite-tools" class="hover:text-brand-600">Tools</a>
+        <i class="fa-solid fa-chevron-right text-[10px] text-slate-400"></i>
+        <span class="text-slate-800 font-semibold">Image Utilities</span>
       </div>
-      <a href="../index.html#tool-image-compressor" class="w-full py-3 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-sm shadow-sm transition active:scale-95 flex items-center justify-center gap-2">
-        <span>Launch Image Compressor & Resizer</span>
-        <i class="fa-solid fa-arrow-right text-xs"></i>
-      </a>
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+        <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-emerald-50 text-emerald-700 border border-emerald-200 self-start sm:self-auto">
+          <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
+          100% Client-Side Processing • Zero Cloud Storage
+        </span>
+      </div>
     </div>
 
-    <p class="text-xs text-slate-400">Zero data leaves your browser. Protected by client-side sandbox isolation.</p>
+    <!-- Active Tool Interactive Workspace -->
+    <section class="mb-10">
+      <div id="tool-image-compressor" class="tool-panel">
+        <div class="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden">
+          
+          <div class="p-6 border-b border-slate-100 flex items-center justify-between">
+            <div>
+              <h2 class="text-xl font-bold text-slate-900 flex items-center gap-2">
+                <i class="fa-solid fa-compress text-brand-600"></i>
+                Image Compressor &amp; Resizer
+              </h2>
+              <p class="text-xs text-slate-500 mt-1">
+                Shrink image file size, customize exact pixel dimensions, and convert to lightweight WebP or JPEG.
+              </p>
+            </div>
+          </div>
+
+          <div class="p-6">
+            
+            <!-- Empty Upload State -->
+            <div id="comp-empty-state">
+              <div id="comp-dropzone" class="dropzone border-2 border-dashed border-slate-300 hover:border-brand-500 bg-slate-50/50 hover:bg-brand-50/20 rounded-2xl p-8 text-center cursor-pointer transition duration-200">
+                <input type="file" id="comp-input" accept="image/png, image/jpeg, image/jpg, image/webp" class="hidden" />
+                <div class="w-14 h-14 mx-auto mb-3 rounded-full bg-indigo-50 text-brand-600 flex items-center justify-center shadow-xs">
+                  <i class="fa-solid fa-image text-2xl"></i>
+                </div>
+                <p class="text-sm font-bold text-slate-800">
+                  Drop a high-resolution photo here, or <span class="text-brand-600 underline">browse device</span>
+                </p>
+                <p class="text-xs text-slate-500 mt-1">
+                  Works with large photos up to 50MB • HTML5 Canvas accelerated compression
+                </p>
+              </div>
+            </div>
+
+            <!-- Active Workspace (Hidden until file selected) -->
+            <div id="comp-workspace" class="hidden space-y-6">
+              
+              <!-- Original File Snapshot -->
+              <div class="flex items-center justify-between p-3.5 bg-slate-50 rounded-xl border border-slate-200 text-xs">
+                <div class="flex items-center gap-3">
+                  <img id="comp-orig-thumb" src="" alt="Thumbnail" class="w-12 h-12 rounded-lg object-cover border border-slate-200" />
+                  <div>
+                    <p id="comp-orig-name" class="font-bold text-slate-800 truncate max-w-xs">filename.jpg</p>
+                    <p class="text-slate-500">
+                      Original: <span id="comp-orig-dims" class="font-mono">0 x 0 px</span> • <span id="comp-orig-size" class="font-mono">0 KB</span>
+                    </p>
+                  </div>
+                </div>
+                <button id="comp-reset-btn" class="px-3 py-1.5 rounded-lg border border-slate-300 hover:bg-white text-slate-700 font-semibold transition">
+                  Change Photo
+                </button>
+              </div>
+
+              <!-- Controls Grid -->
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+                
+                <!-- Dimension Controls -->
+                <div class="p-4 bg-slate-50/70 rounded-xl border border-slate-200 space-y-3">
+                  <h3 class="text-xs font-bold uppercase tracking-wider text-slate-500 flex items-center justify-between">
+                    <span>1. Resize Dimensions</span>
+                    <label class="flex items-center gap-1.5 cursor-pointer text-slate-700 font-medium normal-case">
+                      <input type="checkbox" id="comp-lock-ratio" checked class="rounded text-brand-600 focus:ring-brand-500" />
+                      <span>Lock Aspect Ratio</span>
+                    </label>
+                  </h3>
+
+                  <div class="grid grid-cols-2 gap-3 text-xs">
+                    <div>
+                      <label for="comp-width" class="block font-semibold text-slate-700 mb-1">Width (px)</label>
+                      <input type="number" id="comp-width" class="w-full bg-white border border-slate-300 rounded-lg px-3 py-2 font-mono text-sm focus:outline-none focus:ring-2 focus:ring-brand-500" />
+                    </div>
+                    <div>
+                      <label for="comp-height" class="block font-semibold text-slate-700 mb-1">Height (px)</label>
+                      <input type="number" id="comp-height" class="w-full bg-white border border-slate-300 rounded-lg px-3 py-2 font-mono text-sm focus:outline-none focus:ring-2 focus:ring-brand-500" />
+                    </div>
+                  </div>
+
+                  <!-- Quick Percentage Scale Presets -->
+                  <div class="flex items-center gap-1.5 pt-1">
+                    <span class="text-[11px] text-slate-500 font-medium mr-1">Scale:</span>
+                    <button data-comp-scale="0.25" class="px-2 py-1 rounded bg-white hover:bg-slate-200 border border-slate-200 text-[11px] font-semibold text-slate-700">25%</button>
+                    <button data-comp-scale="0.50" class="px-2 py-1 rounded bg-white hover:bg-slate-200 border border-slate-200 text-[11px] font-semibold text-slate-700">50%</button>
+                    <button data-comp-scale="0.75" class="px-2 py-1 rounded bg-white hover:bg-slate-200 border border-slate-200 text-[11px] font-semibold text-slate-700">75%</button>
+                    <button data-comp-scale="1.00" class="px-2 py-1 rounded bg-white hover:bg-slate-200 border border-slate-200 text-[11px] font-semibold text-slate-700">100%</button>
+                  </div>
+                </div>
+
+                <!-- Quality & Format Controls -->
+                <div class="p-4 bg-slate-50/70 rounded-xl border border-slate-200 space-y-3">
+                  <h3 class="text-xs font-bold uppercase tracking-wider text-slate-500">2. Compression &amp; Format</h3>
+
+                  <div>
+                    <div class="flex justify-between items-center text-xs font-semibold text-slate-700 mb-1">
+                      <span>Compression Quality</span>
+                      <span id="comp-quality-val" class="font-mono text-brand-600 bg-brand-50 px-2 py-0.5 rounded">80%</span>
+                    </div>
+                    <input type="range" id="comp-quality" min="10" max="100" value="80" class="w-full cursor-pointer" />
+                    <div class="flex justify-between text-[10px] text-slate-400 mt-1">
+                      <span>Smallest Size (10%)</span>
+                      <span>Balanced (80%)</span>
+                      <span>Maximum Quality (100%)</span>
+                    </div>
+                  </div>
+
+                  <div>
+                    <label for="comp-format" class="block font-semibold text-xs text-slate-700 mb-1">Output Format</label>
+                    <select id="comp-format" class="w-full bg-white border border-slate-300 rounded-lg px-3 py-1.5 text-xs font-medium focus:outline-none focus:ring-2 focus:ring-brand-500">
+                      <option value="smart" selected>⚡ Smart Auto (Best Compression: WebP / JPEG)</option>
+                      <option value="image/webp">WEBP (.webp) - Ultra-lightweight (keeps transparency)</option>
+                      <option value="image/jpeg">JPEG (.jpg) - Universal photographic standard</option>
+                      <option value="image/png">PNG (.png) - Strict Lossless (resize dimensions to shrink)</option>
+                    </select>
+                    <div id="comp-png-notice" class="hidden mt-2 text-amber-800 bg-amber-50 border border-amber-200 rounded-lg p-2 text-[11px] leading-tight">
+                      <span><i class="fa-solid fa-circle-info mr-1"></i> PNG standard is lossless and ignores quality compression. To reduce file size by 80-95%, use <strong>Smart Auto</strong> or <strong>WEBP</strong>.</span>
+                      <button id="comp-switch-smart-btn" type="button" class="underline font-bold text-brand-600 hover:text-brand-800 ml-1.5">Switch to Smart</button>
+                    </div>
+                  </div>
+                </div>
+
+              </div>
+
+              <!-- Output Statistics & Download -->
+              <div class="p-4 bg-brand-50/50 rounded-xl border border-brand-100 flex flex-col sm:flex-row items-center justify-between gap-4">
+                <div class="flex items-center gap-4">
+                  <div class="w-16 h-16 rounded-lg bg-slate-200 overflow-hidden shrink-0 border border-slate-300 flex items-center justify-center">
+                    <img id="comp-result-preview" src="" alt="Compressed Preview" class="w-full h-full object-cover" />
+                  </div>
+                  <div>
+                    <div class="flex items-center gap-2">
+                      <span class="text-xs text-slate-600 font-medium">Estimated New Size:</span>
+                      <span id="comp-result-size" class="text-sm font-extrabold text-slate-900 font-mono">0 KB</span>
+                      <span id="comp-savings-badge" class="px-2 py-0.5 rounded-full text-xs font-semibold bg-emerald-100 text-emerald-800">-0%</span>
+                    </div>
+                    <p class="text-xs text-slate-500 mt-0.5">
+                      Target dimensions: <span id="comp-result-dims" class="font-mono">0 x 0 px</span>
+                    </p>
+                  </div>
+                </div>
+
+                <button id="comp-download-btn" class="w-full sm:w-auto px-6 py-3 rounded-xl font-bold text-sm text-white bg-brand-600 hover:bg-brand-700 shadow-md shadow-brand-500/20 transition flex items-center justify-center gap-2">
+                  <i class="fa-solid fa-download"></i>
+                  <span>Download Optimized Image</span>
+                </button>
+              </div>
+
+            </div>
+
+          </div>
+        </div>
+
+        <!-- ═══ TOOL 2 CONTENT ENRICHMENT: How-To Guide + FAQs ═══ -->
+        <section aria-label="How to use the image compressor and resizer" class="mt-6 space-y-6">
+
+          <!-- Step-by-step Guide -->
+          <article class="bg-white rounded-2xl border border-slate-200 shadow-xs overflow-hidden">
+            <div class="px-6 py-5 border-b border-slate-100 flex items-center gap-3">
+              <div class="w-8 h-8 rounded-lg bg-brand-50 text-brand-600 flex items-center justify-center shrink-0">
+                <i class="fa-solid fa-list-ol text-sm"></i>
+              </div>
+              <h2 class="text-base font-bold text-slate-900">How to Compress &amp; Resize Images Online — Step-by-Step Guide</h2>
+            </div>
+            <div class="p-6 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+              <div class="flex gap-3">
+                <span class="w-7 h-7 rounded-full bg-brand-600 text-white text-xs font-bold flex items-center justify-center shrink-0 mt-0.5">1</span>
+                <div>
+                  <h3 class="text-sm font-bold text-slate-800 mb-1">Upload Your Photo</h3>
+                  <p class="text-xs text-slate-600 leading-relaxed">Drop any PNG, JPG, or WEBP image onto the upload zone. QuickConvert reads the file locally using the HTML5 FileReader API — your photo never leaves your device.</p>
+                </div>
+              </div>
+              <div class="flex gap-3">
+                <span class="w-7 h-7 rounded-full bg-brand-600 text-white text-xs font-bold flex items-center justify-center shrink-0 mt-0.5">2</span>
+                <div>
+                  <h3 class="text-sm font-bold text-slate-800 mb-1">Set Target Dimensions</h3>
+                  <p class="text-xs text-slate-600 leading-relaxed">Enter a custom width or height in pixels. With <strong>Lock Aspect Ratio</strong> checked, the other dimension auto-calculates. Or use quick-scale presets: 25%, 50%, 75%, or 100% of original size.</p>
+                </div>
+              </div>
+              <div class="flex gap-3">
+                <span class="w-7 h-7 rounded-full bg-brand-600 text-white text-xs font-bold flex items-center justify-center shrink-0 mt-0.5">3</span>
+                <div>
+                  <h3 class="text-sm font-bold text-slate-800 mb-1">Adjust Quality &amp; Format</h3>
+                  <p class="text-xs text-slate-600 leading-relaxed">Drag the quality slider from 10% (maximum compression) to 100% (original quality). Use <strong>Smart Auto</strong> format for 80–95% size reduction, or choose WEBP for best modern browser support with transparency.</p>
+                </div>
+              </div>
+              <div class="flex gap-3">
+                <span class="w-7 h-7 rounded-full bg-brand-600 text-white text-xs font-bold flex items-center justify-center shrink-0 mt-0.5">4</span>
+                <div>
+                  <h3 class="text-sm font-bold text-slate-800 mb-1">Preview &amp; Download</h3>
+                  <p class="text-xs text-slate-600 leading-relaxed">The result panel updates in real-time, showing the new compressed file size and percentage savings. When satisfied, click <strong>Download Optimized Image</strong> to save directly to your device.</p>
+                </div>
+              </div>
+            </div>
+            <div class="px-6 pb-5">
+              <div class="bg-emerald-50 border border-emerald-100 rounded-xl p-4 text-xs text-emerald-800 leading-relaxed">
+                <i class="fa-solid fa-lightbulb text-emerald-600 mr-1.5"></i>
+                <strong>Pro Tip:</strong> For social media images (Instagram, Twitter, LinkedIn), resize to exactly 1080×1080 px (square), 1200×628 px (cover), or 1080×1920 px (story), then apply 70–80% quality compression in WEBP format to achieve web-optimized files under 150 KB without visible quality loss.
+              </div>
+            </div>
+          </article>
+
+          <!-- Tool 2 FAQs -->
+          <article class="bg-white rounded-2xl border border-slate-200 shadow-xs overflow-hidden">
+            <div class="px-6 py-5 border-b border-slate-100 flex items-center gap-3">
+              <div class="w-8 h-8 rounded-lg bg-amber-50 text-amber-600 flex items-center justify-center shrink-0">
+                <i class="fa-solid fa-circle-question text-sm"></i>
+              </div>
+              <h2 class="text-base font-bold text-slate-900">Image Compressor &amp; Resizer — Frequently Asked Questions</h2>
+            </div>
+            <div class="divide-y divide-slate-100">
+              <div class="faq-item">
+                <button class="faq-trigger w-full px-6 py-4 text-left flex items-center justify-between text-sm font-semibold text-slate-800 hover:text-brand-600 transition focus:outline-none">
+                  <span>How much can QuickConvert reduce my image file size?</span>
+                  <i class="faq-icon fa-solid fa-chevron-down text-slate-400 transition-transform duration-200 shrink-0 ml-3"></i>
+                </button>
+                <div class="faq-content px-6 text-xs text-slate-600 leading-relaxed border-t border-slate-50 bg-slate-50/40">
+                  <div class="py-4">Using Smart Auto compression (WebP codec) on typical PNG photographs, QuickConvert routinely achieves <strong>80–95% file size reduction</strong>. For example, an 8 MB PNG landscape photo commonly compresses to under 400 KB at 80% quality with zero perceptible visual degradation. JPEG-to-JPEG re-encoding at 65–75% quality typically saves 40–60%.</div>
+                </div>
+              </div>
+              <div class="faq-item">
+                <button class="faq-trigger w-full px-6 py-4 text-left flex items-center justify-between text-sm font-semibold text-slate-800 hover:text-brand-600 transition focus:outline-none">
+                  <span>Why is PNG compression showing "Same Size" or not reducing my file?</span>
+                  <i class="faq-icon fa-solid fa-chevron-down text-slate-400 transition-transform duration-200 shrink-0 ml-3"></i>
+                </button>
+                <div class="faq-content px-6 text-xs text-slate-600 leading-relaxed border-t border-slate-50 bg-slate-50/40">
+                  <div class="py-4">PNG is a <strong>lossless format</strong>. The HTML5 Canvas specification mandates that <code class="bg-slate-100 text-slate-700 px-1 rounded">toBlob('image/png')</code> always produces a lossless output, meaning the quality slider does not apply. To compress a PNG effectively, switch the Output Format to <strong>Smart Auto</strong> or <strong>WEBP</strong>, which supports both lossy compression and alpha channel transparency.</div>
+                </div>
+              </div>
+              <div class="faq-item">
+                <button class="faq-trigger w-full px-6 py-4 text-left flex items-center justify-between text-sm font-semibold text-slate-800 hover:text-brand-600 transition focus:outline-none">
+                  <span>Does image compression work on transparent PNGs (logos, icons)?</span>
+                  <i class="faq-icon fa-solid fa-chevron-down text-slate-400 transition-transform duration-200 shrink-0 ml-3"></i>
+                </button>
+                <div class="faq-content px-6 text-xs text-slate-600 leading-relaxed border-t border-slate-50 bg-slate-50/40">
+                  <div class="py-4">Yes! This is a key advantage of <strong>Smart Auto (WebP)</strong> mode. Unlike JPEG, WebP supports full alpha channel transparency, so logos, icons, and product images with transparent backgrounds are compressed without losing their transparent areas. The Smart Auto mode automatically selects WebP for PNG inputs to preserve transparency while enabling lossy compression.</div>
+                </div>
+              </div>
+              <div class="faq-item">
+                <button class="faq-trigger w-full px-6 py-4 text-left flex items-center justify-between text-sm font-semibold text-slate-800 hover:text-brand-600 transition focus:outline-none">
+                  <span>What quality percentage should I use for website and email images?</span>
+                  <i class="faq-icon fa-solid fa-chevron-down text-slate-400 transition-transform duration-200 shrink-0 ml-3"></i>
+                </button>
+                <div class="faq-content px-6 text-xs text-slate-600 leading-relaxed border-t border-slate-50 bg-slate-50/40">
+                  <div class="py-4">For general website imagery, <strong>75–80% quality in JPEG or WebP</strong> is the industry standard sweet spot — invisible quality loss with 50–60% smaller files, improving page load speed and Core Web Vitals (LCP). For email campaigns, target files under 100 KB. For print-ready images (300 DPI), use 90–100% quality and retain full resolution.</div>
+                </div>
+              </div>
+            </div>
+          </article>
+
+        </section>
+        <!-- ═══ END TOOL 2 CONTENT ENRICHMENT ═══ -->
+
+      </div>
+
+      <!-- ==================================================== -->
+      <!-- TOOL 3: TEXT / MARKDOWN TO PDF CONVERTER            -->
+      <!-- ==================================================== -->
+    </section>
+
   </main>
 
-  <footer class="bg-white border-t border-slate-200 text-slate-500 text-xs py-6 mt-12 text-center">
-    <p>&copy; 2026 QuickConvert. Free Client-Side Developer &amp; File Utilities.</p>
+  <!-- FOOTER -->
+  <footer class="bg-white border-t border-slate-200 text-slate-500 text-xs py-8 mt-12">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4">
+      <p>&copy; 2026 QuickConvert. All rights reserved. Free Online File &amp; Document Converters.</p>
+      <div class="flex items-center gap-4">
+        <a href="../index.html#how-to-use" class="hover:text-brand-600">Guides</a>
+        <a href="../index.html#faqs" class="hover:text-brand-600">FAQs</a>
+        <a href="../index.html" class="hover:text-brand-600">All Tools</a>
+      </div>
+    </div>
   </footer>
 
-  <script>
-    if (!window.location.search.includes('noredirect=true')) {
-      setTimeout(() => {
-        window.location.replace('../index.html#' + 'tool-image-compressor');
-      }, 100);
-    }
-  </script>
+  <!-- Main Vanilla JavaScript -->
+  <script src="../js/app.js"></script>
+
 </body>
 </html>

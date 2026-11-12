@@ -1,69 +1,234 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="en" class="scroll-smooth">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Private QR Code Generator - Free Online Tool | QuickConvert</title>
-  <meta name="description" content="Create custom QR codes from any URL, text, email, or Wi-Fi network without remote tracking.">
-  <meta name="robots" content="index, follow">
-  <link rel="canonical" href="https://quickconvert.in/tools/qr-generator.html">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Private QR Code Generator - Free High-Res PNG | QuickConvert</title>
+  <meta name="description" content="Create customized high-resolution QR codes from any text, URL, Wi-Fi network, email, or phone number with zero tracking cookies or API latency." />
+  <meta name="keywords" content="qr code generator, free qr maker, custom qr code, wifi qr code, private qr generator, no tracking qr" />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="https://quickconvert.in/tools/qr-generator.html" />
+
+  <!-- Fonts & Icons -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+
+  <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              50: '#eef2ff', 100: '#e0e7ff', 200: '#c7d2fe', 300: '#a5b4fc',
+              400: '#818cf8', 500: '#6366f1', 600: '#4f46e5', 700: '#4338ca',
+              800: '#3730a3', 900: '#312e81'
+            },
+            accent: {
+              500: '#0284c7', 600: '#0369a1'
+            }
+          },
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+            mono: ['"JetBrains Mono"', 'monospace']
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- jsPDF Production CDN -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+
+  <!-- QRCode.js Production CDN -->
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+
+  <!-- Custom Stylesheet -->
   <link rel="stylesheet" href="../css/styles.css">
 </head>
-<body class="bg-slate-50 text-slate-800 antialiased min-h-screen flex flex-col">
+<body class="bg-slate-50 text-slate-800 antialiased min-h-screen flex flex-col selection:bg-indigo-500 selection:text-white">
+
+  <!-- Toast Notification Container -->
+  <div id="toast-container" class="fixed bottom-5 right-5 z-50 flex flex-col gap-2 max-w-sm w-full pointer-events-auto"></div>
+
+  <!-- TOP NAVBAR -->
   <header class="sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-slate-200/80 shadow-xs py-3.5 sm:py-4">
     <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between gap-4">
-      <a href="../index.html#tool-qr-generator" class="flex items-center gap-3 shrink-0 group focus:outline-none">
-        <div class="w-9 h-9 rounded-xl bg-gradient-to-tr from-indigo-600 to-sky-500 flex items-center justify-center text-white shadow-md">
+      
+      <!-- Brand Logo -->
+      <a href="../index.html" class="flex items-center gap-3 shrink-0 group focus:outline-none">
+        <div class="w-9 h-9 rounded-xl bg-gradient-to-tr from-brand-600 via-indigo-600 to-accent-500 flex items-center justify-center text-white shadow-md shadow-brand-500/25 group-hover:scale-105 transition-transform duration-200 shrink-0">
           <i class="fa-solid fa-bolt-lightning text-base"></i>
         </div>
         <div class="flex flex-col">
-          <span class="text-lg font-extrabold tracking-tight bg-gradient-to-r from-indigo-600 to-sky-600 bg-clip-text text-transparent leading-none">QuickConvert</span>
-          <span class="text-[10px] font-semibold text-slate-400 tracking-wider uppercase mt-1">Universal Client-Side Suite</span>
+          <span class="text-lg font-extrabold tracking-tight bg-gradient-to-r from-brand-600 to-accent-600 bg-clip-text text-transparent leading-none">
+            QuickConvert
+          </span>
+          <span class="text-[10px] font-semibold text-slate-400 tracking-wider uppercase mt-1">
+            Universal Client-Side Suite
+          </span>
         </div>
       </a>
-      <a href="../index.html#tool-qr-generator" class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-xl text-xs font-bold text-slate-700 bg-slate-100 hover:bg-slate-200 transition">
-        <i class="fa-solid fa-arrow-left"></i>
-        <span>Back to Suite</span>
-      </a>
+
+      <!-- Navigation Actions -->
+      <div class="flex items-center gap-3">
+        <a href="../index.html" class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-xl text-xs font-bold text-slate-700 bg-slate-100 hover:bg-slate-200 transition">
+          <i class="fa-solid fa-arrow-left"></i>
+          <span>Back to All Tools</span>
+        </a>
+      </div>
+
     </div>
   </header>
 
-  <main class="flex-1 max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 py-12 text-center flex flex-col items-center justify-center">
-    <div class="w-16 h-16 rounded-2xl bg-indigo-50 border border-indigo-100 text-indigo-600 flex items-center justify-center text-2xl mb-4 shadow-sm">
-      <i class="fa-solid fa-bolt"></i>
-    </div>
-    <h1 class="text-3xl sm:text-4xl font-extrabold text-slate-900 tracking-tight mb-3">Private QR Code Generator</h1>
-    <p class="text-sm sm:text-base text-slate-600 max-w-xl mx-auto mb-8 leading-relaxed">Create custom QR codes from any URL, text, email, or Wi-Fi network without remote tracking.</p>
+  <!-- MAIN TOOL CONTENT -->
+  <main class="flex-1 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8 w-full">
     
-    <div class="p-6 bg-white rounded-2xl border border-slate-200 shadow-sm max-w-md w-full mb-6">
-      <div class="flex items-center justify-center gap-2 text-xs font-semibold text-emerald-700 bg-emerald-50 py-2 px-4 rounded-xl mb-4 border border-emerald-100">
-        <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
-        <span>100% In-Browser Execution Ready</span>
+    <!-- Breadcrumb & Header Title -->
+    <div class="mb-6">
+      <div class="flex items-center gap-2 text-xs text-slate-500 mb-2">
+        <a href="../index.html" class="hover:text-brand-600">Home</a>
+        <i class="fa-solid fa-chevron-right text-[10px] text-slate-400"></i>
+        <a href="../index.html#suite-tools" class="hover:text-brand-600">Tools</a>
+        <i class="fa-solid fa-chevron-right text-[10px] text-slate-400"></i>
+        <span class="text-slate-800 font-semibold">Generator Tools</span>
       </div>
-      <a href="../index.html#tool-qr-generator" class="w-full py-3 rounded-xl bg-indigo-600 hover:bg-indigo-700 text-white font-bold text-sm shadow-sm transition active:scale-95 flex items-center justify-center gap-2">
-        <span>Launch Private QR Code Generator</span>
-        <i class="fa-solid fa-arrow-right text-xs"></i>
-      </a>
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+        <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-emerald-50 text-emerald-700 border border-emerald-200 self-start sm:self-auto">
+          <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
+          100% Client-Side Processing • Zero Cloud Storage
+        </span>
+      </div>
     </div>
 
-    <p class="text-xs text-slate-400">Zero data leaves your browser. Protected by client-side sandbox isolation.</p>
+    <!-- Active Tool Interactive Workspace -->
+    <section class="mb-10">
+      <div id="tool-qr-generator" class="tool-panel">
+        <div class="bg-white rounded-2xl border border-slate-200 shadow-sm overflow-hidden p-6 sm:p-8 mb-8">
+          <div class="flex flex-col sm:flex-row sm:items-center justify-between pb-6 mb-6 border-b border-slate-100 gap-4">
+            <div>
+              <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold bg-indigo-50 text-indigo-700 border border-indigo-200/70 mb-2">
+                <i class="fa-solid fa-qrcode"></i> Instant Client-Side QR Generator
+              </span>
+              <h2 class="text-xl sm:text-2xl font-black text-slate-900 tracking-tight">QR Code Generator</h2>
+              <p class="text-xs sm:text-sm text-slate-500 mt-1">Create customized high-resolution QR codes from any text, URL, phone number, or Wi-Fi code instantly.</p>
+            </div>
+            <span class="text-xs font-semibold px-2.5 py-1 rounded-lg bg-emerald-50 text-emerald-700 border border-emerald-200 self-start sm:self-auto">
+              <i class="fa-solid fa-shield-halved"></i> 100% Private (No Tracking)
+            </span>
+          </div>
+
+          <div class="grid grid-cols-1 lg:grid-cols-12 gap-8 items-start">
+            <!-- Left Form Controls -->
+            <div class="lg:col-span-7 space-y-4">
+              <div>
+                <label for="qr-input-text" class="block text-xs font-bold text-slate-700 mb-1.5">Enter URL or Content</label>
+                <textarea id="qr-input-text" rows="3" placeholder="https://example.com or any text..." class="w-full bg-slate-50 border border-slate-300 rounded-xl px-3.5 py-2.5 text-xs sm:text-sm text-slate-800 focus:outline-none focus:ring-2 focus:ring-brand-500 focus:bg-white leading-relaxed">https://quickconvert.in/</textarea>
+              </div>
+
+              <!-- Quick Templates -->
+              <div class="flex flex-wrap gap-2 text-xs">
+                <span class="text-slate-400 font-semibold self-center">Templates:</span>
+                <button type="button" class="qr-template-btn px-2.5 py-1 rounded-lg bg-slate-100 text-slate-700 hover:bg-brand-50 hover:text-brand-600 transition" data-template="https://">Website URL</button>
+                <button type="button" class="qr-template-btn px-2.5 py-1 rounded-lg bg-slate-100 text-slate-700 hover:bg-brand-50 hover:text-brand-600 transition" data-template="mailto:hello@example.com?subject=Hello">Email</button>
+                <button type="button" class="qr-template-btn px-2.5 py-1 rounded-lg bg-slate-100 text-slate-700 hover:bg-brand-50 hover:text-brand-600 transition" data-template="tel:+1234567890">Phone</button>
+                <button type="button" class="qr-template-btn px-2.5 py-1 rounded-lg bg-slate-100 text-slate-700 hover:bg-brand-50 hover:text-brand-600 transition" data-template="WIFI:S:MyNetwork;T:WPA;P:MyPassword;;">Wi-Fi</button>
+              </div>
+
+              <!-- Styling Customization Grid -->
+              <div class="grid grid-cols-2 sm:grid-cols-3 gap-3 pt-2">
+                <div>
+                  <label for="qr-size-select" class="block text-xs font-bold text-slate-700 mb-1">Pixel Size</label>
+                  <select id="qr-size-select" class="w-full bg-slate-50 border border-slate-300 rounded-xl px-2.5 py-2 text-xs text-slate-800 focus:outline-none focus:ring-2 focus:ring-brand-500">
+                    <option value="160">Small (160px)</option>
+                    <option value="256" selected>Medium (256px)</option>
+                    <option value="384">Large (384px)</option>
+                    <option value="512">Ultra (512px)</option>
+                  </select>
+                </div>
+
+                <div>
+                  <label for="qr-color-dark" class="block text-xs font-bold text-slate-700 mb-1">Pattern Color</label>
+                  <div class="flex items-center gap-2 border border-slate-300 rounded-xl px-2 py-1.5 bg-slate-50">
+                    <input type="color" id="qr-color-dark" value="#0f172a" class="w-7 h-7 rounded-lg border-0 cursor-pointer bg-transparent" />
+                    <span id="qr-color-dark-label" class="text-xs text-slate-600 font-mono">#0f172a</span>
+                  </div>
+                </div>
+
+                <div>
+                  <label for="qr-color-light" class="block text-xs font-bold text-slate-700 mb-1">Background Color</label>
+                  <div class="flex items-center gap-2 border border-slate-300 rounded-xl px-2 py-1.5 bg-slate-50">
+                    <input type="color" id="qr-color-light" value="#ffffff" class="w-7 h-7 rounded-lg border-0 cursor-pointer bg-transparent" />
+                    <span id="qr-color-light-label" class="text-xs text-slate-600 font-mono">#ffffff</span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="pt-2">
+                <button id="qr-generate-btn" class="w-full py-3 rounded-xl bg-brand-600 hover:bg-brand-700 text-white font-bold text-xs sm:text-sm shadow-sm transition active:scale-95 flex items-center justify-center gap-2">
+                  <i class="fa-solid fa-arrows-rotate"></i>
+                  <span>Regenerate QR Code</span>
+                </button>
+              </div>
+            </div>
+
+            <!-- Right QR Preview -->
+            <div class="lg:col-span-5 flex flex-col items-center justify-center p-6 bg-slate-50 rounded-2xl border border-slate-200">
+              <div id="qr-render-box" class="p-4 bg-white rounded-2xl shadow-md border border-slate-200 flex items-center justify-center min-w-[200px] min-h-[200px]"></div>
+              
+              <div class="mt-4 flex flex-col sm:flex-row gap-2 w-full max-w-xs">
+                <button id="qr-download-btn" class="flex-1 py-2.5 px-4 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs shadow-sm transition active:scale-95 flex items-center justify-center gap-1.5">
+                  <i class="fa-solid fa-download"></i>
+                  <span>Download PNG</span>
+                </button>
+                <button id="qr-copy-btn" class="py-2.5 px-4 rounded-xl border border-slate-300 bg-white hover:bg-slate-100 text-slate-700 font-bold text-xs transition active:scale-95 flex items-center justify-center gap-1.5">
+                  <i class="fa-regular fa-copy"></i>
+                  <span>Copy</span>
+                </button>
+              </div>
+              <p class="text-[11px] text-slate-400 mt-2 text-center">Crisp PNG rendered 100% inside your browser.</p>
+            </div>
+          </div>
+        </div>
+
+        <!-- How To -->
+        <section aria-label="How to use the QR code generator" class="mt-6 space-y-6">
+          <article class="bg-white rounded-2xl border border-slate-200/80 p-6 sm:p-8 shadow-xs">
+            <h3 class="text-base font-bold text-slate-900 mb-2 flex items-center gap-2">
+              <i class="fa-solid fa-circle-info text-brand-600"></i> Free &amp; Private QR Code Generator
+            </h3>
+            <p class="text-xs sm:text-sm text-slate-600 leading-relaxed">
+              QuickConvert generates standard QR codes directly in your browser without communicating with any third-party tracking APIs. Your Wi-Fi passwords, personal URLs, and contact info remain strictly confidential. Download high-resolution PNGs ready for printing on business cards, menus, flyers, and digital screens.
+            </p>
+          </article>
+        </section>
+      </div>
+
+      <!-- ==================================================== -->
+      <!-- TOOL 7: SECURE PASSWORD GENERATOR                    -->
+      <!-- ==================================================== -->
+    </section>
+
   </main>
 
-  <footer class="bg-white border-t border-slate-200 text-slate-500 text-xs py-6 mt-12 text-center">
-    <p>&copy; 2026 QuickConvert. Free Client-Side Developer &amp; File Utilities.</p>
+  <!-- FOOTER -->
+  <footer class="bg-white border-t border-slate-200 text-slate-500 text-xs py-8 mt-12">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4">
+      <p>&copy; 2026 QuickConvert. All rights reserved. Free Online File &amp; Document Converters.</p>
+      <div class="flex items-center gap-4">
+        <a href="../index.html#how-to-use" class="hover:text-brand-600">Guides</a>
+        <a href="../index.html#faqs" class="hover:text-brand-600">FAQs</a>
+        <a href="../index.html" class="hover:text-brand-600">All Tools</a>
+      </div>
+    </div>
   </footer>
 
-  <script>
-    if (!window.location.search.includes('noredirect=true')) {
-      setTimeout(() => {
-        window.location.replace('../index.html#' + 'tool-qr-generator');
-      }, 100);
-    }
-  </script>
+  <!-- Main Vanilla JavaScript -->
+  <script src="../js/app.js"></script>
+
 </body>
 </html>
