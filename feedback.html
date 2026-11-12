@@ -975,77 +975,122 @@
     </section>
 
     <!-- CONTENT-RICH SECTION 2: ARCHITECTURE & SECURITY ADVANTAGE -->
-    <section id="security-advantage" class="bg-slate-900 text-white py-16">
-      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+    <section id="security-advantage" class="py-20 sm:py-24 bg-gradient-to-b from-slate-50/80 via-white to-slate-50/80 border-y border-slate-200/80 relative overflow-hidden">
+      <!-- Ambient Decorative Glows -->
+      <div class="absolute -top-24 -left-24 w-96 h-96 bg-indigo-500/5 rounded-full blur-3xl pointer-events-none"></div>
+      <div class="absolute -bottom-24 -right-24 w-96 h-96 bg-brand-500/5 rounded-full blur-3xl pointer-events-none"></div>
+
+      <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
         
-        <div class="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
-          <div>
-            <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-emerald-500/20 text-emerald-400 border border-emerald-500/30 mb-4">
-              <i class="fa-solid fa-shield-virus"></i> Zero-Knowledge Architecture
-            </span>
-            <h2 class="text-2xl sm:text-4xl font-extrabold tracking-tight text-white mb-5">
-              Why In-Browser Processing is Strictly Superior for Document Privacy
+        <div class="grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-16 items-center">
+          
+          <!-- Left Column: Story & Architecture Overview -->
+          <div class="lg:col-span-6 space-y-6">
+            
+            <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-bold bg-emerald-50 text-emerald-700 border border-emerald-200 shadow-2xs">
+              <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+              <i class="fa-solid fa-shield-halved text-emerald-600 text-[11px]"></i>
+              <span>Zero-Knowledge Architecture</span>
+            </div>
+
+            <h2 class="text-3xl sm:text-4xl lg:text-[42px] font-black tracking-tight text-slate-900 leading-[1.18]">
+              Why In-Browser Processing is <span class="bg-gradient-to-r from-brand-600 via-indigo-600 to-sky-600 bg-clip-text text-transparent">Strictly Superior</span> for Document Privacy
             </h2>
-            <div class="space-y-4 text-slate-300 text-sm sm:text-base leading-relaxed">
+
+            <div class="space-y-4 text-slate-600 text-sm sm:text-base leading-relaxed">
               <p>
-                Traditional online converters require you to upload private contracts, confidential scans, and personal photographs to remote cloud servers. Once uploaded, your files sit in third-party temporary directories, creating vulnerability vectors for data breaches and unintended archival.
+                Traditional online converters require you to upload private contracts, confidential scans, and personal photographs to remote cloud servers. Once uploaded, your files sit in third-party temporary directories, creating vulnerability vectors for data breaches, accidental leaks, and unintended archival.
               </p>
               <p>
-                <strong class="text-white">QuickConvert disrupts this obsolete paradigm.</strong> By leveraging client-side WebAssembly, the HTML5 Canvas API, and <code class="text-indigo-300 bg-indigo-950/60 px-1 py-0.5 rounded">jsPDF</code>, every pixel calculation and byte serialization happens locally within your browser's isolated JavaScript sandbox.
+                <strong class="font-bold text-slate-900">QuickConvert disrupts this obsolete paradigm.</strong> By leveraging client-side WebAssembly, the HTML5 Canvas API, and modern cryptographic JavaScript libraries, every pixel calculation and byte serialization happens locally within your browser's isolated memory sandbox.
               </p>
               <p>
-                Your files are never transmitted across the network, eliminating both security hazards and costly cloud hosting bills.
+                Your files are never transmitted across the network, eliminating privacy hazards, security audit overhead, and costly cloud processing paywalls.
               </p>
             </div>
 
-            <div class="mt-8 grid grid-cols-2 gap-4">
-              <div class="border border-slate-800 bg-slate-800/50 p-4 rounded-xl">
-                <p class="text-indigo-400 font-bold text-lg">0 Bytes</p>
-                <p class="text-xs text-slate-400 mt-1">Transmitted over external networks</p>
+            <!-- Balanced Key Compliance Metrics -->
+            <div class="pt-6 border-t border-slate-200/80 grid grid-cols-1 sm:grid-cols-2 gap-4">
+              
+              <!-- Metric 1: 0 Bytes -->
+              <div class="p-5 rounded-2xl bg-white border border-slate-200/90 shadow-2xs hover:border-brand-200 hover:shadow-xs transition-all duration-200 flex items-start gap-3.5 group">
+                <div class="w-11 h-11 rounded-xl bg-indigo-50 text-brand-600 border border-indigo-100 flex items-center justify-center shrink-0 group-hover:bg-brand-600 group-hover:text-white transition-colors duration-200">
+                  <i class="fa-solid fa-cloud-slash text-lg"></i>
+                </div>
+                <div>
+                  <div class="text-2xl font-black text-slate-900 tracking-tight leading-none">0 Bytes</div>
+                  <p class="text-[11px] font-bold text-brand-600 uppercase tracking-wider mt-1.5">Network Transmission</p>
+                  <p class="text-xs text-slate-500 mt-1 leading-snug">Zero payloads or metadata leave your local device memory.</p>
+                </div>
               </div>
-              <div class="border border-slate-800 bg-slate-800/50 p-4 rounded-xl">
-                <p class="text-emerald-400 font-bold text-lg">GDPR &amp; CCPA</p>
-                <p class="text-xs text-slate-400 mt-1">Inherently compliant by design</p>
+
+              <!-- Metric 2: GDPR & CCPA -->
+              <div class="p-5 rounded-2xl bg-white border border-slate-200/90 shadow-2xs hover:border-emerald-200 hover:shadow-xs transition-all duration-200 flex items-start gap-3.5 group">
+                <div class="w-11 h-11 rounded-xl bg-emerald-50 text-emerald-600 border border-emerald-100 flex items-center justify-center shrink-0 group-hover:bg-emerald-600 group-hover:text-white transition-colors duration-200">
+                  <i class="fa-solid fa-certificate text-lg"></i>
+                </div>
+                <div>
+                  <div class="text-2xl font-black text-slate-900 tracking-tight leading-none">GDPR &amp; CCPA</div>
+                  <p class="text-[11px] font-bold text-emerald-600 uppercase tracking-wider mt-1.5">Zero-Liability Compliance</p>
+                  <p class="text-xs text-slate-500 mt-1 leading-snug">Inherently compliant by design with no third-party DPA required.</p>
+                </div>
               </div>
+
             </div>
+
           </div>
 
-          <!-- Feature Cards Grid -->
-          <div class="space-y-4">
+          <!-- Right Column: Airy Elevated Feature Cards -->
+          <div class="lg:col-span-6 space-y-4 sm:space-y-5">
             
-            <div class="p-5 rounded-2xl bg-slate-800/80 border border-slate-700/80 flex items-start gap-4">
-              <div class="w-10 h-10 rounded-xl bg-brand-500/20 text-brand-400 flex items-center justify-center shrink-0">
-                <i class="fa-solid fa-microchip text-lg"></i>
-              </div>
-              <div>
-                <h3 class="font-bold text-white text-base">Harness Local Hardware</h3>
-                <p class="text-xs sm:text-sm text-slate-300 mt-1">
-                  Instead of waiting in shared cloud queuing pools, QuickConvert uses your device’s multi-core CPU and GPU acceleration for near-instantaneous operations.
-                </p>
-              </div>
-            </div>
-
-            <div class="p-5 rounded-2xl bg-slate-800/80 border border-slate-700/80 flex items-start gap-4">
-              <div class="w-10 h-10 rounded-xl bg-accent-500/20 text-accent-400 flex items-center justify-center shrink-0">
-                <i class="fa-solid fa-wifi-slash text-lg"></i>
-              </div>
-              <div>
-                <h3 class="font-bold text-white text-base">Works Offline Once Loaded</h3>
-                <p class="text-xs sm:text-sm text-slate-300 mt-1">
-                  Once cached in your browser, QuickConvert can process image conversions and compress documents even without an active internet connection.
-                </p>
+            <!-- Feature Card 1 -->
+            <div class="p-6 sm:p-7 rounded-2xl bg-white border border-slate-200/90 shadow-2xs hover:border-brand-300 hover:shadow-md transition-all duration-200 group">
+              <div class="flex items-start gap-4 sm:gap-5">
+                <div class="w-12 h-12 rounded-xl bg-brand-50 text-brand-600 border border-brand-100 flex items-center justify-center shrink-0 group-hover:scale-105 group-hover:bg-brand-600 group-hover:text-white transition-all duration-200 shadow-2xs">
+                  <i class="fa-solid fa-microchip text-xl"></i>
+                </div>
+                <div class="flex-1">
+                  <h3 class="font-bold text-slate-900 text-base sm:text-lg group-hover:text-brand-600 transition-colors">
+                    Harness Local Hardware Performance
+                  </h3>
+                  <p class="text-xs sm:text-sm text-slate-600 mt-1.5 leading-relaxed">
+                    Instead of queuing behind thousands of users in bottlenecked cloud server farms, QuickConvert leverages your device’s native multi-core CPU and GPU acceleration for near-instant execution.
+                  </p>
+                </div>
               </div>
             </div>
 
-            <div class="p-5 rounded-2xl bg-slate-800/80 border border-slate-700/80 flex items-start gap-4">
-              <div class="w-10 h-10 rounded-xl bg-emerald-500/20 text-emerald-400 flex items-center justify-center shrink-0">
-                <i class="fa-solid fa-ban text-lg"></i>
+            <!-- Feature Card 2 -->
+            <div class="p-6 sm:p-7 rounded-2xl bg-white border border-slate-200/90 shadow-2xs hover:border-sky-300 hover:shadow-md transition-all duration-200 group">
+              <div class="flex items-start gap-4 sm:gap-5">
+                <div class="w-12 h-12 rounded-xl bg-sky-50 text-sky-600 border border-sky-100 flex items-center justify-center shrink-0 group-hover:scale-105 group-hover:bg-sky-600 group-hover:text-white transition-all duration-200 shadow-2xs">
+                  <i class="fa-solid fa-wifi-slash text-xl"></i>
+                </div>
+                <div class="flex-1">
+                  <h3 class="font-bold text-slate-900 text-base sm:text-lg group-hover:text-sky-600 transition-colors">
+                    Fully Functional Offline
+                  </h3>
+                  <p class="text-xs sm:text-sm text-slate-600 mt-1.5 leading-relaxed">
+                    Once the page scripts are cached in your browser, QuickConvert operates entirely without an active internet connection. Convert images and compile PDFs on airplanes, remote job sites, or restricted intranets.
+                  </p>
+                </div>
               </div>
-              <div>
-                <h3 class="font-bold text-white text-base">No Account, Paywall, or Captcha</h3>
-                <p class="text-xs sm:text-sm text-slate-300 mt-1">
-                  Zero mandatory registration or monthly credit limitations. Open the site, accomplish your work in seconds, and get back to your day.
-                </p>
+            </div>
+
+            <!-- Feature Card 3 -->
+            <div class="p-6 sm:p-7 rounded-2xl bg-white border border-slate-200/90 shadow-2xs hover:border-emerald-300 hover:shadow-md transition-all duration-200 group">
+              <div class="flex items-start gap-4 sm:gap-5">
+                <div class="w-12 h-12 rounded-xl bg-emerald-50 text-emerald-600 border border-emerald-100 flex items-center justify-center shrink-0 group-hover:scale-105 group-hover:bg-emerald-600 group-hover:text-white transition-all duration-200 shadow-2xs">
+                  <i class="fa-solid fa-shield-check text-xl"></i>
+                </div>
+                <div class="flex-1">
+                  <h3 class="font-bold text-slate-900 text-base sm:text-lg group-hover:text-emerald-600 transition-colors">
+                    Zero Paywalls, Accounts, or Friction
+                  </h3>
+                  <p class="text-xs sm:text-sm text-slate-600 mt-1.5 leading-relaxed">
+                    No mandatory account registration, email harvesting, usage tiers, or annoying bot challenges. Open the tool, perform your task in milliseconds, and download your results cleanly.
+                  </p>
+                </div>
               </div>
             </div>
 
