@@ -162,6 +162,39 @@ button:active:not(:disabled), a.active-press:active {
   transform: scale(0.98);
 }
 
+/* ==========================================
+   Interactive Navigation Mega-Menu Dropdown
+   ========================================== */
+.mega-menu-panel {
+  will-change: opacity, transform;
+}
+
+#nav-tools-dropdown-container.is-active #nav-tools-mega-menu {
+  pointer-events: auto !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+  transform: translateY(0) !important;
+}
+
+#nav-tools-dropdown-container.is-active #nav-tools-arrow {
+  transform: rotate(180deg) !important;
+  color: #4f46e5 !important;
+}
+
+#nav-tools-dropdown-container.is-active #nav-tools-dropdown-btn {
+  color: #4f46e5 !important;
+}
+
+/* Tool item hover within mega menu */
+.mega-tool-item {
+  transition: all 0.16s ease;
+}
+
+.mega-tool-item:hover {
+  background-color: rgba(241, 245, 249, 0.85);
+  transform: translateX(2px);
+}
+
 /* Print Cleanliness */
 @media print {
   header, footer, .no-print, .adsense-box {

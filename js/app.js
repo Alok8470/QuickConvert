@@ -159,6 +159,74 @@
   }
 
   // ==========================================
+  // 2b. INTERACTIVE "ALL TOOLS" MEGA-MENU
+  // ==========================================
+  const navDropdownContainers = document.querySelectorAll('#nav-tools-dropdown-container');
+
+  navDropdownContainers.forEach((container) => {
+    const btn = container.querySelector('#nav-tools-dropdown-btn');
+    if (!btn) return;
+
+    btn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      const isActive = container.classList.contains('is-active');
+      navDropdownContainers.forEach((c) => c.classList.remove('is-active'));
+      if (!isActive) {
+        container.classList.add('is-active');
+        btn.setAttribute('aria-expanded', 'true');
+      } else {
+        btn.setAttribute('aria-expanded', 'false');
+      }
+    });
+  });
+
+  // Close mega-menu on outside click
+  document.addEventListener('click', (e) => {
+    navDropdownContainers.forEach((container) => {
+      if (!container.contains(e.target)) {
+        container.classList.remove('is-active');
+        const btn = container.querySelector('#nav-tools-dropdown-btn');
+        if (btn) btn.setAttribute('aria-expanded', 'false');
+      }
+    });
+  });
+
+  // Close mega-menu on ESC key
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+      navDropdownContainers.forEach((container) => {
+        container.classList.remove('is-active');
+        const btn = container.querySelector('#nav-tools-dropdown-btn');
+        if (btn) btn.setAttribute('aria-expanded', 'false');
+      });
+    }
+  });
+
+  // Mobile menu tools accordion toggle
+  const mobileToolsToggle = document.getElementById('mobile-tools-toggle');
+  const mobileToolsSublist = document.getElementById('mobile-tools-sublist');
+  const mobileToolsChevron = document.getElementById('mobile-tools-chevron');
+
+  if (mobileToolsToggle && mobileToolsSublist) {
+    mobileToolsToggle.addEventListener('click', (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      const isClosed = mobileToolsSublist.classList.contains('hidden');
+      if (isClosed) {
+        mobileToolsSublist.classList.remove('hidden');
+        if (mobileToolsChevron) {
+          mobileToolsChevron.classList.add('rotate-180');
+        }
+      } else {
+        mobileToolsSublist.classList.add('hidden');
+        if (mobileToolsChevron) {
+          mobileToolsChevron.classList.remove('rotate-180');
+        }
+      }
+    });
+  }
+
+  // ==========================================
   // 3. TOOL 1: PNG / JPG TO PDF CONVERTER
   // ==========================================
 
