@@ -1967,7 +1967,49 @@
   // 9. INITIALIZATION
   // ==========================================
 
-  function initApp() {
+  
+  // ==========================================
+  // SERVICE WORKER & COOKIE CONSENT
+  // ==========================================
+
+  function registerServiceWorker() {
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('/sw.js').catch((err) => {
+          console.warn('[SW] Service worker registration failed:', err);
+        });
+      });
+    }
+  }
+
+  function initCookieConsent() {
+    const banner = document.getElementById('cookie-consent-banner');
+    if (!banner) return;
+    const consent = localStorage.getItem('qc_cookie_consent');
+    if (!consent) {
+      banner.classList.remove('hidden');
+    }
+    const acceptBtn = document.getElementById('btn-accept-cookies');
+    if (acceptBtn) {
+      acceptBtn.addEventListener('click', () => {
+        localStorage.setItem('qc_cookie_consent', 'accepted');
+        banner.classList.add('hidden');
+        if (typeof showToast === 'function') showToast('Cookie preferences saved', 'info');
+      });
+    }
+    const declineBtn = document.getElementById('btn-decline-cookies');
+    if (declineBtn) {
+      declineBtn.addEventListener('click', () => {
+        localStorage.setItem('qc_cookie_consent', 'essential');
+        banner.classList.add('hidden');
+        if (typeof showToast === 'function') showToast('Essential cookies only enabled', 'info');
+      });
+    }
+  }
+
+function initApp() {
+    registerServiceWorker();
+    initCookieConsent();
     renderCategoryButtons();
     populateUnitSelectors();
     calculateConversion();

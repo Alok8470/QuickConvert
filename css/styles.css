@@ -137,24 +137,10 @@ input[type="range"]::-moz-range-thumb {
   animation: slideUpFade 0.22s cubic-bezier(0.16, 1, 0.3, 1) forwards;
 }
 
-/* AdSense Demo placeholder style */
-.adsense-box {
-  background: linear-gradient(135deg, #f8fafc 0%, #f1f5f9 100%);
-  border: 1px dashed #cbd5e1;
-  position: relative;
-  overflow: hidden;
-}
-
-.adsense-box::after {
-  content: 'Sponsored / Advertisement';
-  position: absolute;
-  top: 4px;
-  right: 8px;
-  font-size: 10px;
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-  color: #94a3b8;
+/* Clean Ad Container (Prevents Layout Shift without visible placeholder text) */
+.qc-ad-container {
+  min-height: 90px;
+  width: 100%;
 }
 
 /* Button & Interactive micro-interactions */

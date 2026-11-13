@@ -52,13 +52,22 @@
   </script>
 
   <!-- jsPDF Production CDN -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+  <script src="../js/vendor/jspdf.umd.min.js"></script>
 
   <!-- QRCode.js Production CDN -->
-  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"></script>
+  <script src="../js/vendor/qrcode.min.js"></script>
 
   <!-- Custom Stylesheet -->
   <link rel="stylesheet" href="../css/styles.css">
+  <!-- Open Graph & Social Meta Tags -->
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://quickconvert.in/tools/image-converter.html" />
+  <meta property="og:title" content="Image Format Converter (PNG, JPG, WebP) - Free Online Tool | QuickConvert" />
+  <meta property="og:description" content="Convert single or batch images seamlessly between PNG, JPG, and WebP directly in your browser memory with zero network uploads." />
+  <meta property="og:site_name" content="QuickConvert" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Image Format Converter (PNG, JPG, WebP) - Free Online Tool | QuickConvert" />
+  <meta name="twitter:description" content="Convert single or batch images seamlessly between PNG, JPG, and WebP directly in your browser memory with zero network uploads." />
 </head>
 <body class="bg-slate-50 text-slate-800 antialiased min-h-screen flex flex-col selection:bg-indigo-500 selection:text-white">
 
@@ -367,19 +376,61 @@
   </main>
 
   <!-- FOOTER -->
-  <footer class="bg-white border-t border-slate-200 text-slate-500 text-xs py-8 mt-12">
-    <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 flex flex-col sm:flex-row items-center justify-between gap-4">
-      <p>&copy; 2026 QuickConvert. All rights reserved. Free Online File &amp; Document Converters.</p>
-      <div class="flex items-center gap-4">
-        <a href="../index.html#how-to-use" class="hover:text-brand-600">Guides</a>
-        <a href="../index.html#faqs" class="hover:text-brand-600">FAQs</a>
-        <a href="../index.html" class="hover:text-brand-600">All Tools</a>
+    <!-- FOOTER -->
+  <footer class="bg-white border-t border-slate-200 text-slate-600 text-xs mt-16">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 flex flex-col md:flex-row items-center justify-between gap-6">
+      
+      <div class="flex items-center gap-2">
+        <div class="w-6 h-6 rounded-lg bg-brand-600 flex items-center justify-center text-white">
+          <i class="fa-solid fa-bolt-lightning text-xs"></i>
+        </div>
+        <span class="font-extrabold text-slate-900">QuickConvert</span>
+        <span class="text-slate-400">&bull; In-Browser File Utilities</span>
       </div>
+
+      <div class="flex flex-wrap items-center justify-center gap-x-5 gap-y-2 text-xs font-medium text-slate-500">
+        <a href="../index.html" class="hover:text-brand-600 transition">Home</a>
+        <a href="../index.html#suite-tools" class="hover:text-brand-600 transition">All Tools</a>
+        <a href="../privacy-policy.html" class="hover:text-brand-600 transition">Privacy Policy</a>
+        <a href="../terms.html" class="hover:text-brand-600 transition">Terms of Service</a>
+        <a href="../about.html" class="hover:text-brand-600 transition">About</a>
+        <a href="../contact.html" class="hover:text-brand-600 transition">Contact</a>
+        <a href="../feedback.html" class="text-brand-600 font-bold hover:text-brand-700 transition">Feedback</a>
+      </div>
+
+      <div class="text-[11px] text-slate-400 text-center md:text-right">
+        Operated by Alok Maurya &bull; Cookies used for AdSense &amp; Analytics
+      </div>
+
     </div>
   </footer>
 
+
   <!-- Main Vanilla JavaScript -->
   <script src="../js/app.js"></script>
+
+  <!-- Cookie & Privacy Notice Banner -->
+  <div id="cookie-consent-banner" class="fixed bottom-4 left-4 right-4 sm:left-auto sm:right-6 sm:max-w-md z-50 bg-white/95 backdrop-blur-md rounded-2xl border border-slate-200/90 shadow-2xl p-5 text-xs text-slate-600 transition-all duration-300 transform translate-y-0 hidden" role="region" aria-label="Cookie Consent">
+    <div class="flex items-start gap-3">
+      <div class="w-8 h-8 rounded-xl bg-brand-50 text-brand-600 flex items-center justify-center shrink-0 border border-brand-100">
+        <i class="fa-solid fa-cookie-bite text-sm"></i>
+      </div>
+      <div class="space-y-2 flex-1">
+        <p class="font-bold text-slate-900 text-sm">Cookie &amp; Privacy Notice</p>
+        <p class="leading-relaxed text-slate-600">
+          Your files stay 100% on your device. We and our partner (Google AdSense) use cookies to personalize ads, analyze traffic, and support free access. Read our <a href="../privacy-policy.html" class="text-brand-600 underline font-semibold">Privacy Policy</a>.
+        </p>
+        <div class="flex items-center gap-2 pt-1">
+          <button type="button" id="btn-accept-cookies" class="px-3.5 py-1.5 rounded-xl bg-brand-600 hover:bg-brand-700 text-white font-bold text-xs transition cursor-pointer">
+            Accept &amp; Continue
+          </button>
+          <button type="button" id="btn-decline-cookies" class="px-3 py-1.5 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 font-semibold text-xs transition cursor-pointer">
+            Essential Only
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
 
 </body>
 </html>

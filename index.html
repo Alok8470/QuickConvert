@@ -41,6 +41,18 @@
   {
     "@context": "https://schema.org",
     "@graph": [
+        {
+          "@type": "WebSite",
+          "@id": "https://quickconvert.in/#website",
+          "url": "https://quickconvert.in/",
+          "name": "QuickConvert",
+          "description": "Free client-side file and document conversion platform.",
+          "inLanguage": "en-US",
+          "publisher": {
+            "@type": "Person",
+            "name": "Alok Maurya"
+          }
+        },
       {
         "@type": "WebApplication",
         "@id": "https://quickconvert.in/#webapp",
@@ -88,7 +100,7 @@
             "name": "How fast is the conversion — does it depend on my internet speed?",
             "acceptedAnswer": {
               "@type": "Answer",
-              "text": "QuickConvert's conversion speed depends entirely on your device's local CPU and browser engine, not your internet connection. Because files are processed in-browser with no network round-trip, typical conversions complete in under 500 milliseconds."
+              "text": "QuickConvert's conversion speed depends entirely on your device's local CPU and browser engine, not your internet connection. Because files are processed in-browser with no network round-trip, typical conversions execute directly in local memory. Speed depends on your device hardware and file size."
             }
           },
           {
@@ -1090,11 +1102,11 @@
             <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full text-xs font-bold bg-emerald-50 text-emerald-700 border border-emerald-200 shadow-2xs">
               <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
               <i class="fa-solid fa-shield-halved text-emerald-600 text-[11px]"></i>
-              <span>Zero-Knowledge Architecture</span>
+              <span>Local Browser Processing</span>
             </div>
 
             <h2 class="text-3xl sm:text-4xl lg:text-[42px] font-black tracking-tight text-slate-900 leading-[1.18]">
-              Why In-Browser Processing is <span class="bg-gradient-to-r from-brand-600 via-indigo-600 to-sky-600 bg-clip-text text-transparent">Strictly Superior</span> for Document Privacy
+              Why In-Browser Processing <span class="bg-gradient-to-r from-brand-600 via-indigo-600 to-sky-600 bg-clip-text text-transparent">Protects Your Document Privacy</span>
             </h2>
 
             <div class="space-y-4 text-slate-600 text-sm sm:text-base leading-relaxed">
@@ -1102,7 +1114,7 @@
                 Traditional online converters require you to upload private contracts, confidential scans, and personal photographs to remote cloud servers. Once uploaded, your files sit in third-party temporary directories, creating vulnerability vectors for data breaches, accidental leaks, and unintended archival.
               </p>
               <p>
-                <strong class="font-bold text-slate-900">QuickConvert disrupts this obsolete paradigm.</strong> By leveraging client-side WebAssembly, the HTML5 Canvas API, and modern cryptographic JavaScript libraries, every pixel calculation and byte serialization happens locally within your browser's isolated memory sandbox.
+                <strong class="font-bold text-slate-900">QuickConvert takes a local-first approach to file processing.</strong> By leveraging client-side WebAssembly, the HTML5 Canvas API, and modern cryptographic JavaScript libraries, every pixel calculation and byte serialization happens locally within your browser's isolated memory sandbox.
               </p>
               <p>
                 Your files are never transmitted across the network, eliminating privacy hazards, security audit overhead, and costly cloud processing paywalls.
@@ -1118,9 +1130,9 @@
                   <i class="fa-solid fa-cloud-slash text-lg"></i>
                 </div>
                 <div>
-                  <div class="text-2xl font-black text-slate-900 tracking-tight leading-none">0 Bytes</div>
-                  <p class="text-[11px] font-bold text-brand-600 uppercase tracking-wider mt-1.5">Network Transmission</p>
-                  <p class="text-xs text-slate-500 mt-1 leading-snug">Zero payloads or metadata leave your local device memory.</p>
+                  <div class="text-lg font-black text-slate-900 tracking-tight leading-snug">Your files never leave your device</div>
+                  <p class="text-[11px] font-bold text-brand-600 uppercase tracking-wider mt-1">Local Privacy Guarantee</p>
+                  <p class="text-xs text-slate-500 mt-0.5 leading-snug">All processing occurs in local RAM; zero files are uploaded to servers.</p>
                 </div>
               </div>
 
@@ -1130,9 +1142,9 @@
                   <i class="fa-solid fa-certificate text-lg"></i>
                 </div>
                 <div>
-                  <div class="text-2xl font-black text-slate-900 tracking-tight leading-none">GDPR &amp; CCPA</div>
-                  <p class="text-[11px] font-bold text-emerald-600 uppercase tracking-wider mt-1.5">Zero-Liability Compliance</p>
-                  <p class="text-xs text-slate-500 mt-1 leading-snug">Inherently compliant by design with no third-party DPA required.</p>
+                  <div class="text-lg font-black text-slate-900 tracking-tight leading-snug">Privacy-First Design</div>
+                  <p class="text-[11px] font-bold text-emerald-600 uppercase tracking-wider mt-1">Data Minimization</p>
+                  <p class="text-xs text-slate-500 mt-0.5 leading-snug">Because files remain on your device, we do not collect or store your file contents.</p>
                 </div>
               </div>
 
@@ -1359,7 +1371,7 @@
           </button>
           <div class="faq-content px-6 text-xs sm:text-sm text-slate-600 leading-relaxed border-t border-slate-100">
             <div class="py-4">
-              QuickConvert's conversion speed depends entirely on your device's local CPU and browser engine — <strong>not your internet connection</strong>. Because files are processed in-browser with no network round-trip, typical conversions (e.g., a 10-image batch to PDF or an 8 MB image compression) complete in under 500 milliseconds, even on a moderate laptop. The only network activity is loading the page itself — after that, everything runs offline.
+              QuickConvert's conversion speed depends entirely on your device's local CPU and browser engine — <strong>not your internet connection</strong>. Because files are processed in-browser with no network round-trip, typical conversions run directly on your device CPU with no upload or queue waiting time. Speed depends on your device hardware, file size, and available memory.
             </div>
           </div>
         </div>
@@ -1466,11 +1478,9 @@
 
     <!-- BOTTOM AD PLACEHOLDER (AdSense Placement) -->
     <div class="max-w-5xl mx-auto px-4 py-8">
-      <div class="adsense-box rounded-xl p-4 min-h-[90px] flex items-center justify-center text-center">
-        <div class="text-slate-400 text-xs">
-          <i class="fa-regular fa-rectangle-ad text-lg mb-1 block"></i>
-          <span>Advertisement / Sponsored Placement (AdSense Native Responsive Unit)</span>
-        </div>
+      <div class="max-w-5xl mx-auto px-4 py-4">
+      <div class="qc-ad-container min-h-[90px] w-full flex items-center justify-center overflow-hidden" aria-label="Advertisement container">
+        <!-- Google AdSense Responsive Unit - Active when ads load -->
       </div>
     </div>
 
@@ -1531,11 +1541,11 @@
         <div>
           <h4 class="font-bold text-slate-900 uppercase tracking-wider mb-3">Trust &amp; Legal</h4>
           <ul class="space-y-2">
-            <li><a href="#" data-modal-open="modal-privacy" class="hover:text-brand-600 transition">Privacy Policy (Zero Storage)</a></li>
-            <li><a href="#" data-modal-open="modal-terms" class="hover:text-brand-600 transition">Terms of Service</a></li>
-            <li><a href="#" data-modal-open="modal-about" class="hover:text-brand-600 transition">About QuickConvert</a></li>
-            <li><a href="#" data-modal-open="modal-contact" class="hover:text-brand-600 transition">Contact &amp; Support</a></li>
-            <li><a href="feedback.html" data-modal-open="modal-feedback" class="text-brand-600 font-semibold hover:text-brand-700 transition flex items-center gap-1.5"><i class="fa-solid fa-star text-amber-400 text-xs"></i> User Feedback</a></li>
+            <li><a href="privacy-policy.html" class="hover:text-brand-600 transition">Privacy Policy</a></li>
+            <li><a href="terms.html" class="hover:text-brand-600 transition">Terms of Service</a></li>
+            <li><a href="about.html" class="hover:text-brand-600 transition">About QuickConvert</a></li>
+            <li><a href="contact.html" class="hover:text-brand-600 transition">Contact &amp; Support</a></li>
+            <li><a href="feedback.html" class="text-brand-600 font-semibold hover:text-brand-700 transition flex items-center gap-1.5"><i class="fa-solid fa-star text-amber-400 text-xs"></i> User Feedback</a></li>
           </ul>
         </div>
 
@@ -1543,257 +1553,35 @@
 
       <div class="pt-8 border-t border-slate-100 flex flex-col sm:flex-row items-center justify-between gap-4 text-slate-500">
         <p>&copy; 2026 QuickConvert. All rights reserved. Free Online File &amp; Document Converters.</p>
-        <p class="text-[11px]">Protected by Client-Side Isolation • No User Tracking</p>
+        <p class="text-[11px]">Client-Side File Processing &bull; Cookies used for AdSense &amp; Analytics &bull; Operated by Alok Maurya</p>
       </div>
     </div>
   </footer>
 
-  <!-- ==================================================== -->
-  <!-- MODAL: PRIVACY POLICY (AdSense Essential)           -->
-  <!-- ==================================================== -->
-  <div id="modal-privacy" class="app-modal fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-xs flex items-center justify-center p-4 hidden">
-    <div class="bg-white rounded-2xl max-w-2xl w-full max-h-[85vh] flex flex-col shadow-2xl border border-slate-200">
-      
-      <div class="p-5 border-b border-slate-100 flex items-center justify-between">
-        <h3 class="text-lg font-bold text-slate-900 flex items-center gap-2">
-          <i class="fa-solid fa-shield-halved text-brand-600"></i>
-          Privacy Policy
-        </h3>
-        <button data-modal-close class="p-2 text-slate-400 hover:text-slate-600 rounded-lg">
-          <i class="fa-solid fa-xmark text-lg"></i>
-        </button>
-      </div>
-
-      <div class="p-6 overflow-y-auto space-y-4 text-xs sm:text-sm text-slate-600 leading-relaxed">
-        <p class="font-semibold text-slate-800">Effective Date: November 2026</p>
-        <p>
-          At <strong>QuickConvert</strong>, your privacy is our architectural foundation. Unlike conventional web utility services that stream your personal photographs and documents to third-party cloud servers, QuickConvert processes <strong>100% of your data locally within your browser</strong>.
-        </p>
-
-        <h4 class="font-bold text-slate-900 text-sm">1. Zero Server Storage &amp; Transmission</h4>
-        <p>
-          When you drag and drop a PNG, JPG, or text document into QuickConvert, the file is read using the standard HTML5 File and Canvas APIs. The file contents reside solely in your computer’s temporary volatile memory (RAM) for the duration of the conversion process. At no point is any file byte transmitted to an external server, database, or analytics endpoint.
-        </p>
-
-        <h4 class="font-bold text-slate-900 text-sm">2. Instant Deletion</h4>
-        <p>
-          Once you complete your download or close/refresh the browser tab, the memory allocated for your conversion is automatically reclaimed by your operating system and browser garbage collector. No traces are left behind.
-        </p>
-
-        <h4 class="font-bold text-slate-900 text-sm">3. Cookies &amp; Third-Party Advertisers</h4>
-        <p>
-          QuickConvert may partner with ad networks such as Google AdSense to serve non-intrusive advertisements that fund ongoing development. These ad partners may use standard cookies to serve relevant ads according to their respective privacy disclosures. You can adjust your cookie settings at any time in your browser.
-        </p>
-
-        <h4 class="font-bold text-slate-900 text-sm">4. GDPR &amp; CCPA Compliance</h4>
-        <p>
-          Because we never collect, store, or process personal identifying documents on our servers, QuickConvert is privacy-compliant by design, fully satisfying GDPR Article 6 principles and CCPA privacy protections.
-        </p>
-      </div>
-
-      <div class="p-4 bg-slate-50 border-t border-slate-100 flex justify-end">
-        <button data-modal-close class="px-5 py-2 rounded-xl bg-slate-900 text-white font-semibold text-xs hover:bg-slate-800 transition">
-          I Understand &amp; Close
-        </button>
-      </div>
-
-    </div>
-  </div>
-
-  <!-- ==================================================== -->
-  <!-- MODAL: TERMS OF SERVICE                              -->
-  <!-- ==================================================== -->
-  <div id="modal-terms" class="app-modal fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-xs flex items-center justify-center p-4 hidden">
-    <div class="bg-white rounded-2xl max-w-2xl w-full max-h-[85vh] flex flex-col shadow-2xl border border-slate-200">
-      
-      <div class="p-5 border-b border-slate-100 flex items-center justify-between">
-        <h3 class="text-lg font-bold text-slate-900 flex items-center gap-2">
-          <i class="fa-solid fa-file-contract text-brand-600"></i>
-          Terms of Service
-        </h3>
-        <button data-modal-close class="p-2 text-slate-400 hover:text-slate-600 rounded-lg">
-          <i class="fa-solid fa-xmark text-lg"></i>
-        </button>
-      </div>
-
-      <div class="p-6 overflow-y-auto space-y-4 text-xs sm:text-sm text-slate-600 leading-relaxed">
-        <p class="font-semibold text-slate-800">Last Modified: November 2026</p>
-        <p>
-          By accessing and using <strong>QuickConvert</strong>, you agree to comply with and be bound by the following Terms of Service.
-        </p>
-
-        <h4 class="font-bold text-slate-900 text-sm">1. Authorized Use</h4>
-        <p>
-          QuickConvert is provided free of charge for personal, educational, and commercial conversion tasks. You agree not to use the suite to compile or process material that violates applicable local or international laws.
-        </p>
-
-        <h4 class="font-bold text-slate-900 text-sm">2. Ownership of Converted Content</h4>
-        <p>
-          You retain 100% intellectual property rights over all images, documents, and texts converted using QuickConvert. We claim zero copyright, ownership, or licensing interests in your content.
-        </p>
-
-        <h4 class="font-bold text-slate-900 text-sm">3. Disclaimer of Warranties</h4>
-        <p>
-          QuickConvert is delivered "as is" and "as available" without warranties of any kind, whether express or implied. While we strive for extreme mathematical precision and image fidelity, QuickConvert shall not be liable for any data loss resulting from local browser limitations.
-        </p>
-      </div>
-
-      <div class="p-4 bg-slate-50 border-t border-slate-100 flex justify-end">
-        <button data-modal-close class="px-5 py-2 rounded-xl bg-slate-900 text-white font-semibold text-xs hover:bg-slate-800 transition">
-          Accept &amp; Close
-        </button>
-      </div>
-
-    </div>
-  </div>
-
-  <!-- ==================================================== -->
-  <!-- MODAL: ABOUT US                                      -->
-  <!-- ==================================================== -->
-  <div id="modal-about" class="app-modal fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-xs flex items-center justify-center p-4 hidden">
-    <div class="bg-white rounded-2xl max-w-2xl w-full max-h-[85vh] flex flex-col shadow-2xl border border-slate-200">
-      
-      <div class="p-5 border-b border-slate-100 flex items-center justify-between">
-        <h3 class="text-lg font-bold text-slate-900 flex items-center gap-2">
-          <i class="fa-solid fa-circle-info text-brand-600"></i>
-          About QuickConvert
-        </h3>
-        <button data-modal-close class="p-2 text-slate-400 hover:text-slate-600 rounded-lg">
-          <i class="fa-solid fa-xmark text-lg"></i>
-        </button>
-      </div>
-
-      <div class="p-6 overflow-y-auto space-y-4 text-xs sm:text-sm text-slate-600 leading-relaxed">
-        <p class="text-slate-800 font-semibold">
-          Building the next generation of privacy-first, zero-overhead web utilities.
-        </p>
-        <p>
-          QuickConvert was created by modern web engineers frustrated with bloated online converter websites filled with paywalls, slow cloud queues, and questionable data handling practices.
-        </p>
-        <p>
-          With modern advances in browser execution engines (V8, JavaScriptCanvas, and WebAssembly), there is no valid technical reason to send personal images or sensitive documents across the network just to convert them to a PDF or reduce their resolution.
-        </p>
-        <p>
-          Our mission is to provide lightning-fast, high-utility tools that execute instantly on the user’s device at zero cost, setting a new gold standard for consumer privacy and web performance.
-        </p>
-      </div>
-
-      <div class="p-4 bg-slate-50 border-t border-slate-100 flex justify-end">
-        <button data-modal-close class="px-5 py-2 rounded-xl bg-brand-600 text-white font-semibold text-xs hover:bg-brand-700 transition">
-          Close
-        </button>
-      </div>
-
-    </div>
-  </div>
-
-  <!-- ==================================================== -->
-  <!-- MODAL: CONTACT US                                    -->
-  <!-- ==================================================== -->
-  <div id="modal-contact" class="app-modal fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-xs flex items-center justify-center p-4 hidden">
-    <div class="bg-white rounded-2xl max-w-lg w-full max-h-[90vh] flex flex-col shadow-2xl border border-slate-200">
-      
-      <div class="p-5 border-b border-slate-100 flex items-center justify-between">
-        <h3 class="text-lg font-bold text-slate-900 flex items-center gap-2">
-          <i class="fa-solid fa-envelope text-brand-600"></i>
-          Contact QuickConvert Team
-        </h3>
-        <button data-modal-close class="p-2 text-slate-400 hover:text-slate-600 rounded-lg">
-          <i class="fa-solid fa-xmark text-lg"></i>
-        </button>
-      </div>
-
-      <form id="quickconvert-contact-form" class="p-6 space-y-4 text-xs sm:text-sm">
-        <div>
-          <label for="contact-name" class="block font-bold text-slate-700 mb-1">Your Full Name</label>
-          <input type="text" id="contact-name" required placeholder="Alex Morgan" class="w-full bg-white border border-slate-300 rounded-xl px-3.5 py-2.5 focus:outline-none focus:ring-2 focus:ring-brand-500" />
-        </div>
-
-        <div>
-          <label for="contact-email" class="block font-bold text-slate-700 mb-1">Email Address</label>
-          <input type="email" id="contact-email" required placeholder="alex@example.com" class="w-full bg-white border border-slate-300 rounded-xl px-3.5 py-2.5 focus:outline-none focus:ring-2 focus:ring-brand-500" />
-        </div>
-
-        <div>
-          <label for="contact-message" class="block font-bold text-slate-700 mb-1">Inquiry / Feedback</label>
-          <textarea id="contact-message" rows="4" required placeholder="How can we assist you with QuickConvert or feature requests?" class="w-full bg-white border border-slate-300 rounded-xl px-3.5 py-2.5 focus:outline-none focus:ring-2 focus:ring-brand-500 leading-relaxed"></textarea>
-        </div>
-
-        <div class="pt-2 flex justify-end gap-2">
-          <button type="button" data-modal-close class="px-4 py-2.5 rounded-xl border border-slate-300 text-slate-700 font-semibold text-xs hover:bg-slate-50 transition">
-            Cancel
-          </button>
-          <button type="submit" class="px-5 py-2.5 rounded-xl bg-brand-600 text-white font-bold text-xs hover:bg-brand-700 transition shadow-sm">
-            Send Message
-          </button>
-        </div>
-      </form>
-
-    </div>
-  </div>
-
-  <!-- ==================================================== -->
-  <!-- MODAL: DEDICATED USER FEEDBACK & REVIEW              -->
-  <!-- ==================================================== -->
-  <div id="modal-feedback" class="app-modal fixed inset-0 z-50 bg-slate-900/60 backdrop-blur-xs flex items-center justify-center p-4 hidden">
-    <div class="bg-white rounded-2xl max-w-lg w-full max-h-[90vh] flex flex-col shadow-2xl border border-slate-200">
-      
-      <div class="p-5 border-b border-slate-100 flex items-center justify-between">
-        <h3 class="text-lg font-bold text-slate-900 flex items-center gap-2">
-          <i class="fa-solid fa-comment-dots text-brand-600"></i>
-          Share Your Feedback
-        </h3>
-        <button data-modal-close class="p-2 text-slate-400 hover:text-slate-600 rounded-lg">
-          <i class="fa-solid fa-xmark text-lg"></i>
-        </button>
-      </div>
-
-      <form id="quickconvert-feedback-form" action="https://formspree.io/f/mqaejvzy" method="POST" class="p-6 space-y-4 text-xs sm:text-sm">
-        <div>
-          <label for="fb-name" class="block font-bold text-slate-700 mb-1">Your Name</label>
-          <input type="text" id="fb-name" name="name" required placeholder="Alex Morgan" class="w-full bg-white border border-slate-300 rounded-xl px-3.5 py-2.5 focus:outline-none focus:ring-2 focus:ring-brand-500" />
-        </div>
-
-        <div>
-          <label for="fb-email" class="block font-bold text-slate-700 mb-1">Email Address</label>
-          <input type="email" id="fb-email" name="email" required placeholder="alex@example.com" class="w-full bg-white border border-slate-300 rounded-xl px-3.5 py-2.5 focus:outline-none focus:ring-2 focus:ring-brand-500" />
-        </div>
-
-        <!-- Star Rating 1-5 -->
-        <div>
-          <label class="block font-bold text-slate-700 mb-1.5">How would you rate QuickConvert?</label>
-          <input type="hidden" id="fb-rating" name="rating" value="5" />
-          <div id="fb-star-container" class="flex items-center gap-2 text-2xl text-amber-400 cursor-pointer select-none">
-            <i class="fa-solid fa-star fb-star" data-rating="1"></i>
-            <i class="fa-solid fa-star fb-star" data-rating="2"></i>
-            <i class="fa-solid fa-star fb-star" data-rating="3"></i>
-            <i class="fa-solid fa-star fb-star" data-rating="4"></i>
-            <i class="fa-solid fa-star fb-star" data-rating="5"></i>
-            <span id="fb-rating-text" class="text-xs font-bold text-slate-600 ml-2">5 - Excellent!</span>
-          </div>
-        </div>
-
-        <div>
-          <label for="fb-message" class="block font-bold text-slate-700 mb-1">Your Thoughts &amp; Feature Suggestions</label>
-          <textarea id="fb-message" name="message" rows="4" required placeholder="Tell us what you loved, or what tools we should add next..." class="w-full bg-white border border-slate-300 rounded-xl px-3.5 py-2.5 focus:outline-none focus:ring-2 focus:ring-brand-500 leading-relaxed"></textarea>
-        </div>
-
-        <div class="pt-2 flex justify-end gap-2">
-          <button type="button" data-modal-close class="px-4 py-2.5 rounded-xl border border-slate-300 text-slate-700 font-semibold text-xs hover:bg-slate-50 transition">
-            Cancel
-          </button>
-          <button type="submit" id="fb-submit-btn" class="px-5 py-2.5 rounded-xl bg-brand-600 text-white font-bold text-xs hover:bg-brand-700 transition shadow-sm flex items-center gap-1.5">
-            <i class="fa-solid fa-paper-plane"></i>
-            <span>Submit Feedback</span>
-          </button>
-        </div>
-      </form>
-
-    </div>
-  </div>
-
-  <!-- Main Vanilla JavaScript -->
   <script src="js/app.js"></script>
+
+  <!-- Cookie & Privacy Notice Banner -->
+  <div id="cookie-consent-banner" class="fixed bottom-4 left-4 right-4 sm:left-auto sm:right-6 sm:max-w-md z-50 bg-white/95 backdrop-blur-md rounded-2xl border border-slate-200/90 shadow-2xl p-5 text-xs text-slate-600 transition-all duration-300 transform translate-y-0 hidden" role="region" aria-label="Cookie Consent">
+    <div class="flex items-start gap-3">
+      <div class="w-8 h-8 rounded-xl bg-brand-50 text-brand-600 flex items-center justify-center shrink-0 border border-brand-100">
+        <i class="fa-solid fa-cookie-bite text-sm"></i>
+      </div>
+      <div class="space-y-2 flex-1">
+        <p class="font-bold text-slate-900 text-sm">Cookie &amp; Privacy Notice</p>
+        <p class="leading-relaxed text-slate-600">
+          Your files stay 100% on your device. We and our partner (Google AdSense) use cookies to personalize ads, analyze traffic, and support free access. Read our <a href="/privacy-policy.html" class="text-brand-600 underline font-semibold">Privacy Policy</a>.
+        </p>
+        <div class="flex items-center gap-2 pt-1">
+          <button type="button" id="btn-accept-cookies" class="px-3.5 py-1.5 rounded-xl bg-brand-600 hover:bg-brand-700 text-white font-bold text-xs transition cursor-pointer">
+            Accept &amp; Continue
+          </button>
+          <button type="button" id="btn-decline-cookies" class="px-3 py-1.5 rounded-xl bg-slate-100 hover:bg-slate-200 text-slate-700 font-semibold text-xs transition cursor-pointer">
+            Essential Only
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
 
 </body>
 </html>
