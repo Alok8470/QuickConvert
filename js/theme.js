@@ -7,15 +7,17 @@
 
   var THEME_KEY = 'qc_theme';
 
-  // Apply theme to DOM and persist
+  // Apply theme to DOM (both <html> and <body>) and persist to localStorage
   function setTheme(theme, save) {
     if (save === undefined) save = true;
     var isDark = theme === 'dark';
 
     if (isDark) {
       document.documentElement.classList.add('dark');
+      if (document.body) document.body.classList.add('dark');
     } else {
       document.documentElement.classList.remove('dark');
+      if (document.body) document.body.classList.remove('dark');
     }
 
     if (save) {
@@ -29,7 +31,7 @@
 
   // Update icons and ARIA attributes on all toggle buttons
   function updateToggleIcons(isDark) {
-    var buttons = document.querySelectorAll('.theme-toggle-btn');
+    var buttons = document.querySelectorAll('.theme-toggle-btn, [data-theme-toggle]');
     buttons.forEach(function (btn) {
       var icon = btn.querySelector('.theme-icon') || btn.querySelector('i');
       if (icon) {
@@ -48,13 +50,18 @@
 
   // Toggle between dark and light
   function toggleTheme() {
-    var isDark = document.documentElement.classList.contains('dark');
+    var isDark = document.documentElement.classList.contains('dark') || (document.body && document.body.classList.contains('dark'));
     setTheme(isDark ? 'light' : 'dark', true);
   }
 
-  // Delegated click event: catches clicks on any .theme-toggle-btn anywhere on the page
+  // Delegated click event: catches clicks on any button, icon, or container for dark mode toggle
   document.addEventListener('click', function (e) {
-    var btn = e.target.closest('.theme-toggle-btn');
+    var btn = e.target.closest('.theme-toggle-btn') || 
+              e.target.closest('[data-theme-toggle]') || 
+              e.target.closest('#theme-toggle') || 
+              e.target.closest('.fa-moon') || 
+              e.target.closest('.fa-sun') ||
+              e.target.closest('.theme-icon');
     if (btn) {
       e.preventDefault();
       toggleTheme();
@@ -69,10 +76,17 @@
     }
   });
 
-  // Initialize icon state on DOM ready
+  // Initialize icon state and ensure <body> has the class when DOM is ready
   function init() {
-    var isDark = document.documentElement.classList.contains('dark');
-    updateToggleIcons(isDark);
+    var savedTheme = null;
+    try {
+      savedTheme = localStorage.getItem(THEME_KEY);
+    } catch (e) {}
+
+    var prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+    var isDark = savedTheme === 'dark' || (!savedTheme && prefersDark);
+
+    setTheme(isDark ? 'dark' : 'light', false);
   }
 
   if (document.readyState === 'loading') {

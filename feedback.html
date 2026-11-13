@@ -96,10 +96,10 @@
         </div>
       </a>
 
-      <!-- Desktop Navigation Links -->
-      <nav class="hidden lg:flex items-center gap-6 xl:gap-8 text-sm font-semibold text-slate-600">
+      <!-- Desktop Navigation Links (Visible on lg: 1024px and above) -->
+      <nav class="hidden lg:flex items-center gap-5 xl:gap-7 text-sm font-semibold text-slate-600 shrink-0">
         
-        <!-- Interactive All Tools Dropdown Mega-Menu -->
+        <!-- "All Tools" Interactive Dropdown Mega-Menu -->
         <div class="relative group/mega" id="nav-tools-dropdown-container">
           <button 
             type="button" 
@@ -108,23 +108,24 @@
             aria-haspopup="true" 
             class="flex items-center gap-1.5 py-1 text-slate-600 hover:text-brand-600 font-semibold transition whitespace-nowrap cursor-pointer focus:outline-none"
           >
-            <i class="fa-solid fa-layer-group text-brand-600 text-sm"></i>
             <span>All Tools</span>
-            <i id="nav-tools-arrow" class="fa-solid fa-chevron-down text-xs text-slate-400 group-hover/mega:text-brand-600 group-hover/mega:rotate-180 transition-transform duration-200"></i>
+            <i id="nav-tools-arrow" class="fa-solid fa-chevron-down text-[10px] text-slate-400 group-hover/mega:text-brand-600 group-hover/mega:rotate-180 transition-transform duration-200"></i>
           </button>
 
           <!-- Floating Mega-Menu Panel -->
           <div 
             id="nav-tools-mega-menu" 
-            class="mega-menu-panel absolute left-0 top-full pt-3 w-[780px] max-w-[94vw] z-50 pointer-events-none invisible opacity-0 -translate-y-1 transition-all duration-200 ease-out group-hover/mega:pointer-events-auto group-hover/mega:visible group-hover/mega:opacity-100 group-hover/mega:translate-y-0"
+            class="mega-menu-panel absolute -left-6 xl:-left-12 top-full pt-3 w-[720px] max-w-[90vw] z-50 pointer-events-none invisible opacity-0 -translate-y-1 transition-all duration-200 ease-out group-hover/mega:pointer-events-auto group-hover/mega:visible group-hover/mega:opacity-100 group-hover/mega:translate-y-0"
           >
-            <div class="bg-white rounded-2xl border border-slate-200/90 shadow-2xl p-6 overflow-hidden">
-              <div class="grid grid-cols-4 gap-6 text-xs">
+            <div class="bg-white rounded-2xl border border-slate-200/90 shadow-2xl shadow-slate-900/12 overflow-hidden ring-1 ring-slate-900/5">
+              
+                            <!-- 4-Category Grid -->
+              <div class="grid grid-cols-2 md:grid-cols-4 gap-4 p-5 bg-gradient-to-b from-slate-50/50 to-white text-xs">
                 
-                <!-- Col 1: PDF Core -->
-                <div class="space-y-2">
-                  <div class="flex items-center gap-1.5 text-indigo-600 font-bold uppercase tracking-wider text-[11px] pb-1 border-b border-indigo-100">
-                    <i class="fa-solid fa-file-pdf"></i>
+                <!-- Category 1: PDF Essentials -->
+                <div class="space-y-1.5">
+                  <div class="flex items-center gap-1.5 px-2 pb-1 text-[11px] font-bold uppercase tracking-wider text-indigo-600 border-b border-indigo-100/60">
+                    <i class="fa-solid fa-file-pdf text-xs"></i>
                     <span>PDF Core</span>
                   </div>
                   <div class="space-y-0.5 pt-1">
@@ -151,10 +152,10 @@
                   </div>
                 </div>
 
-                <!-- Col 2: Edit & Security -->
-                <div class="space-y-2">
-                  <div class="flex items-center gap-1.5 text-rose-600 font-bold uppercase tracking-wider text-[11px] pb-1 border-b border-rose-100">
-                    <i class="fa-solid fa-shield-halved"></i>
+                <!-- Category 2: PDF Edit & Sign -->
+                <div class="space-y-1.5">
+                  <div class="flex items-center gap-1.5 px-2 pb-1 text-[11px] font-bold uppercase tracking-wider text-rose-600 border-b border-rose-100/60">
+                    <i class="fa-solid fa-pen-nib text-xs"></i>
                     <span>Edit &amp; Security</span>
                   </div>
                   <div class="space-y-0.5 pt-1">
@@ -172,70 +173,70 @@
                     </a>
                     <a href="/tools/image-compressor.html" class="flex items-start gap-2 p-1.5 rounded-lg hover:bg-rose-50/60 transition group/item">
                       <i class="fa-solid fa-compress text-rose-600 text-xs mt-0.5"></i>
-                      <span class="font-bold text-slate-800 group-hover/item:text-rose-600 transition truncate">Compress Image</span>
+                      <span class="font-bold text-slate-800 group-hover/item:text-rose-600 transition truncate">Image Compress</span>
                     </a>
                     <a href="/tools/image-converter.html" class="flex items-start gap-2 p-1.5 rounded-lg hover:bg-rose-50/60 transition group/item">
-                      <i class="fa-solid fa-arrows-rotate text-rose-600 text-xs mt-0.5"></i>
-                      <span class="font-bold text-slate-800 group-hover/item:text-rose-600 transition truncate">Convert Image</span>
+                      <i class="fa-solid fa-arrow-right-arrow-left text-rose-600 text-xs mt-0.5"></i>
+                      <span class="font-bold text-slate-800 group-hover/item:text-rose-600 transition truncate">Image Convert</span>
                     </a>
                   </div>
                 </div>
 
-                <!-- Col 3: Conversions -->
-                <div class="space-y-2">
-                  <div class="flex items-center gap-1.5 text-amber-600 font-bold uppercase tracking-wider text-[11px] pb-1 border-b border-amber-100">
-                    <i class="fa-solid fa-arrow-right-arrow-left"></i>
-                    <span>Conversions</span>
+                <!-- Category 3: Convert to/from Office -->
+                <div class="space-y-1.5">
+                  <div class="flex items-center gap-1.5 px-2 pb-1 text-[11px] font-bold uppercase tracking-wider text-blue-600 border-b border-blue-100/60">
+                    <i class="fa-solid fa-file-word text-xs"></i>
+                    <span>Office Suite</span>
                   </div>
                   <div class="space-y-0.5 pt-1">
-                    <a href="/tools/pdf-to-word.html" class="flex items-start gap-2 p-1.5 rounded-lg hover:bg-amber-50/60 transition group/item">
-                      <i class="fa-solid fa-file-word text-amber-600 text-xs mt-0.5"></i>
-                      <span class="font-bold text-slate-800 group-hover/item:text-amber-600 transition truncate">PDF to Word</span>
+                    <a href="/tools/pdf-to-word.html" class="flex items-start gap-2 p-1.5 rounded-lg hover:bg-blue-50/60 transition group/item">
+                      <i class="fa-solid fa-file-word text-blue-600 text-xs mt-0.5"></i>
+                      <span class="font-bold text-slate-800 group-hover/item:text-blue-600 transition truncate">PDF to Word</span>
                     </a>
-                    <a href="/tools/word-to-pdf.html" class="flex items-start gap-2 p-1.5 rounded-lg hover:bg-amber-50/60 transition group/item">
-                      <i class="fa-solid fa-file-arrow-up text-amber-600 text-xs mt-0.5"></i>
-                      <span class="font-bold text-slate-800 group-hover/item:text-amber-600 transition truncate">Word to PDF</span>
+                    <a href="/tools/word-to-pdf.html" class="flex items-start gap-2 p-1.5 rounded-lg hover:bg-blue-50/60 transition group/item">
+                      <i class="fa-solid fa-file-lines text-blue-600 text-xs mt-0.5"></i>
+                      <span class="font-bold text-slate-800 group-hover/item:text-blue-600 transition truncate">Word to PDF</span>
                     </a>
-                    <a href="/tools/pdf-to-excel.html" class="flex items-start gap-2 p-1.5 rounded-lg hover:bg-amber-50/60 transition group/item">
-                      <i class="fa-solid fa-file-excel text-amber-600 text-xs mt-0.5"></i>
-                      <span class="font-bold text-slate-800 group-hover/item:text-amber-600 transition truncate">PDF to Excel</span>
+                    <a href="/tools/pdf-to-excel.html" class="flex items-start gap-2 p-1.5 rounded-lg hover:bg-blue-50/60 transition group/item">
+                      <i class="fa-solid fa-file-excel text-emerald-600 text-xs mt-0.5"></i>
+                      <span class="font-bold text-slate-800 group-hover/item:text-blue-600 transition truncate">PDF to Excel</span>
                     </a>
-                    <a href="/tools/pdf-to-powerpoint.html" class="flex items-start gap-2 p-1.5 rounded-lg hover:bg-amber-50/60 transition group/item">
-                      <i class="fa-solid fa-file-powerpoint text-amber-600 text-xs mt-0.5"></i>
-                      <span class="font-bold text-slate-800 group-hover/item:text-amber-600 transition truncate">PDF to PPTX</span>
+                    <a href="/tools/pdf-to-powerpoint.html" class="flex items-start gap-2 p-1.5 rounded-lg hover:bg-blue-50/60 transition group/item">
+                      <i class="fa-solid fa-file-powerpoint text-orange-600 text-xs mt-0.5"></i>
+                      <span class="font-bold text-slate-800 group-hover/item:text-blue-600 transition truncate">PDF to PPT</span>
                     </a>
-                    <a href="/tools/qr-generator.html" class="flex items-start gap-2 p-1.5 rounded-lg hover:bg-amber-50/60 transition group/item">
-                      <i class="fa-solid fa-qrcode text-amber-600 text-xs mt-0.5"></i>
-                      <span class="font-bold text-slate-800 group-hover/item:text-amber-600 transition truncate">QR Generator</span>
+                    <a href="/tools/qr-generator.html" class="flex items-start gap-2 p-1.5 rounded-lg hover:bg-blue-50/60 transition group/item">
+                      <i class="fa-solid fa-qrcode text-purple-600 text-xs mt-0.5"></i>
+                      <span class="font-bold text-slate-800 group-hover/item:text-blue-600 transition truncate">QR Generator</span>
                     </a>
                   </div>
                 </div>
 
-                <!-- Col 4: Data & Daily -->
-                <div class="space-y-2">
-                  <div class="flex items-center gap-1.5 text-teal-600 font-bold uppercase tracking-wider text-[11px] pb-1 border-b border-teal-100">
-                    <i class="fa-solid fa-code"></i>
-                    <span>Data &amp; Dev</span>
+                <!-- Category 4: Developer & Daily -->
+                <div class="space-y-1.5">
+                  <div class="flex items-center gap-1.5 px-2 pb-1 text-[11px] font-bold uppercase tracking-wider text-teal-600 border-b border-teal-100/60">
+                    <i class="fa-solid fa-code text-xs"></i>
+                    <span>Dev &amp; Daily</span>
                   </div>
                   <div class="space-y-0.5 pt-1">
                     <a href="/tools/json-formatter.html" class="flex items-start gap-2 p-1.5 rounded-lg hover:bg-teal-50/60 transition group/item">
-                      <i class="fa-solid fa-code text-teal-600 text-xs mt-0.5"></i>
+                      <i class="fa-solid fa-code text-sky-600 text-xs mt-0.5"></i>
                       <span class="font-bold text-slate-800 group-hover/item:text-teal-600 transition truncate">JSON Formatter</span>
                     </a>
                     <a href="/tools/color-picker.html" class="flex items-start gap-2 p-1.5 rounded-lg hover:bg-teal-50/60 transition group/item">
-                      <i class="fa-solid fa-palette text-teal-600 text-xs mt-0.5"></i>
+                      <i class="fa-solid fa-palette text-pink-600 text-xs mt-0.5"></i>
                       <span class="font-bold text-slate-800 group-hover/item:text-teal-600 transition truncate">Color Studio</span>
                     </a>
                     <a href="/tools/word-counter.html" class="flex items-start gap-2 p-1.5 rounded-lg hover:bg-teal-50/60 transition group/item">
-                      <i class="fa-solid fa-calculator text-teal-600 text-xs mt-0.5"></i>
+                      <i class="fa-solid fa-font text-teal-600 text-xs mt-0.5"></i>
                       <span class="font-bold text-slate-800 group-hover/item:text-teal-600 transition truncate">Word Counter</span>
                     </a>
                     <a href="/tools/password-generator.html" class="flex items-start gap-2 p-1.5 rounded-lg hover:bg-teal-50/60 transition group/item">
-                      <i class="fa-solid fa-key text-teal-600 text-xs mt-0.5"></i>
+                      <i class="fa-solid fa-key text-blue-600 text-xs mt-0.5"></i>
                       <span class="font-bold text-slate-800 group-hover/item:text-teal-600 transition truncate">Password Gen</span>
                     </a>
                     <a href="/tools/unit-converter.html" class="flex items-start gap-2 p-1.5 rounded-lg hover:bg-teal-50/60 transition group/item">
-                      <i class="fa-solid fa-scale-balanced text-teal-600 text-xs mt-0.5"></i>
+                      <i class="fa-solid fa-scale-balanced text-indigo-600 text-xs mt-0.5"></i>
                       <span class="font-bold text-slate-800 group-hover/item:text-teal-600 transition truncate">Unit Converter</span>
                     </a>
                   </div>
@@ -243,42 +244,53 @@
 
               </div>
 
-              <!-- Mega-Menu Footer -->
-              <div class="mt-5 pt-3 border-t border-slate-100 flex items-center justify-between text-[11px] text-slate-400">
-                <div class="flex items-center gap-1.5 font-medium text-emerald-600">
-                  <span class="w-1.5 h-1.5 rounded-full bg-emerald-500"></span>
-                  <span>100% In-Browser Privacy • Zero Server Uploads</span>
+              <!-- Mega-Menu Footer Utility Bar -->
+              <div class="px-5 py-3 bg-slate-50 border-t border-slate-100 flex items-center justify-between text-xs">
+                <div class="flex items-center gap-2 text-slate-500 font-medium">
+                  <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
+                  <span>100% In-Browser Engine • Zero Server Uploads</span>
                 </div>
-                <a href="/#suite-tools" class="text-slate-600 hover:text-brand-600 font-semibold transition flex items-center gap-1">
-                  <span>Explore All 20 Tools</span>
-                  <i class="fa-solid fa-arrow-right text-[10px]"></i>
-                </a>
+                <div class="flex items-center gap-3">
+                  <a href="#suite-tools" class="text-slate-600 hover:text-brand-600 font-semibold transition flex items-center gap-1">
+                    <span>View Grid</span>
+                    <i class="fa-solid fa-arrow-right text-[10px]"></i>
+                  </a>
+                  <span class="text-slate-300">•</span>
+                  <a href="/feedback.html" class="text-brand-600 hover:text-brand-700 font-bold transition flex items-center gap-1">
+                    <i class="fa-solid fa-plus-circle text-xs"></i>
+                    <span>Request Tool</span>
+                  </a>
+                </div>
               </div>
+
             </div>
           </div>
         </div>
 
-        <a href="/#how-to-use" class="hover:text-brand-600 transition whitespace-nowrap">How it works</a>
-        <a href="/#security-advantage" class="hover:text-brand-600 transition whitespace-nowrap">Security</a>
-        <a href="/#faqs" class="hover:text-brand-600 transition whitespace-nowrap">FAQs</a>
-        <a href="/about.html" class="hover:text-brand-600 transition whitespace-nowrap">About</a>
-        <a href="/contact.html" class="hover:text-brand-600 transition whitespace-nowrap">Contact</a>
-        <a href="/feedback.html" class="text-brand-600 font-bold transition whitespace-nowrap">Feedback</a>
+        <a href="#how-to-use" class="hover:text-brand-600 transition whitespace-nowrap">How to Use</a>
+        <a href="#security-advantage" class="hover:text-brand-600 transition whitespace-nowrap">Security &amp; Privacy</a>
+        <a href="#faqs" class="hover:text-brand-600 transition whitespace-nowrap">FAQs</a>
+        <a href="/feedback.html" class="hover:text-brand-600 transition whitespace-nowrap flex items-center gap-1.5 text-brand-600">
+          <i class="fa-solid fa-comment-dots text-xs"></i>
+          <span>Feedback</span>
+        </a>
       </nav>
 
       <!-- Action Button & Privacy Pill -->
       <div class="flex items-center gap-2 sm:gap-3 shrink-0">
+        <!-- 100% Client-Side badge only on xl: 1280px+ to preserve breathing room -->
         <span class="hidden xl:inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-emerald-50 text-emerald-700 border border-emerald-200/80 whitespace-nowrap">
           <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
           100% Client-Side
         </span>
 
-        <a href="/#suite-tools" class="hidden sm:inline-flex items-center gap-2 px-3.5 sm:px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold text-white bg-brand-600 hover:bg-brand-700 shadow-sm hover:shadow transition active:scale-95 whitespace-nowrap">
-          <span>Explore Tools</span>
+        <!-- CTA button visible on sm: (640px+) -->
+        <a href="#suite-tools" class="hidden sm:inline-flex items-center gap-2 px-3.5 sm:px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold text-white bg-brand-600 hover:bg-brand-700 shadow-sm hover:shadow transition active:scale-95 whitespace-nowrap">
+          <span>Start Converting</span>
           <i class="fa-solid fa-arrow-right text-xs"></i>
         </a>
 
-        <!-- Mobile Menu Toggle Button -->
+        <!-- Mobile & Tablet Hamburger Button (Visible below lg: < 1024px) -->
                 <!-- Dark Mode Toggle Button -->
         <button 
           type="button" 
@@ -295,7 +307,7 @@
       </div>
     </div>
 
-    <!-- Mobile Drawer -->
+    <!-- Mobile & Tablet Dropdown Menu (Hidden on lg: 1024px and above) -->
     <div id="mobile-menu" class="hidden lg:hidden bg-white border-b border-slate-200 px-4 pt-3 pb-5 space-y-1 text-sm font-medium shadow-lg">
       <button type="button" class="theme-toggle-btn w-full flex items-center justify-between px-3 py-2.5 rounded-xl text-slate-700 dark:text-slate-300 hover:bg-slate-50 dark:hover:bg-slate-800 font-semibold transition">
         <span class="flex items-center gap-2">
@@ -304,21 +316,157 @@
         <span class="text-xs text-slate-400 font-normal">Toggle Theme</span>
       </button>
 
-      <a href="/" class="block px-3 py-2 rounded-xl hover:bg-slate-50 text-slate-700 hover:text-brand-600 transition">
-        <i class="fa-solid fa-house text-slate-400 mr-2 w-5"></i> Home
+      
+      <!-- Mobile All Tools Accordion -->
+      <div class="border-b border-slate-100 pb-2 mb-2">
+        <button id="mobile-tools-toggle" type="button" class="w-full flex items-center justify-between px-3 py-2.5 rounded-xl hover:bg-slate-50 text-slate-800 font-bold hover:text-brand-600 transition">
+          <span class="flex items-center">
+            <i class="fa-solid fa-layer-group text-brand-600 mr-2 w-5"></i>
+            <span>Browse All Tools (20 Services)</span>
+          </span>
+          <i id="mobile-tools-chevron" class="fa-solid fa-chevron-down text-xs text-slate-400 transition-transform duration-200"></i>
+        </button>
+        <div id="mobile-tools-sublist" class="hidden pl-3 pr-2 py-2 space-y-3 bg-slate-50/70 rounded-xl my-1 border border-slate-100">
+          <!-- PDF Tools -->
+          <div>
+            <span class="text-[10px] font-bold uppercase tracking-wider text-indigo-600 block mb-1">PDF Tools</span>
+            <div class="grid grid-cols-2 gap-1.5">
+              <a href="/tools/merge-pdf.html" class="flex items-center gap-1.5 p-2 rounded-lg bg-white border border-slate-200 text-xs font-semibold text-slate-700 hover:text-brand-600 shadow-2xs">
+                <i class="fa-solid fa-object-group text-indigo-600 text-xs"></i>
+                <span class="truncate">Merge PDF</span>
+              </a>
+              <a href="/tools/split-pdf.html" class="flex items-center gap-1.5 p-2 rounded-lg bg-white border border-slate-200 text-xs font-semibold text-slate-700 hover:text-brand-600 shadow-2xs">
+                <i class="fa-solid fa-scissors text-indigo-600 text-xs"></i>
+                <span class="truncate">Split PDF</span>
+              </a>
+              <a href="/tools/rotate-pdf.html" class="flex items-center gap-1.5 p-2 rounded-lg bg-white border border-slate-200 text-xs font-semibold text-slate-700 hover:text-brand-600 shadow-2xs">
+                <i class="fa-solid fa-rotate text-indigo-600 text-xs"></i>
+                <span class="truncate">Rotate PDF</span>
+              </a>
+              <a href="/tools/image-to-pdf.html" class="flex items-center gap-1.5 p-2 rounded-lg bg-white border border-slate-200 text-xs font-semibold text-slate-700 hover:text-brand-600 shadow-2xs">
+                <i class="fa-solid fa-file-pdf text-indigo-600 text-xs"></i>
+                <span class="truncate">Images to PDF</span>
+              </a>
+              <a href="/tools/text-to-pdf.html" class="flex items-center gap-1.5 p-2 rounded-lg bg-white border border-slate-200 text-xs font-semibold text-slate-700 hover:text-brand-600 shadow-2xs">
+                <i class="fa-solid fa-file-lines text-rose-600 text-xs"></i>
+                <span class="truncate">Text to PDF</span>
+              </a>
+              <a href="/tools/sign-pdf.html" class="flex items-center gap-1.5 p-2 rounded-lg bg-white border border-slate-200 text-xs font-semibold text-slate-700 hover:text-brand-600 shadow-2xs">
+                <i class="fa-solid fa-signature text-rose-600 text-xs"></i>
+                <span class="truncate">Sign PDF</span>
+              </a>
+              <a href="/tools/edit-pdf.html" class="flex items-center gap-1.5 p-2 rounded-lg bg-white border border-slate-200 text-xs font-semibold text-slate-700 hover:text-brand-600 shadow-2xs">
+                <i class="fa-solid fa-pen-to-square text-rose-600 text-xs"></i>
+                <span class="truncate">Edit PDF</span>
+              </a>
+              <a href="/tools/watermark-pdf.html" class="flex items-center gap-1.5 p-2 rounded-lg bg-white border border-slate-200 text-xs font-semibold text-slate-700 hover:text-brand-600 shadow-2xs">
+                <i class="fa-solid fa-stamp text-rose-600 text-xs"></i>
+                <span class="truncate">Watermark</span>
+              </a>
+              <a href="/tools/pdf-to-word.html" class="flex items-center gap-1.5 p-2 rounded-lg bg-white border border-slate-200 text-xs font-semibold text-slate-700 hover:text-brand-600 shadow-2xs">
+                <i class="fa-solid fa-file-word text-blue-600 text-xs"></i>
+                <span class="truncate">PDF to Word</span>
+              </a>
+              <a href="/tools/word-to-pdf.html" class="flex items-center gap-1.5 p-2 rounded-lg bg-white border border-slate-200 text-xs font-semibold text-slate-700 hover:text-brand-600 shadow-2xs">
+                <i class="fa-solid fa-file-lines text-blue-600 text-xs"></i>
+                <span class="truncate">Word to PDF</span>
+              </a>
+              <a href="/tools/pdf-to-excel.html" class="flex items-center gap-1.5 p-2 rounded-lg bg-white border border-slate-200 text-xs font-semibold text-slate-700 hover:text-brand-600 shadow-2xs">
+                <i class="fa-solid fa-file-excel text-emerald-600 text-xs"></i>
+                <span class="truncate">PDF to Excel</span>
+              </a>
+              <a href="/tools/pdf-to-powerpoint.html" class="flex items-center gap-1.5 p-2 rounded-lg bg-white border border-slate-200 text-xs font-semibold text-slate-700 hover:text-brand-600 shadow-2xs">
+                <i class="fa-solid fa-file-powerpoint text-orange-600 text-xs"></i>
+                <span class="truncate">PDF to PPT</span>
+              </a>
+            </div>
+          </div>
+          <!-- Image Tools -->
+          <div>
+            <span class="text-[10px] font-bold uppercase tracking-wider text-blue-600 block mb-1">Image Tools</span>
+            <div class="grid grid-cols-2 gap-1.5">
+              <a href="/tools/image-compressor.html" class="flex items-center gap-1.5 p-2 rounded-lg bg-white border border-slate-200 text-xs font-semibold text-slate-700 hover:text-brand-600 shadow-2xs">
+                <i class="fa-solid fa-compress text-emerald-600 text-xs"></i>
+                <span class="truncate">Compressor</span>
+              </a>
+              <a href="/tools/image-converter.html" class="flex items-center gap-1.5 p-2 rounded-lg bg-white border border-slate-200 text-xs font-semibold text-slate-700 hover:text-brand-600 shadow-2xs">
+                <i class="fa-solid fa-arrow-right-arrow-left text-amber-600 text-xs"></i>
+                <span class="truncate">Converter</span>
+              </a>
+            </div>
+          </div>
+          <!-- Developer Tools -->
+          <div>
+            <span class="text-[10px] font-bold uppercase tracking-wider text-sky-600 block mb-1">Developer</span>
+            <div class="grid grid-cols-2 gap-1.5">
+              <a href="/tools/json-formatter.html" class="flex items-center gap-1.5 p-2 rounded-lg bg-white border border-slate-200 text-xs font-semibold text-slate-700 hover:text-brand-600 shadow-2xs">
+                <i class="fa-solid fa-code text-sky-600 text-xs"></i>
+                <span class="truncate">JSON Formatter</span>
+              </a>
+              <a href="/tools/qr-generator.html" class="flex items-center gap-1.5 p-2 rounded-lg bg-white border border-slate-200 text-xs font-semibold text-slate-700 hover:text-brand-600 shadow-2xs">
+                <i class="fa-solid fa-qrcode text-purple-600 text-xs"></i>
+                <span class="truncate">QR Gen</span>
+              </a>
+              <a href="/tools/color-picker.html" class="col-span-2 flex items-center gap-1.5 p-2 rounded-lg bg-white border border-slate-200 text-xs font-semibold text-slate-700 hover:text-brand-600 shadow-2xs">
+                <i class="fa-solid fa-palette text-pink-600 text-xs"></i>
+                <span class="truncate">Color Studio &amp; Palette</span>
+              </a>
+            </div>
+          </div>
+          <!-- Utilities -->
+          <div>
+            <span class="text-[10px] font-bold uppercase tracking-wider text-teal-600 block mb-1">Daily Utilities</span>
+            <div class="grid grid-cols-2 gap-1.5">
+              <a href="/tools/word-counter.html" class="flex items-center gap-1.5 p-2 rounded-lg bg-white border border-slate-200 text-xs font-semibold text-slate-700 hover:text-brand-600 shadow-2xs">
+                <i class="fa-solid fa-font text-teal-600 text-xs"></i>
+                <span class="truncate">Word Counter</span>
+              </a>
+              <a href="/tools/password-generator.html" class="flex items-center gap-1.5 p-2 rounded-lg bg-white border border-slate-200 text-xs font-semibold text-slate-700 hover:text-brand-600 shadow-2xs">
+                <i class="fa-solid fa-key text-blue-600 text-xs"></i>
+                <span class="truncate">Password Gen</span>
+              </a>
+              <a href="/tools/unit-converter.html" class="col-span-2 flex items-center gap-1.5 p-2 rounded-lg bg-white border border-slate-200 text-xs font-semibold text-slate-700 hover:text-brand-600 shadow-2xs">
+                <i class="fa-solid fa-scale-balanced text-indigo-600 text-xs"></i>
+                <span class="truncate">Unit Converter</span>
+              </a>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <a href="#suite-tools" class="block px-3 py-2 rounded-xl hover:bg-slate-50 text-slate-800 font-semibold hover:text-brand-600 transition">
+        <i class="fa-solid fa-table-cells text-slate-400 mr-2 w-5"></i> View Homepage Grid
       </a>
-      <a href="/#suite-tools" class="block px-3 py-2 rounded-xl hover:bg-slate-50 text-slate-700 hover:text-brand-600 transition">
-        <i class="fa-solid fa-layer-group text-slate-400 mr-2 w-5"></i> All Tools
+      <a href="#how-to-use" class="block px-3 py-2.5 rounded-xl hover:bg-slate-50 text-slate-700 hover:text-brand-600 transition">
+        <i class="fa-solid fa-book-open text-slate-400 mr-2 w-5"></i> How to Use
       </a>
-      <a href="/about.html" class="block px-3 py-2 rounded-xl hover:bg-slate-50 text-slate-700 hover:text-brand-600 transition">
-        <i class="fa-solid fa-circle-info text-slate-400 mr-2 w-5"></i> About QuickConvert
+      <a href="#security-advantage" class="block px-3 py-2.5 rounded-xl hover:bg-slate-50 text-slate-700 hover:text-brand-600 transition">
+        <i class="fa-solid fa-shield-halved text-slate-400 mr-2 w-5"></i> Security &amp; Architecture
       </a>
-      <a href="/contact.html" class="block px-3 py-2 rounded-xl hover:bg-slate-50 text-slate-700 hover:text-brand-600 transition">
-        <i class="fa-solid fa-envelope text-slate-400 mr-2 w-5"></i> Contact &amp; Support
+      <a href="#comparison" class="block px-3 py-2.5 rounded-xl hover:bg-slate-50 text-slate-700 hover:text-brand-600 transition">
+        <i class="fa-solid fa-scale-balanced text-slate-400 mr-2 w-5"></i> Why QuickConvert
       </a>
-      <a href="/feedback.html" class="block px-3 py-2 rounded-xl bg-brand-50 text-brand-700 font-bold transition">
-        <i class="fa-solid fa-star text-amber-500 mr-2 w-5"></i> User Feedback
+      <a href="#faqs" class="block px-3 py-2.5 rounded-xl hover:bg-slate-50 text-slate-700 hover:text-brand-600 transition">
+        <i class="fa-solid fa-circle-question text-slate-400 mr-2 w-5"></i> FAQs
       </a>
+      <a href="/feedback.html" class="block px-3 py-2.5 rounded-xl hover:bg-slate-50 text-brand-600 font-semibold transition">
+        <i class="fa-solid fa-comment-dots text-brand-500 mr-2 w-5"></i> Feedback &amp; Review
+      </a>
+
+      <!-- Quick Action inside Mobile/Tablet Drawer for Mobile users -->
+      <div class="pt-3 mt-2 border-t border-slate-100 flex flex-col gap-2.5 sm:hidden">
+        <a href="#suite-tools" class="w-full py-2.5 rounded-xl text-center text-sm font-bold text-white bg-brand-600 hover:bg-brand-700 shadow-sm flex items-center justify-center gap-2">
+          <span>Start Converting</span>
+          <i class="fa-solid fa-arrow-right text-xs"></i>
+        </a>
+      </div>
+
+      <div class="pt-2 flex items-center justify-between text-xs text-slate-500">
+        <span class="inline-flex items-center gap-1.5 font-semibold text-emerald-700">
+          <span class="w-2 h-2 rounded-full bg-emerald-500"></span> 100% In-Browser Privacy
+        </span>
+        <span class="text-slate-400">Zero Server Uploads</span>
+      </div>
     </div>
   </header>
 
