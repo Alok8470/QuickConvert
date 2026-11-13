@@ -62,7 +62,6 @@
   <script src="../js/vendor/jspdf.umd.min.js"></script>
 
   <!-- QRCode.js Production CDN -->
-  <script src="../js/vendor/qrcode.min.js"></script>
 
   <!-- Custom Stylesheet -->
   <link rel="stylesheet" href="../css/styles.css?v=2.6.0">
@@ -448,7 +447,7 @@
           <div class="p-6">
             <!-- Drag and Drop Zone -->
             <div id="img2pdf-dropzone" class="dropzone border-2 border-dashed border-slate-300 hover:border-brand-500 bg-slate-50/50 hover:bg-brand-50/20 rounded-2xl p-8 text-center cursor-pointer transition duration-200">
-              <input type="file" id="img2pdf-input" multiple accept="image/png, image/jpeg, image/jpg, image/webp" class="hidden" />
+              <input type="file" id="img2pdf-input" aria-label="Upload images to convert to PDF" multiple accept="image/png, image/jpeg, image/jpg, image/webp" class="hidden" />
               <div class="w-14 h-14 mx-auto mb-3 rounded-full bg-indigo-50 text-brand-600 flex items-center justify-center shadow-xs">
                 <i class="fa-solid fa-cloud-arrow-up text-2xl"></i>
               </div>

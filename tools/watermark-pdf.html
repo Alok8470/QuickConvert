@@ -70,7 +70,6 @@
 
   <!-- Client-Side PDF Processing Engines -->
   <script src="../js/vendor/pdf-lib.min.js"></script>
-  <script src="../js/vendor/jspdf.umd.min.js"></script>
   <script src="../js/vendor/pdf.min.js"></script>
   <script>
     if (typeof pdfjsLib !== 'undefined') {
@@ -412,7 +411,7 @@
     <div class="bg-white rounded-3xl border border-slate-200/90 shadow-xl shadow-slate-900/5 p-6 sm:p-8 mb-8">
       
       <div id="wm-dropzone" class="border-2 border-dashed border-slate-300 hover:border-brand-500 rounded-2xl p-8 sm:p-12 text-center transition-all bg-slate-50/60 hover:bg-indigo-50/20 cursor-pointer">
-        <input type="file" id="wm-input" accept=".pdf,application/pdf" class="hidden" />
+        <input type="file" id="wm-input" aria-label="Upload PDF file to watermark" accept=".pdf,application/pdf" class="hidden" />
         <div class="w-16 h-16 rounded-2xl bg-rose-50 border border-rose-100 text-rose-600 flex items-center justify-center text-2xl mx-auto mb-4 shadow-xs">
           <i class="fa-solid fa-stamp"></i>
         </div>
@@ -438,12 +437,12 @@
         <div class="grid grid-cols-1 sm:grid-cols-2 gap-4">
           <div>
             <label class="block text-xs font-bold text-slate-700 mb-1.5">Watermark Text</label>
-            <input type="text" id="wm-text" value="CONFIDENTIAL" class="w-full p-3 rounded-xl border border-slate-300 text-xs font-bold tracking-wider uppercase focus:ring-2 focus:ring-brand-500 focus:outline-none" />
+            <input type="text" id="wm-text" aria-label="Watermark overlay text" value="CONFIDENTIAL" class="w-full p-3 rounded-xl border border-slate-300 text-xs font-bold tracking-wider uppercase focus:ring-2 focus:ring-brand-500 focus:outline-none" />
           </div>
 
           <div>
             <label class="block text-xs font-bold text-slate-700 mb-1.5">Watermark Color</label>
-            <select id="wm-color" class="w-full p-3 rounded-xl border border-slate-300 text-xs font-bold bg-white focus:ring-2 focus:ring-brand-500 focus:outline-none">
+            <select id="wm-color" aria-label="Watermark font color" class="w-full p-3 rounded-xl border border-slate-300 text-xs font-bold bg-white focus:ring-2 focus:ring-brand-500 focus:outline-none">
               <option value="red">Red (#ef4444)</option>
               <option value="slate">Dark Slate (#334155)</option>
               <option value="blue">Indigo Blue (#4f46e5)</option>
@@ -458,7 +457,7 @@
               <span>Font Size</span>
               <span id="wm-size-val">48 px</span>
             </div>
-            <input type="range" id="wm-size" min="20" max="80" value="48" class="w-full" />
+            <input type="range" id="wm-size" aria-label="Watermark font size" min="20" max="80" value="48" class="w-full" />
           </div>
 
           <div>
@@ -466,7 +465,7 @@
               <span>Opacity</span>
               <span id="wm-opacity-val">25 %</span>
             </div>
-            <input type="range" id="wm-opacity" min="10" max="80" value="25" class="w-full" />
+            <input type="range" id="wm-opacity" aria-label="Watermark opacity" min="10" max="80" value="25" class="w-full" />
           </div>
         </div>
 

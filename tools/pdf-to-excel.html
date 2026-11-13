@@ -69,8 +69,6 @@
   </script>
 
   <!-- Client-Side PDF Processing Engines -->
-  <script src="../js/vendor/pdf-lib.min.js"></script>
-  <script src="../js/vendor/jspdf.umd.min.js"></script>
   <script src="../js/vendor/pdf.min.js"></script>
   <script>
     if (typeof pdfjsLib !== 'undefined') {
@@ -421,7 +419,7 @@
       </div>
 
       <div id="p2e-dropzone" class="border-2 border-dashed border-slate-300 hover:border-brand-500 rounded-2xl p-8 sm:p-12 text-center transition-all bg-slate-50/60 hover:bg-emerald-50/20 cursor-pointer">
-        <input type="file" id="p2e-input" accept=".pdf,application/pdf" class="hidden" />
+        <input type="file" id="p2e-input" aria-label="Upload PDF file to convert to Excel" accept=".pdf,application/pdf" class="hidden" />
         <div class="w-16 h-16 rounded-2xl bg-emerald-50 border border-emerald-100 text-emerald-600 flex items-center justify-center text-2xl mx-auto mb-4 shadow-xs">
           <i class="fa-solid fa-file-excel"></i>
         </div>

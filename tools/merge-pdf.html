@@ -70,7 +70,6 @@
 
   <!-- Client-Side PDF Processing Engines -->
   <script src="../js/vendor/pdf-lib.min.js"></script>
-  <script src="../js/vendor/jspdf.umd.min.js"></script>
   <script src="../js/vendor/pdf.min.js"></script>
   <script>
     if (typeof pdfjsLib !== 'undefined') {
@@ -413,7 +412,7 @@
       
       <!-- Dropzone -->
       <div id="merge-dropzone" class="border-2 border-dashed border-slate-300 hover:border-brand-500 rounded-2xl p-8 sm:p-12 text-center transition-all bg-slate-50/60 hover:bg-indigo-50/20 cursor-pointer">
-        <input type="file" id="merge-input" multiple accept=".pdf,application/pdf" class="hidden" />
+        <input type="file" id="merge-input" aria-label="Upload PDF files to merge" multiple accept=".pdf,application/pdf" class="hidden" />
         <div class="w-16 h-16 rounded-2xl bg-indigo-50 border border-indigo-100 text-brand-600 flex items-center justify-center text-2xl mx-auto mb-4 shadow-xs">
           <i class="fa-solid fa-file-circle-plus"></i>
         </div>

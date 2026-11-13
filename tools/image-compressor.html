@@ -59,10 +59,8 @@
   </script>
 
   <!-- jsPDF Production CDN -->
-  <script src="../js/vendor/jspdf.umd.min.js"></script>
 
   <!-- QRCode.js Production CDN -->
-  <script src="../js/vendor/qrcode.min.js"></script>
 
   <!-- Custom Stylesheet -->
   <link rel="stylesheet" href="../css/styles.css?v=2.6.0">
@@ -412,7 +410,7 @@
             <!-- Empty Upload State -->
             <div id="comp-empty-state">
               <div id="comp-dropzone" class="dropzone border-2 border-dashed border-slate-300 hover:border-brand-500 bg-slate-50/50 hover:bg-brand-50/20 rounded-2xl p-8 text-center cursor-pointer transition duration-200">
-                <input type="file" id="comp-input" accept="image/png, image/jpeg, image/jpg, image/webp" class="hidden" />
+                <input type="file" id="comp-input" aria-label="Upload image to compress" accept="image/png, image/jpeg, image/jpg, image/webp" class="hidden" />
                 <div class="w-14 h-14 mx-auto mb-3 rounded-full bg-indigo-50 text-brand-600 flex items-center justify-center shadow-xs">
                   <i class="fa-solid fa-image text-2xl"></i>
                 </div>
@@ -431,7 +429,7 @@
               <!-- Original File Snapshot -->
               <div class="flex items-center justify-between p-3.5 bg-slate-50 rounded-xl border border-slate-200 text-xs">
                 <div class="flex items-center gap-3">
-                  <img id="comp-orig-thumb" src="" alt="Thumbnail" class="w-12 h-12 rounded-lg object-cover border border-slate-200" />
+                  <img id="comp-orig-thumb" src="" alt="Original file thumbnail preview" width="48" height="48" class="w-12 h-12 rounded-lg object-cover border border-slate-200" />
                   <div>
                     <p id="comp-orig-name" class="font-bold text-slate-800 truncate max-w-xs">filename.jpg</p>
                     <p class="text-slate-500">
@@ -487,7 +485,7 @@
                       <span>Compression Quality</span>
                       <span id="comp-quality-val" class="font-mono text-brand-600 bg-brand-50 px-2 py-0.5 rounded">80%</span>
                     </div>
-                    <input type="range" id="comp-quality" min="10" max="100" value="80" class="w-full cursor-pointer" />
+                    <input type="range" id="comp-quality" aria-label="Image compression quality slider" min="10" max="100" value="80" class="w-full cursor-pointer" />
                     <div class="flex justify-between text-[10px] text-slate-400 mt-1">
                       <span>Smallest Size (10%)</span>
                       <span>Balanced (80%)</span>
@@ -516,7 +514,7 @@
               <div class="p-4 bg-brand-50/50 rounded-xl border border-brand-100 flex flex-col sm:flex-row items-center justify-between gap-4">
                 <div class="flex items-center gap-4">
                   <div class="w-16 h-16 rounded-lg bg-slate-200 overflow-hidden shrink-0 border border-slate-300 flex items-center justify-center">
-                    <img id="comp-result-preview" src="" alt="Compressed Preview" class="w-full h-full object-cover" />
+                    <img id="comp-result-preview" src="" alt="Compressed output preview" width="320" height="240" class="w-full h-full object-cover" />
                   </div>
                   <div>
                     <div class="flex items-center gap-2">
