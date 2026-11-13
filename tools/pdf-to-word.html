@@ -1,15 +1,18 @@
 <!DOCTYPE html>
 <html lang="en" class="scroll-smooth">
 <head>
-  <!-- Early Theme Init to Prevent Flash of Light Theme -->
+    <!-- Early Theme Init to Prevent Flash of Light Theme (Anti-FOUT) -->
   <script>
     (function() {
-      const savedTheme = localStorage.getItem('qc_theme');
-      if (savedTheme === 'dark' || (!savedTheme && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
-        document.documentElement.classList.add('dark');
-      } else {
-        document.documentElement.classList.remove('dark');
-      }
+      try {
+        var savedTheme = localStorage.getItem('qc_theme');
+        var prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+        if (savedTheme === 'dark' || (!savedTheme && prefersDark)) {
+          document.documentElement.classList.add('dark');
+        } else {
+          document.documentElement.classList.remove('dark');
+        }
+      } catch (e) {}
     })();
   </script>
 
@@ -112,8 +115,8 @@
           <span class="text-xl font-extrabold tracking-tight bg-gradient-to-r from-brand-600 to-accent-600 bg-clip-text text-transparent leading-none opacity-100">
             QuickConvert
           </span>
-          <span class="text-[10px] font-bold text-slate-500 dark:text-slate-400 tracking-wider uppercase mt-1 opacity-100">
-            Universal Client-Side Suite
+          <span class="text-[10px] font-extrabold text-slate-800 dark:text-slate-100 tracking-wider uppercase mt-1 opacity-100 brand-logo-subtitle">
+            UNIVERSAL CLIENT-SIDE SUITE
           </span>
         </div>
       </a>
@@ -478,7 +481,8 @@
           body { font-family: Calibri, 'Segoe UI', Arial, sans-serif; font-size: 11pt; color: #111827; }
           p { margin: 6pt 0; }
         </style>
-        </head><body>${docText}</body></html>
+        </head><body>${docText}  <script src="../js/theme.js"></script>
+</body></html>
       `;
 
       const blob = new Blob([docxHtml], { type: 'application/vnd.ms-word;charset=utf-8' });
@@ -557,5 +561,6 @@
     </div>
   </div>
 
+  <script src="../js/theme.js"></script>
 </body>
 </html>

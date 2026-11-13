@@ -2032,7 +2032,7 @@
           btn.setAttribute('title', 'Switch to Light Mode');
           btn.setAttribute('aria-label', 'Switch to Light Mode');
         } else {
-          icon.className = 'theme-icon fa-solid fa-moon text-sm text-slate-600';
+          icon.className = 'theme-icon fa-solid fa-moon text-sm text-slate-600 dark:text-slate-300';
           btn.setAttribute('title', 'Switch to Dark Mode');
           btn.setAttribute('aria-label', 'Switch to Dark Mode');
         }
@@ -2041,6 +2041,10 @@
   }
 
   function toggleDarkMode() {
+    if (typeof window.qcToggleTheme === 'function') {
+      window.qcToggleTheme();
+      return;
+    }
     const isCurrentlyDark = document.documentElement.classList.contains('dark');
     const newDark = !isCurrentlyDark;
     if (newDark) {
@@ -2054,6 +2058,13 @@
   }
 
   function initThemeToggle() {
+    // If js/theme.js is active, it handles global delegation
+    if (typeof window.qcToggleTheme === 'function') {
+      const isDark = document.documentElement.classList.contains('dark');
+      updateThemeUI(isDark);
+      return;
+    }
+
     const toggleBtns = document.querySelectorAll('.theme-toggle-btn');
     toggleBtns.forEach((btn) => {
       btn.removeEventListener('click', toggleDarkMode);
