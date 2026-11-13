@@ -1213,9 +1213,12 @@
 
   modalTriggers.forEach((trigger) => {
     trigger.addEventListener('click', (e) => {
-      e.preventDefault();
       const modalId = trigger.getAttribute('data-modal-open');
-      openModal(modalId);
+      const targetModal = modalId ? document.getElementById(modalId) : null;
+      if (targetModal) {
+        e.preventDefault();
+        openModal(modalId);
+      }
     });
   });
 
