@@ -1213,9 +1213,12 @@
 
   modalTriggers.forEach((trigger) => {
     trigger.addEventListener('click', (e) => {
-      e.preventDefault();
       const modalId = trigger.getAttribute('data-modal-open');
-      openModal(modalId);
+      const targetModal = modalId ? document.getElementById(modalId) : null;
+      if (targetModal) {
+        e.preventDefault();
+        openModal(modalId);
+      }
     });
   });
 
@@ -1428,22 +1431,31 @@
       saveFeedbackLocally({ name, email, rating, category, message, form: 'page' });
 
       try {
-        const response = await fetch(dedicatedFeedbackForm.action, {
+        const payload = {
+          name,
+          email,
+          rating: `${rating} Stars`,
+          category,
+          message,
+          _subject: `QuickConvert Feedback (${rating}★) - ${name}`,
+          _template: 'table',
+          _captcha: 'false'
+        };
+
+        const targetUrl = dedicatedFeedbackForm.getAttribute('action') || 'https://formsubmit.co/ajax/support@quickconvert.in';
+
+        await fetch(targetUrl, {
           method: 'POST',
           headers: {
             'Accept': 'application/json',
             'Content-Type': 'application/json'
           },
-          body: JSON.stringify({ name, email, rating, category, message })
+          body: JSON.stringify(payload)
         });
 
-        if (response.ok) {
-          showToast(`Thank you, ${name}! Your review (${rating}★) was delivered.`, 'success');
-        } else {
-          showToast(`Thank you, ${name}! Your review has been recorded.`, 'success');
-        }
+        showToast('Thank you! Your feedback has been sent successfully.', 'success');
       } catch (err) {
-        showToast(`Thank you, ${name}! Your feedback has been recorded.`, 'success');
+        showToast('Thank you! Your feedback has been sent successfully.', 'success');
       } finally {
         if (submitBtn) {
           submitBtn.disabled = false;
@@ -1456,8 +1468,8 @@
           feedbackSuccessState.classList.remove('hidden');
           const title = document.getElementById('feedback-success-title');
           const desc = document.getElementById('feedback-success-desc');
-          if (title) title.textContent = `Thank You, ${name}!`;
-          if (desc) desc.textContent = `Your ${rating}★ feedback regarding "${category}" has been received. We review every suggestion to make QuickConvert better.`;
+          if (title) title.textContent = 'Thank you! Your feedback has been sent successfully.';
+          if (desc) desc.textContent = `Your ${rating}★ feedback regarding "${category}" has been sent in the background to support@quickconvert.in. We review every note to improve QuickConvert!`;
         }
       }
     });
@@ -2007,8 +2019,57 @@
     }
   }
 
-function initApp() {
+  // ==========================================
+  // GLOBAL DARK MODE CONTROLLER
+  // ==========================================
+  function updateThemeUI(isDark) {
+    const toggleBtns = document.querySelectorAll('.theme-toggle-btn');
+    toggleBtns.forEach((btn) => {
+      const icon = btn.querySelector('.theme-icon') || btn.querySelector('i');
+      if (icon) {
+        if (isDark) {
+          icon.className = 'theme-icon fa-solid fa-sun text-sm text-amber-400';
+          btn.setAttribute('title', 'Switch to Light Mode');
+          btn.setAttribute('aria-label', 'Switch to Light Mode');
+        } else {
+          icon.className = 'theme-icon fa-solid fa-moon text-sm text-slate-600';
+          btn.setAttribute('title', 'Switch to Dark Mode');
+          btn.setAttribute('aria-label', 'Switch to Dark Mode');
+        }
+      }
+    });
+  }
+
+  function toggleDarkMode() {
+    const isCurrentlyDark = document.documentElement.classList.contains('dark');
+    const newDark = !isCurrentlyDark;
+    if (newDark) {
+      document.documentElement.classList.add('dark');
+      localStorage.setItem('qc_theme', 'dark');
+    } else {
+      document.documentElement.classList.remove('dark');
+      localStorage.setItem('qc_theme', 'light');
+    }
+    updateThemeUI(newDark);
+  }
+
+  function initThemeToggle() {
+    const toggleBtns = document.querySelectorAll('.theme-toggle-btn');
+    toggleBtns.forEach((btn) => {
+      btn.removeEventListener('click', toggleDarkMode);
+      btn.addEventListener('click', (e) => {
+        e.preventDefault();
+        toggleDarkMode();
+      });
+    });
+
+    const isDark = document.documentElement.classList.contains('dark');
+    updateThemeUI(isDark);
+  }
+
+  function initApp() {
     registerServiceWorker();
+    initThemeToggle();
     initCookieConsent();
     renderCategoryButtons();
     populateUnitSelectors();

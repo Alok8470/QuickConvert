@@ -181,6 +181,238 @@ button:active:not(:disabled), a.active-press:active {
   transform: translateX(2px);
 }
 
+/* ==========================================
+   GLOBAL DARK MODE STYLING & CONTRAST
+   ========================================== */
+html.dark {
+  color-scheme: dark;
+}
+
+html.dark body {
+  background-color: #0b0f19 !important;
+  color: #f1f5f9 !important;
+}
+
+/* Headers & Sticky Bars */
+html.dark header {
+  background-color: rgba(15, 23, 42, 0.95) !important;
+  border-bottom-color: #1e293b !important;
+}
+
+/* Footers */
+html.dark footer {
+  background-color: #0f172a !important;
+  border-top-color: #1e293b !important;
+  color: #94a3b8 !important;
+}
+
+/* Cards, Panels & Sections */
+html.dark .bg-white {
+  background-color: #131b2e !important;
+  color: #f1f5f9 !important;
+}
+
+html.dark .bg-slate-50 {
+  background-color: #0b0f19 !important;
+}
+
+html.dark .bg-slate-100 {
+  background-color: #1e293b !important;
+}
+
+html.dark .bg-slate-200 {
+  background-color: #334155 !important;
+}
+
+/* Borders */
+html.dark .border-slate-200,
+html.dark .border-slate-200\/80,
+html.dark .border-slate-200\/90,
+html.dark .border-slate-200\/70,
+html.dark .border-slate-100,
+html.dark .border-slate-300 {
+  border-color: #1e293b !important;
+}
+
+html.dark .border-indigo-100,
+html.dark .border-rose-100,
+html.dark .border-amber-100,
+html.dark .border-teal-100,
+html.dark .border-emerald-100 {
+  border-color: #1e293b !important;
+}
+
+/* Typography in Dark Mode */
+html.dark .text-slate-950,
+html.dark .text-slate-900,
+html.dark .text-slate-800 {
+  color: #f8fafc !important;
+}
+
+html.dark .text-slate-700,
+html.dark .text-slate-600 {
+  color: #cbd5e1 !important;
+}
+
+html.dark .text-slate-500 {
+  color: #94a3b8 !important;
+}
+
+html.dark .text-slate-400 {
+  color: #94a3b8 !important;
+}
+
+/* Mega-Menu Panel in Dark Mode */
+html.dark .mega-menu-panel > div {
+  background-color: #0f172a !important;
+  border-color: #1e293b !important;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.7) !important;
+}
+
+html.dark .mega-menu-panel .border-b,
+html.dark .mega-menu-panel .border-t {
+  border-color: #1e293b !important;
+}
+
+html.dark .mega-menu-panel a span.text-slate-800 {
+  color: #e2e8f0 !important;
+}
+
+html.dark .mega-menu-panel a:hover {
+  background-color: #1e293b !important;
+}
+
+/* Mobile Navigation Drawer in Dark Mode */
+html.dark #mobile-menu {
+  background-color: #0f172a !important;
+  border-bottom-color: #1e293b !important;
+}
+
+html.dark #mobile-menu a {
+  color: #cbd5e1 !important;
+}
+
+html.dark #mobile-menu a:hover {
+  background-color: #1e293b !important;
+  color: #818cf8 !important;
+}
+
+/* Tool dropzones & upload areas */
+html.dark .dropzone-container,
+html.dark .border-dashed {
+  background-color: #0f172a !important;
+  border-color: #334155 !important;
+}
+
+html.dark .dropzone-container:hover {
+  border-color: #6366f1 !important;
+  background-color: #131b2e !important;
+}
+
+/* Form inputs & controls in Dark Mode */
+html.dark input:not([type="checkbox"]):not([type="radio"]):not([type="color"]):not([type="range"]):not([type="hidden"]),
+html.dark select,
+html.dark textarea {
+  background-color: #0f172a !important;
+  color: #f8fafc !important;
+  border-color: #334155 !important;
+}
+
+html.dark input:focus,
+html.dark select:focus,
+html.dark textarea:focus {
+  border-color: #6366f1 !important;
+  box-shadow: 0 0 0 3px rgba(99, 102, 241, 0.25) !important;
+}
+
+html.dark input::placeholder,
+html.dark textarea::placeholder {
+  color: #64748b !important;
+}
+
+/* Category filter pills in Dark Mode */
+html.dark .cat-pill:not(.active) {
+  background-color: #1e293b !important;
+  color: #cbd5e1 !important;
+  border-color: #334155 !important;
+}
+
+html.dark .cat-pill:not(.active):hover {
+  background-color: #334155 !important;
+  color: #ffffff !important;
+}
+
+html.dark .cat-pill.active {
+  background-color: #4f46e5 !important;
+  color: #ffffff !important;
+  border-color: #4f46e5 !important;
+}
+
+/* Tool cards in Dark Mode */
+html.dark .tool-card-hover {
+  background-color: #131b2e !important;
+  border-color: #1e293b !important;
+}
+
+html.dark .tool-card-hover:hover {
+  border-color: #6366f1 !important;
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.5), 0 8px 10px -6px rgba(0, 0, 0, 0.5) !important;
+}
+
+/* FAQs and Accordions */
+html.dark .faq-item {
+  background-color: #131b2e !important;
+  border-color: #1e293b !important;
+}
+
+html.dark .faq-trigger {
+  color: #f8fafc !important;
+}
+
+html.dark .faq-content {
+  border-top-color: #1e293b !important;
+  color: #cbd5e1 !important;
+}
+
+/* Code and Pre blocks */
+html.dark pre,
+html.dark code {
+  background-color: #0f172a !important;
+  color: #e2e8f0 !important;
+  border-color: #1e293b !important;
+}
+
+/* Theme Toggle Button */
+.theme-toggle-btn {
+  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.theme-toggle-btn:hover {
+  transform: scale(1.06);
+}
+
+.theme-toggle-btn:active {
+  transform: scale(0.94);
+}
+
+html.dark .theme-toggle-btn {
+  background-color: #1e293b !important;
+  color: #fbbf24 !important;
+  border-color: #334155 !important;
+}
+
+html.dark .theme-toggle-btn:hover {
+  background-color: #334155 !important;
+  color: #fde047 !important;
+}
+
+/* Cookie banner in Dark Mode */
+html.dark #cookie-consent-banner {
+  background-color: rgba(15, 23, 42, 0.98) !important;
+  border-color: #334155 !important;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.8) !important;
+}
+
 /* Print Cleanliness */
 @media print {
   header, footer, .no-print, .adsense-box {

@@ -1,6 +1,18 @@
 <!DOCTYPE html>
 <html lang="en" class="scroll-smooth">
 <head>
+  <!-- Early Theme Init to Prevent Flash of Light Theme -->
+  <script>
+    (function() {
+      const savedTheme = localStorage.getItem('qc_theme');
+      if (savedTheme === 'dark' || (!savedTheme && window.matchMedia('(prefers-color-scheme: dark)').matches)) {
+        document.documentElement.classList.add('dark');
+      } else {
+        document.documentElement.classList.remove('dark');
+      }
+    })();
+  </script>
+
   <!-- Google Tag Manager / Google Analytics -->
   <script async src="https://www.googletagmanager.com/gtm.js?id=GTM-PF96NZS9"></script>
   <script>
@@ -26,6 +38,7 @@
   <script src="https://cdn.tailwindcss.com"></script>
   <script>
     tailwind.config = {
+      darkMode: 'class',
       theme: {
         extend: {
           colors: {
@@ -59,13 +72,18 @@
   <!-- TOP NAVBAR -->
   <header class="sticky top-0 z-40 bg-white/95 backdrop-blur-md border-b border-slate-200/80 shadow-xs py-3.5 sm:py-4">
     <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between gap-4">
-      <a href="/" class="flex items-center gap-3 shrink-0 group focus:outline-none">
-        <div class="w-9 h-9 rounded-xl bg-gradient-to-tr from-brand-600 via-indigo-600 to-sky-500 flex items-center justify-center text-white shadow-md shadow-brand-500/25 group-hover:scale-105 transition-transform duration-200">
-          <i class="fa-solid fa-bolt-lightning text-base"></i>
+            <!-- Brand Logo -->
+      <a href="/" class="flex items-center gap-3 shrink-0 group focus:outline-none opacity-100">
+        <div class="w-10 h-10 rounded-xl bg-gradient-to-tr from-brand-600 via-indigo-600 to-accent-500 flex items-center justify-center text-white shadow-md shadow-brand-500/25 group-hover:scale-105 transition-transform duration-200 shrink-0 opacity-100">
+          <i class="fa-solid fa-bolt-lightning text-lg"></i>
         </div>
         <div class="flex flex-col">
-          <span class="text-lg font-extrabold tracking-tight bg-gradient-to-r from-brand-600 to-sky-600 bg-clip-text text-transparent leading-none">QuickConvert</span>
-          <span class="text-[10px] font-semibold text-slate-400 tracking-wider uppercase mt-1">Universal Client-Side Suite</span>
+          <span class="text-xl font-extrabold tracking-tight bg-gradient-to-r from-brand-600 to-accent-600 bg-clip-text text-transparent leading-none opacity-100">
+            QuickConvert
+          </span>
+          <span class="text-[10px] font-bold text-slate-500 dark:text-slate-400 tracking-wider uppercase mt-1 opacity-100">
+            Universal Client-Side Suite
+          </span>
         </div>
       </a>
             <!-- Navigation Actions with All Tools Mega-Menu -->
@@ -237,10 +255,20 @@
         </div>
 
         <!-- Back to Homepage Link -->
-        <a href="/" class="inline-flex items-center gap-2 px-3 py-1.5 rounded-xl text-xs font-bold text-slate-700 bg-slate-100 hover:bg-slate-200 transition">
+        <a href="/" class="inline-flex items-center gap-2 px-3 py-1.5 rounded-xl text-xs font-bold text-slate-700 dark:text-slate-200 bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 transition">
           <i class="fa-solid fa-house text-xs"></i>
           <span class="hidden sm:inline">Home</span>
         </a>
+
+        <!-- Dark Mode Toggle Button -->
+        <button 
+          type="button" 
+          class="theme-toggle-btn p-2 rounded-xl text-slate-500 hover:text-slate-900 dark:text-slate-400 dark:hover:text-amber-300 bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 transition-all cursor-pointer focus:outline-none flex items-center justify-center w-9 h-9" 
+          aria-label="Toggle Dark / Light Mode"
+          title="Toggle Dark Mode"
+        >
+          <i class="theme-icon fa-solid fa-moon text-sm"></i>
+        </button>
       </div>
     </div>
   </header>
