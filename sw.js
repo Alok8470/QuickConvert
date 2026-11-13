@@ -10,6 +10,7 @@ const STATIC_ASSETS = [
   '/index.html',
   '/about.html',
   '/contact.html',
+  '/privacy.html',
   '/privacy-policy.html',
   '/terms.html',
   '/feedback.html',

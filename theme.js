@@ -1,13 +1,17 @@
 /**
- * QuickConvert - Universal Global Dark Mode Controller
+ * QuickConvert - Universal Global Dark Mode & Privacy Controller
  * Shared across index.html, feedback.html, and all tools/*.html
  */
 (function () {
   'use strict';
 
   var THEME_KEY = 'qc_theme';
+  var CONSENT_KEY = 'qc_cookie_consent';
 
-  // Apply theme to DOM (both <html> and <body>) and persist to localStorage
+  // ==========================================
+  // 1. THEME CONTROLLER
+  // ==========================================
+
   function setTheme(theme, save) {
     if (save === undefined) save = true;
     var isDark = theme === 'dark';
@@ -29,7 +33,6 @@
     updateToggleIcons(isDark);
   }
 
-  // Update icons and ARIA attributes on all toggle buttons
   function updateToggleIcons(isDark) {
     var buttons = document.querySelectorAll('.theme-toggle-btn, [data-theme-toggle]');
     buttons.forEach(function (btn) {
@@ -48,13 +51,12 @@
     });
   }
 
-  // Toggle between dark and light
   function toggleTheme() {
     var isDark = document.documentElement.classList.contains('dark') || (document.body && document.body.classList.contains('dark'));
     setTheme(isDark ? 'light' : 'dark', true);
   }
 
-  // Delegated click event: catches clicks on any button, icon, or container for dark mode toggle
+  // Delegated click event for theme toggle buttons and icons
   document.addEventListener('click', function (e) {
     var btn = e.target.closest('.theme-toggle-btn') || 
               e.target.closest('[data-theme-toggle]') || 
@@ -68,7 +70,7 @@
     }
   });
 
-  // Cross-tab synchronization
+  // Cross-tab theme synchronization
   window.addEventListener('storage', function (e) {
     if (e.key === THEME_KEY) {
       var newTheme = e.newValue || (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
@@ -76,7 +78,74 @@
     }
   });
 
-  // Initialize icon state and ensure <body> has the class when DOM is ready
+  // ==========================================
+  // 2. COOKIE CONSENT & CONDITIONAL ANALYTICS
+  // ==========================================
+
+  function loadConsentedAnalytics() {
+    if (window._gtmLoaded) return;
+    window._gtmLoaded = true;
+    window.dataLayer = window.dataLayer || [];
+    function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+
+    var s = document.createElement('script');
+    s.async = true;
+    s.src = 'https://www.googletagmanager.com/gtm.js?id=GTM-PF96NZS9';
+    document.head.appendChild(s);
+  }
+
+  function initCookieConsent() {
+    var banner = document.getElementById('cookie-consent-banner');
+    var consent = null;
+    try {
+      consent = localStorage.getItem(CONSENT_KEY);
+    } catch (e) {}
+
+    if (consent === 'accepted') {
+      loadConsentedAnalytics();
+      if (banner) banner.classList.add('hidden');
+    } else if (consent === 'declined' || consent === 'essential') {
+      if (banner) banner.classList.add('hidden');
+    } else {
+      if (banner) banner.classList.remove('hidden');
+    }
+
+    var acceptBtn = document.getElementById('btn-accept-cookies');
+    if (acceptBtn) {
+      acceptBtn.addEventListener('click', function () {
+        try {
+          localStorage.setItem(CONSENT_KEY, 'accepted');
+        } catch (e) {}
+        if (banner) banner.classList.add('hidden');
+        loadConsentedAnalytics();
+        if (typeof showToast === 'function') showToast('Cookie preferences saved', 'info');
+      });
+    }
+
+    var declineBtn = document.getElementById('btn-decline-cookies');
+    if (declineBtn) {
+      declineBtn.addEventListener('click', function () {
+        try {
+          localStorage.setItem(CONSENT_KEY, 'declined');
+        } catch (e) {}
+        if (banner) banner.classList.add('hidden');
+        if (typeof showToast === 'function') showToast('Non-essential cookies declined', 'info');
+      });
+    }
+
+    var closeBtn = document.getElementById('btn-close-cookie-banner');
+    if (closeBtn) {
+      closeBtn.addEventListener('click', function () {
+        if (banner) banner.classList.add('hidden');
+      });
+    }
+  }
+
+  // ==========================================
+  // 3. INITIALIZATION ON DOM READY
+  // ==========================================
+
   function init() {
     var savedTheme = null;
     try {
@@ -87,6 +156,7 @@
     var isDark = savedTheme === 'dark' || (!savedTheme && prefersDark);
 
     setTheme(isDark ? 'dark' : 'light', false);
+    initCookieConsent();
   }
 
   if (document.readyState === 'loading') {
@@ -98,4 +168,6 @@
   // Expose globally
   window.qcToggleTheme = toggleTheme;
   window.qcSetTheme = setTheme;
+  window.qcInitCookieConsent = initCookieConsent;
+  window.qcLoadAnalytics = loadConsentedAnalytics;
 })();

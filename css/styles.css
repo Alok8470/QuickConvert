@@ -708,6 +708,29 @@ html.dark #cookie-consent-banner,
   box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.8) !important;
 }
 
+html.dark #cookie-consent-banner p,
+.dark #cookie-consent-banner p {
+  color: #cbd5e1 !important;
+}
+
+html.dark #cookie-consent-banner p.font-bold,
+.dark #cookie-consent-banner p.font-bold {
+  color: #f8fafc !important;
+}
+
+html.dark #btn-decline-cookies,
+.dark #btn-decline-cookies {
+  background-color: #1e293b !important;
+  color: #cbd5e1 !important;
+  border: 1px solid #334155 !important;
+}
+
+html.dark #btn-decline-cookies:hover,
+.dark #btn-decline-cookies:hover {
+  background-color: #334155 !important;
+  color: #ffffff !important;
+}
+
 /* Print Cleanliness */
 @media print {
   header, footer, .no-print, .adsense-box {
