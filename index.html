@@ -1295,16 +1295,62 @@
               </td>
             </tr>
             <tr>
-              <td class="p-4 sm:p-5 font-semibold text-slate-800">Compliance &amp; Legal Liability</td>
+              <td class="p-4 sm:p-5 font-semibold text-slate-800">Data Handling</td>
               <td class="p-4 sm:p-5 bg-brand-50/30 text-emerald-700 font-semibold">
-                Zero data controller liability under GDPR
+                Files remain locally on user's device
               </td>
               <td class="p-4 sm:p-5 text-slate-500">
-                Requires complex DPA and third-party consent
+                Uploaded and stored on third-party servers
               </td>
             </tr>
           </tbody>
         </table>
+      </div>
+
+      <!-- Verify It Yourself (Proof of Privacy) -->
+      <div class="mt-12 p-6 sm:p-8 rounded-3xl bg-slate-900 text-white border border-slate-800 shadow-xl relative overflow-hidden">
+        <div class="relative z-10">
+          <div class="flex flex-col md:flex-row md:items-center justify-between gap-4 pb-6 border-b border-slate-800">
+            <div>
+              <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-emerald-500/10 text-emerald-400 border border-emerald-500/20 mb-2">
+                <i class="fa-solid fa-shield-check"></i> Transparency in Action
+              </span>
+              <h3 class="text-xl sm:text-2xl font-bold tracking-tight text-white">Don't take our word for it: Verify it yourself</h3>
+              <p class="text-xs sm:text-sm text-slate-400 mt-1">You can inspect every single network request using standard browser developer tools in under 30 seconds.</p>
+            </div>
+            <div class="shrink-0">
+              <span class="text-xs font-mono px-3 py-1.5 rounded-lg bg-slate-800 border border-slate-700 text-slate-300">
+                <i class="fa-solid fa-terminal text-emerald-400 mr-1.5"></i>F12 &rarr; Network Tab
+              </span>
+            </div>
+          </div>
+
+          <div class="grid grid-cols-1 md:grid-cols-4 gap-4 pt-6">
+            <div class="p-4 rounded-2xl bg-slate-800/60 border border-slate-700/60">
+              <span class="w-7 h-7 rounded-lg bg-indigo-500/20 text-indigo-400 text-xs font-bold flex items-center justify-center mb-3">1</span>
+              <h4 class="text-sm font-bold text-white mb-1">Open DevTools</h4>
+              <p class="text-xs text-slate-400 leading-relaxed">Press <kbd class="px-1.5 py-0.5 rounded bg-slate-700 text-slate-200 font-mono text-[11px]">F12</kbd> or right-click and choose <strong>Inspect</strong>.</p>
+            </div>
+
+            <div class="p-4 rounded-2xl bg-slate-800/60 border border-slate-700/60">
+              <span class="w-7 h-7 rounded-lg bg-indigo-500/20 text-indigo-400 text-xs font-bold flex items-center justify-center mb-3">2</span>
+              <h4 class="text-sm font-bold text-white mb-1">Go to Network</h4>
+              <p class="text-xs text-slate-400 leading-relaxed">Click the <strong>Network</strong> tab and select the <strong>Fetch/XHR</strong> filter.</p>
+            </div>
+
+            <div class="p-4 rounded-2xl bg-slate-800/60 border border-slate-700/60">
+              <span class="w-7 h-7 rounded-lg bg-indigo-500/20 text-indigo-400 text-xs font-bold flex items-center justify-center mb-3">3</span>
+              <h4 class="text-sm font-bold text-white mb-1">Convert Any File</h4>
+              <p class="text-xs text-slate-400 leading-relaxed">Upload and convert an image or document with any tool.</p>
+            </div>
+
+            <div class="p-4 rounded-2xl bg-slate-800/60 border border-slate-700/60">
+              <span class="w-7 h-7 rounded-lg bg-emerald-500/20 text-emerald-400 text-xs font-bold flex items-center justify-center mb-3">4</span>
+              <h4 class="text-sm font-bold text-white mb-1">Confirm 0 Uploads</h4>
+              <p class="text-xs text-slate-400 leading-relaxed">Notice that zero POST requests or file bytes are sent to any remote server.</p>
+            </div>
+          </div>
+        </div>
       </div>
     </section>
 

@@ -372,7 +372,19 @@
     </div>
 
     <!-- SEO Guide Section -->
-    <article class="bg-white rounded-2xl border border-slate-200 p-6 sm:p-8 shadow-xs">
+          <!-- Compact Verify Privacy Banner -->
+      <div class="mt-4 p-3.5 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-2xs flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-xs">
+        <div class="flex items-center gap-2 text-slate-600 dark:text-slate-300">
+          <i class="fa-solid fa-lock text-emerald-600 dark:text-emerald-400"></i>
+          <span class="font-medium">In-Browser Processing: Files never leave your device and are not uploaded to external servers.</span>
+        </div>
+        <div class="flex items-center gap-1.5 text-slate-600 dark:text-slate-300 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700/60 px-2.5 py-1 rounded-lg shrink-0 font-mono text-[11px]">
+          <i class="fa-solid fa-shield-check text-emerald-500"></i>
+          <span>Verify: Press <kbd class="px-1 py-0.5 rounded bg-white dark:bg-slate-700 text-slate-800 dark:text-slate-200">F12</kbd> &rarr; <strong>Network</strong> tab &rarr; convert &rarr; 0 uploads</span>
+        </div>
+      </div>
+
+      <article class="bg-white rounded-2xl border border-slate-200 p-6 sm:p-8 shadow-xs">
       <h2 class="text-base sm:text-lg font-bold text-slate-900 mb-3 flex items-center gap-2">
         <i class="fa-solid fa-circle-question text-brand-600"></i>
         <span>Why Word Count &amp; Reading Time Matters</span>

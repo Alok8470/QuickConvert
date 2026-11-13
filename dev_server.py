@@ -14,6 +14,10 @@ class CleanURLHandler(http.server.SimpleHTTPRequestHandler):
 
     def end_headers(self):
         self.send_header("Connection", "close")
+        self.send_header("X-Content-Type-Options", "nosniff")
+        self.send_header("Referrer-Policy", "strict-origin-when-cross-origin")
+        self.send_header("Permissions-Policy", "camera=(), microphone=(), geolocation=(), payment=()")
+        self.send_header("Content-Security-Policy", "default-src 'self'; script-src 'self' 'unsafe-inline' 'unsafe-eval' https://cdn.tailwindcss.com https://cdnjs.cloudflare.com https://pagead2.googlesyndication.com https://www.googletagmanager.com https://googleads.g.doubleclick.net blob:; style-src 'self' 'unsafe-inline' https://fonts.googleapis.com https://cdnjs.cloudflare.com; font-src 'self' https://fonts.gstatic.com https://cdnjs.cloudflare.com data:; img-src 'self' data: blob: https:; connect-src 'self' blob: https://formsubmit.co https://www.googletagmanager.com https://www.google-analytics.com https://analytics.google.com https://region1.google-analytics.com https://pagead2.googlesyndication.com https://googleads.g.doubleclick.net; worker-src 'self' blob:; frame-src 'self' blob: https://googleads.g.doubleclick.net https://tpc.googlesyndication.com https://www.google.com; form-action 'self' https://formsubmit.co; object-src 'none'; base-uri 'self';")
         super().end_headers()
 
     def do_GET(self):
