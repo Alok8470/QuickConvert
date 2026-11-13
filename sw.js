@@ -3,15 +3,16 @@
  * Enables offline functionality for client-side tools and local vendor libraries.
  */
 
-const CACHE_NAME = 'quickconvert-v2';
+const CACHE_NAME = 'quickconvert-v3';
 
 const STATIC_ASSETS = [
   '/',
-  '/about',
-  '/contact',
-  '/privacy-policy',
-  '/terms',
-  '/feedback',
+  '/index.html',
+  '/about.html',
+  '/contact.html',
+  '/privacy-policy.html',
+  '/terms.html',
+  '/feedback.html',
   '/favicon.svg',
   '/css/styles.css',
   '/js/app.js',
@@ -20,26 +21,26 @@ const STATIC_ASSETS = [
   '/js/vendor/pdf.min.js',
   '/js/vendor/pdf.worker.min.js',
   '/js/vendor/qrcode.min.js',
-  '/tools/image-to-pdf',
-  '/tools/image-compressor',
-  '/tools/image-converter',
-  '/tools/text-to-pdf',
-  '/tools/merge-pdf',
-  '/tools/split-pdf',
-  '/tools/rotate-pdf',
-  '/tools/watermark-pdf',
-  '/tools/sign-pdf',
-  '/tools/edit-pdf',
-  '/tools/pdf-to-word',
-  '/tools/word-to-pdf',
-  '/tools/pdf-to-excel',
-  '/tools/pdf-to-powerpoint',
-  '/tools/qr-generator',
-  '/tools/password-generator',
-  '/tools/unit-converter',
-  '/tools/json-formatter',
-  '/tools/word-counter',
-  '/tools/color-picker'
+  '/tools/image-to-pdf.html',
+  '/tools/image-compressor.html',
+  '/tools/image-converter.html',
+  '/tools/text-to-pdf.html',
+  '/tools/merge-pdf.html',
+  '/tools/split-pdf.html',
+  '/tools/rotate-pdf.html',
+  '/tools/watermark-pdf.html',
+  '/tools/sign-pdf.html',
+  '/tools/edit-pdf.html',
+  '/tools/pdf-to-word.html',
+  '/tools/word-to-pdf.html',
+  '/tools/pdf-to-excel.html',
+  '/tools/pdf-to-powerpoint.html',
+  '/tools/qr-generator.html',
+  '/tools/password-generator.html',
+  '/tools/unit-converter.html',
+  '/tools/json-formatter.html',
+  '/tools/word-counter.html',
+  '/tools/color-picker.html'
 ];
 
 self.addEventListener('install', (event) => {
@@ -69,12 +70,11 @@ self.addEventListener('activate', (event) => {
 self.addEventListener('fetch', (event) => {
   const req = event.request;
   
-  // Only intercept GET requests
   if (req.method !== 'GET') return;
 
   const url = new URL(req.url);
 
-  // Skip tracking / analytics / form endpoints from caching
+  // Skip external tracking / analytics from caching
   if (
     url.hostname.includes('google-analytics') ||
     url.hostname.includes('googletagmanager') ||
@@ -84,7 +84,7 @@ self.addEventListener('fetch', (event) => {
     return;
   }
 
-  // Network-First with Cache Fallback for HTML documents
+  // Network-first with cache fallback for HTML pages
   if (req.headers.get('accept')?.includes('text/html')) {
     event.respondWith(
       fetch(req)
@@ -96,28 +96,15 @@ self.addEventListener('fetch', (event) => {
           return networkRes;
         })
         .catch(async () => {
-          // Try direct match
           const cached = await caches.match(req);
           if (cached) return cached;
-          
-          // Try clean URL equivalent or .html equivalent
-          const pathname = url.pathname;
-          const cleanPath = pathname.replace(/\.html$/, '');
-          const htmlPath = cleanPath + '.html';
-          
-          const matchClean = await caches.match(cleanPath);
-          if (matchClean) return matchClean;
-          
-          const matchHtml = await caches.match(htmlPath);
-          if (matchHtml) return matchHtml;
-
-          return caches.match('/');
+          return caches.match('/index.html');
         })
     );
     return;
   }
 
-  // Cache-First with Network Fallback for Scripts, Styles, Images & Fonts
+  // Cache-first with network fallback for assets
   event.respondWith(
     caches.match(req).then((cachedRes) => {
       if (cachedRes) {
@@ -129,9 +116,7 @@ self.addEventListener('fetch', (event) => {
           caches.open(CACHE_NAME).then((cache) => cache.put(req, copy));
         }
         return networkRes;
-      }).catch(() => {
-        // Silent catch for offline missing non-essential assets
-      });
+      }).catch(() => {});
     })
   );
 });

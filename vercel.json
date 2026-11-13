@@ -1,26 +1,5 @@
 {
-  "$schema": "https://openapi.vercel.sh/vercel.json",
   "version": 2,
-  "cleanUrls": true,
-  "trailingSlash": false,
   "buildCommand": "node build.js",
-  "outputDirectory": "dist",
-  "redirects": [
-    {
-      "source": "/:path*",
-      "has": [
-        {
-          "type": "host",
-          "value": "www.quickconvert.in"
-        }
-      ],
-      "destination": "https://quickconvert.in/:path*",
-      "permanent": true
-    },
-    {
-      "source": "/tools",
-      "destination": "/#suite-tools",
-      "permanent": false
-    }
-  ]
+  "outputDirectory": "dist"
 }
