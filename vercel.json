@@ -21,11 +21,6 @@
       "source": "/tools",
       "destination": "/#suite-tools",
       "permanent": false
-    },
-    {
-      "source": "/tools/",
-      "destination": "/#suite-tools",
-      "permanent": false
     }
   ]
 }

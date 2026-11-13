@@ -3,16 +3,15 @@
  * Enables offline functionality for client-side tools and local vendor libraries.
  */
 
-const CACHE_NAME = 'quickconvert-v1';
+const CACHE_NAME = 'quickconvert-v2';
 
 const STATIC_ASSETS = [
   '/',
-  '/index.html',
-  '/about.html',
-  '/contact.html',
-  '/privacy-policy.html',
-  '/terms.html',
-  '/feedback.html',
+  '/about',
+  '/contact',
+  '/privacy-policy',
+  '/terms',
+  '/feedback',
   '/favicon.svg',
   '/css/styles.css',
   '/js/app.js',
@@ -21,32 +20,31 @@ const STATIC_ASSETS = [
   '/js/vendor/pdf.min.js',
   '/js/vendor/pdf.worker.min.js',
   '/js/vendor/qrcode.min.js',
-  '/tools/image-to-pdf.html',
-  '/tools/image-compressor.html',
-  '/tools/image-converter.html',
-  '/tools/text-to-pdf.html',
-  '/tools/merge-pdf.html',
-  '/tools/split-pdf.html',
-  '/tools/rotate-pdf.html',
-  '/tools/watermark-pdf.html',
-  '/tools/sign-pdf.html',
-  '/tools/edit-pdf.html',
-  '/tools/pdf-to-word.html',
-  '/tools/word-to-pdf.html',
-  '/tools/pdf-to-excel.html',
-  '/tools/pdf-to-powerpoint.html',
-  '/tools/qr-generator.html',
-  '/tools/password-generator.html',
-  '/tools/unit-converter.html',
-  '/tools/json-formatter.html',
-  '/tools/word-counter.html',
-  '/tools/color-picker.html'
+  '/tools/image-to-pdf',
+  '/tools/image-compressor',
+  '/tools/image-converter',
+  '/tools/text-to-pdf',
+  '/tools/merge-pdf',
+  '/tools/split-pdf',
+  '/tools/rotate-pdf',
+  '/tools/watermark-pdf',
+  '/tools/sign-pdf',
+  '/tools/edit-pdf',
+  '/tools/pdf-to-word',
+  '/tools/word-to-pdf',
+  '/tools/pdf-to-excel',
+  '/tools/pdf-to-powerpoint',
+  '/tools/qr-generator',
+  '/tools/password-generator',
+  '/tools/unit-converter',
+  '/tools/json-formatter',
+  '/tools/word-counter',
+  '/tools/color-picker'
 ];
 
 self.addEventListener('install', (event) => {
   event.waitUntil(
     caches.open(CACHE_NAME).then((cache) => {
-      // Cache assets gracefully (allow optional failures for CDN dependencies)
       return Promise.allSettled(
         STATIC_ASSETS.map((url) =>
           cache.add(url).catch((err) => {
@@ -98,9 +96,22 @@ self.addEventListener('fetch', (event) => {
           return networkRes;
         })
         .catch(async () => {
+          // Try direct match
           const cached = await caches.match(req);
           if (cached) return cached;
-          return caches.match('/index.html');
+          
+          // Try clean URL equivalent or .html equivalent
+          const pathname = url.pathname;
+          const cleanPath = pathname.replace(/\.html$/, '');
+          const htmlPath = cleanPath + '.html';
+          
+          const matchClean = await caches.match(cleanPath);
+          if (matchClean) return matchClean;
+          
+          const matchHtml = await caches.match(htmlPath);
+          if (matchHtml) return matchHtml;
+
+          return caches.match('/');
         })
     );
     return;
