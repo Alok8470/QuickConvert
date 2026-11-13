@@ -70,6 +70,29 @@
     }
   });
 
+  // Delegated accordion click event for FAQ items
+  document.addEventListener('click', function (e) {
+    var trigger = e.target.closest('.faq-trigger');
+    if (!trigger) return;
+    var item = trigger.closest('.faq-item');
+    if (!item) return;
+    var content = item.querySelector('.faq-content');
+    var icon = trigger.querySelector('.faq-icon') || trigger.querySelector('i');
+    if (!content) return;
+
+    var isOpen = content.classList.contains('open') || (content.style.maxHeight && content.style.maxHeight !== '0px');
+
+    if (isOpen) {
+      content.classList.remove('open');
+      content.style.maxHeight = null;
+      if (icon) icon.style.transform = 'rotate(0deg)';
+    } else {
+      content.classList.add('open');
+      content.style.maxHeight = (content.scrollHeight + 30) + 'px';
+      if (icon) icon.style.transform = 'rotate(180deg)';
+    }
+  });
+
   // Cross-tab theme synchronization
   window.addEventListener('storage', function (e) {
     if (e.key === THEME_KEY) {

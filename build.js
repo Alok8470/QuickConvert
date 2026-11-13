@@ -44,6 +44,7 @@ rootFiles.forEach((file) => {
 
 // Copy directories
 if (fs.existsSync('tools')) copyRecursiveSync('tools', path.join('dist', 'tools'));
+if (fs.existsSync('guides')) copyRecursiveSync('guides', path.join('dist', 'guides'));
 if (fs.existsSync('js')) copyRecursiveSync('js', path.join('dist', 'js'));
 if (fs.existsSync('css')) copyRecursiveSync('css', path.join('dist', 'css'));
 
