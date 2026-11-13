@@ -224,6 +224,19 @@ html.dark,
 /* ==========================================
    BRAND LOGO - 100% CRISP OPACITY
    ========================================== */
+.brand-logo-icon {
+  background: linear-gradient(135deg, #4f46e5 0%, #6366f1 50%, #0284c7 100%) !important;
+  opacity: 1 !important;
+}
+
+.brand-logo-title {
+  background: linear-gradient(90deg, #4f46e5 0%, #0284c7 100%) !important;
+  -webkit-background-clip: text !important;
+  -webkit-text-fill-color: transparent !important;
+  background-clip: text !important;
+  opacity: 1 !important;
+}
+
 .brand-logo-subtitle {
   opacity: 1 !important;
   color: #334155 !important;
@@ -231,6 +244,7 @@ html.dark,
 }
 
 html.dark .brand-logo-subtitle,
+body.dark .brand-logo-subtitle,
 .dark .brand-logo-subtitle {
   opacity: 1 !important;
   color: #f1f5f9 !important;
@@ -411,46 +425,96 @@ html.dark .border-emerald-200\/80,
   border-color: #1e293b !important;
 }
 
+/* Section Background Gradients in Dark Mode */
+html.dark section#security-advantage,
+body.dark section#security-advantage,
+.dark section#security-advantage,
+html.dark #security-advantage,
+body.dark #security-advantage,
+.dark #security-advantage,
+html.dark .bg-gradient-to-b:not([class*="bg-clip-text"]),
+body.dark .bg-gradient-to-b:not([class*="bg-clip-text"]),
+.dark .bg-gradient-to-b:not([class*="bg-clip-text"]),
+html.dark .bg-gradient-to-br:not([class*="bg-clip-text"]),
+body.dark .bg-gradient-to-br:not([class*="bg-clip-text"]),
+.dark .bg-gradient-to-br:not([class*="bg-clip-text"]) {
+  background-image: none !important;
+  background-color: #0b0f19 !important;
+  border-color: #1e293b !important;
+}
+
+/* Mega-Menu Panel Gradient Reset */
+html.dark .mega-menu-panel .bg-gradient-to-b,
+body.dark .mega-menu-panel .bg-gradient-to-b,
+.dark .mega-menu-panel .bg-gradient-to-b {
+  background-image: none !important;
+  background-color: #0f172a !important;
+}
+
 /* Typography in Dark Mode */
+html.dark h1, html.dark h2, html.dark h3, html.dark h4, html.dark h5, html.dark h6,
+body.dark h1, body.dark h2, body.dark h3, body.dark h4, body.dark h5, body.dark h6,
+.dark h1, .dark h2, .dark h3, .dark h4, .dark h5, .dark h6,
+html.dark strong, body.dark strong, .dark strong,
+html.dark b, body.dark b, .dark b,
 html.dark .text-slate-950,
 html.dark .text-slate-900,
 html.dark .text-slate-800,
+body.dark .text-slate-950,
+body.dark .text-slate-900,
+body.dark .text-slate-800,
 .dark .text-slate-950,
 .dark .text-slate-900,
 .dark .text-slate-800 {
   color: #f8fafc !important;
 }
 
+/* Body Paragraphs, Subheadings & Descriptive Text */
+html.dark p, html.dark li, html.dark dd, html.dark dt,
+body.dark p, body.dark li, body.dark dd, body.dark dt,
+.dark p, .dark li, .dark dd, .dark dt,
 html.dark .text-slate-700,
 html.dark .text-slate-600,
+body.dark .text-slate-700,
+body.dark .text-slate-600,
 .dark .text-slate-700,
-.dark .text-slate-600 {
+.dark .text-slate-600,
+html.dark .space-y-4.text-slate-600 p,
+body.dark .space-y-4.text-slate-600 p,
+.dark .space-y-4.text-slate-600 p {
   color: #cbd5e1 !important;
 }
 
+/* Muted Descriptions, Subtitles & Metadata */
 html.dark .text-slate-500,
-.dark .text-slate-500 {
-  color: #94a3b8 !important;
-}
-
 html.dark .text-slate-400,
-.dark .text-slate-400 {
+body.dark .text-slate-500,
+body.dark .text-slate-400,
+.dark .text-slate-500,
+.dark .text-slate-400,
+html.dark .text-xs.text-slate-500,
+body.dark .text-xs.text-slate-500,
+.dark .text-xs.text-slate-500 {
   color: #94a3b8 !important;
 }
 
 html.dark .text-amber-700,
+body.dark .text-amber-700,
 .dark .text-amber-700 {
   color: #fbbf24 !important;
 }
 
 html.dark .text-emerald-700,
 html.dark .text-emerald-600,
+body.dark .text-emerald-700,
+body.dark .text-emerald-600,
 .dark .text-emerald-700,
 .dark .text-emerald-600 {
   color: #34d399 !important;
 }
 
 html.dark .text-indigo-600,
+body.dark .text-indigo-600,
 .dark .text-indigo-600 {
   color: #818cf8 !important;
 }

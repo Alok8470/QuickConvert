@@ -3,7 +3,7 @@
  * Enables offline functionality for client-side tools and local vendor libraries.
  */
 
-const CACHE_NAME = 'quickconvert-v3';
+const CACHE_NAME = 'quickconvert-v4';
 
 const STATIC_ASSETS = [
   '/',
@@ -16,6 +16,7 @@ const STATIC_ASSETS = [
   '/favicon.svg',
   '/css/styles.css',
   '/js/app.js',
+  '/js/theme.js',
   '/js/vendor/jspdf.umd.min.js',
   '/js/vendor/pdf-lib.min.js',
   '/js/vendor/pdf.min.js',
