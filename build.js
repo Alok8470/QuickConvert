@@ -51,6 +51,9 @@ if (fs.existsSync('css')) copyRecursiveSync('css', path.join('dist', 'css'));
 // Root level JS/CSS fallbacks
 if (fs.existsSync('js/app.js')) fs.copyFileSync('js/app.js', path.join('dist', 'app.js'));
 if (fs.existsSync('js/theme.js')) fs.copyFileSync('js/theme.js', path.join('dist', 'theme.js'));
-if (fs.existsSync('css/styles.css')) fs.copyFileSync('css/styles.css', path.join('dist', 'styles.css'));
+if (fs.existsSync('css/styles.css')) {
+  fs.copyFileSync('css/styles.css', path.join('dist', 'styles.css'));
+  fs.copyFileSync('css/styles.css', path.join('dist', 'style.css'));
+}
 
 console.log('QuickConvert build complete: All static assets successfully packaged in dist/');
