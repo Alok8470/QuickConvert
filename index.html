@@ -395,11 +395,7 @@
 
       <!-- Action Button & Privacy Pill -->
       <div class="flex items-center gap-2 sm:gap-3 shrink-0">
-        <!-- Client-Side Suite badge only on xl: 1280px+ to preserve breathing room -->
-        <span class="hidden xl:inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-emerald-50 text-emerald-700 border border-emerald-200/80 whitespace-nowrap">
-          <span class="w-2 h-2 rounded-full bg-emerald-500 animate-pulse"></span>
-          Client-Side Suite
-        </span>
+
 
         <!-- CTA button visible on sm: (640px+) -->
         <a href="#suite-tools" class="hidden sm:inline-flex items-center gap-2 px-3.5 sm:px-4 py-2 rounded-xl text-xs sm:text-sm font-semibold text-white bg-brand-600 hover:bg-brand-700 shadow-sm hover:shadow transition active:scale-95 whitespace-nowrap">
@@ -618,7 +614,7 @@
         </h1>
 
         <!-- Compact Subheadline -->
-        <p class="mt-3 sm:mt-3.5 text-xs sm:text-sm md:text-base text-slate-500 max-w-4xl mx-auto leading-relaxed font-normal">
+        <p class="mt-3 sm:mt-3.5 text-xs sm:text-sm md:text-base text-slate-600 dark:text-slate-300 max-w-4xl mx-auto leading-relaxed font-normal">
           Fast client-side PDF tools, image compression, format converters, and developer utilities running directly in your browser.
         </p>
 
@@ -626,7 +622,7 @@
     </section>
 
     <!-- UTILITY SUITE SECTION (Direct flow under hero, iLovePDF style) -->
-    <section id="suite-tools" class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 pt-6 sm:pt-8 pb-14">
+    <section id="suite-tools" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-6 sm:pt-8 pb-14">
       
       <!-- Category Filter Pills (iLovePDF Style Direct Tab Bar) -->
       <div class="flex items-center justify-start sm:justify-center gap-2 overflow-x-auto pb-2 mb-8 no-scrollbar" id="category-filters">
@@ -653,220 +649,220 @@
         <!-- Card 1: Images to PDF -->
         <a href="/tools/image-to-pdf.html" data-tool-category="pdf image" class="tool-card-hover bg-white rounded-2xl border border-slate-200 p-5 cursor-pointer shadow-sm hover:shadow-md transition-all flex flex-col justify-between group">
           <div>
-            <div class="w-11 h-11 rounded-xl bg-indigo-50 border border-indigo-100/80 text-brand-600 flex items-center justify-center text-lg mb-3.5 group-hover:scale-105 transition-transform">
+            <div class="w-11 h-11 rounded-xl bg-indigo-50 dark:bg-indigo-950/40 border border-indigo-100/80 dark:border-indigo-900/50 text-brand-600 dark:text-brand-400 flex items-center justify-center text-lg mb-3.5 group-hover:scale-105 transition-transform">
               <i class="fa-solid fa-file-pdf"></i>
             </div>
             <h3 class="font-bold text-sm text-slate-900 group-hover:text-brand-600 transition flex items-center justify-between">
               <span>Images to PDF</span>
               <i class="fa-solid fa-arrow-right text-xs opacity-0 -translate-x-1 group-hover:opacity-100 group-hover:translate-x-0 transition-all text-brand-600"></i>
             </h3>
-            <p class="text-xs text-slate-500 mt-1.5 leading-relaxed">
+            <p class="text-xs text-slate-600 dark:text-slate-300 mt-1.5 leading-relaxed">
               Compile multiple PNG, JPG, or WebP images into a single sorted PDF.
             </p>
           </div>
-          <div class="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between text-[11px] text-slate-400 font-mono">
-            <span>A4 / Fit / Custom</span>
-            <span class="text-emerald-600 font-semibold font-sans">jsPDF</span>
+          <div class="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between text-[11px] text-slate-500 dark:text-slate-400 font-mono">
+            <span>Multi-Image</span>
+            <span class="text-slate-600 dark:text-slate-300 font-medium font-sans">No Upload</span>
           </div>
         </a>
 
         <!-- TOOL 22: PDF to ZIP Converter Card -->
         <a href="/tools/pdf-to-zip.html" data-tool-category="pdf" class="tool-card-hover bg-white rounded-2xl border border-slate-200 p-5 cursor-pointer shadow-sm hover:shadow-md transition-all flex flex-col justify-between group">
           <div>
-            <div class="w-11 h-11 rounded-xl bg-red-50 border border-red-100/80 text-red-600 flex items-center justify-center text-lg mb-3.5 group-hover:scale-105 transition-transform">
+            <div class="w-11 h-11 rounded-xl bg-red-50 dark:bg-red-950/40 border border-red-100/80 dark:border-red-900/50 text-red-600 dark:text-red-400 flex items-center justify-center text-lg mb-3.5 group-hover:scale-105 transition-transform">
               <i class="fa-solid fa-file-zipper"></i>
             </div>
             <h3 class="font-bold text-sm text-slate-900 group-hover:text-brand-600 transition flex items-center justify-between">
               <span>PDF to ZIP</span>
               <i class="fa-solid fa-arrow-right text-xs opacity-0 -translate-x-1 group-hover:opacity-100 group-hover:translate-x-0 transition-all text-brand-600"></i>
             </h3>
-            <p class="text-xs text-slate-500 mt-1.5 leading-relaxed">
+            <p class="text-xs text-slate-600 dark:text-slate-300 mt-1.5 leading-relaxed">
               Extract PDF pages as individual PDFs or PNG/JPG images, or bundle multiple PDFs into a ZIP archive.
             </p>
           </div>
-          <div class="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between text-[11px] text-slate-400 font-mono">
-            <span>Client Engine</span>
-            <span class="text-red-600 font-semibold font-sans">ZIP Archive</span>
+          <div class="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between text-[11px] text-slate-500 dark:text-slate-400 font-mono">
+            <span>Extract Pages</span>
+            <span class="text-slate-600 dark:text-slate-300 font-medium font-sans">Batch ZIP</span>
           </div>
         </a>
 
         <!-- Card 2: Image Compressor -->
         <a href="/tools/image-compressor.html" data-tool-category="image" class="tool-card-hover bg-white rounded-2xl border border-slate-200 p-5 cursor-pointer shadow-sm hover:shadow-md transition-all flex flex-col justify-between group">
           <div>
-            <div class="w-11 h-11 rounded-xl bg-blue-50 border border-blue-100/80 text-blue-600 flex items-center justify-center text-lg mb-3.5 group-hover:scale-105 transition-transform">
+            <div class="w-11 h-11 rounded-xl bg-blue-50 dark:bg-blue-950/40 border border-blue-100/80 dark:border-blue-900/50 text-blue-600 dark:text-blue-400 flex items-center justify-center text-lg mb-3.5 group-hover:scale-105 transition-transform">
               <i class="fa-solid fa-compress"></i>
             </div>
             <h3 class="font-bold text-sm text-slate-900 group-hover:text-brand-600 transition flex items-center justify-between">
               <span>Image Compressor</span>
               <i class="fa-solid fa-arrow-right text-xs opacity-0 -translate-x-1 group-hover:opacity-100 group-hover:translate-x-0 transition-all text-brand-600"></i>
             </h3>
-            <p class="text-xs text-slate-500 mt-1.5 leading-relaxed">
+            <p class="text-xs text-slate-600 dark:text-slate-300 mt-1.5 leading-relaxed">
               Shrink image file size by up to 90% with instant real-time canvas preview.
             </p>
           </div>
-          <div class="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between text-[11px] text-slate-400 font-mono">
-            <span>WebP / Smart Mode</span>
-            <span class="text-blue-600 font-semibold font-sans">Lossy / Lossless</span>
+          <div class="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between text-[11px] text-slate-500 dark:text-slate-400 font-mono">
+            <span>Smart Quality</span>
+            <span class="text-slate-600 dark:text-slate-300 font-medium font-sans">Up to -80%</span>
           </div>
         </a>
 
         <!-- Card 3: Format Converter -->
         <a href="/tools/image-converter.html" data-tool-category="image" class="tool-card-hover bg-white rounded-2xl border border-slate-200 p-5 cursor-pointer shadow-sm hover:shadow-md transition-all flex flex-col justify-between group">
           <div>
-            <div class="w-11 h-11 rounded-xl bg-emerald-50 border border-emerald-100/80 text-emerald-600 flex items-center justify-center text-lg mb-3.5 group-hover:scale-105 transition-transform">
+            <div class="w-11 h-11 rounded-xl bg-emerald-50 dark:bg-emerald-950/40 border border-emerald-100/80 dark:border-emerald-900/50 text-emerald-600 dark:text-emerald-400 flex items-center justify-center text-lg mb-3.5 group-hover:scale-105 transition-transform">
               <i class="fa-solid fa-right-left"></i>
             </div>
             <h3 class="font-bold text-sm text-slate-900 group-hover:text-brand-600 transition flex items-center justify-between">
-              <span>Format Shift</span>
+              <span>Image Converter</span>
               <i class="fa-solid fa-arrow-right text-xs opacity-0 -translate-x-1 group-hover:opacity-100 group-hover:translate-x-0 transition-all text-brand-600"></i>
             </h3>
-            <p class="text-xs text-slate-500 mt-1.5 leading-relaxed">
+            <p class="text-xs text-slate-600 dark:text-slate-300 mt-1.5 leading-relaxed">
               Fast batch convert images seamlessly between PNG, JPG, and modern WebP.
             </p>
           </div>
-          <div class="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between text-[11px] text-slate-400 font-mono">
-            <span>Batch Queue</span>
-            <span class="text-emerald-600 font-semibold font-sans">Multi-format</span>
+          <div class="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between text-[11px] text-slate-500 dark:text-slate-400 font-mono">
+            <span>PNG, JPG, WebP</span>
+            <span class="text-slate-600 dark:text-slate-300 font-medium font-sans">Batch</span>
           </div>
         </a>
 
         <!-- TOOL 21: Images to ZIP Converter -->
         <a href="/tools/images-to-zip.html" data-tool-category="image" class="tool-card-hover bg-white rounded-2xl border border-slate-200 p-5 cursor-pointer shadow-sm hover:shadow-md transition-all flex flex-col justify-between group">
           <div>
-            <div class="w-11 h-11 rounded-xl bg-indigo-50 border border-indigo-100/80 text-brand-600 flex items-center justify-center text-lg mb-3.5 group-hover:scale-105 transition-transform">
+            <div class="w-11 h-11 rounded-xl bg-indigo-50 dark:bg-indigo-950/40 border border-indigo-100/80 dark:border-indigo-900/50 text-brand-600 dark:text-brand-400 flex items-center justify-center text-lg mb-3.5 group-hover:scale-105 transition-transform">
               <i class="fa-solid fa-file-zipper"></i>
             </div>
             <h3 class="font-bold text-sm text-slate-900 group-hover:text-brand-600 transition flex items-center justify-between">
               <span>Images to ZIP</span>
               <i class="fa-solid fa-arrow-right text-xs opacity-0 -translate-x-1 group-hover:opacity-100 group-hover:translate-x-0 transition-all text-brand-600"></i>
             </h3>
-            <p class="text-xs text-slate-500 mt-1.5 leading-relaxed">
+            <p class="text-xs text-slate-600 dark:text-slate-300 mt-1.5 leading-relaxed">
               Bundle multiple PNG, JPG, and WebP images into a single compressed ZIP archive.
             </p>
           </div>
-          <div class="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between text-[11px] text-slate-400 font-mono">
-            <span>Client-Side</span>
-            <span class="text-brand-600 font-semibold font-sans">ZIP Archive</span>
+          <div class="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between text-[11px] text-slate-500 dark:text-slate-400 font-mono">
+            <span>Multi-Photo</span>
+            <span class="text-slate-600 dark:text-slate-300 font-medium font-sans">Instant ZIP</span>
           </div>
         </a>
 
         <!-- Card 4: Text to PDF -->
         <a href="/tools/text-to-pdf.html" data-tool-category="pdf" class="tool-card-hover bg-white rounded-2xl border border-slate-200 p-5 cursor-pointer shadow-sm hover:shadow-md transition-all flex flex-col justify-between group">
           <div>
-            <div class="w-11 h-11 rounded-xl bg-purple-50 border border-purple-100/80 text-purple-600 flex items-center justify-center text-lg mb-3.5 group-hover:scale-105 transition-transform">
+            <div class="w-11 h-11 rounded-xl bg-purple-50 dark:bg-purple-950/40 border border-purple-100/80 dark:border-purple-900/50 text-purple-600 dark:text-purple-400 flex items-center justify-center text-lg mb-3.5 group-hover:scale-105 transition-transform">
               <i class="fa-solid fa-file-lines"></i>
             </div>
             <h3 class="font-bold text-sm text-slate-900 group-hover:text-brand-600 transition flex items-center justify-between">
               <span>Text to PDF</span>
               <i class="fa-solid fa-arrow-right text-xs opacity-0 -translate-x-1 group-hover:opacity-100 group-hover:translate-x-0 transition-all text-brand-600"></i>
             </h3>
-            <p class="text-xs text-slate-500 mt-1.5 leading-relaxed">
+            <p class="text-xs text-slate-600 dark:text-slate-300 mt-1.5 leading-relaxed">
               Convert plain text, notes, or Markdown into cleanly typeset multi-page PDFs.
             </p>
           </div>
-          <div class="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between text-[11px] text-slate-400 font-mono">
-            <span>Font &amp; Line Tuning</span>
-            <span class="text-purple-600 font-semibold font-sans">Page Breaks</span>
+          <div class="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between text-[11px] text-slate-500 dark:text-slate-400 font-mono">
+            <span>Custom Layout</span>
+            <span class="text-slate-600 dark:text-slate-300 font-medium font-sans">Instant PDF</span>
           </div>
         </a>
 
         <!-- Card 5: QR Code Generator -->
         <a href="/tools/qr-generator.html" data-tool-category="developer utilities" class="tool-card-hover bg-white rounded-2xl border border-slate-200 p-5 cursor-pointer shadow-sm hover:shadow-md transition-all flex flex-col justify-between group">
           <div>
-            <div class="w-11 h-11 rounded-xl bg-amber-50 border border-amber-100/80 text-amber-600 flex items-center justify-center text-lg mb-3.5 group-hover:scale-105 transition-transform">
+            <div class="w-11 h-11 rounded-xl bg-amber-50 dark:bg-amber-950/40 border border-amber-100/80 dark:border-amber-900/50 text-amber-600 dark:text-amber-400 flex items-center justify-center text-lg mb-3.5 group-hover:scale-105 transition-transform">
               <i class="fa-solid fa-qrcode"></i>
             </div>
             <h3 class="font-bold text-sm text-slate-900 group-hover:text-brand-600 transition flex items-center justify-between">
               <span>QR Code Generator</span>
               <i class="fa-solid fa-arrow-right text-xs opacity-0 -translate-x-1 group-hover:opacity-100 group-hover:translate-x-0 transition-all text-brand-600"></i>
             </h3>
-            <p class="text-xs text-slate-500 mt-1.5 leading-relaxed">
+            <p class="text-xs text-slate-600 dark:text-slate-300 mt-1.5 leading-relaxed">
               Create high-resolution QR codes for websites, Wi-Fi, emails, and phone numbers.
             </p>
           </div>
-          <div class="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between text-[11px] text-slate-400 font-mono">
-            <span>Color &amp; Size</span>
-            <span class="text-amber-600 font-semibold font-sans">PNG / Copy</span>
+          <div class="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between text-[11px] text-slate-500 dark:text-slate-400 font-mono">
+            <span>Custom Styling</span>
+            <span class="text-slate-600 dark:text-slate-300 font-medium font-sans">High-Res</span>
           </div>
         </a>
 
         <!-- Card 6: Password Generator -->
         <a href="/tools/password-generator.html" data-tool-category="developer utilities" class="tool-card-hover bg-white rounded-2xl border border-slate-200 p-5 cursor-pointer shadow-sm hover:shadow-md transition-all flex flex-col justify-between group">
           <div>
-            <div class="w-11 h-11 rounded-xl bg-rose-50 border border-rose-100/80 text-rose-600 flex items-center justify-center text-lg mb-3.5 group-hover:scale-105 transition-transform">
+            <div class="w-11 h-11 rounded-xl bg-rose-50 dark:bg-rose-950/40 border border-rose-100/80 dark:border-rose-900/50 text-rose-600 dark:text-rose-400 flex items-center justify-center text-lg mb-3.5 group-hover:scale-105 transition-transform">
               <i class="fa-solid fa-key"></i>
             </div>
             <h3 class="font-bold text-sm text-slate-900 group-hover:text-brand-600 transition flex items-center justify-between">
               <span>Password Generator</span>
               <i class="fa-solid fa-arrow-right text-xs opacity-0 -translate-x-1 group-hover:opacity-100 group-hover:translate-x-0 transition-all text-brand-600"></i>
             </h3>
-            <p class="text-xs text-slate-500 mt-1.5 leading-relaxed">
+            <p class="text-xs text-slate-600 dark:text-slate-300 mt-1.5 leading-relaxed">
               Create secure randomized credentials with hardware cryptographic entropy.
             </p>
           </div>
-          <div class="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between text-[11px] text-slate-400 font-mono">
-            <span>crypto.random</span>
-            <span class="text-rose-600 font-semibold font-sans">Batch 5x</span>
+          <div class="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between text-[11px] text-slate-500 dark:text-slate-400 font-mono">
+            <span>Cryptographic</span>
+            <span class="text-slate-600 dark:text-slate-300 font-medium font-sans">High Security</span>
           </div>
         </a>
 
         <!-- Card 7: Unit Converter -->
         <a href="/tools/unit-converter.html" data-tool-category="utilities" class="tool-card-hover bg-white rounded-2xl border border-slate-200 p-5 cursor-pointer shadow-sm hover:shadow-md transition-all flex flex-col justify-between group">
           <div>
-            <div class="w-11 h-11 rounded-xl bg-teal-50 border border-teal-100/80 text-teal-600 flex items-center justify-center text-lg mb-3.5 group-hover:scale-105 transition-transform">
+            <div class="w-11 h-11 rounded-xl bg-teal-50 dark:bg-teal-950/40 border border-teal-100/80 dark:border-teal-900/50 text-teal-600 dark:text-teal-400 flex items-center justify-center text-lg mb-3.5 group-hover:scale-105 transition-transform">
               <i class="fa-solid fa-calculator"></i>
             </div>
             <h3 class="font-bold text-sm text-slate-900 group-hover:text-brand-600 transition flex items-center justify-between">
               <span>Unit Converter</span>
               <i class="fa-solid fa-arrow-right text-xs opacity-0 -translate-x-1 group-hover:opacity-100 group-hover:translate-x-0 transition-all text-brand-600"></i>
             </h3>
-            <p class="text-xs text-slate-500 mt-1.5 leading-relaxed">
+            <p class="text-xs text-slate-600 dark:text-slate-300 mt-1.5 leading-relaxed">
               Convert across 8 categories: Length, Weight, Temp, Digital Bytes, Speed, and more.
             </p>
           </div>
-          <div class="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between text-[11px] text-slate-400 font-mono">
-            <span>IEEE 754</span>
-            <span class="text-teal-600 font-semibold font-sans">8 Categories</span>
+          <div class="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between text-[11px] text-slate-500 dark:text-slate-400 font-mono">
+            <span>Real-Time</span>
+            <span class="text-slate-600 dark:text-slate-300 font-medium font-sans">8 Categories</span>
           </div>
         </a>
 
         <!-- Card 8: JSON Formatter & Validator -->
         <a href="/tools/json-formatter.html" data-tool-category="developer" class="tool-card-hover bg-white rounded-2xl border border-slate-200 p-5 cursor-pointer shadow-sm hover:shadow-md transition-all flex flex-col justify-between group">
           <div>
-            <div class="w-11 h-11 rounded-xl bg-sky-50 border border-sky-100/80 text-sky-600 flex items-center justify-center text-lg mb-3.5 group-hover:scale-105 transition-transform">
+            <div class="w-11 h-11 rounded-xl bg-sky-50 dark:bg-sky-950/40 border border-sky-100/80 dark:border-sky-900/50 text-sky-600 dark:text-sky-400 flex items-center justify-center text-lg mb-3.5 group-hover:scale-105 transition-transform">
               <i class="fa-solid fa-code"></i>
             </div>
             <h3 class="font-bold text-sm text-slate-900 group-hover:text-brand-600 transition flex items-center justify-between">
               <span>JSON Formatter</span>
               <i class="fa-solid fa-arrow-right text-xs opacity-0 -translate-x-1 group-hover:opacity-100 group-hover:translate-x-0 transition-all text-brand-600"></i>
             </h3>
-            <p class="text-xs text-slate-500 mt-1.5 leading-relaxed">
+            <p class="text-xs text-slate-600 dark:text-slate-300 mt-1.5 leading-relaxed">
               Validate, beautify, and minify JSON payloads with real-time error token inspection.
             </p>
           </div>
-          <div class="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between text-[11px] text-slate-400 font-mono">
-            <span>Pretty / Minify</span>
-            <span class="text-sky-600 font-semibold font-sans">Developer Tool</span>
+          <div class="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between text-[11px] text-slate-500 dark:text-slate-400 font-mono">
+            <span>Beautify &amp; Minify</span>
+            <span class="text-slate-600 dark:text-slate-300 font-medium font-sans">Syntax Check</span>
           </div>
         </a>
 
         <!-- Card 9: Word & Character Counter -->
         <a href="/tools/word-counter.html" data-tool-category="developer utilities" class="tool-card-hover bg-white rounded-2xl border border-slate-200 p-5 cursor-pointer shadow-sm hover:shadow-md transition-all flex flex-col justify-between group">
           <div>
-            <div class="w-11 h-11 rounded-xl bg-orange-50 border border-orange-100/80 text-orange-600 flex items-center justify-center text-lg mb-3.5 group-hover:scale-105 transition-transform">
+            <div class="w-11 h-11 rounded-xl bg-orange-50 dark:bg-orange-950/40 border border-orange-100/80 dark:border-orange-900/50 text-orange-600 dark:text-orange-400 flex items-center justify-center text-lg mb-3.5 group-hover:scale-105 transition-transform">
               <i class="fa-solid fa-spell-check"></i>
             </div>
             <h3 class="font-bold text-sm text-slate-900 group-hover:text-brand-600 transition flex items-center justify-between">
               <span>Word Counter</span>
               <i class="fa-solid fa-arrow-right text-xs opacity-0 -translate-x-1 group-hover:opacity-100 group-hover:translate-x-0 transition-all text-brand-600"></i>
             </h3>
-            <p class="text-xs text-slate-500 mt-1.5 leading-relaxed">
+            <p class="text-xs text-slate-600 dark:text-slate-300 mt-1.5 leading-relaxed">
               Real-time word, character, sentence analytics and reading/speaking estimations.
             </p>
           </div>
-          <div class="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between text-[11px] text-slate-400 font-mono">
-            <span>Reading Time</span>
-            <span class="text-orange-600 font-semibold font-sans">Text Analytics</span>
+          <div class="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between text-[11px] text-slate-500 dark:text-slate-400 font-mono">
+            <span>Words &amp; Chars</span>
+            <span class="text-slate-600 dark:text-slate-300 font-medium font-sans">Reading Time</span>
           </div>
         </a>
 
@@ -880,13 +876,13 @@
               <span>Color Studio</span>
               <i class="fa-solid fa-arrow-right text-xs opacity-0 -translate-x-1 group-hover:opacity-100 group-hover:translate-x-0 transition-all text-brand-600"></i>
             </h3>
-            <p class="text-xs text-slate-500 mt-1.5 leading-relaxed">
+            <p class="text-xs text-slate-600 dark:text-slate-300 mt-1.5 leading-relaxed">
               HEX, RGB, HSL converter with 5-shade palette generation and contrast accessibility.
             </p>
           </div>
-          <div class="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between text-[11px] text-slate-400 font-mono">
-            <span>HEX / RGB / HSL</span>
-            <span class="text-pink-600 font-semibold font-sans">Design Tool</span>
+          <div class="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between text-[11px] text-slate-500 dark:text-slate-400 font-mono">
+            <span>HEX, RGB, HSL</span>
+            <span class="text-slate-600 dark:text-slate-300 font-medium font-sans">Palette Gen</span>
           </div>
         </a>
 
@@ -894,220 +890,220 @@
         <!-- Card: Merge PDF -->
         <a href="/tools/merge-pdf.html" data-tool-category="pdf" class="tool-card-hover bg-white rounded-2xl border border-slate-200 p-5 cursor-pointer shadow-sm hover:shadow-md transition-all flex flex-col justify-between group">
           <div>
-            <div class="w-11 h-11 rounded-xl bg-indigo-50 border border-indigo-100/80 text-brand-600 flex items-center justify-center text-lg mb-3.5 group-hover:scale-105 transition-transform">
+            <div class="w-11 h-11 rounded-xl bg-indigo-50 dark:bg-indigo-950/40 border border-indigo-100/80 dark:border-indigo-900/50 text-brand-600 dark:text-brand-400 flex items-center justify-center text-lg mb-3.5 group-hover:scale-105 transition-transform">
               <i class="fa-solid fa-object-group"></i>
             </div>
             <h3 class="font-bold text-sm text-slate-900 group-hover:text-brand-600 transition flex items-center justify-between">
               <span>Merge PDF</span>
               <i class="fa-solid fa-arrow-right text-xs opacity-0 -translate-x-1 group-hover:opacity-100 group-hover:translate-x-0 transition-all text-brand-600"></i>
             </h3>
-            <p class="text-xs text-slate-500 mt-1.5 leading-relaxed">
+            <p class="text-xs text-slate-600 dark:text-slate-300 mt-1.5 leading-relaxed">
               Combine multiple PDF files into one sorted, unified document.
             </p>
           </div>
-          <div class="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between text-[11px] text-slate-400 font-mono">
-            <span>Reorder &amp; Join</span>
-            <span class="text-indigo-600 font-semibold font-sans">pdf-lib</span>
+          <div class="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between text-[11px] text-slate-500 dark:text-slate-400 font-mono">
+            <span>Combine Pages</span>
+            <span class="text-slate-600 dark:text-slate-300 font-medium font-sans">No Upload</span>
           </div>
         </a>
 
         <!-- Card: Split PDF -->
         <a href="/tools/split-pdf.html" data-tool-category="pdf" class="tool-card-hover bg-white rounded-2xl border border-slate-200 p-5 cursor-pointer shadow-sm hover:shadow-md transition-all flex flex-col justify-between group">
           <div>
-            <div class="w-11 h-11 rounded-xl bg-indigo-50 border border-indigo-100/80 text-brand-600 flex items-center justify-center text-lg mb-3.5 group-hover:scale-105 transition-transform">
+            <div class="w-11 h-11 rounded-xl bg-indigo-50 dark:bg-indigo-950/40 border border-indigo-100/80 dark:border-indigo-900/50 text-brand-600 dark:text-brand-400 flex items-center justify-center text-lg mb-3.5 group-hover:scale-105 transition-transform">
               <i class="fa-solid fa-scissors"></i>
             </div>
             <h3 class="font-bold text-sm text-slate-900 group-hover:text-brand-600 transition flex items-center justify-between">
               <span>Split PDF</span>
               <i class="fa-solid fa-arrow-right text-xs opacity-0 -translate-x-1 group-hover:opacity-100 group-hover:translate-x-0 transition-all text-brand-600"></i>
             </h3>
-            <p class="text-xs text-slate-500 mt-1.5 leading-relaxed">
+            <p class="text-xs text-slate-600 dark:text-slate-300 mt-1.5 leading-relaxed">
               Extract page ranges or separate every page into individual PDFs.
             </p>
           </div>
-          <div class="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between text-[11px] text-slate-400 font-mono">
-            <span>Range &amp; Extract</span>
-            <span class="text-indigo-600 font-semibold font-sans">Instant</span>
+          <div class="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between text-[11px] text-slate-500 dark:text-slate-400 font-mono">
+            <span>Page Ranges</span>
+            <span class="text-slate-600 dark:text-slate-300 font-medium font-sans">Extract</span>
           </div>
         </a>
 
         <!-- Card: Rotate PDF -->
         <a href="/tools/rotate-pdf.html" data-tool-category="pdf" class="tool-card-hover bg-white rounded-2xl border border-slate-200 p-5 cursor-pointer shadow-sm hover:shadow-md transition-all flex flex-col justify-between group">
           <div>
-            <div class="w-11 h-11 rounded-xl bg-indigo-50 border border-indigo-100/80 text-brand-600 flex items-center justify-center text-lg mb-3.5 group-hover:scale-105 transition-transform">
+            <div class="w-11 h-11 rounded-xl bg-indigo-50 dark:bg-indigo-950/40 border border-indigo-100/80 dark:border-indigo-900/50 text-brand-600 dark:text-brand-400 flex items-center justify-center text-lg mb-3.5 group-hover:scale-105 transition-transform">
               <i class="fa-solid fa-rotate"></i>
             </div>
             <h3 class="font-bold text-sm text-slate-900 group-hover:text-brand-600 transition flex items-center justify-between">
               <span>Rotate PDF</span>
               <i class="fa-solid fa-arrow-right text-xs opacity-0 -translate-x-1 group-hover:opacity-100 group-hover:translate-x-0 transition-all text-brand-600"></i>
             </h3>
-            <p class="text-xs text-slate-500 mt-1.5 leading-relaxed">
+            <p class="text-xs text-slate-600 dark:text-slate-300 mt-1.5 leading-relaxed">
               Rotate sideways or upside-down pages by 90°, 180°, or 270°.
             </p>
           </div>
-          <div class="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between text-[11px] text-slate-400 font-mono">
-            <span>90° / 180° / 270°</span>
-            <span class="text-indigo-600 font-semibold font-sans">Orientation</span>
+          <div class="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between text-[11px] text-slate-500 dark:text-slate-400 font-mono">
+            <span>All / Custom</span>
+            <span class="text-slate-600 dark:text-slate-300 font-medium font-sans">90° / 180°</span>
           </div>
         </a>
 
         <!-- Card: Sign PDF -->
         <a href="/tools/sign-pdf.html" data-tool-category="pdf" class="tool-card-hover bg-white rounded-2xl border border-slate-200 p-5 cursor-pointer shadow-sm hover:shadow-md transition-all flex flex-col justify-between group">
           <div>
-            <div class="w-11 h-11 rounded-xl bg-rose-50 border border-rose-100/80 text-rose-600 flex items-center justify-center text-lg mb-3.5 group-hover:scale-105 transition-transform">
+            <div class="w-11 h-11 rounded-xl bg-rose-50 dark:bg-rose-950/40 border border-rose-100/80 dark:border-rose-900/50 text-rose-600 dark:text-rose-400 flex items-center justify-center text-lg mb-3.5 group-hover:scale-105 transition-transform">
               <i class="fa-solid fa-signature"></i>
             </div>
             <h3 class="font-bold text-sm text-slate-900 group-hover:text-brand-600 transition flex items-center justify-between">
               <span>Sign PDF</span>
               <i class="fa-solid fa-arrow-right text-xs opacity-0 -translate-x-1 group-hover:opacity-100 group-hover:translate-x-0 transition-all text-brand-600"></i>
             </h3>
-            <p class="text-xs text-slate-500 mt-1.5 leading-relaxed">
+            <p class="text-xs text-slate-600 dark:text-slate-300 mt-1.5 leading-relaxed">
               Draw your digital signature on canvas and stamp it directly onto PDF.
             </p>
           </div>
-          <div class="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between text-[11px] text-slate-400 font-mono">
-            <span>Canvas Pad</span>
-            <span class="text-rose-600 font-semibold font-sans">E-Sign</span>
+          <div class="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between text-[11px] text-slate-500 dark:text-slate-400 font-mono">
+            <span>Draw or Stamp</span>
+            <span class="text-slate-600 dark:text-slate-300 font-medium font-sans">Private</span>
           </div>
         </a>
 
         <!-- Card: Edit PDF -->
         <a href="/tools/edit-pdf.html" data-tool-category="pdf" class="tool-card-hover bg-white rounded-2xl border border-slate-200 p-5 cursor-pointer shadow-sm hover:shadow-md transition-all flex flex-col justify-between group">
           <div>
-            <div class="w-11 h-11 rounded-xl bg-rose-50 border border-rose-100/80 text-rose-600 flex items-center justify-center text-lg mb-3.5 group-hover:scale-105 transition-transform">
+            <div class="w-11 h-11 rounded-xl bg-rose-50 dark:bg-rose-950/40 border border-rose-100/80 dark:border-rose-900/50 text-rose-600 dark:text-rose-400 flex items-center justify-center text-lg mb-3.5 group-hover:scale-105 transition-transform">
               <i class="fa-solid fa-pen-to-square"></i>
             </div>
             <h3 class="font-bold text-sm text-slate-900 group-hover:text-brand-600 transition flex items-center justify-between">
               <span>Edit PDF</span>
               <i class="fa-solid fa-arrow-right text-xs opacity-0 -translate-x-1 group-hover:opacity-100 group-hover:translate-x-0 transition-all text-brand-600"></i>
             </h3>
-            <p class="text-xs text-slate-500 mt-1.5 leading-relaxed">
+            <p class="text-xs text-slate-600 dark:text-slate-300 mt-1.5 leading-relaxed">
               Add text notes, remarks, date stamps, and highlight boxes onto pages.
             </p>
           </div>
-          <div class="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between text-[11px] text-slate-400 font-mono">
-            <span>Text &amp; Boxes</span>
-            <span class="text-rose-600 font-semibold font-sans">Annotate</span>
+          <div class="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between text-[11px] text-slate-500 dark:text-slate-400 font-mono">
+            <span>Callouts &amp; Text</span>
+            <span class="text-slate-600 dark:text-slate-300 font-medium font-sans">Annotate</span>
           </div>
         </a>
 
         <!-- Card: Add Watermark -->
         <a href="/tools/watermark-pdf.html" data-tool-category="pdf" class="tool-card-hover bg-white rounded-2xl border border-slate-200 p-5 cursor-pointer shadow-sm hover:shadow-md transition-all flex flex-col justify-between group">
           <div>
-            <div class="w-11 h-11 rounded-xl bg-rose-50 border border-rose-100/80 text-rose-600 flex items-center justify-center text-lg mb-3.5 group-hover:scale-105 transition-transform">
+            <div class="w-11 h-11 rounded-xl bg-rose-50 dark:bg-rose-950/40 border border-rose-100/80 dark:border-rose-900/50 text-rose-600 dark:text-rose-400 flex items-center justify-center text-lg mb-3.5 group-hover:scale-105 transition-transform">
               <i class="fa-solid fa-stamp"></i>
             </div>
             <h3 class="font-bold text-sm text-slate-900 group-hover:text-brand-600 transition flex items-center justify-between">
               <span>Add Watermark</span>
               <i class="fa-solid fa-arrow-right text-xs opacity-0 -translate-x-1 group-hover:opacity-100 group-hover:translate-x-0 transition-all text-brand-600"></i>
             </h3>
-            <p class="text-xs text-slate-500 mt-1.5 leading-relaxed">
+            <p class="text-xs text-slate-600 dark:text-slate-300 mt-1.5 leading-relaxed">
               Stamp custom text or draft watermarks with opacity and diagonal angle.
             </p>
           </div>
-          <div class="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between text-[11px] text-slate-400 font-mono">
-            <span>Opacity &amp; Angle</span>
-            <span class="text-rose-600 font-semibold font-sans">Stamp</span>
+          <div class="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between text-[11px] text-slate-500 dark:text-slate-400 font-mono">
+            <span>Text Overlay</span>
+            <span class="text-slate-600 dark:text-slate-300 font-medium font-sans">Protected</span>
           </div>
         </a>
 
         <!-- Card: PDF to Word -->
         <a href="/tools/pdf-to-word.html" data-tool-category="pdf" class="tool-card-hover bg-white rounded-2xl border border-slate-200 p-5 cursor-pointer shadow-sm hover:shadow-md transition-all flex flex-col justify-between group">
           <div>
-            <div class="w-11 h-11 rounded-xl bg-blue-50 border border-blue-100/80 text-blue-600 flex items-center justify-center text-lg mb-3.5 group-hover:scale-105 transition-transform">
+            <div class="w-11 h-11 rounded-xl bg-blue-50 dark:bg-blue-950/40 border border-blue-100/80 dark:border-blue-900/50 text-blue-600 dark:text-blue-400 flex items-center justify-center text-lg mb-3.5 group-hover:scale-105 transition-transform">
               <i class="fa-solid fa-file-word"></i>
             </div>
             <h3 class="font-bold text-sm text-slate-900 group-hover:text-brand-600 transition flex items-center justify-between">
               <span>PDF to Word</span>
               <i class="fa-solid fa-arrow-right text-xs opacity-0 -translate-x-1 group-hover:opacity-100 group-hover:translate-x-0 transition-all text-brand-600"></i>
             </h3>
-            <p class="text-xs text-slate-500 mt-1.5 leading-relaxed">
+            <p class="text-xs text-slate-600 dark:text-slate-300 mt-1.5 leading-relaxed">
               Convert PDF files into cleanly structured, editable Microsoft Word (.docx).
             </p>
           </div>
-          <div class="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between text-[11px] text-slate-400 font-mono">
-            <span>DocXML Export</span>
-            <span class="text-blue-600 font-semibold font-sans">DOCX</span>
+          <div class="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between text-[11px] text-slate-500 dark:text-slate-400 font-mono">
+            <span>Text &amp; Layout</span>
+            <span class="text-slate-600 dark:text-slate-300 font-medium font-sans">Editable DOCX</span>
           </div>
         </a>
 
         <!-- Card: Word to PDF -->
         <a href="/tools/word-to-pdf.html" data-tool-category="pdf" class="tool-card-hover bg-white rounded-2xl border border-slate-200 p-5 cursor-pointer shadow-sm hover:shadow-md transition-all flex flex-col justify-between group">
           <div>
-            <div class="w-11 h-11 rounded-xl bg-blue-50 border border-blue-100/80 text-blue-600 flex items-center justify-center text-lg mb-3.5 group-hover:scale-105 transition-transform">
+            <div class="w-11 h-11 rounded-xl bg-blue-50 dark:bg-blue-950/40 border border-blue-100/80 dark:border-blue-900/50 text-blue-600 dark:text-blue-400 flex items-center justify-center text-lg mb-3.5 group-hover:scale-105 transition-transform">
               <i class="fa-solid fa-file-import"></i>
             </div>
             <h3 class="font-bold text-sm text-slate-900 group-hover:text-brand-600 transition flex items-center justify-between">
               <span>Word to PDF</span>
               <i class="fa-solid fa-arrow-right text-xs opacity-0 -translate-x-1 group-hover:opacity-100 group-hover:translate-x-0 transition-all text-brand-600"></i>
             </h3>
-            <p class="text-xs text-slate-500 mt-1.5 leading-relaxed">
+            <p class="text-xs text-slate-600 dark:text-slate-300 mt-1.5 leading-relaxed">
               Convert DOCX, Word files, and rich documents into pristine printable PDF.
             </p>
           </div>
-          <div class="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between text-[11px] text-slate-400 font-mono">
-            <span>DOCX to PDF</span>
-            <span class="text-blue-600 font-semibold font-sans">Compile</span>
+          <div class="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between text-[11px] text-slate-500 dark:text-slate-400 font-mono">
+            <span>Direct Export</span>
+            <span class="text-slate-600 dark:text-slate-300 font-medium font-sans">Standard PDF</span>
           </div>
         </a>
 
         <!-- Card: PDF to Excel -->
         <a href="/tools/pdf-to-excel.html" data-tool-category="pdf" class="tool-card-hover bg-white rounded-2xl border border-slate-200 p-5 cursor-pointer shadow-sm hover:shadow-md transition-all flex flex-col justify-between group">
           <div>
-            <div class="w-11 h-11 rounded-xl bg-emerald-50 border border-emerald-100/80 text-emerald-600 flex items-center justify-center text-lg mb-3.5 group-hover:scale-105 transition-transform">
+            <div class="w-11 h-11 rounded-xl bg-emerald-50 dark:bg-emerald-950/40 border border-emerald-100/80 dark:border-emerald-900/50 text-emerald-600 dark:text-emerald-400 flex items-center justify-center text-lg mb-3.5 group-hover:scale-105 transition-transform">
               <i class="fa-solid fa-file-excel"></i>
             </div>
             <h3 class="font-bold text-sm text-slate-900 group-hover:text-brand-600 transition flex items-center justify-between">
               <span>PDF to Excel</span>
               <i class="fa-solid fa-arrow-right text-xs opacity-0 -translate-x-1 group-hover:opacity-100 group-hover:translate-x-0 transition-all text-brand-600"></i>
             </h3>
-            <p class="text-xs text-slate-500 mt-1.5 leading-relaxed">
+            <p class="text-xs text-slate-600 dark:text-slate-300 mt-1.5 leading-relaxed">
               Extract tabular numbers, financial statements, and rows into Excel spreadsheets.
             </p>
           </div>
-          <div class="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between text-[11px] text-slate-400 font-mono">
-            <span>CSV / TSV Export</span>
-            <span class="text-emerald-600 font-semibold font-sans">Spreadsheet</span>
+          <div class="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between text-[11px] text-slate-500 dark:text-slate-400 font-mono">
+            <span>Table Extract</span>
+            <span class="text-slate-600 dark:text-slate-300 font-medium font-sans">CSV &amp; Excel</span>
           </div>
         </a>
 
         <!-- Card: PDF to PowerPoint -->
         <a href="/tools/pdf-to-powerpoint.html" data-tool-category="pdf" class="tool-card-hover bg-white rounded-2xl border border-slate-200 p-5 cursor-pointer shadow-sm hover:shadow-md transition-all flex flex-col justify-between group">
           <div>
-            <div class="w-11 h-11 rounded-xl bg-orange-50 border border-orange-100/80 text-orange-600 flex items-center justify-center text-lg mb-3.5 group-hover:scale-105 transition-transform">
+            <div class="w-11 h-11 rounded-xl bg-orange-50 dark:bg-orange-950/40 border border-orange-100/80 dark:border-orange-900/50 text-orange-600 dark:text-orange-400 flex items-center justify-center text-lg mb-3.5 group-hover:scale-105 transition-transform">
               <i class="fa-solid fa-file-powerpoint"></i>
             </div>
             <h3 class="font-bold text-sm text-slate-900 group-hover:text-brand-600 transition flex items-center justify-between">
               <span>PDF to PowerPoint</span>
               <i class="fa-solid fa-arrow-right text-xs opacity-0 -translate-x-1 group-hover:opacity-100 group-hover:translate-x-0 transition-all text-brand-600"></i>
             </h3>
-            <p class="text-xs text-slate-500 mt-1.5 leading-relaxed">
+            <p class="text-xs text-slate-600 dark:text-slate-300 mt-1.5 leading-relaxed">
               Convert PDF slides and presentation decks into Microsoft PowerPoint (.pptx).
             </p>
           </div>
-          <div class="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between text-[11px] text-slate-400 font-mono">
-            <span>Slide Deck Vector</span>
-            <span class="text-orange-600 font-semibold font-sans">PPTX</span>
+          <div class="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between text-[11px] text-slate-500 dark:text-slate-400 font-mono">
+            <span>Visual Slides</span>
+            <span class="text-slate-600 dark:text-slate-300 font-medium font-sans">Presentation</span>
           </div>
         </a>
 
         <!-- Card 11: Feedback & Review -->
         <a href="/feedback.html" data-tool-category="utilities" class="tool-card-hover bg-gradient-to-br from-indigo-50/60 to-purple-50/40 rounded-2xl border border-indigo-100 p-5 cursor-pointer shadow-sm hover:shadow-md transition-all flex flex-col justify-between group">
           <div>
-            <div class="w-11 h-11 rounded-xl bg-white border border-indigo-100 text-brand-600 flex items-center justify-center text-lg mb-3.5 group-hover:scale-105 transition-transform shadow-xs">
+            <div class="w-11 h-11 rounded-xl bg-amber-50 dark:bg-amber-950/40 border border-amber-100/80 dark:border-amber-900/50 text-amber-500 flex items-center justify-center text-lg mb-3.5 group-hover:scale-105 transition-transform">
               <i class="fa-solid fa-star text-amber-400"></i>
             </div>
             <h3 class="font-bold text-sm text-slate-900 group-hover:text-brand-600 transition flex items-center justify-between">
               <span>User Feedback</span>
               <i class="fa-solid fa-arrow-right text-xs opacity-0 -translate-x-1 group-hover:opacity-100 group-hover:translate-x-0 transition-all text-brand-600"></i>
             </h3>
-            <p class="text-xs text-slate-500 mt-1.5 leading-relaxed">
+            <p class="text-xs text-slate-600 dark:text-slate-300 mt-1.5 leading-relaxed">
               Request a new tool, report an issue, or rate QuickConvert's client-side performance.
             </p>
           </div>
-          <div class="mt-4 pt-3 border-t border-indigo-100/60 flex items-center justify-between text-[11px] text-slate-400 font-mono">
-            <span>1-5 Star Rating</span>
-            <span class="text-brand-600 font-semibold font-sans">We Listen</span>
+          <div class="mt-4 pt-3 border-t border-indigo-100/60 flex items-center justify-between text-[11px] text-slate-500 dark:text-slate-400 font-mono">
+            <span>1-5 Stars</span>
+            <span class="text-slate-600 dark:text-slate-300 font-medium font-sans">Feedback</span>
           </div>
         </a>
 
