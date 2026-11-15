@@ -47,6 +47,7 @@ if (fs.existsSync('tools')) copyRecursiveSync('tools', path.join('dist', 'tools'
 if (fs.existsSync('guides')) copyRecursiveSync('guides', path.join('dist', 'guides'));
 if (fs.existsSync('js')) copyRecursiveSync('js', path.join('dist', 'js'));
 if (fs.existsSync('css')) copyRecursiveSync('css', path.join('dist', 'css'));
+if (fs.existsSync('webfonts')) copyRecursiveSync('webfonts', path.join('dist', 'webfonts'));
 
 // Root level JS/CSS fallbacks
 if (fs.existsSync('js/app.js')) fs.copyFileSync('js/app.js', path.join('dist', 'app.js'));

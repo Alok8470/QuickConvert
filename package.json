@@ -4,7 +4,11 @@
   "private": true,
   "description": "QuickConvert - Free Online File & Document Converters",
   "scripts": {
-    "build": "node build.js",
+    "build:css": "tailwindcss -i ./input.css -o ./dist/css/tailwind.min.css --minify",
+    "build": "npm run build:css && node build.js",
     "start": "node build.js"
+  },
+  "devDependencies": {
+    "tailwindcss": "^3.4.17"
   }
 }

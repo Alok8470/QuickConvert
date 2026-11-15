@@ -30,7 +30,7 @@
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
-  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://cdn.tailwindcss.com" onerror="this.onerror=null;var s=document.createElement('script');s.src='../js/vendor/tailwindcss.js';document.head.appendChild(s);"></script>
   <script>
         tailwind.config = {
       darkMode: 'class',
@@ -62,6 +62,7 @@
       }
     }
   </script>
+  <link rel="stylesheet" href="../css/tailwind.min.css" onerror="this.remove()">
   <link rel="stylesheet" href="../style.css?v=3.0.0">
   <!-- Open Graph & Social Meta Tags -->
   <meta property="og:type" content="website" />
