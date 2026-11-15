@@ -517,6 +517,238 @@
   }
 
   // ==========================================
+  // 3b. TOOL: IMAGES TO ZIP CONVERTER (JSZip)
+  // ==========================================
+
+  let imagesToZipList = [];
+
+  const zipDropzone = document.getElementById('img2zip-dropzone');
+  const zipInput = document.getElementById('img2zip-input');
+  const zipListContainer = document.getElementById('img2zip-list');
+  const zipCountBadge = document.getElementById('img2zip-count');
+  const zipClearBtn = document.getElementById('img2zip-clear-btn');
+  const zipConvertBtn = document.getElementById('img2zip-convert-btn');
+  const zipProgressContainer = document.getElementById('img2zip-progress-wrap');
+  const zipProgressBar = document.getElementById('img2zip-progress-bar');
+  const zipProgressText = document.getElementById('img2zip-progress-text');
+  const zipFilenameInput = document.getElementById('img2zip-filename');
+  const zipCompressionSelect = document.getElementById('img2zip-compression');
+  const zipMetaBar = document.getElementById('img2zip-meta-bar');
+  const zipTotalMeta = document.getElementById('img2zip-total-meta');
+
+  function renderZipGrid() {
+    if (!zipListContainer) return;
+    zipListContainer.innerHTML = '';
+
+    if (imagesToZipList.length === 0) {
+      if (zipCountBadge) zipCountBadge.textContent = '0 images selected';
+      if (zipClearBtn) zipClearBtn.classList.add('hidden');
+      if (zipConvertBtn) zipConvertBtn.disabled = true;
+      if (zipMetaBar) zipMetaBar.classList.add('hidden');
+      return;
+    }
+
+    if (zipCountBadge) {
+      zipCountBadge.textContent = `${imagesToZipList.length} image${imagesToZipList.length > 1 ? 's' : ''} selected`;
+    }
+    if (zipClearBtn) zipClearBtn.classList.remove('hidden');
+    if (zipConvertBtn) zipConvertBtn.disabled = false;
+
+    let totalBytes = 0;
+
+    imagesToZipList.forEach((item, index) => {
+      totalBytes += item.file.size;
+      const card = document.createElement('div');
+      card.className = 'relative group bg-white dark:bg-slate-800 rounded-xl border border-slate-200 dark:border-slate-700 p-2.5 shadow-2xs hover:shadow-sm transition';
+      card.innerHTML = `
+        <div class="relative w-full h-28 rounded-lg overflow-hidden bg-slate-100 dark:bg-slate-900 flex items-center justify-center mb-2">
+          <img src="${item.previewUrl}" alt="${item.name}" class="w-full h-full object-cover" />
+          <span class="absolute top-1.5 left-1.5 px-1.5 py-0.5 rounded text-[10px] font-bold bg-slate-900/70 text-white backdrop-blur-xs uppercase font-mono">
+            ${item.ext}
+          </span>
+          <button data-zip-remove="${index}" type="button" class="cursor-pointer absolute top-1.5 right-1.5 w-6 h-6 rounded-md bg-rose-600/90 text-white flex items-center justify-center opacity-0 group-hover:opacity-100 transition hover:bg-rose-700" title="Remove image" aria-label="Remove image">
+            <i class="fa-solid fa-xmark text-xs"></i>
+          </button>
+        </div>
+        <p class="text-xs font-semibold text-slate-800 dark:text-slate-200 truncate" title="${item.name}">${item.name}</p>
+        <p class="text-[10px] text-slate-400 font-mono mt-0.5">${formatBytes(item.file.size)}</p>
+      `;
+
+      card.querySelector(`[data-zip-remove="${index}"]`).addEventListener('click', (e) => {
+        e.stopPropagation();
+        imagesToZipList.splice(index, 1);
+        renderZipGrid();
+      });
+
+      zipListContainer.appendChild(card);
+    });
+
+    if (zipMetaBar && zipTotalMeta) {
+      zipMetaBar.classList.remove('hidden');
+      zipTotalMeta.textContent = `${imagesToZipList.length} files • Total ${formatBytes(totalBytes)}`;
+    }
+  }
+
+  function handleZipFiles(files) {
+    const validImageTypes = ['image/jpeg', 'image/png', 'image/webp', 'image/gif', 'image/svg+xml', 'image/bmp', 'image/x-icon'];
+    const newFiles = Array.from(files).filter(
+      (f) => validImageTypes.includes(f.type) || /\.(jpe?g|png|webp|gif|svg|bmp|ico)$/i.test(f.name)
+    );
+
+    if (newFiles.length === 0) {
+      showToast('Please select valid image files (PNG, JPG, WebP, GIF, SVG, BMP).', 'error');
+      return;
+    }
+
+    let loadedCount = 0;
+    newFiles.forEach((file) => {
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        const ext = file.name.split('.').pop().toUpperCase();
+        imagesToZipList.push({
+          file: file,
+          name: file.name,
+          ext: ext,
+          previewUrl: e.target.result
+        });
+        loadedCount++;
+        if (loadedCount === newFiles.length) {
+          renderZipGrid();
+          showToast(`Added ${newFiles.length} image${newFiles.length > 1 ? 's' : ''} to ZIP queue.`, 'success');
+        }
+      };
+      reader.readAsDataURL(file);
+    });
+  }
+
+  if (zipDropzone && zipInput) {
+    zipDropzone.addEventListener('click', () => zipInput.click());
+    zipInput.addEventListener('change', (e) => {
+      if (e.target.files.length) handleZipFiles(e.target.files);
+      zipInput.value = '';
+    });
+
+    ['dragenter', 'dragover'].forEach((ev) => {
+      zipDropzone.addEventListener(ev, (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        zipDropzone.classList.add('drag-active');
+      });
+    });
+
+    ['dragleave', 'drop'].forEach((ev) => {
+      zipDropzone.addEventListener(ev, (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        zipDropzone.classList.remove('drag-active');
+      });
+    });
+
+    zipDropzone.addEventListener('drop', (e) => {
+      const dt = e.dataTransfer;
+      if (dt && dt.files.length) handleZipFiles(dt.files);
+    });
+  }
+
+  if (zipClearBtn) {
+    zipClearBtn.addEventListener('click', () => {
+      imagesToZipList = [];
+      renderZipGrid();
+      showToast('Image archive queue cleared.', 'info');
+    });
+  }
+
+  if (zipConvertBtn) {
+    zipConvertBtn.addEventListener('click', async () => {
+      if (imagesToZipList.length === 0) return;
+
+      if (typeof JSZip === 'undefined') {
+        showToast('ZIP archiving engine is loading. Please retry in a few seconds.', 'error');
+        return;
+      }
+
+      zipConvertBtn.disabled = true;
+      if (zipProgressContainer) {
+        zipProgressContainer.classList.remove('hidden');
+        zipProgressBar.style.width = '10%';
+        zipProgressText.textContent = 'Initializing ZIP archive...';
+      }
+
+      try {
+        const zip = new JSZip();
+        const compressionLevel = parseInt(zipCompressionSelect ? zipCompressionSelect.value : '6', 10);
+        const compressionMethod = compressionLevel === 0 ? 'STORE' : 'DEFLATE';
+
+        // Add each file into zip
+        for (let i = 0; i < imagesToZipList.length; i++) {
+          const item = imagesToZipList[i];
+          const progressPercent = Math.round(10 + ((i + 1) / imagesToZipList.length) * 50);
+          if (zipProgressBar) zipProgressBar.style.width = `${progressPercent}%`;
+          if (zipProgressText) zipProgressText.textContent = `Packaging ${i + 1} of ${imagesToZipList.length}: ${item.name}`;
+
+          // Avoid duplicate filename collision inside zip
+          let finalName = item.name;
+          let counter = 1;
+          const baseName = item.name.substring(0, item.name.lastIndexOf('.')) || item.name;
+          const extName = item.name.substring(item.name.lastIndexOf('.')) || '';
+
+          while (zip.file(finalName)) {
+            finalName = `${baseName} (${counter})${extName}`;
+            counter++;
+          }
+
+          zip.file(finalName, item.file);
+          await new Promise((r) => setTimeout(r, 10));
+        }
+
+        if (zipProgressText) zipProgressText.textContent = 'Compressing and building .zip file...';
+
+        const zipBlob = await zip.generateAsync({
+          type: 'blob',
+          compression: compressionMethod,
+          compressionOptions: {
+            level: compressionLevel
+          }
+        }, (metadata) => {
+          if (zipProgressBar) {
+            const currentP = Math.round(60 + (metadata.percent * 0.4));
+            zipProgressBar.style.width = `${currentP}%`;
+          }
+        });
+
+        if (zipProgressBar) zipProgressBar.style.width = '100%';
+        if (zipProgressText) zipProgressText.textContent = 'ZIP download ready!';
+
+        const rawFilename = (zipFilenameInput && zipFilenameInput.value.trim()) || 'images-archive';
+        const cleanFilename = rawFilename.replace(/[^a-zA-Z0-9_-]/g, '_') || 'images-archive';
+        const finalZipName = `${cleanFilename}.zip`;
+
+        // Trigger browser download
+        const downloadUrl = URL.createObjectURL(zipBlob);
+        const a = document.createElement('a');
+        a.href = downloadUrl;
+        a.download = finalZipName;
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        setTimeout(() => URL.revokeObjectURL(downloadUrl), 5000);
+
+        setTimeout(() => {
+          if (zipProgressContainer) zipProgressContainer.classList.add('hidden');
+          zipConvertBtn.disabled = false;
+          showToast(`ZIP created successfully! (${formatBytes(zipBlob.size)})`, 'success');
+        }, 400);
+
+      } catch (err) {
+        console.error('ZIP Generation Error:', err);
+        showToast('Error generating ZIP archive. Please try again.', 'error');
+        if (zipProgressContainer) zipProgressContainer.classList.add('hidden');
+        zipConvertBtn.disabled = false;
+      }
+    });
+  }
+
+  // ==========================================
   // 4. TOOL 2: IMAGE COMPRESSOR & RESIZER
   // ==========================================
 

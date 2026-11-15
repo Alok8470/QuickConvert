@@ -288,6 +288,10 @@
                       <i class="fa-solid fa-arrow-right-arrow-left text-rose-600 text-xs mt-0.5"></i>
                       <span class="font-bold text-slate-800 group-hover/item:text-rose-600 transition truncate">Image Convert</span>
                     </a>
+                    <a href="/tools/images-to-zip.html" class="flex items-start gap-2 p-1.5 rounded-lg hover:bg-rose-50/60 transition group/item">
+                      <i class="fa-solid fa-file-zipper text-rose-600 text-xs mt-0.5"></i>
+                      <span class="font-bold text-slate-800 group-hover/item:text-rose-600 transition truncate">Images to ZIP</span>
+                    </a>
                   </div>
                 </div>
 
@@ -431,7 +435,7 @@
         <button id="mobile-tools-toggle" type="button" class="w-full flex items-center justify-between px-3 py-2.5 rounded-xl hover:bg-slate-50 text-slate-800 font-bold hover:text-brand-600 transition">
           <span class="flex items-center">
             <i class="fa-solid fa-layer-group text-brand-600 mr-2 w-5"></i>
-            <span>Browse All Tools (20 Services)</span>
+            <span>Browse All Tools (21 Services)</span>
           </span>
           <i id="mobile-tools-chevron" class="fa-solid fa-chevron-down text-xs text-slate-400 transition-transform duration-200"></i>
         </button>
@@ -501,6 +505,10 @@
               <a href="/tools/image-converter.html" class="flex items-center gap-1.5 p-2 rounded-lg bg-white border border-slate-200 text-xs font-semibold text-slate-700 hover:text-brand-600 shadow-2xs">
                 <i class="fa-solid fa-arrow-right-arrow-left text-amber-600 text-xs"></i>
                 <span class="truncate">Converter</span>
+              </a>
+              <a href="/tools/images-to-zip.html" class="flex items-center gap-1.5 p-2 rounded-lg bg-white border border-slate-200 text-xs font-semibold text-slate-700 hover:text-brand-600 shadow-2xs">
+                <i class="fa-solid fa-file-zipper text-amber-600 text-xs"></i>
+                <span class="truncate">Images to ZIP</span>
               </a>
             </div>
           </div>
@@ -691,6 +699,26 @@
           <div class="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between text-[11px] text-slate-400 font-mono">
             <span>Batch Queue</span>
             <span class="text-emerald-600 font-semibold font-sans">Multi-format</span>
+          </div>
+        </a>
+
+        <!-- TOOL 21: Images to ZIP Converter -->
+        <a href="/tools/images-to-zip.html" data-tool-category="image" class="tool-card-hover bg-white rounded-2xl border border-slate-200 p-5 cursor-pointer shadow-sm hover:shadow-md transition-all flex flex-col justify-between group">
+          <div>
+            <div class="w-11 h-11 rounded-xl bg-indigo-50 border border-indigo-100/80 text-brand-600 flex items-center justify-center text-lg mb-3.5 group-hover:scale-105 transition-transform">
+              <i class="fa-solid fa-file-zipper"></i>
+            </div>
+            <h3 class="font-bold text-sm text-slate-900 group-hover:text-brand-600 transition flex items-center justify-between">
+              <span>Images to ZIP</span>
+              <i class="fa-solid fa-arrow-right text-xs opacity-0 -translate-x-1 group-hover:opacity-100 group-hover:translate-x-0 transition-all text-brand-600"></i>
+            </h3>
+            <p class="text-xs text-slate-500 mt-1.5 leading-relaxed">
+              Bundle multiple PNG, JPG, and WebP images into a single compressed ZIP archive.
+            </p>
+          </div>
+          <div class="mt-4 pt-3 border-t border-slate-100 flex items-center justify-between text-[11px] text-slate-400 font-mono">
+            <span>Client-Side</span>
+            <span class="text-brand-600 font-semibold font-sans">ZIP Archive</span>
           </div>
         </a>
 
@@ -1635,6 +1663,7 @@
             <li><a href="/tools/image-to-pdf.html" class="hover:text-brand-600 transition">PNG/JPG to PDF</a></li>
             <li><a href="/tools/image-compressor.html" class="hover:text-brand-600 transition">Image Compressor</a></li>
             <li><a href="/tools/image-converter.html" class="hover:text-brand-600 transition">Image Format Converter</a></li>
+            <li><a href="/tools/images-to-zip.html" class="hover:text-brand-600 transition">Images to ZIP Converter</a></li>
             <li><a href="/tools/text-to-pdf.html" class="hover:text-brand-600 transition">Text &amp; Markdown to PDF</a></li>
             <li><a href="/tools/qr-generator.html" class="hover:text-brand-600 transition">QR Code Generator</a></li>
             <li><a href="/tools/password-generator.html" class="hover:text-brand-600 transition">Password Generator</a></li>
