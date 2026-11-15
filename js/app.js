@@ -760,6 +760,331 @@
   }
 
   // ==========================================
+  // 3c. TOOL: PDF TO ZIP CONVERTER (PDFLib + PDF.js + JSZip)
+  // ==========================================
+
+  let pdfToZipFiles = [];
+
+  const pdfZipDropzone = document.getElementById('pdf2zip-dropzone');
+  const pdfZipInput = document.getElementById('pdf2zip-input');
+  const pdfZipListContainer = document.getElementById('pdf2zip-list');
+  const pdfZipCountBadge = document.getElementById('pdf2zip-count');
+  const pdfZipClearBtn = document.getElementById('pdf2zip-clear-btn');
+  const pdfZipConvertBtn = document.getElementById('pdf2zip-convert-btn');
+  const pdfZipProgressContainer = document.getElementById('pdf2zip-progress-wrap');
+  const pdfZipProgressBar = document.getElementById('pdf2zip-progress-bar');
+  const pdfZipProgressText = document.getElementById('pdf2zip-progress-text');
+  const pdfZipFilenameInput = document.getElementById('pdf2zip-filename');
+  const pdfZipModeSelect = document.getElementById('pdf2zip-mode');
+  const pdfZipCompressionSelect = document.getElementById('pdf2zip-compression');
+  const pdfZipMetaBar = document.getElementById('pdf2zip-meta-bar');
+  const pdfZipTotalMeta = document.getElementById('pdf2zip-total-meta');
+
+  function renderPdfZipGrid() {
+    if (!pdfZipListContainer) return;
+    pdfZipListContainer.innerHTML = '';
+
+    if (pdfToZipFiles.length === 0) {
+      if (pdfZipCountBadge) pdfZipCountBadge.textContent = '0 PDFs selected';
+      if (pdfZipClearBtn) pdfZipClearBtn.classList.add('hidden');
+      if (pdfZipConvertBtn) pdfZipConvertBtn.disabled = true;
+      if (pdfZipMetaBar) pdfZipMetaBar.classList.add('hidden');
+      return;
+    }
+
+    if (pdfZipCountBadge) {
+      pdfZipCountBadge.textContent = `${pdfToZipFiles.length} PDF${pdfToZipFiles.length > 1 ? 's' : ''} selected`;
+    }
+    if (pdfZipClearBtn) pdfZipClearBtn.classList.remove('hidden');
+    if (pdfZipConvertBtn) pdfZipConvertBtn.disabled = false;
+
+    let totalBytes = 0;
+
+    pdfToZipFiles.forEach((item, index) => {
+      totalBytes += item.file.size;
+      const card = document.createElement('div');
+      card.className = 'relative group bg-white dark:bg-slate-800 rounded-xl border border-slate-200 dark:border-slate-700 p-3 shadow-2xs hover:shadow-sm transition flex items-center justify-between gap-3';
+      card.innerHTML = `
+        <div class="flex items-center gap-3 min-w-0">
+          <div class="w-10 h-10 rounded-lg bg-red-50 dark:bg-red-950/40 text-red-600 dark:text-red-400 flex items-center justify-center shrink-0">
+            <i class="fa-solid fa-file-pdf text-lg"></i>
+          </div>
+          <div class="min-w-0">
+            <p class="text-xs font-semibold text-slate-800 dark:text-slate-200 truncate" title="${item.name}">${item.name}</p>
+            <p class="text-[10px] text-slate-400 font-mono mt-0.5">${formatBytes(item.file.size)} ${item.pageCount ? '• ' + item.pageCount + ' pages' : ''}</p>
+          </div>
+        </div>
+        <button data-pdfzip-remove="${index}" type="button" class="cursor-pointer w-7 h-7 rounded-lg bg-slate-100 hover:bg-rose-50 text-slate-400 hover:text-rose-600 dark:bg-slate-700 dark:hover:bg-rose-950/50 flex items-center justify-center transition shrink-0" title="Remove PDF" aria-label="Remove PDF">
+          <i class="fa-solid fa-xmark text-xs"></i>
+        </button>
+      `;
+
+      card.querySelector(`[data-pdfzip-remove="${index}"]`).addEventListener('click', (e) => {
+        e.stopPropagation();
+        pdfToZipFiles.splice(index, 1);
+        renderPdfZipGrid();
+      });
+
+      pdfZipListContainer.appendChild(card);
+    });
+
+    if (pdfZipMetaBar && pdfZipTotalMeta) {
+      pdfZipMetaBar.classList.remove('hidden');
+      pdfZipTotalMeta.textContent = `${pdfToZipFiles.length} file${pdfToZipFiles.length > 1 ? 's' : ''} • Total ${formatBytes(totalBytes)}`;
+    }
+  }
+
+  async function handlePdfZipFiles(files) {
+    const newFiles = Array.from(files).filter(
+      (f) => f.type === 'application/pdf' || /\.pdf$/i.test(f.name)
+    );
+
+    if (newFiles.length === 0) {
+      showToast('Please select valid PDF files.', 'error');
+      return;
+    }
+
+    for (const file of newFiles) {
+      const item = {
+        file: file,
+        name: file.name,
+        pageCount: 0
+      };
+
+      // Try reading page count via PDFLib
+      try {
+        if (typeof PDFLib !== 'undefined') {
+          const buf = await file.arrayBuffer();
+          const doc = await PDFLib.PDFDocument.load(buf, { ignoreEncryption: true });
+          item.pageCount = doc.getPageCount();
+        }
+      } catch (err) {
+        console.warn('Could not read PDF page count:', err);
+      }
+
+      pdfToZipFiles.push(item);
+    }
+
+    renderPdfZipGrid();
+    showToast(`Added ${newFiles.length} PDF${newFiles.length > 1 ? 's' : ''} to queue.`, 'success');
+  }
+
+  if (pdfZipInput) {
+    pdfZipInput.addEventListener('change', (e) => {
+      if (e.target.files && e.target.files.length) {
+        handlePdfZipFiles(e.target.files);
+      }
+      pdfZipInput.value = '';
+    });
+  }
+
+  if (pdfZipDropzone && pdfZipInput) {
+    pdfZipDropzone.addEventListener('click', (e) => {
+      if (pdfZipDropzone.tagName.toLowerCase() !== 'label' && e.target !== pdfZipInput) {
+        pdfZipInput.click();
+      }
+    });
+
+    ['dragenter', 'dragover'].forEach((ev) => {
+      pdfZipDropzone.addEventListener(ev, (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        pdfZipDropzone.classList.add('drag-active');
+      });
+    });
+
+    ['dragleave', 'drop'].forEach((ev) => {
+      pdfZipDropzone.addEventListener(ev, (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        pdfZipDropzone.classList.remove('drag-active');
+      });
+    });
+
+    pdfZipDropzone.addEventListener('drop', (e) => {
+      const dt = e.dataTransfer;
+      if (dt && dt.files.length) handlePdfZipFiles(dt.files);
+    });
+  }
+
+  if (pdfZipClearBtn) {
+    pdfZipClearBtn.addEventListener('click', () => {
+      pdfToZipFiles = [];
+      renderPdfZipGrid();
+      showToast('PDF queue cleared.', 'info');
+    });
+  }
+
+  if (pdfZipConvertBtn) {
+    pdfZipConvertBtn.addEventListener('click', async () => {
+      if (pdfToZipFiles.length === 0) return;
+
+      if (typeof JSZip === 'undefined') {
+        showToast('ZIP archiving engine is loading. Please retry in a moment.', 'error');
+        return;
+      }
+
+      const mode = pdfZipModeSelect ? pdfZipModeSelect.value : 'pages-pdf';
+      const compressionLevel = parseInt(pdfZipCompressionSelect ? pdfZipCompressionSelect.value : '6', 10);
+      const compressionMethod = compressionLevel === 0 ? 'STORE' : 'DEFLATE';
+
+      pdfZipConvertBtn.disabled = true;
+      if (pdfZipProgressContainer) {
+        pdfZipProgressContainer.classList.remove('hidden');
+        pdfZipProgressBar.style.width = '10%';
+        pdfZipProgressText.textContent = 'Initializing ZIP archive...';
+      }
+
+      try {
+        const zip = new JSZip();
+
+        if (mode === 'batch-zip') {
+          // Mode: Bundle multiple raw PDF files directly into ZIP
+          for (let i = 0; i < pdfToZipFiles.length; i++) {
+            const item = pdfToZipFiles[i];
+            const p = Math.round(10 + ((i + 1) / pdfToZipFiles.length) * 50);
+            if (pdfZipProgressBar) pdfZipProgressBar.style.width = `${p}%`;
+            if (pdfZipProgressText) pdfZipProgressText.textContent = `Packaging PDF ${i + 1} of ${pdfToZipFiles.length}: ${item.name}`;
+
+            let finalName = item.name;
+            let counter = 1;
+            const baseName = item.name.replace(/\.pdf$/i, '');
+            while (zip.file(finalName)) {
+              finalName = `${baseName} (${counter}).pdf`;
+              counter++;
+            }
+
+            zip.file(finalName, item.file);
+            await new Promise((r) => setTimeout(r, 10));
+          }
+        } else if (mode === 'pages-pdf') {
+          // Mode: Split every page into an individual single-page PDF
+          if (typeof PDFLib === 'undefined') {
+            throw new Error('PDF-Lib engine is required for page splitting.');
+          }
+
+          let fileIndex = 0;
+          for (const item of pdfToZipFiles) {
+            fileIndex++;
+            const buf = await item.file.arrayBuffer();
+            const srcDoc = await PDFLib.PDFDocument.load(buf);
+            const totalPages = srcDoc.getPageCount();
+            const docBaseName = item.name.replace(/\.pdf$/i, '');
+
+            const folder = pdfToZipFiles.length > 1 ? zip.folder(docBaseName) : zip;
+
+            for (let pageIdx = 0; pageIdx < totalPages; pageIdx++) {
+              const singleDoc = await PDFLib.PDFDocument.create();
+              const [copiedPage] = await singleDoc.copyPages(srcDoc, [pageIdx]);
+              singleDoc.addPage(copiedPage);
+
+              const singleBytes = await singleDoc.save();
+              const pageNumStr = String(pageIdx + 1).padStart(Math.max(2, String(totalPages).length), '0');
+              const outPdfName = `${docBaseName}_page_${pageNumStr}.pdf`;
+
+              folder.file(outPdfName, singleBytes);
+
+              const overallProgress = Math.round(10 + ((pageIdx + 1) / totalPages) * 50);
+              if (pdfZipProgressBar) pdfZipProgressBar.style.width = `${overallProgress}%`;
+              if (pdfZipProgressText) pdfZipProgressText.textContent = `Extracting page ${pageIdx + 1} of ${totalPages} (${item.name})`;
+
+              await new Promise((r) => setTimeout(r, 5));
+            }
+          }
+        } else if (mode === 'pages-png' || mode === 'pages-jpg') {
+          // Mode: Export pages as rendered PNG or JPG images
+          if (typeof pdfjsLib === 'undefined') {
+            throw new Error('PDF.js renderer is required for page image export.');
+          }
+
+          const imgFormat = mode === 'pages-jpg' ? 'image/jpeg' : 'image/png';
+          const imgExt = mode === 'pages-jpg' ? 'jpg' : 'png';
+
+          for (let fIdx = 0; fIdx < pdfToZipFiles.length; fIdx++) {
+            const item = pdfToZipFiles[fIdx];
+            const buf = await item.file.arrayBuffer();
+            const pdfDoc = await pdfjsLib.getDocument({ data: buf }).promise;
+            const totalPages = pdfDoc.numPages;
+            const docBaseName = item.name.replace(/\.pdf$/i, '');
+            const folder = pdfToZipFiles.length > 1 ? zip.folder(docBaseName) : zip;
+
+            for (let pageNum = 1; pageNum <= totalPages; pageNum++) {
+              const page = await pdfDoc.getPage(pageNum);
+              const viewport = page.getViewport({ scale: 2.0 }); // 2x high-resolution rendering
+              const canvas = document.createElement('canvas');
+              const ctx = canvas.getContext('2d');
+              canvas.width = viewport.width;
+              canvas.height = viewport.height;
+
+              // White background for JPG
+              if (mode === 'pages-jpg') {
+                ctx.fillStyle = '#ffffff';
+                ctx.fillRect(0, 0, canvas.width, canvas.height);
+              }
+
+              await page.render({ canvasContext: ctx, viewport: viewport }).promise;
+
+              const imgBlob = await new Promise((resolve) => canvas.toBlob(resolve, imgFormat, 0.92));
+              const pageNumStr = String(pageNum).padStart(Math.max(2, String(totalPages).length), '0');
+              const outImgName = `${docBaseName}_page_${pageNumStr}.${imgExt}`;
+
+              folder.file(outImgName, imgBlob);
+
+              const overallP = Math.round(10 + (pageNum / totalPages) * 50);
+              if (pdfZipProgressBar) pdfZipProgressBar.style.width = `${overallP}%`;
+              if (pdfZipProgressText) pdfZipProgressText.textContent = `Rendering page ${pageNum} of ${totalPages} to ${imgExt.toUpperCase()}...`;
+
+              await new Promise((r) => setTimeout(r, 10));
+            }
+          }
+        }
+
+        if (pdfZipProgressText) pdfZipProgressText.textContent = 'Compressing and building .zip file...';
+
+        const zipBlob = await zip.generateAsync({
+          type: 'blob',
+          compression: compressionMethod,
+          compressionOptions: { level: compressionLevel }
+        }, (metadata) => {
+          if (pdfZipProgressBar) {
+            const currentP = Math.round(60 + (metadata.percent * 0.4));
+            pdfZipProgressBar.style.width = `${currentP}%`;
+          }
+        });
+
+        if (pdfZipProgressBar) pdfZipProgressBar.style.width = '100%';
+        if (pdfZipProgressText) pdfZipProgressText.textContent = 'ZIP download ready!';
+
+        const rawFilename = (pdfZipFilenameInput && pdfZipFilenameInput.value.trim()) || 'pdf-archive';
+        const cleanFilename = rawFilename.replace(/[^a-zA-Z0-9_-]/g, '_') || 'pdf-archive';
+        const finalZipName = `${cleanFilename}.zip`;
+
+        // Trigger browser download
+        const downloadUrl = URL.createObjectURL(zipBlob);
+        const a = document.createElement('a');
+        a.href = downloadUrl;
+        a.download = finalZipName;
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        setTimeout(() => URL.revokeObjectURL(downloadUrl), 5000);
+
+        setTimeout(() => {
+          if (pdfZipProgressContainer) pdfZipProgressContainer.classList.add('hidden');
+          pdfZipConvertBtn.disabled = false;
+          showToast(`PDF ZIP created successfully! (${formatBytes(zipBlob.size)})`, 'success');
+        }, 400);
+
+      } catch (err) {
+        console.error('PDF to ZIP Generation Error:', err);
+        showToast(err.message || 'Error creating PDF ZIP archive. Please retry.', 'error');
+        if (pdfZipProgressContainer) pdfZipProgressContainer.classList.add('hidden');
+        pdfZipConvertBtn.disabled = false;
+      }
+    });
+  }
+
+  // ==========================================
   // 4. TOOL 2: IMAGE COMPRESSOR & RESIZER
   // ==========================================
 
