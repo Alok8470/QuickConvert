@@ -621,11 +621,22 @@
     });
   }
 
-  if (zipDropzone && zipInput) {
-    zipDropzone.addEventListener('click', () => zipInput.click());
+  if (zipInput) {
     zipInput.addEventListener('change', (e) => {
-      if (e.target.files.length) handleZipFiles(e.target.files);
+      if (e.target.files && e.target.files.length) {
+        handleZipFiles(e.target.files);
+      }
       zipInput.value = '';
+    });
+  }
+
+  if (zipDropzone && zipInput) {
+    zipDropzone.addEventListener('click', (e) => {
+      // If clicking inside a label that has for="img2zip-input", the browser natively opens the file picker.
+      // Avoid calling .click() twice which cancels or breaks the dialog on mobile and modern browsers.
+      if (zipDropzone.tagName.toLowerCase() !== 'label' && e.target !== zipInput) {
+        zipInput.click();
+      }
     });
 
     ['dragenter', 'dragover'].forEach((ev) => {
