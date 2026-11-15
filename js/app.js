@@ -365,7 +365,10 @@
   }
 
   if (imgDropzone && imgInput) {
-    imgDropzone.addEventListener('click', () => imgInput.click());
+    imgDropzone.addEventListener('click', (e) => {
+      if (e.target !== imgInput) imgInput.click();
+    });
+    imgInput.addEventListener('click', (e) => e.stopPropagation());
 
     imgInput.addEventListener('change', (e) => {
       if (e.target.files.length) {
@@ -1364,7 +1367,10 @@
   }
 
   if (compDropzone && compInput) {
-    compDropzone.addEventListener('click', () => compInput.click());
+    compDropzone.addEventListener('click', (e) => {
+      if (e.target !== compInput) compInput.click();
+    });
+    compInput.addEventListener('click', (e) => e.stopPropagation());
     compInput.addEventListener('change', (e) => {
       if (e.target.files.length) {
         loadCompressorImage(e.target.files[0]);
@@ -2164,7 +2170,10 @@
   }
 
   if (fmtDropzone && fmtFileInput) {
-    fmtDropzone.addEventListener('click', () => fmtFileInput.click());
+    fmtDropzone.addEventListener('click', (e) => {
+      if (e.target !== fmtFileInput) fmtFileInput.click();
+    });
+    fmtFileInput.addEventListener('click', (e) => e.stopPropagation());
 
     fmtDropzone.addEventListener('dragover', (e) => {
       e.preventDefault();
