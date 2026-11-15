@@ -93,6 +93,21 @@
     }
   });
 
+  // Dynamic OS System Theme Listener (prefers-color-scheme)
+  if (window.matchMedia) {
+    try {
+      window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', function (e) {
+        var savedTheme = null;
+        try {
+          savedTheme = localStorage.getItem(THEME_KEY);
+        } catch (err) {}
+        if (!savedTheme) {
+          setTheme(e.matches ? 'dark' : 'light', false);
+        }
+      });
+    } catch (e) {}
+  }
+
   // Cross-tab theme synchronization
   window.addEventListener('storage', function (e) {
     if (e.key === THEME_KEY) {

@@ -781,6 +781,7 @@ select {
 }
 
 /* Reserved Ad Container Space to Eliminate Layout Shift (CLS) */
+/* Reserved Ad Slots to Eliminate Cumulative Layout Shift (CLS) & Prevent Accidental Clicks */
 .qc-ad-container {
   display: flex;
   flex-direction: column;
@@ -788,16 +789,25 @@ select {
   justify-content: center;
   width: 100%;
   min-height: 100px;
+  max-width: 970px;
+  margin: 3.5rem auto 2.5rem; /* Generous safe margin away from upload & download action buttons */
   background-color: #f8fafc;
   border: 1px dashed #cbd5e1;
   border-radius: 0.75rem;
   padding: 0.75rem;
-  margin-left: auto;
-  margin-right: auto;
   box-sizing: border-box;
   text-align: center;
   position: relative;
   overflow: hidden;
+  contain: layout;
+}
+
+.qc-ad-container.qc-ad-banner {
+  min-height: 90px;
+}
+
+.qc-ad-container.qc-ad-rectangle {
+  min-height: 250px;
 }
 
 .dark .qc-ad-container {
