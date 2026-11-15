@@ -21,6 +21,14 @@ class CleanURLHandler(http.server.SimpleHTTPRequestHandler):
         super().end_headers()
 
     def do_GET(self):
+        # Redirect www. to apex domain
+        host = self.headers.get("Host", "")
+        if host.startswith("www."):
+            self.send_response(301)
+            self.send_header("Location", f"https://quickconvert.in{self.path}")
+            self.end_headers()
+            return
+
         # Strip query parameters / hashes for path resolution
         path = self.path.split('?')[0].split('#')[0]
         

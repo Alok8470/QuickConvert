@@ -1143,7 +1143,12 @@
         compEmptyState.classList.add('hidden');
         compWorkspace.classList.remove('hidden');
 
-        processImageCompression();
+        const targetKb = parseInt(document.body.dataset.targetKb, 10);
+        if (targetKb && targetKb > 0) {
+          autoCompressToTarget(targetKb);
+        } else {
+          processImageCompression();
+        }
         showToast('Image loaded into compressor!', 'success');
       };
       img.src = e.target.result;
@@ -1238,6 +1243,79 @@
       exportMime,
       quality
     );
+  }
+
+  // Automatic binary-search optimizer to guarantee compression strictly under target KB
+  function autoCompressToTarget(targetKB) {
+    if (!compOriginalImage) return;
+    const maxBytes = targetKB * 1024;
+    let currentScale = 1.0;
+    let lowQ = 0.05, highQ = 0.95;
+    let bestBlob = null, bestQuality = 0.8;
+    let bestW = compOriginalImage.naturalWidth, bestH = compOriginalImage.naturalHeight;
+
+    function evaluateQuality(scale, step) {
+      const w = Math.round(compOriginalImage.naturalWidth * scale);
+      const h = Math.round(compOriginalImage.naturalHeight * scale);
+      const midQ = (lowQ + highQ) / 2;
+
+      const canvas = document.createElement('canvas');
+      canvas.width = w;
+      canvas.height = h;
+      const ctx = canvas.getContext('2d');
+      ctx.imageSmoothingEnabled = true;
+      ctx.imageSmoothingQuality = 'high';
+      ctx.fillStyle = '#ffffff';
+      ctx.fillRect(0, 0, w, h);
+      ctx.drawImage(compOriginalImage, 0, 0, w, h);
+
+      canvas.toBlob((blob) => {
+        if (!blob) return;
+        if (blob.size <= maxBytes) {
+          bestBlob = blob;
+          bestQuality = midQ;
+          bestW = w;
+          bestH = h;
+          lowQ = midQ;
+        } else {
+          highQ = midQ;
+        }
+
+        if (step < 7 && (highQ - lowQ) > 0.04) {
+          evaluateQuality(scale, step + 1);
+        } else if (bestBlob && bestBlob.size <= maxBytes) {
+          applyAutoResult(bestBlob, bestW, bestH, bestQuality);
+        } else if (scale > 0.25) {
+          currentScale *= 0.82;
+          lowQ = 0.05;
+          highQ = 0.95;
+          evaluateQuality(currentScale, 1);
+        } else {
+          applyAutoResult(blob, w, h, midQ);
+        }
+      }, 'image/jpeg', midQ);
+    }
+
+    function applyAutoResult(blob, w, h, q) {
+      compCurrentBlob = blob;
+      compWidthInput.value = w;
+      compHeightInput.value = h;
+      const qVal = Math.round(q * 100);
+      compQualitySlider.value = qVal;
+      compQualityDisplay.textContent = `${qVal}%`;
+
+      if (compResultPreview) compResultPreview.src = URL.createObjectURL(blob);
+      compResultDims.textContent = `${w} × ${h} px`;
+      compResultSize.textContent = formatBytes(blob.size);
+
+      const diff = compOriginalFile.size - blob.size;
+      const pct = Math.round((diff / compOriginalFile.size) * 100);
+      compSavingsBadge.className = 'px-2 py-0.5 rounded-full text-xs font-semibold bg-emerald-100 dark:bg-emerald-950/60 text-emerald-800 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-800/60';
+      compSavingsBadge.textContent = `-${pct}% (under ${targetKB}KB)`;
+      showToast(`Optimized strictly under ${targetKB} KB (${formatBytes(blob.size)})`, 'success');
+    }
+
+    evaluateQuality(currentScale, 1);
   }
 
   // Dimension inputs event listeners
