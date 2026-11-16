@@ -167,51 +167,30 @@
   </script>
 
   <!-- Google Fonts & FontAwesome -->
+  <!-- Preconnect for Critical External CDNs -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
 
-  <!-- Tailwind CSS CDN -->
-  <script src="https://cdn.tailwindcss.com" onerror="this.onerror=null;var s=document.createElement('script');s.src='js/vendor/tailwindcss.js';document.head.appendChild(s);"></script>
-  <script>
-    tailwind.config = {
-      darkMode: 'class',
-      theme: {
-        extend: {
-          colors: {
-            brand: {
-              50: '#eef2ff',
-              100: '#e0e7ff',
-              200: '#c7d2fe',
-              300: '#a5b4fc',
-              400: '#818cf8',
-              500: '#6366f1',
-              600: '#4f46e5',
-              700: '#4338ca',
-              800: '#3730a3',
-              900: '#312e81',
-            },
-            accent: {
-              500: '#0284c7',
-              600: '#0369a1',
-            }
-          },
-          fontFamily: {
-            sans: ['"Plus Jakarta Sans"', 'sans-serif'],
-            mono: ['"JetBrains Mono"', 'monospace'],
-          }
-        }
-      }
-    }
-  </script>
+  <!-- Precompiled Production Tailwind CSS (Zero Runtime JS Compilation) -->
+  <link rel="stylesheet" href="/css/tailwind.min.css">
 
-  <!-- jsPDF Production CDN -->
+  <!-- Asynchronous Non-Blocking Google Fonts with display=swap -->
+  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" media="print" onload="this.media='all'">
+  <noscript>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap">
+  </noscript>
 
-  <!-- QRCode.js Production CDN -->
+  <!-- Asynchronous Non-Blocking Font Awesome -->
+  <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" media="print" onload="this.media='all'">
+  <noscript>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  </noscript>
 
   <!-- Custom Stylesheet -->
-    <link rel="stylesheet" href="style.css?v=3.2.0">
+  <link rel="stylesheet" href="/style.css?v=3.2.0">
 </head>
 
 <body class="bg-slate-50 text-slate-800 antialiased flex flex-col min-h-screen selection:bg-indigo-500 selection:text-white">
@@ -672,6 +651,16 @@
 
     <!-- UTILITY SUITE SECTION (Direct flow under hero, iLovePDF style) -->
     <section id="suite-tools" class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 pt-6 sm:pt-8 pb-14">
+    <!-- Section Heading for Semantic Accessibility Hierarchy (H1 -> H2 -> H3) -->
+    <div class="mb-6 flex flex-col sm:flex-row sm:items-center justify-between gap-3 border-b border-slate-200/80 dark:border-slate-800/80 pb-4">
+      <div>
+        <h2 class="text-xl sm:text-2xl font-extrabold text-slate-900 dark:text-white flex items-center gap-2.5">
+          <i class="fa-solid fa-shapes text-brand-600 text-lg"></i>
+          <span>Document &amp; File Conversion Suite</span>
+        </h2>
+        <p class="text-xs text-slate-600 dark:text-slate-300 mt-1">Select any tool below to convert or compress directly in your browser with zero cloud storage.</p>
+      </div>
+    </div>
       
       <!-- Category Filter Pills (iLovePDF Style Direct Tab Bar) -->
       <div class="flex items-center justify-start sm:justify-center gap-2 overflow-x-auto pb-2 mb-8 no-scrollbar" id="category-filters">
@@ -1468,8 +1457,8 @@
                 </div>
                 <div>
                   <div class="text-lg font-black text-slate-900 tracking-tight leading-snug">Privacy-First Design</div>
-                  <p class="text-[11px] font-bold text-emerald-600 uppercase tracking-wider mt-1">Data Minimization</p>
-                  <p class="text-xs text-slate-500 mt-0.5 leading-snug">Because files remain on your device, we do not collect or store your file contents.</p>
+                  <p class="text-[11px] font-bold text-emerald-700 dark:text-emerald-400 uppercase tracking-wider mt-1">Data Minimization</p>
+                  <p class="text-xs text-slate-600 dark:text-slate-300 mt-0.5 leading-snug">Because files remain on your device, we do not collect or store your file contents.</p>
                 </div>
               </div>
 
@@ -1813,7 +1802,7 @@
 
         <!-- Tool Suite Links -->
         <div>
-          <h4 class="font-bold text-slate-900 uppercase tracking-wider mb-3">Converter &amp; Dev Tools</h4>
+          <h3 class="font-bold text-slate-900 dark:text-white uppercase tracking-wider mb-3">Converter &amp; Dev Tools</h3>
           <ul class="space-y-2">
             <li><a href="/tools/image-to-pdf.html" class="hover:text-brand-600 transition">PNG/JPG to PDF</a></li>
             <li><a href="/tools/pdf-to-zip.html" class="hover:text-brand-600 transition">PDF to ZIP Converter</a></li>
@@ -1833,7 +1822,7 @@
 
         <!-- Resources & Content -->
         <div>
-          <h4 class="font-bold text-slate-900 uppercase tracking-wider mb-3">Knowledge &amp; Docs</h4>
+          <h3 class="font-bold text-slate-900 dark:text-white uppercase tracking-wider mb-3">Knowledge &amp; Docs</h3>
           <ul class="space-y-2">
             <li><a href="#how-to-use" class="hover:text-brand-600 transition">Step-by-Step User Manual</a></li>
             <li><a href="#security-advantage" class="hover:text-brand-600 transition">Client-Side Architecture</a></li>
@@ -1844,7 +1833,7 @@
 
         <!-- Legal Policies (Mandatory for Google AdSense) -->
         <div>
-          <h4 class="font-bold text-slate-900 uppercase tracking-wider mb-3">Trust &amp; Legal</h4>
+          <h3 class="font-bold text-slate-900 dark:text-white uppercase tracking-wider mb-3">Trust &amp; Legal</h3>
           <ul class="space-y-2">
             <li><a href="/privacy.html" class="hover:text-brand-600 transition">Privacy Policy</a></li>
             <li><a href="/terms.html" class="hover:text-brand-600 transition">Terms of Service</a></li>
@@ -1892,6 +1881,6 @@
   </div>
   </div>
 
-  <script src="js/theme.js?v=3.2.0"></script>
+  <script src="js/theme.js?v=3.2.0" defer></script>
 </body>
 </html>

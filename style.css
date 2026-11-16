@@ -820,13 +820,13 @@ select {
   text-transform: uppercase;
   letter-spacing: 0.08em;
   font-weight: 700;
-  color: #94a3b8;
+  color: #475569;
   margin-bottom: 4px;
   user-select: none;
 }
 
 .dark .qc-ad-label {
-  color: #64748b;
+  color: #cbd5e1;
 }
 
 .qc-ad-content {

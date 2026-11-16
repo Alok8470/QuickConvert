@@ -22,10 +22,7 @@
   <meta name="keywords" content="privacy policy, QuickConvert privacy, in-browser privacy, AdSense cookies disclosure, Alok Maurya" />
   <meta name="robots" content="index, follow" />
   <link rel="canonical" href="https://quickconvert.in/privacy.html" />
-
-    <!-- Website Favicon & Apple Touch Icons for Google Search Branding -->
-  <link rel="icon" href="/favicon.ico" sizes="any" />
-    <!-- Website Favicon & Apple Touch Icons for Google Search Branding -->
+  <!-- Website Favicon & Apple Touch Icons for Google Search Branding -->
   <link rel="icon" href="/favicon.ico" sizes="any" />
   <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
   <link rel="icon" type="image/png" sizes="48x48" href="/favicon-48x48.png" />
@@ -33,20 +30,41 @@
   <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
   <link rel="manifest" href="/site.webmanifest" />
   <meta name="theme-color" content="#4f46e5" />
+<link rel="icon" type="image/svg+xml" href="/favicon.svg" />
   <link rel="icon" type="image/png" sizes="48x48" href="/favicon-48x48.png" />
   <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
   <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
   <link rel="manifest" href="/site.webmanifest" />
   <meta name="theme-color" content="#4f46e5" />
-
-  <!-- Fonts & Icons -->
+<link rel="icon" type="image/png" sizes="48x48" href="/favicon-48x48.png" />
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+  <link rel="manifest" href="/site.webmanifest" />
+  <meta name="theme-color" content="#4f46e5" />
+  <!-- Preconnect for Critical CDNs -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+  <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
 
-  <!-- Tailwind CSS -->
-  <script src="https://cdn.tailwindcss.com" onerror="this.onerror=null;var s=document.createElement('script');s.src='js/vendor/tailwindcss.js';document.head.appendChild(s);"></script>
+  <!-- Precompiled Production Tailwind CSS -->
+  <link rel="stylesheet" href="/css/tailwind.min.css">
+
+  <!-- Asynchronous Non-Blocking Google Fonts -->
+  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" media="print" onload="this.media='all'">
+  <noscript>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap">
+  </noscript>
+
+  <!-- Asynchronous Non-Blocking Font Awesome -->
+  <link rel="preload" as="style" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" media="print" onload="this.media='all'">
+  <noscript>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  </noscript>
+
+  <!-- Custom Stylesheet -->
+  <link rel="stylesheet" href="/style.css?v=3.2.0">
   <script>
         tailwind.config = {
       darkMode: 'class',
@@ -727,6 +745,6 @@
   </div>
   </div>
 
-  <script src="js/theme.js?v=3.2.0"></script>
+  <script src="js/theme.js?v=3.2.0" defer></script>
 </body>
 </html>
