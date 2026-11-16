@@ -7,16 +7,10 @@
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>https://quickconvert.in/privacy-policy.html</loc>
+    <loc>https://quickconvert.in/about.html</loc>
     <lastmod>2026-11-16</lastmod>
     <changefreq>monthly</changefreq>
-    <priority>0.3</priority>
-  </url>
-  <url>
-    <loc>https://quickconvert.in/terms.html</loc>
-    <lastmod>2026-11-16</lastmod>
-    <changefreq>monthly</changefreq>
-    <priority>0.3</priority>
+    <priority>0.4</priority>
   </url>
   <url>
     <loc>https://quickconvert.in/contact.html</loc>
@@ -25,7 +19,55 @@
     <priority>0.4</priority>
   </url>
   <url>
-    <loc>https://quickconvert.in/about.html</loc>
+    <loc>https://quickconvert.in/feedback.html</loc>
+    <lastmod>2026-11-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.4</priority>
+  </url>
+  <url>
+    <loc>https://quickconvert.in/guides/compile-scanned-documents-to-pdf.html</loc>
+    <lastmod>2026-11-16</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.80</priority>
+  </url>
+  <url>
+    <loc>https://quickconvert.in/guides/compress-photo-50kb-100kb-exam-form.html</loc>
+    <lastmod>2026-11-16</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.80</priority>
+  </url>
+  <url>
+    <loc>https://quickconvert.in/guides/merge-pdf-job-application.html</loc>
+    <lastmod>2026-11-16</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.80</priority>
+  </url>
+  <url>
+    <loc>https://quickconvert.in/guides/passport-size-photo-sheet.html</loc>
+    <lastmod>2026-11-16</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.80</priority>
+  </url>
+  <url>
+    <loc>https://quickconvert.in/guides/webp-vs-jpeg-vs-png.html</loc>
+    <lastmod>2026-11-16</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.80</priority>
+  </url>
+  <url>
+    <loc>https://quickconvert.in/guides/why-avoid-cloud-converters.html</loc>
+    <lastmod>2026-11-16</lastmod>
+    <changefreq>weekly</changefreq>
+    <priority>0.80</priority>
+  </url>
+  <url>
+    <loc>https://quickconvert.in/privacy.html</loc>
+    <lastmod>2026-11-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.4</priority>
+  </url>
+  <url>
+    <loc>https://quickconvert.in/terms.html</loc>
     <lastmod>2026-11-16</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.4</priority>
@@ -34,204 +76,204 @@
     <loc>https://quickconvert.in/tools/color-picker.html</loc>
     <lastmod>2026-11-16</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
+    <priority>0.85</priority>
   </url>
   <url>
     <loc>https://quickconvert.in/tools/compress-image-to-100kb.html</loc>
     <lastmod>2026-11-16</lastmod>
-    <changefreq>weekly</changefreq>
+    <changefreq>daily</changefreq>
     <priority>0.95</priority>
   </url>
   <url>
     <loc>https://quickconvert.in/tools/compress-image-to-200kb.html</loc>
     <lastmod>2026-11-16</lastmod>
-    <changefreq>weekly</changefreq>
+    <changefreq>daily</changefreq>
     <priority>0.95</priority>
   </url>
   <url>
     <loc>https://quickconvert.in/tools/compress-image-to-20kb.html</loc>
     <lastmod>2026-11-16</lastmod>
-    <changefreq>weekly</changefreq>
+    <changefreq>daily</changefreq>
     <priority>0.95</priority>
   </url>
   <url>
     <loc>https://quickconvert.in/tools/compress-image-to-50kb.html</loc>
     <lastmod>2026-11-16</lastmod>
-    <changefreq>weekly</changefreq>
+    <changefreq>daily</changefreq>
     <priority>0.95</priority>
   </url>
   <url>
     <loc>https://quickconvert.in/tools/compress-pdf-to-100kb.html</loc>
     <lastmod>2026-11-16</lastmod>
-    <changefreq>weekly</changefreq>
+    <changefreq>daily</changefreq>
     <priority>0.95</priority>
   </url>
   <url>
     <loc>https://quickconvert.in/tools/compress-pdf-to-1mb.html</loc>
     <lastmod>2026-11-16</lastmod>
-    <changefreq>weekly</changefreq>
+    <changefreq>daily</changefreq>
     <priority>0.95</priority>
   </url>
   <url>
     <loc>https://quickconvert.in/tools/compress-pdf-to-200kb.html</loc>
     <lastmod>2026-11-16</lastmod>
-    <changefreq>weekly</changefreq>
+    <changefreq>daily</changefreq>
     <priority>0.95</priority>
   </url>
   <url>
     <loc>https://quickconvert.in/tools/compress-pdf-to-500kb.html</loc>
     <lastmod>2026-11-16</lastmod>
-    <changefreq>weekly</changefreq>
+    <changefreq>daily</changefreq>
     <priority>0.95</priority>
   </url>
   <url>
     <loc>https://quickconvert.in/tools/compress-pdf.html</loc>
     <lastmod>2026-11-16</lastmod>
-    <changefreq>weekly</changefreq>
+    <changefreq>daily</changefreq>
     <priority>0.95</priority>
   </url>
   <url>
     <loc>https://quickconvert.in/tools/edit-pdf.html</loc>
     <lastmod>2026-11-16</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
+    <priority>0.85</priority>
   </url>
   <url>
     <loc>https://quickconvert.in/tools/emi-calculator.html</loc>
     <lastmod>2026-11-16</lastmod>
-    <changefreq>weekly</changefreq>
+    <changefreq>daily</changefreq>
     <priority>0.95</priority>
   </url>
   <url>
     <loc>https://quickconvert.in/tools/exam-resizer.html</loc>
     <lastmod>2026-11-16</lastmod>
-    <changefreq>weekly</changefreq>
+    <changefreq>daily</changefreq>
     <priority>0.95</priority>
   </url>
   <url>
     <loc>https://quickconvert.in/tools/gst-calculator.html</loc>
     <lastmod>2026-11-16</lastmod>
-    <changefreq>weekly</changefreq>
+    <changefreq>daily</changefreq>
     <priority>0.95</priority>
   </url>
   <url>
     <loc>https://quickconvert.in/tools/image-compressor.html</loc>
     <lastmod>2026-11-16</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
+    <priority>0.85</priority>
   </url>
   <url>
     <loc>https://quickconvert.in/tools/image-converter.html</loc>
     <lastmod>2026-11-16</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
+    <priority>0.85</priority>
   </url>
   <url>
     <loc>https://quickconvert.in/tools/image-to-pdf.html</loc>
     <lastmod>2026-11-16</lastmod>
-    <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
+    <changefreq>daily</changefreq>
+    <priority>0.95</priority>
   </url>
   <url>
     <loc>https://quickconvert.in/tools/images-to-zip.html</loc>
     <lastmod>2026-11-16</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
+    <priority>0.85</priority>
   </url>
   <url>
     <loc>https://quickconvert.in/tools/json-formatter.html</loc>
     <lastmod>2026-11-16</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
+    <priority>0.85</priority>
   </url>
   <url>
     <loc>https://quickconvert.in/tools/merge-pdf.html</loc>
     <lastmod>2026-11-16</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
+    <priority>0.85</priority>
   </url>
   <url>
     <loc>https://quickconvert.in/tools/password-generator.html</loc>
     <lastmod>2026-11-16</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
+    <priority>0.85</priority>
   </url>
   <url>
     <loc>https://quickconvert.in/tools/pdf-to-excel.html</loc>
     <lastmod>2026-11-16</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
+    <priority>0.85</priority>
   </url>
   <url>
     <loc>https://quickconvert.in/tools/pdf-to-powerpoint.html</loc>
     <lastmod>2026-11-16</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
+    <priority>0.85</priority>
   </url>
   <url>
     <loc>https://quickconvert.in/tools/pdf-to-word.html</loc>
     <lastmod>2026-11-16</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
+    <priority>0.85</priority>
   </url>
   <url>
     <loc>https://quickconvert.in/tools/pdf-to-zip.html</loc>
     <lastmod>2026-11-16</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
+    <priority>0.85</priority>
   </url>
   <url>
     <loc>https://quickconvert.in/tools/qr-generator.html</loc>
     <lastmod>2026-11-16</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
+    <priority>0.85</priority>
   </url>
   <url>
     <loc>https://quickconvert.in/tools/rotate-pdf.html</loc>
     <lastmod>2026-11-16</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
+    <priority>0.85</priority>
   </url>
   <url>
     <loc>https://quickconvert.in/tools/sign-pdf.html</loc>
     <lastmod>2026-11-16</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
+    <priority>0.85</priority>
   </url>
   <url>
     <loc>https://quickconvert.in/tools/split-pdf.html</loc>
     <lastmod>2026-11-16</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
+    <priority>0.85</priority>
   </url>
   <url>
     <loc>https://quickconvert.in/tools/text-to-pdf.html</loc>
     <lastmod>2026-11-16</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
+    <priority>0.85</priority>
   </url>
   <url>
     <loc>https://quickconvert.in/tools/unit-converter.html</loc>
     <lastmod>2026-11-16</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
+    <priority>0.85</priority>
   </url>
   <url>
     <loc>https://quickconvert.in/tools/watermark-pdf.html</loc>
     <lastmod>2026-11-16</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
+    <priority>0.85</priority>
   </url>
   <url>
     <loc>https://quickconvert.in/tools/word-counter.html</loc>
     <lastmod>2026-11-16</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
+    <priority>0.85</priority>
   </url>
   <url>
     <loc>https://quickconvert.in/tools/word-to-pdf.html</loc>
     <lastmod>2026-11-16</lastmod>
     <changefreq>weekly</changefreq>
-    <priority>0.9</priority>
+    <priority>0.85</priority>
   </url>
 </urlset>
