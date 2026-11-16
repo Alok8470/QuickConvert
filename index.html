@@ -27,9 +27,14 @@
   <meta name="robots" content="index, follow" />
   <link rel="canonical" href="https://quickconvert.in/" />
 
-  <!-- Website Favicon (Tab Logo) -->
-  <link rel="icon" type="image/svg+xml" href="favicon.svg" />
-  <link rel="alternate icon" href="favicon.svg" />
+    <!-- Website Favicon & Apple Touch Icons for Google Search Branding -->
+  <link rel="icon" href="/favicon.ico" sizes="any" />
+  <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+  <link rel="icon" type="image/png" sizes="48x48" href="/favicon-48x48.png" />
+  <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
+  <link rel="manifest" href="/site.webmanifest" />
+  <meta name="theme-color" content="#4f46e5" />
 
   <!-- Open Graph / Facebook Meta Tags -->
   <meta property="og:type" content="website" />
@@ -48,18 +53,47 @@
   {
     "@context": "https://schema.org",
     "@graph": [
-        {
-          "@type": "WebSite",
-          "@id": "https://quickconvert.in/#website",
-          "url": "https://quickconvert.in/",
-          "name": "QuickConvert",
-          "description": "Free client-side file and document conversion platform.",
-          "inLanguage": "en-US",
-          "publisher": {
-            "@type": "Person",
-            "name": "Alok Maurya"
-          }
+              {
+        "@type": "Organization",
+        "@id": "https://quickconvert.in/#organization",
+        "name": "QuickConvert",
+        "alternateName": ["QuickConvert.in", "Quick Convert"],
+        "url": "https://quickconvert.in/",
+        "logo": {
+          "@type": "ImageObject",
+          "@id": "https://quickconvert.in/#logo",
+          "url": "https://quickconvert.in/logo.png",
+          "contentUrl": "https://quickconvert.in/logo.png",
+          "caption": "QuickConvert Brand Logo",
+          "width": 512,
+          "height": 512
         },
+        "image": "https://quickconvert.in/logo.png",
+        "sameAs": [
+          "https://github.com/Alok8470/QuickConvert"
+        ],
+        "founder": {
+          "@type": "Person",
+          "name": "Alok Maurya"
+        },
+        "contactPoint": {
+          "@type": "ContactPoint",
+          "contactType": "customer support",
+          "url": "https://quickconvert.in/contact.html"
+        }
+      },
+      {
+        "@type": "WebSite",
+        "@id": "https://quickconvert.in/#website",
+        "url": "https://quickconvert.in/",
+        "name": "QuickConvert",
+        "alternateName": ["QuickConvert.in", "Quick Convert"],
+        "description": "Free client-side file and document conversion platform with zero server uploads.",
+        "inLanguage": "en-US",
+        "publisher": {
+          "@id": "https://quickconvert.in/#organization"
+        }
+      },
       {
         "@type": "WebApplication",
         "@id": "https://quickconvert.in/#webapp",
