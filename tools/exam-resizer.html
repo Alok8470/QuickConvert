@@ -1,0 +1,464 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <!-- Early Dark Mode Script -->
+  <script>
+    (function() {
+      try {
+        var savedTheme = localStorage.getItem('qc_theme');
+        var prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+        if (savedTheme === 'dark' || (!savedTheme && prefersDark)) {
+          document.documentElement.classList.add('dark');
+        } else {
+          document.documentElement.classList.remove('dark');
+        }
+      } catch (e) {}
+    })();
+  </script>
+
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Exam Photo & Signature Resizer Online (SSC, UPSC, IBPS, NEET) | QuickConvert</title>
+  <meta name="description" content="Resize and compress photos and signatures for SSC, UPSC, IBPS, NEET, JEE, and Railway exams. Exact pixel dimensions and KB limits with zero server uploads." />
+  <meta name="keywords" content="exam photo resizer, ssc photo resizer, upsc signature resize, ibps photo 20-50kb, neet photo resizer 2026, signature resizer online 10 to 20 kb, passport photo for exam" />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="https://quickconvert.in/tools/exam-resizer.html" />
+  <link rel="icon" type="image/svg+xml" href="../favicon.svg" />
+  <link rel="alternate icon" href="../favicon.svg" />
+
+  <!-- Fonts & Icons -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+
+  <!-- Tailwind CSS CDN & Local Fallback -->
+  <script src="https://cdn.tailwindcss.com" onerror="this.onerror=null;var s=document.createElement('script');s.src='../js/vendor/tailwindcss.js';document.head.appendChild(s);"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              50: '#eef2ff', 100: '#e0e7ff', 200: '#c7d2fe', 300: '#a5b4fc',
+              400: '#818cf8', 500: '#6366f1', 600: '#4f46e5', 700: '#4338ca',
+              800: '#3730a3', 900: '#312e81'
+            },
+            accent: {
+              500: '#0284c7', 600: '#0369a1'
+            }
+          },
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+            mono: ['"JetBrains Mono"', 'monospace']
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- Custom Stylesheets -->
+    <link rel="stylesheet" href="../style.css?v=3.2.0">
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://quickconvert.in/tools/exam-resizer.html" />
+  <meta property="og:title" content="Exam Photo & Signature Resizer Online | QuickConvert" />
+  <meta property="og:description" content="One-click photo and signature presets for SSC, UPSC, IBPS, NEET, JEE, and railway exams with exact pixel dimensions and KB caps." />
+  <meta property="og:site_name" content="QuickConvert" />
+  <meta name="twitter:card" content="summary_large_image" />
+
+  <!-- Structured Data: SoftwareApplication & FAQPage -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "SoftwareApplication",
+        "name": "Exam Photo & Signature Resizer - QuickConvert",
+        "operatingSystem": "All",
+        "applicationCategory": "UtilitiesApplication",
+        "offers": {
+          "@type": "Offer",
+          "price": "0",
+          "priceCurrency": "USD"
+        },
+        "description": "Resize and compress photos and signatures for SSC, UPSC, IBPS, NEET, JEE, and Railway exams. Exact pixel dimensions and KB limits with zero server uploads."
+      },
+      {
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "What are the photo and signature specifications for SSC CGL / CHSL?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "SSC requires a recent color passport photo between 20 KB and 50 KB (3.5 cm width × 4.5 cm height), and a signature between 10 KB and 20 KB (4.0 cm width × 2.0 cm height)."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Does this tool support UPSC Civil Services dimensions?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Yes. UPSC requires square format photos and signatures (minimum 350×350 px up to 1000×1000 px) with file sizes between 20 KB and 300 KB."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Are my personal photos and signature uploaded to any server?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "No. All cropping, resizing, and JPEG compression take place in client-side HTML5 canvas memory. Zero files leave your computer or phone."
+            }
+          }
+        ]
+      }
+    ]
+  }
+  </script>
+</head>
+
+<body class="bg-slate-50 text-slate-800 antialiased min-h-screen flex flex-col selection:bg-indigo-500 selection:text-white">
+
+  <!-- Toast Notification Container -->
+  <div id="toast-container" class="fixed bottom-5 right-5 z-50 flex flex-col gap-2 max-w-sm w-full pointer-events-auto"></div>
+
+  <!-- STICKY TOP NAVBAR -->
+  <header class="sticky top-0 z-40 bg-white/95 dark:bg-slate-900/95 backdrop-blur-md border-b border-slate-200/80 dark:border-slate-800 shadow-xs py-3.5 sm:py-4 transition-colors">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between gap-4">
+      
+      <!-- Brand Logo -->
+      <a href="/" class="flex items-center gap-3 shrink-0 group focus:outline-none">
+        <div class="brand-logo-icon w-10 h-10 rounded-xl bg-gradient-to-tr from-brand-600 via-indigo-600 to-accent-500 flex items-center justify-center text-white shadow-md shadow-brand-500/25 group-hover:scale-105 transition-transform duration-200 shrink-0">
+          <i class="fa-solid fa-bolt-lightning text-lg"></i>
+        </div>
+        <div class="flex flex-col">
+          <span class="text-xl font-extrabold tracking-tight text-slate-900 dark:text-white group-hover:text-brand-600 transition-colors leading-none">
+            QuickConvert
+          </span>
+          <span class="text-[10px] font-bold uppercase tracking-wider text-slate-600 dark:text-slate-300 mt-1">
+            Universal Client-Side Suite
+          </span>
+        </div>
+      </a>
+
+      <!-- Desktop Navigation Actions -->
+      <div class="flex items-center gap-2.5 sm:gap-4">
+        <a href="/" class="px-3.5 py-1.5 rounded-xl text-xs font-semibold text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800 transition flex items-center gap-1.5">
+          <i class="fa-solid fa-house text-xs"></i>
+          <span>Home</span>
+        </a>
+
+        <a href="/#suite-tools" class="px-3.5 py-1.5 rounded-xl text-xs font-semibold bg-brand-50 dark:bg-brand-950/40 text-brand-600 dark:text-brand-400 hover:bg-brand-100 dark:hover:bg-brand-900/40 transition flex items-center gap-1.5">
+          <i class="fa-solid fa-layer-group text-xs"></i>
+          <span>All Tools</span>
+        </a>
+
+        <!-- Dark Mode Toggle Button -->
+        <button type="button" class="theme-toggle-btn p-2 rounded-xl text-slate-500 hover:text-slate-900 dark:text-slate-400 dark:hover:text-amber-300 bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 transition-all cursor-pointer focus:outline-none flex items-center justify-center w-9 h-9" aria-label="Toggle Dark / Light Mode" title="Toggle Theme">
+          <i class="theme-icon fa-solid fa-moon text-sm"></i>
+        </button>
+      </div>
+
+    </div>
+  </header>
+
+  <!-- MAIN TOOL CONTENT -->
+  <main class="flex-1 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8 w-full">
+    
+    <!-- Breadcrumb -->
+    <div class="mb-6">
+      <div class="flex items-center gap-2 text-xs text-slate-500 mb-2">
+        <a href="/" class="hover:text-brand-600">Home</a>
+        <i class="fa-solid fa-chevron-right text-[10px] text-slate-400"></i>
+        <a href="/#suite-tools" class="hover:text-brand-600">Tools</a>
+        <i class="fa-solid fa-chevron-right text-[10px] text-slate-400"></i>
+        <span class="text-slate-800 font-semibold">Image Utilities</span>
+      </div>
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+        <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-emerald-50 text-emerald-700 border border-emerald-200 self-start sm:self-auto">
+          <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
+          Client-Side Processing &bull; Zero Server Uploads
+        </span>
+      </div>
+    </div>
+
+    <!-- Active Tool Interactive Workspace -->
+    <section class="mb-10">
+      <div id="tool-exam-resizer" class="tool-panel">
+        <div class="bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm overflow-hidden">
+          
+          <div class="p-6 border-b border-slate-100 dark:border-slate-800 flex items-center justify-between">
+            <div>
+              <h1 class="text-xl font-bold text-slate-900 dark:text-white flex items-center gap-2">
+                <i class="fa-solid fa-id-card-clip text-brand-600"></i>
+                Exam Photo &amp; Signature Resizer
+              </h1>
+              <p class="text-xs text-slate-500 dark:text-slate-400 mt-1">
+                One-click presets for SSC, UPSC, IBPS, NEET, JEE, and Railway exams. Automatically sets exact pixel size and KB limits.
+              </p>
+            </div>
+            <span class="hidden sm:inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold bg-indigo-50 dark:bg-indigo-950/40 text-brand-700 dark:text-brand-300 border border-indigo-200 dark:border-indigo-800/60">
+              <i class="fa-solid fa-award"></i> Exam Spec Compliant
+            </span>
+          </div>
+
+          <div class="p-6">
+            
+            <!-- Exam Preset Dropdown -->
+            <div class="mb-6 p-4 rounded-2xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-700/80">
+              <label for="exam-preset-select" class="block font-bold text-slate-800 dark:text-slate-200 text-xs mb-1.5">
+                <i class="fa-solid fa-bullseye text-brand-600 mr-1.5"></i> Select Exam / Form Specification:
+              </label>
+              <select id="exam-preset-select" class="w-full bg-white dark:bg-slate-800 border border-slate-300 dark:border-slate-600 rounded-xl px-3 py-2.5 text-xs font-semibold text-slate-800 dark:text-white focus:outline-none focus:ring-2 focus:ring-brand-500 cursor-pointer">
+                <optgroup label="Staff Selection Commission (SSC)">
+                  <option value="ssc-photo" selected>SSC Photo (CGL, CHSL, MTS, GD) — 3.5×4.5 cm (20 KB to 50 KB)</option>
+                  <option value="ssc-sign">SSC Signature — 4.0×2.0 cm (10 KB to 20 KB)</option>
+                </optgroup>
+                <optgroup label="Union Public Service Commission (UPSC)">
+                  <option value="upsc-photo">UPSC Photo (Civil Services, NDA, CDS) — 350×350 px min (20 KB to 300 KB)</option>
+                  <option value="upsc-sign">UPSC Signature — 350×350 px min (20 KB to 300 KB)</option>
+                </optgroup>
+                <optgroup label="Banking & Insurance (IBPS / SBI / RBI)">
+                  <option value="ibps-photo">IBPS / SBI PO & Clerk Photo — 200×230 px (20 KB to 50 KB)</option>
+                  <option value="ibps-sign">IBPS / SBI Signature — 140×60 px (10 KB to 20 KB)</option>
+                  <option value="ibps-thumb">IBPS Left Thumb Impression — 240×240 px (20 KB to 50 KB)</option>
+                </optgroup>
+                <optgroup label="National Testing Agency (NTA NEET / JEE)">
+                  <option value="neet-photo">NTA NEET / JEE Passport Photo — 3.5×4.5 cm (10 KB to 200 KB)</option>
+                  <option value="neet-sign">NTA NEET / JEE Signature — White paper, black ink (4 KB to 30 KB)</option>
+                </optgroup>
+                <optgroup label="Railway Recruitment Board (RRB)">
+                  <option value="rrb-photo">RRB Railway Group D & NTPC Photo — 35×45 mm (20 KB to 50 KB)</option>
+                  <option value="rrb-sign">RRB Railway Signature — 10 KB to 20 KB</option>
+                </optgroup>
+              </select>
+
+              <!-- Current Spec Info Badge -->
+              <div id="exam-spec-info" class="mt-3 flex flex-wrap items-center gap-3 text-xs text-slate-600 dark:text-slate-300 font-medium">
+                <span class="inline-flex items-center gap-1 bg-white dark:bg-slate-700/80 px-2.5 py-1 rounded-lg border border-slate-200 dark:border-slate-600">
+                  <i class="fa-solid fa-expand text-brand-600"></i> Dimensions: <strong id="spec-dims-val" class="font-mono text-slate-900 dark:text-white ml-1">350 × 450 px</strong>
+                </span>
+                <span class="inline-flex items-center gap-1 bg-white dark:bg-slate-700/80 px-2.5 py-1 rounded-lg border border-slate-200 dark:border-slate-600">
+                  <i class="fa-solid fa-weight-scale text-emerald-600"></i> File Size: <strong id="spec-kb-val" class="font-mono text-slate-900 dark:text-white ml-1">20 KB &ndash; 50 KB</strong>
+                </span>
+                <span id="spec-note-val" class="text-[11px] text-slate-500 dark:text-slate-400">Standard 3.5 × 4.5 cm color passport photo</span>
+              </div>
+            </div>
+
+            <!-- Empty Upload State -->
+            <div id="exam-empty-state">
+              <label for="exam-input" id="exam-dropzone" class="dropzone block border-2 border-dashed border-slate-300 hover:border-brand-500 dark:border-slate-700 dark:hover:border-brand-400 bg-slate-50/50 hover:bg-brand-50/20 dark:bg-slate-800/40 dark:hover:bg-brand-950/20 rounded-2xl p-8 text-center cursor-pointer transition duration-200 select-none">
+                <input type="file" id="exam-input" aria-label="Upload photo or signature" accept="image/png, image/jpeg, image/jpg, image/webp" class="sr-only" />
+                <div class="w-14 h-14 mx-auto mb-3 rounded-full bg-indigo-50 dark:bg-indigo-950/50 text-brand-600 dark:text-brand-400 flex items-center justify-center shadow-xs pointer-events-none">
+                  <i class="fa-solid fa-camera-retro text-2xl"></i>
+                </div>
+                <p class="text-sm font-bold text-slate-800 dark:text-slate-200 pointer-events-none">
+                  Drop your candidate photo or signature here, or <span class="text-brand-600 dark:text-brand-400 underline font-extrabold cursor-pointer">browse file</span>
+                </p>
+                <p class="text-xs text-slate-500 dark:text-slate-400 mt-1 pointer-events-none">
+                  Supports JPG, PNG, WEBP &bull; Automatically crops &amp; compresses to official exam limits
+                </p>
+              </label>
+            </div>
+
+            <!-- Active Workspace -->
+            <div id="exam-workspace" class="hidden space-y-6">
+              
+              <div class="grid grid-cols-1 md:grid-cols-2 gap-6 items-start">
+                
+                <!-- Preview Canvas Card -->
+                <div class="p-4 rounded-2xl bg-slate-50 dark:bg-slate-800/60 border border-slate-200 dark:border-slate-700 text-center">
+                  <span class="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-wider block mb-3">Live Result Preview</span>
+                  <div class="w-full max-h-72 flex items-center justify-center bg-white dark:bg-slate-900 rounded-xl p-3 border border-slate-200 dark:border-slate-800 shadow-2xs overflow-hidden">
+                    <img id="exam-result-preview" src="" alt="Exam preview" class="max-h-64 object-contain rounded-md" />
+                  </div>
+                  <div class="mt-3 flex items-center justify-center gap-2 text-xs">
+                    <span id="exam-result-dims" class="font-mono font-bold text-slate-800 dark:text-slate-200">350 × 450 px</span>
+                    <span class="text-slate-400">&bull;</span>
+                    <span id="exam-result-size" class="font-mono font-bold text-emerald-600 dark:text-emerald-400">38.4 KB</span>
+                  </div>
+                </div>
+
+                <!-- Adjustment Controls -->
+                <div class="space-y-4">
+                  <div class="p-4 rounded-2xl bg-white dark:bg-slate-800/80 border border-slate-200 dark:border-slate-700 space-y-3">
+                    <span class="text-xs font-bold text-slate-900 dark:text-white uppercase tracking-wider block">Fit &amp; Background Options</span>
+                    
+                    <div>
+                      <label class="block text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">Cropping Mode</label>
+                      <select id="exam-crop-mode" class="w-full bg-slate-50 dark:bg-slate-700 border border-slate-300 dark:border-slate-600 rounded-lg px-2.5 py-1.5 text-xs text-slate-800 dark:text-white focus:outline-none focus:ring-2 focus:ring-brand-500">
+                        <option value="cover" selected>Smart Fill (Crop edges to exact ratio)</option>
+                        <option value="contain">Fit Entire Image (White padding on sides)</option>
+                      </select>
+                    </div>
+
+                    <div>
+                      <label for="exam-quality-slider" class="flex items-center justify-between text-xs font-semibold text-slate-700 dark:text-slate-300 mb-1">
+                        <span>Quality / File Size Fine-Tuning</span>
+                        <span id="exam-quality-val" class="font-mono text-brand-600">80%</span>
+                      </label>
+                      <input type="range" id="exam-quality-slider" min="10" max="95" value="80" class="w-full accent-brand-600 cursor-pointer" />
+                    </div>
+
+                    <div id="exam-compliance-badge" class="p-2.5 rounded-xl bg-emerald-50 dark:bg-emerald-950/40 border border-emerald-200 dark:border-emerald-800/60 text-xs text-emerald-700 dark:text-emerald-300 flex items-center gap-2">
+                      <i class="fa-solid fa-circle-check text-emerald-500"></i>
+                      <span>Complies strictly with selected exam upload criteria.</span>
+                    </div>
+                  </div>
+
+                  <!-- Download Action Button -->
+                  <div class="flex flex-col sm:flex-row gap-3">
+                    <button type="button" id="exam-download-btn" class="flex-1 px-5 py-3 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs sm:text-sm shadow-md transition flex items-center justify-center gap-2 cursor-pointer active:scale-95">
+                      <i class="fa-solid fa-download"></i>
+                      <span>Download Exam Photo / Sign</span>
+                    </button>
+                    <button type="button" id="exam-reset-btn" class="px-4 py-3 rounded-xl bg-slate-100 dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:bg-slate-200 text-xs font-semibold transition">
+                      <i class="fa-solid fa-rotate-left mr-1"></i> New File
+                    </button>
+                  </div>
+
+                </div>
+
+              </div>
+
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Verification Banner -->
+    <div class="p-3.5 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-2xs flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-xs mb-8">
+      <div class="flex items-center gap-2 text-slate-600 dark:text-slate-300">
+        <i class="fa-solid fa-lock text-emerald-600 dark:text-emerald-400"></i>
+        <span class="font-medium">In-Browser Processing: Your photo and signature never leave your device. Zero server logs.</span>
+      </div>
+      <div class="flex items-center gap-1.5 text-slate-600 dark:text-slate-300 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700/60 px-2.5 py-1 rounded-lg shrink-0 font-mono text-[11px]">
+        <i class="fa-solid fa-shield-check text-emerald-500"></i>
+        <span>Verify: Press <kbd class="px-1 py-0.5 rounded bg-white dark:bg-slate-700 text-slate-800 dark:text-slate-200">F12</kbd> &rarr; <strong>Network</strong> &rarr; convert &rarr; 0 uploads</span>
+      </div>
+    </div>
+
+    <!-- Step-by-Step How-To Guide -->
+    <section aria-label="How to use the exam photo resizer" class="mb-8">
+      <article class="bg-white dark:bg-slate-900 rounded-3xl border border-slate-200/90 dark:border-slate-800 shadow-xs p-6 sm:p-8 overflow-hidden">
+        <div class="flex items-center gap-3 mb-6 pb-4 border-b border-slate-100 dark:border-slate-800">
+          <div class="w-9 h-9 rounded-xl bg-brand-50 dark:bg-brand-950/50 text-brand-600 dark:text-brand-400 flex items-center justify-center shrink-0">
+            <i class="fa-solid fa-list-ol text-sm"></i>
+          </div>
+          <div>
+            <h2 class="text-lg sm:text-xl font-bold text-slate-900 dark:text-white">How to Resize Photos &amp; Signatures for Competitive Exams — Step-by-Step</h2>
+            <p class="text-xs text-slate-500 dark:text-slate-400 mt-0.5">Follow these 3 simple steps to avoid form rejection on official government exam portals.</p>
+          </div>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+          <div class="flex gap-3">
+            <span class="w-7 h-7 rounded-full bg-brand-600 text-white text-xs font-bold flex items-center justify-center shrink-0 mt-0.5">1</span>
+            <div>
+              <h3 class="text-sm font-bold text-slate-900 dark:text-white mb-1">Pick Your Exam Preset</h3>
+              <p class="text-xs text-slate-600 dark:text-slate-300 leading-relaxed">Select SSC, UPSC, IBPS, NEET, JEE, or Railway from the preset dropdown. The tool automatically configures the mandated dimensions and KB range.</p>
+            </div>
+          </div>
+          <div class="flex gap-3">
+            <span class="w-7 h-7 rounded-full bg-brand-600 text-white text-xs font-bold flex items-center justify-center shrink-0 mt-0.5">2</span>
+            <div>
+              <h3 class="text-sm font-bold text-slate-900 dark:text-white mb-1">Upload Photo or Signature</h3>
+              <p class="text-xs text-slate-600 dark:text-slate-300 leading-relaxed">Drop your image onto the upload box. The engine scales the canvas and auto-optimizes the file size to stay strictly inside the allowed KB window.</p>
+            </div>
+          </div>
+          <div class="flex gap-3">
+            <span class="w-7 h-7 rounded-full bg-brand-600 text-white text-xs font-bold flex items-center justify-center shrink-0 mt-0.5">3</span>
+            <div>
+              <h3 class="text-sm font-bold text-slate-900 dark:text-white mb-1">Download &amp; Submit</h3>
+              <p class="text-xs text-slate-600 dark:text-slate-300 leading-relaxed">Inspect the real-time preview, verify the compliance badge, and click Download to save the submission-ready JPEG file directly to your phone or computer.</p>
+            </div>
+          </div>
+        </div>
+      </article>
+    </section>
+
+    <!-- FAQ Accordion -->
+    <article class="bg-white dark:bg-slate-900 rounded-3xl border border-slate-200/90 dark:border-slate-800 shadow-xs p-6 sm:p-8">
+      <div class="mb-6">
+        <span class="text-xs font-bold uppercase tracking-wider text-brand-600 dark:text-brand-400">Questions Answered</span>
+        <h2 class="text-xl sm:text-2xl font-bold text-slate-900 dark:text-white mt-1">Frequently Asked Questions</h2>
+      </div>
+
+      <div class="space-y-3">
+        <div class="faq-item bg-white dark:bg-slate-800/80 rounded-2xl border border-slate-200/90 dark:border-slate-700/80 overflow-hidden shadow-2xs">
+          <button class="faq-trigger w-full px-5 py-4 text-left flex items-center justify-between text-xs sm:text-sm font-bold text-slate-900 dark:text-white hover:text-brand-600 dark:hover:text-brand-400 transition focus:outline-none">
+            <span>Why do government exam forms reject uploaded photos?</span>
+            <i class="faq-icon fa-solid fa-chevron-down text-slate-400 text-xs transition-transform duration-200 shrink-0 ml-3"></i>
+          </button>
+          <div class="faq-content px-5 text-xs text-slate-600 dark:text-slate-300 leading-relaxed border-t border-slate-100 dark:border-slate-700/60 bg-slate-50/50 dark:bg-slate-800/30">
+            <div class="py-3.5">
+              Online recruitment portals use automated server scripts that reject files if the aspect ratio is wrong (e.g. landscape instead of portrait), if width/height exceed mandated pixels, or if file size is even 1 KB above the maximum cap. QuickConvert enforces both pixel and byte boundaries simultaneously.
+            </div>
+          </div>
+        </div>
+
+        <div class="faq-item bg-white dark:bg-slate-800/80 rounded-2xl border border-slate-200/90 dark:border-slate-700/80 overflow-hidden shadow-2xs">
+          <button class="faq-trigger w-full px-5 py-4 text-left flex items-center justify-between text-xs sm:text-sm font-bold text-slate-900 dark:text-white hover:text-brand-600 dark:hover:text-brand-400 transition focus:outline-none">
+            <span>Can I resize my signature photo on mobile?</span>
+            <i class="faq-icon fa-solid fa-chevron-down text-slate-400 text-xs transition-transform duration-200 shrink-0 ml-3"></i>
+          </button>
+          <div class="faq-content px-5 text-xs text-slate-600 dark:text-slate-300 leading-relaxed border-t border-slate-100 dark:border-slate-700/60 bg-slate-50/50 dark:bg-slate-800/30">
+            <div class="py-3.5">
+              Yes. Take a photo of your signature with your smartphone camera, upload it to QuickConvert, select your exam, and it will automatically scale down from 5MB to under 20KB with clear black ink lines on a solid white background.
+            </div>
+          </div>
+        </div>
+
+        <div class="faq-item bg-white dark:bg-slate-800/80 rounded-2xl border border-slate-200/90 dark:border-slate-700/80 overflow-hidden shadow-2xs">
+          <button class="faq-trigger w-full px-5 py-4 text-left flex items-center justify-between text-xs sm:text-sm font-bold text-slate-900 dark:text-white hover:text-brand-600 dark:hover:text-brand-400 transition focus:outline-none">
+            <span>Does this tool add dates or candidate names on the photo?</span>
+            <i class="faq-icon fa-solid fa-chevron-down text-slate-400 text-xs transition-transform duration-200 shrink-0 ml-3"></i>
+          </button>
+          <div class="faq-content px-5 text-xs text-slate-600 dark:text-slate-300 leading-relaxed border-t border-slate-100 dark:border-slate-700/60 bg-slate-50/50 dark:bg-slate-800/30">
+            <div class="py-3.5">
+              The tool preserves your photo as taken. If your exam requires a name and date strip (DOB/DOP), you can add text annotations using our <a href="edit-pdf.html" class="text-brand-600 dark:text-brand-400 underline font-semibold">PDF/Image editor</a> or upload a pre-stamped photo.
+            </div>
+          </div>
+        </div>
+      </div>
+    </article>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="bg-white dark:bg-slate-900 border-t border-slate-200 dark:border-slate-800 text-slate-600 dark:text-slate-400 text-xs mt-16 transition-colors">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 flex flex-col md:flex-row items-center justify-between gap-6">
+      
+      <div class="flex items-center gap-2">
+        <div class="w-6 h-6 rounded-lg bg-brand-600 flex items-center justify-center text-white">
+          <i class="fa-solid fa-bolt-lightning text-xs"></i>
+        </div>
+        <span class="font-extrabold text-slate-900 dark:text-white">QuickConvert</span>
+        <span class="text-slate-400">&bull; In-Browser File Utilities</span>
+      </div>
+
+      <div class="flex flex-wrap items-center justify-center gap-x-5 gap-y-2 text-xs font-medium text-slate-500 dark:text-slate-400">
+        <a href="/" class="hover:text-brand-600 dark:hover:text-brand-400 transition">Home</a>
+        <a href="/#suite-tools" class="hover:text-brand-600 dark:hover:text-brand-400 transition">All Tools</a>
+        <a href="/privacy.html" class="hover:text-brand-600 dark:hover:text-brand-400 transition">Privacy Policy</a>
+        <a href="/terms.html" class="hover:text-brand-600 dark:hover:text-brand-400 transition">Terms of Service</a>
+        <a href="/about.html" class="hover:text-brand-600 dark:hover:text-brand-400 transition">About</a>
+        <a href="/contact.html" class="hover:text-brand-600 dark:hover:text-brand-400 transition">Contact</a>
+        <a href="/feedback.html" class="text-brand-600 dark:text-brand-400 font-bold hover:text-brand-700 transition">Feedback</a>
+      </div>
+
+      <div class="text-[11px] text-slate-400 text-center md:text-right">
+        Operated by Alok Maurya &bull; 100% Client-Side Privacy
+      </div>
+
+    </div>
+  </footer>
+
+  <script src="../js/app.js?v=3.2.0"></script>
+  <script src="../js/theme.js?v=3.2.0"></script>
+</body>
+</html>

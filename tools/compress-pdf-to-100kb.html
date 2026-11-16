@@ -1,0 +1,486 @@
+<!DOCTYPE html>
+<html lang="en" class="scroll-smooth">
+<head>
+  <!-- Early Dark Mode Script -->
+  <script>
+    (function() {
+      try {
+        var savedTheme = localStorage.getItem('qc_theme');
+        var prefersDark = window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches;
+        if (savedTheme === 'dark' || (!savedTheme && prefersDark)) {
+          document.documentElement.classList.add('dark');
+        } else {
+          document.documentElement.classList.remove('dark');
+        }
+      } catch (e) {}
+    })();
+  </script>
+
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Compress PDF to 100KB Online Free (Exam & Govt Forms) | QuickConvert</title>
+  <meta name="description" content="Compress PDF documents to under 100KB online for government exams, job forms, and college portals. 100% in-browser, zero server uploads." />
+  <meta name="keywords" content="compress pdf to 100kb, reduce pdf to 100kb, ssc pdf 100kb, upsc document 100kb, certificate under 100kb pdf" />
+  <meta name="robots" content="index, follow" />
+  <link rel="canonical" href="https://quickconvert.in/tools/compress-pdf-to-100kb.html" />
+  <link rel="icon" type="image/svg+xml" href="../favicon.svg" />
+  <link rel="alternate icon" href="../favicon.svg" />
+
+  <!-- Fonts & Icons -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" />
+
+  <!-- Tailwind CSS CDN & Local Fallback -->
+  <script src="https://cdn.tailwindcss.com" onerror="this.onerror=null;var s=document.createElement('script');s.src='../js/vendor/tailwindcss.js';document.head.appendChild(s);"></script>
+  <script>
+    tailwind.config = {
+      darkMode: 'class',
+      theme: {
+        extend: {
+          colors: {
+            brand: {
+              50: '#eef2ff', 100: '#e0e7ff', 200: '#c7d2fe', 300: '#a5b4fc',
+              400: '#818cf8', 500: '#6366f1', 600: '#4f46e5', 700: '#4338ca',
+              800: '#3730a3', 900: '#312e81'
+            },
+            accent: {
+              500: '#0284c7', 600: '#0369a1'
+            }
+          },
+          fontFamily: {
+            sans: ['"Plus Jakarta Sans"', 'sans-serif'],
+            mono: ['"JetBrains Mono"', 'monospace']
+          }
+        }
+      }
+    }
+  </script>
+
+  <!-- PDF Processing Engines -->
+  <script src="../js/vendor/pdf-lib.min.js?v=3.2.0"></script>
+  <script src="../js/vendor/pdf.min.js?v=3.2.0"></script>
+  <script>
+    if (typeof pdfjsLib !== 'undefined') {
+      pdfjsLib.GlobalWorkerOptions.workerSrc = '../js/vendor/pdf.worker.min.js';
+    }
+  </script>
+
+  <!-- Custom Stylesheets -->
+    <link rel="stylesheet" href="../style.css?v=3.2.0">
+
+  <!-- Open Graph -->
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://quickconvert.in/tools/compress-pdf-to-100kb.html" />
+  <meta property="og:title" content="Compress PDF to 100KB Online Free (Exam & Govt Forms) | QuickConvert" />
+  <meta property="og:description" content="Compress PDF documents to under 100KB online for government exams, job forms, and college portals. 100% in-browser, zero server uploads." />
+  <meta property="og:site_name" content="QuickConvert" />
+  <meta name="twitter:card" content="summary_large_image" />
+  <meta name="twitter:title" content="Compress PDF to 100KB Online Free (Exam & Govt Forms) | QuickConvert" />
+  <meta name="twitter:description" content="Compress PDF documents to under 100KB online for government exams, job forms, and college portals. 100% in-browser, zero server uploads." />
+
+  <!-- Structured Data: SoftwareApplication & FAQPage -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@graph": [
+      {
+        "@type": "SoftwareApplication",
+        "name": "Compress PDF to Under 100KB - QuickConvert",
+        "operatingSystem": "All",
+        "applicationCategory": "UtilitiesApplication",
+        "offers": {
+          "@type": "Offer",
+          "price": "0",
+          "priceCurrency": "USD"
+        },
+        "description": "Compress PDF documents to under 100KB online for government exams, job forms, and college portals. 100% in-browser, zero server uploads."
+      },
+      {
+        "@type": "FAQPage",
+        "mainEntity": [
+          {
+            "@type": "Question",
+            "name": "How does QuickConvert compress PDFs directly in the browser?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "QuickConvert parses the PDF using Mozilla PDF.js, extracts and re-renders pages on an in-memory HTML5 canvas, compresses embedded graphics with optimal JPEG subsampling, and serializes a fresh PDF with PDF-Lib entirely in RAM."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Will compressing a PDF to 100KB make text blurry?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "No. The optimizer dynamically balances canvas DPI and JPEG quality so that fine text, signatures, and stamps on marksheets, Aadhaar cards, and certificates remain sharp and legible."
+            }
+          },
+          {
+            "@type": "Question",
+            "name": "Are my sensitive documents uploaded to external servers?",
+            "acceptedAnswer": {
+              "@type": "Answer",
+              "text": "Never. All compression takes place strictly inside your browser execution sandbox. Zero bytes of your files leave your device."
+            }
+          }
+        ]
+      }
+    ]
+  }
+  </script>
+</head>
+
+<body class="bg-slate-50 text-slate-800 antialiased min-h-screen flex flex-col selection:bg-indigo-500 selection:text-white" data-target-kb="100">
+
+  <!-- Toast Notification Container -->
+  <div id="toast-container" class="fixed bottom-5 right-5 z-50 flex flex-col gap-2 max-w-sm w-full pointer-events-auto"></div>
+
+  <!-- STICKY TOP NAVBAR -->
+  <header class="sticky top-0 z-40 bg-white/95 dark:bg-slate-900/95 backdrop-blur-md border-b border-slate-200/80 dark:border-slate-800 shadow-xs py-3.5 sm:py-4 transition-colors">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex items-center justify-between gap-4">
+      
+      <!-- Brand Logo -->
+      <a href="/" class="flex items-center gap-3 shrink-0 group focus:outline-none">
+        <div class="brand-logo-icon w-10 h-10 rounded-xl bg-gradient-to-tr from-brand-600 via-indigo-600 to-accent-500 flex items-center justify-center text-white shadow-md shadow-brand-500/25 group-hover:scale-105 transition-transform duration-200 shrink-0">
+          <i class="fa-solid fa-bolt-lightning text-lg"></i>
+        </div>
+        <div class="flex flex-col">
+          <span class="text-xl font-extrabold tracking-tight text-slate-900 dark:text-white group-hover:text-brand-600 transition-colors leading-none">
+            QuickConvert
+          </span>
+          <span class="text-[10px] font-bold uppercase tracking-wider text-slate-600 dark:text-slate-300 mt-1">
+            Universal Client-Side Suite
+          </span>
+        </div>
+      </a>
+
+      <!-- Desktop Navigation Actions -->
+      <div class="flex items-center gap-2.5 sm:gap-4">
+        <a href="/" class="px-3.5 py-1.5 rounded-xl text-xs font-semibold text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white hover:bg-slate-100 dark:hover:bg-slate-800 transition flex items-center gap-1.5">
+          <i class="fa-solid fa-house text-xs"></i>
+          <span>Home</span>
+        </a>
+
+        <a href="/#suite-tools" class="px-3.5 py-1.5 rounded-xl text-xs font-semibold bg-brand-50 dark:bg-brand-950/40 text-brand-600 dark:text-brand-400 hover:bg-brand-100 dark:hover:bg-brand-900/40 transition flex items-center gap-1.5">
+          <i class="fa-solid fa-layer-group text-xs"></i>
+          <span>All Tools</span>
+        </a>
+
+        <!-- Dark Mode Toggle Button -->
+        <button type="button" class="theme-toggle-btn p-2 rounded-xl text-slate-500 hover:text-slate-900 dark:text-slate-400 dark:hover:text-amber-300 bg-slate-100 hover:bg-slate-200 dark:bg-slate-800 dark:hover:bg-slate-700 transition-all cursor-pointer focus:outline-none flex items-center justify-center w-9 h-9" aria-label="Toggle Dark / Light Mode" title="Toggle Theme">
+          <i class="theme-icon fa-solid fa-moon text-sm"></i>
+        </button>
+      </div>
+
+    </div>
+  </header>
+
+  <!-- MAIN TOOL CONTENT -->
+  <main class="flex-1 max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 py-8 w-full">
+    
+    <!-- Breadcrumb & Header Title -->
+    <div class="mb-6">
+      <div class="flex items-center gap-2 text-xs text-slate-500 mb-2">
+        <a href="/" class="hover:text-brand-600">Home</a>
+        <i class="fa-solid fa-chevron-right text-[10px] text-slate-400"></i>
+        <a href="/#suite-tools" class="hover:text-brand-600">Tools</a>
+        <i class="fa-solid fa-chevron-right text-[10px] text-slate-400"></i>
+        <span class="text-slate-800 font-semibold">PDF Tools</span>
+      </div>
+      <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+        <span class="inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-semibold bg-emerald-50 text-emerald-700 border border-emerald-200 self-start sm:self-auto">
+          <span class="w-1.5 h-1.5 rounded-full bg-emerald-500 animate-pulse"></span>
+          Client-Side Processing &bull; Zero Cloud Storage
+        </span>
+      </div>
+    </div>
+
+    <!-- Active Tool Interactive Workspace -->
+    <section class="mb-10">
+      <div id="tool-compress-pdf" class="tool-panel">
+        <div class="bg-white dark:bg-slate-900 rounded-2xl border border-slate-200 dark:border-slate-800 shadow-sm overflow-hidden">
+          
+          <div class="p-6 border-b border-slate-100 dark:border-slate-800 flex items-center justify-between">
+            <div>
+              <h1 class="text-xl font-bold text-slate-900 dark:text-white flex items-center gap-2">
+                <i class="fa-solid fa-file-pdf text-red-600"></i>
+                Compress PDF to Under 100KB
+              </h1>
+              <p class="text-xs text-slate-500 dark:text-slate-400 mt-1">
+                Automatically compress scanned certificates, marksheets, and documents strictly below 100KB for official portals.
+              </p>
+            </div>
+            <span class="hidden sm:inline-flex items-center gap-1.5 px-3 py-1 rounded-full text-xs font-bold bg-red-50 dark:bg-red-950/40 text-red-700 dark:text-red-300 border border-red-200 dark:border-red-800/60">
+              <i class="fa-solid fa-shield-halved text-red-500"></i> 100 KB Exam &amp; Portal Mode
+            </span>
+          </div>
+
+          <div class="p-6">
+            
+            <!-- Target KB Preset Switcher Bar -->
+            <div class="flex flex-wrap items-center gap-2 mb-5 p-2.5 rounded-2xl bg-slate-100/80 dark:bg-slate-800/60 border border-slate-200/80 dark:border-slate-700/80 text-xs font-semibold">
+              <span class="text-slate-500 dark:text-slate-400 px-2 flex items-center gap-1.5"><i class="fa-solid fa-bullseye text-brand-600 dark:text-brand-400"></i> Target Size:</span>
+              <a href="compress-pdf-to-100kb.html" class="px-3 py-1.5 rounded-xl transition bg-brand-600 text-white shadow-xs">Under 100 KB</a>
+              <a href="compress-pdf-to-200kb.html" class="px-3 py-1.5 rounded-xl transition bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700">Under 200 KB</a>
+              <a href="compress-pdf-to-500kb.html" class="px-3 py-1.5 rounded-xl transition bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700">Under 500 KB</a>
+              <a href="compress-pdf-to-1mb.html" class="px-3 py-1.5 rounded-xl transition bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700">Under 1 MB</a>
+              <a href="compress-pdf.html" class="px-3 py-1.5 rounded-xl transition bg-white dark:bg-slate-800 text-slate-700 dark:text-slate-300 hover:bg-slate-200 dark:hover:bg-slate-700">Custom Target</a>
+            </div>
+
+            <!-- Empty Upload State -->
+            <div id="pdfcomp-empty-state">
+              <label for="pdfcomp-input" id="pdfcomp-dropzone" class="dropzone block border-2 border-dashed border-slate-300 hover:border-brand-500 dark:border-slate-700 dark:hover:border-brand-400 bg-slate-50/50 hover:bg-brand-50/20 dark:bg-slate-800/40 dark:hover:bg-brand-950/20 rounded-2xl p-8 text-center cursor-pointer transition duration-200 select-none">
+                <input type="file" id="pdfcomp-input" aria-label="Upload PDF to compress" accept=".pdf,application/pdf" class="sr-only" />
+                <div class="w-14 h-14 mx-auto mb-3 rounded-full bg-red-50 dark:bg-red-950/50 text-red-600 dark:text-red-400 flex items-center justify-center shadow-xs pointer-events-none">
+                  <i class="fa-solid fa-file-pdf text-2xl"></i>
+                </div>
+                <p class="text-sm font-bold text-slate-800 dark:text-slate-200 pointer-events-none">
+                  Drop your PDF here, or <span class="text-brand-600 dark:text-brand-400 underline font-extrabold cursor-pointer">browse file</span>
+                </p>
+                <p class="text-xs text-slate-500 dark:text-slate-400 mt-1 pointer-events-none">
+                  Supports scanned documents, marksheets, certificates, and multi-page PDFs &bull; In-Browser Execution
+                </p>
+              </label>
+            </div>
+
+            <!-- Active Workspace (Hidden until file selected) -->
+            <div id="pdfcomp-workspace" class="hidden space-y-6">
+              
+              <!-- Original File Snapshot -->
+              <div class="flex items-center justify-between p-3.5 bg-slate-50 dark:bg-slate-800/60 rounded-xl border border-slate-200 dark:border-slate-700 text-xs">
+                <div class="flex items-center gap-3 min-w-0">
+                  <div class="w-9 h-9 rounded-lg bg-red-100 dark:bg-red-950/60 text-red-600 dark:text-red-400 flex items-center justify-center shrink-0">
+                    <i class="fa-solid fa-file-pdf"></i>
+                  </div>
+                  <div class="truncate">
+                    <span id="pdfcomp-orig-name" class="font-bold text-slate-800 dark:text-white truncate block">document.pdf</span>
+                    <span class="text-slate-500 dark:text-slate-400 text-[11px]">
+                      <span id="pdfcomp-orig-pages">0 pages</span> &bull; Original: <span id="pdfcomp-orig-size" class="font-mono font-semibold">0 KB</span>
+                    </span>
+                  </div>
+                </div>
+                <button type="button" id="pdfcomp-reset-btn" class="px-2.5 py-1 text-slate-500 hover:text-rose-600 text-xs font-semibold rounded-lg hover:bg-slate-100 dark:hover:bg-slate-700 transition">
+                  <i class="fa-solid fa-rotate-left mr-1"></i> Change File
+                </button>
+              </div>
+
+              <!-- Controls Grid -->
+              <div class="grid grid-cols-1 sm:grid-cols-2 gap-4 p-4 rounded-xl bg-slate-50/70 dark:bg-slate-800/40 border border-slate-200 dark:border-slate-700/80 text-xs">
+                <div>
+                  <label for="pdfcomp-target-kb" class="block font-semibold text-slate-700 dark:text-slate-300 mb-1">Target File Size (KB)</label>
+                  <div class="flex items-center">
+                    <input type="number" id="pdfcomp-target-kb" value="100" min="20" max="5000" class="w-full bg-white dark:bg-slate-800 border border-slate-300 dark:border-slate-600 rounded-l-lg px-3 py-2 text-xs font-mono font-bold text-slate-800 dark:text-white focus:outline-none focus:ring-2 focus:ring-brand-500" />
+                    <span class="px-3 py-2 bg-slate-200 dark:bg-slate-700 text-slate-700 dark:text-slate-300 font-mono font-bold border border-l-0 border-slate-300 dark:border-slate-600 rounded-r-lg">KB</span>
+                  </div>
+                  <span class="text-[11px] text-slate-500 dark:text-slate-400 mt-1 block">Optimizer scales quality to stay strictly under this limit.</span>
+                </div>
+
+                <div>
+                  <label for="pdfcomp-quality-mode" class="block font-semibold text-slate-700 dark:text-slate-300 mb-1">Compression Engine Level</label>
+                  <select id="pdfcomp-quality-mode" class="w-full bg-white dark:bg-slate-800 border border-slate-300 dark:border-slate-600 rounded-lg px-3 py-2 text-xs text-slate-800 dark:text-white focus:outline-none focus:ring-2 focus:ring-brand-500">
+                    <option value="recommended" selected>Recommended (Best Quality / Size Balance)</option>
+                    <option value="extreme">Extreme Compression (Maximum Shrink for Strict Limits)</option>
+                    <option value="high">High Quality (150+ DPI for Detailed Certificates)</option>
+                  </select>
+                  <span class="text-[11px] text-slate-500 dark:text-slate-400 mt-1 block">Adjusts canvas subsampling &amp; JPEG compression matrix.</span>
+                </div>
+              </div>
+
+              <!-- Action Button -->
+              <div>
+                <button type="button" id="pdfcomp-action-btn" class="w-full sm:w-auto px-6 py-3 rounded-xl bg-brand-600 hover:bg-brand-700 text-white font-bold text-xs sm:text-sm shadow-md transition flex items-center justify-center gap-2 cursor-pointer active:scale-98">
+                  <i class="fa-solid fa-compress"></i>
+                  <span>Compress PDF Now</span>
+                </button>
+              </div>
+
+              <!-- Progress Bar (Visible during processing) -->
+              <div id="pdfcomp-progress-wrap" class="hidden space-y-2">
+                <div class="flex justify-between text-xs font-semibold text-slate-700 dark:text-slate-300">
+                  <span id="pdfcomp-progress-text">Processing pages...</span>
+                </div>
+                <div class="w-full bg-slate-200 dark:bg-slate-700 h-2 rounded-full overflow-hidden">
+                  <div id="pdfcomp-progress-bar" class="bg-brand-600 h-full w-0 transition-all duration-200"></div>
+                </div>
+              </div>
+
+              <!-- Result Card (Shown after compression) -->
+              <div id="pdfcomp-result-wrap" class="hidden p-5 rounded-2xl bg-emerald-50/40 dark:bg-emerald-950/30 border border-emerald-200 dark:border-emerald-800/60 space-y-4">
+                <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3">
+                  <div>
+                    <span class="text-xs font-bold uppercase tracking-wider text-emerald-700 dark:text-emerald-400">Optimization Complete</span>
+                    <div class="flex items-baseline gap-2 mt-0.5">
+                      <span class="text-2xl font-black text-slate-900 dark:text-white font-mono" id="pdfcomp-result-size">0 KB</span>
+                      <span id="pdfcomp-savings-badge" class="px-2.5 py-0.5 rounded-full text-xs font-bold bg-emerald-100 dark:bg-emerald-950/60 text-emerald-800 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-800/60">-0% smaller</span>
+                    </div>
+                  </div>
+                  <button type="button" id="pdfcomp-download-btn" class="px-5 py-2.5 rounded-xl bg-emerald-600 hover:bg-emerald-700 text-white font-bold text-xs shadow-md transition flex items-center justify-center gap-2 cursor-pointer active:scale-95">
+                    <i class="fa-solid fa-download"></i>
+                    <span>Download Compressed PDF</span>
+                  </button>
+                </div>
+
+                <div id="pdfcomp-status-note" class="text-xs text-slate-600 dark:text-slate-300 flex items-center gap-1.5">
+                  <i class="fa-solid fa-circle-check text-emerald-500"></i>
+                  <span>Ready for submission on exam &amp; job portals.</span>
+                </div>
+              </div>
+
+            </div>
+
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- Verification Banner -->
+    <div class="p-3.5 rounded-2xl bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 shadow-2xs flex flex-col sm:flex-row sm:items-center justify-between gap-3 text-xs mb-8">
+      <div class="flex items-center gap-2 text-slate-600 dark:text-slate-300">
+        <i class="fa-solid fa-lock text-emerald-600 dark:text-emerald-400"></i>
+        <span class="font-medium">In-Browser Processing: Your PDF never leaves your computer and is not uploaded to any remote server.</span>
+      </div>
+      <div class="flex items-center gap-1.5 text-slate-600 dark:text-slate-300 bg-slate-50 dark:bg-slate-800 border border-slate-200 dark:border-slate-700/60 px-2.5 py-1 rounded-lg shrink-0 font-mono text-[11px]">
+        <i class="fa-solid fa-shield-check text-emerald-500"></i>
+        <span>Verify: Press <kbd class="px-1 py-0.5 rounded bg-white dark:bg-slate-700 text-slate-800 dark:text-slate-200">F12</kbd> &rarr; <strong>Network</strong> &rarr; convert &rarr; 0 uploads</span>
+      </div>
+    </div>
+
+    <!-- Step-by-Step How-To Guide -->
+    <section aria-label="How to compress PDF" class="mb-8">
+      <article class="bg-white dark:bg-slate-900 rounded-3xl border border-slate-200/90 dark:border-slate-800 shadow-xs p-6 sm:p-8 overflow-hidden">
+        <div class="flex items-center gap-3 mb-6 pb-4 border-b border-slate-100 dark:border-slate-800">
+          <div class="w-9 h-9 rounded-xl bg-brand-50 dark:bg-brand-950/50 text-brand-600 dark:text-brand-400 flex items-center justify-center shrink-0">
+            <i class="fa-solid fa-list-ol text-sm"></i>
+          </div>
+          <div>
+            <h2 class="text-lg sm:text-xl font-bold text-slate-900 dark:text-white">How to Compress a PDF Online — Step-by-Step Guide</h2>
+            <p class="text-xs text-slate-500 dark:text-slate-400 mt-0.5">Reduce scanned marksheets, Aadhaar cards, and document PDFs to exact KB requirements.</p>
+          </div>
+        </div>
+        <div class="grid grid-cols-1 md:grid-cols-4 gap-6">
+          <div class="flex gap-3">
+            <span class="w-7 h-7 rounded-full bg-brand-600 text-white text-xs font-bold flex items-center justify-center shrink-0 mt-0.5">1</span>
+            <div>
+              <h3 class="text-sm font-bold text-slate-900 dark:text-white mb-1">Select PDF File</h3>
+              <p class="text-xs text-slate-600 dark:text-slate-300 leading-relaxed">Drag and drop your PDF into the upload zone or choose from your device. QuickConvert loads the document directly into browser memory.</p>
+            </div>
+          </div>
+          <div class="flex gap-3">
+            <span class="w-7 h-7 rounded-full bg-brand-600 text-white text-xs font-bold flex items-center justify-center shrink-0 mt-0.5">2</span>
+            <div>
+              <h3 class="text-sm font-bold text-slate-900 dark:text-white mb-1">Set Target KB</h3>
+              <p class="text-xs text-slate-600 dark:text-slate-300 leading-relaxed">Choose an automated preset (100KB, 200KB, 500KB, 1MB) or enter your exact portal requirement in the target box.</p>
+            </div>
+          </div>
+          <div class="flex gap-3">
+            <span class="w-7 h-7 rounded-full bg-brand-600 text-white text-xs font-bold flex items-center justify-center shrink-0 mt-0.5">3</span>
+            <div>
+              <h3 class="text-sm font-bold text-slate-900 dark:text-white mb-1">Click Compress</h3>
+              <p class="text-xs text-slate-600 dark:text-slate-300 leading-relaxed">The client-side engine renders each page canvas, strips bloated streams, and packs a newly compressed PDF stream in milliseconds.</p>
+            </div>
+          </div>
+          <div class="flex gap-3">
+            <span class="w-7 h-7 rounded-full bg-brand-600 text-white text-xs font-bold flex items-center justify-center shrink-0 mt-0.5">4</span>
+            <div>
+              <h3 class="text-sm font-bold text-slate-900 dark:text-white mb-1">Instant Download</h3>
+              <p class="text-xs text-slate-600 dark:text-slate-300 leading-relaxed">Review the savings percentage and click Download to save the optimized PDF file directly to your downloads folder.</p>
+            </div>
+          </div>
+        </div>
+      </article>
+    </section>
+
+    <!-- Frequently Asked Questions Accordion -->
+    <article class="bg-white dark:bg-slate-900 rounded-3xl border border-slate-200/90 dark:border-slate-800 shadow-xs p-6 sm:p-8">
+      <div class="mb-6">
+        <span class="text-xs font-bold uppercase tracking-wider text-brand-600 dark:text-brand-400">Questions Answered</span>
+        <h2 class="text-xl sm:text-2xl font-bold text-slate-900 dark:text-white mt-1">Frequently Asked Questions</h2>
+      </div>
+
+      <div class="space-y-3">
+        <div class="faq-item bg-white dark:bg-slate-800/80 rounded-2xl border border-slate-200/90 dark:border-slate-700/80 overflow-hidden shadow-2xs">
+          <button class="faq-trigger w-full px-5 py-4 text-left flex items-center justify-between text-xs sm:text-sm font-bold text-slate-900 dark:text-white hover:text-brand-600 dark:hover:text-brand-400 transition focus:outline-none">
+            <span>How does QuickConvert compress PDFs without uploading to servers?</span>
+            <i class="faq-icon fa-solid fa-chevron-down text-slate-400 text-xs transition-transform duration-200 shrink-0 ml-3"></i>
+          </button>
+          <div class="faq-content px-5 text-xs text-slate-600 dark:text-slate-300 leading-relaxed border-t border-slate-100 dark:border-slate-700/60 bg-slate-50/50 dark:bg-slate-800/30">
+            <div class="py-3.5">
+              QuickConvert runs completely inside your browser using Mozilla's PDF.js and PDF-Lib. It renders the vector/bitmap page elements onto an internal HTML5 canvas, compresses graphic elements with tailored JPEG compression, and packages a new PDF stream right in your device's RAM.
+            </div>
+          </div>
+        </div>
+
+        <div class="faq-item bg-white dark:bg-slate-800/80 rounded-2xl border border-slate-200/90 dark:border-slate-700/80 overflow-hidden shadow-2xs">
+          <button class="faq-trigger w-full px-5 py-4 text-left flex items-center justify-between text-xs sm:text-sm font-bold text-slate-900 dark:text-white hover:text-brand-600 dark:hover:text-brand-400 transition focus:outline-none">
+            <span>Will text in my scanned certificate remain readable?</span>
+            <i class="faq-icon fa-solid fa-chevron-down text-slate-400 text-xs transition-transform duration-200 shrink-0 ml-3"></i>
+          </button>
+          <div class="faq-content px-5 text-xs text-slate-600 dark:text-slate-300 leading-relaxed border-t border-slate-100 dark:border-slate-700/60 bg-slate-50/50 dark:bg-slate-800/30">
+            <div class="py-3.5">
+              Yes. The compression algorithm calculates page dimensions and preserves high contrast around small typography, roll numbers, and official signatures, making it safe for exam and college portal verification.
+            </div>
+          </div>
+        </div>
+
+        <div class="faq-item bg-white dark:bg-slate-800/80 rounded-2xl border border-slate-200/90 dark:border-slate-700/80 overflow-hidden shadow-2xs">
+          <button class="faq-trigger w-full px-5 py-4 text-left flex items-center justify-between text-xs sm:text-sm font-bold text-slate-900 dark:text-white hover:text-brand-600 dark:hover:text-brand-400 transition focus:outline-none">
+            <span>What if my PDF is already smaller than the target size?</span>
+            <i class="faq-icon fa-solid fa-chevron-down text-slate-400 text-xs transition-transform duration-200 shrink-0 ml-3"></i>
+          </button>
+          <div class="faq-content px-5 text-xs text-slate-600 dark:text-slate-300 leading-relaxed border-t border-slate-100 dark:border-slate-700/60 bg-slate-50/50 dark:bg-slate-800/30">
+            <div class="py-3.5">
+              QuickConvert alerts you honestly! If your document is already 85 KB and your target was 200 KB, the tool lets you know it already meets portal guidelines, saving you unnecessary re-compression.
+            </div>
+          </div>
+        </div>
+
+        <div class="faq-item bg-white dark:bg-slate-800/80 rounded-2xl border border-slate-200/90 dark:border-slate-700/80 overflow-hidden shadow-2xs">
+          <button class="faq-trigger w-full px-5 py-4 text-left flex items-center justify-between text-xs sm:text-sm font-bold text-slate-900 dark:text-white hover:text-brand-600 dark:hover:text-brand-400 transition focus:outline-none">
+            <span>Are there any page count or file size limits?</span>
+            <i class="faq-icon fa-solid fa-chevron-down text-slate-400 text-xs transition-transform duration-200 shrink-0 ml-3"></i>
+          </button>
+          <div class="faq-content px-5 text-xs text-slate-600 dark:text-slate-300 leading-relaxed border-t border-slate-100 dark:border-slate-700/60 bg-slate-50/50 dark:bg-slate-800/30">
+            <div class="py-3.5">
+              No. Because processing runs on your own hardware without cloud server cost, you can compress as many multi-page PDFs as your device's memory supports, with zero daily limits or fees.
+            </div>
+          </div>
+        </div>
+      </div>
+    </article>
+
+  </main>
+
+  <!-- FOOTER -->
+  <footer class="bg-white dark:bg-slate-900 border-t border-slate-200 dark:border-slate-800 text-slate-600 dark:text-slate-400 text-xs mt-16 transition-colors">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-10 flex flex-col md:flex-row items-center justify-between gap-6">
+      
+      <div class="flex items-center gap-2">
+        <div class="w-6 h-6 rounded-lg bg-brand-600 flex items-center justify-center text-white">
+          <i class="fa-solid fa-bolt-lightning text-xs"></i>
+        </div>
+        <span class="font-extrabold text-slate-900 dark:text-white">QuickConvert</span>
+        <span class="text-slate-400">&bull; In-Browser File Utilities</span>
+      </div>
+
+      <div class="flex flex-wrap items-center justify-center gap-x-5 gap-y-2 text-xs font-medium text-slate-500 dark:text-slate-400">
+        <a href="/" class="hover:text-brand-600 dark:hover:text-brand-400 transition">Home</a>
+        <a href="/#suite-tools" class="hover:text-brand-600 dark:hover:text-brand-400 transition">All Tools</a>
+        <a href="/privacy.html" class="hover:text-brand-600 dark:hover:text-brand-400 transition">Privacy Policy</a>
+        <a href="/terms.html" class="hover:text-brand-600 dark:hover:text-brand-400 transition">Terms of Service</a>
+        <a href="/about.html" class="hover:text-brand-600 dark:hover:text-brand-400 transition">About</a>
+        <a href="/contact.html" class="hover:text-brand-600 dark:hover:text-brand-400 transition">Contact</a>
+        <a href="/feedback.html" class="text-brand-600 dark:text-brand-400 font-bold hover:text-brand-700 transition">Feedback</a>
+      </div>
+
+      <div class="text-[11px] text-slate-400 text-center md:text-right">
+        Operated by Alok Maurya &bull; 100% Client-Side Privacy
+      </div>
+
+    </div>
+  </footer>
+
+  <script src="../js/app.js?v=3.2.0"></script>
+  <script src="../js/theme.js?v=3.2.0"></script>
+</body>
+</html>
