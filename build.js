@@ -39,6 +39,7 @@ const rootFiles = [
   'icon-192.png',
   'icon-512.png',
   'site.webmanifest',
+  'ads.txt',
   'robots.txt',
   'sitemap.xml',
   'sw.js'
