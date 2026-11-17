@@ -21,7 +21,7 @@ if (!fs.existsSync('dist')) {
   fs.mkdirSync('dist', { recursive: true });
 }
 
-// Copy all root HTML files
+// Copy all root assets and HTML files
 const rootFiles = [
   'index.html',
   'about.html',
@@ -31,6 +31,14 @@ const rootFiles = [
   'terms.html',
   'feedback.html',
   'favicon.svg',
+  'favicon.ico',
+  'favicon-32x32.png',
+  'favicon-48x48.png',
+  'apple-touch-icon.png',
+  'logo.png',
+  'icon-192.png',
+  'icon-512.png',
+  'site.webmanifest',
   'robots.txt',
   'sitemap.xml',
   'sw.js'
@@ -49,12 +57,20 @@ if (fs.existsSync('js')) copyRecursiveSync('js', path.join('dist', 'js'));
 if (fs.existsSync('css')) copyRecursiveSync('css', path.join('dist', 'css'));
 if (fs.existsSync('webfonts')) copyRecursiveSync('webfonts', path.join('dist', 'webfonts'));
 
-// Root level JS/CSS fallbacks
-if (fs.existsSync('js/app.js')) fs.copyFileSync('js/app.js', path.join('dist', 'app.js'));
-if (fs.existsSync('js/theme.js')) fs.copyFileSync('js/theme.js', path.join('dist', 'theme.js'));
+// Root level JS/CSS fallbacks & synchronization
+if (fs.existsSync('js/app.js')) {
+  fs.copyFileSync('js/app.js', path.join('dist', 'app.js'));
+  fs.copyFileSync('js/app.js', 'app.js');
+}
+if (fs.existsSync('js/theme.js')) {
+  fs.copyFileSync('js/theme.js', path.join('dist', 'theme.js'));
+  fs.copyFileSync('js/theme.js', 'theme.js');
+}
 if (fs.existsSync('css/styles.css')) {
   fs.copyFileSync('css/styles.css', path.join('dist', 'styles.css'));
   fs.copyFileSync('css/styles.css', path.join('dist', 'style.css'));
+  fs.copyFileSync('css/styles.css', 'styles.css');
+  fs.copyFileSync('css/styles.css', 'style.css');
 }
 
 console.log('QuickConvert build complete: All static assets successfully packaged in dist/');

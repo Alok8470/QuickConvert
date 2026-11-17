@@ -2,6 +2,14 @@
   "version": 2,
   "buildCommand": "npm run build",
   "outputDirectory": "dist",
+  "cleanUrls": true,
+  "redirects": [
+    {
+      "source": "/tools",
+      "destination": "/#suite-tools",
+      "permanent": false
+    }
+  ],
   "headers": [
     {
       "source": "/(.*)",

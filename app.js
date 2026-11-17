@@ -365,7 +365,10 @@
   }
 
   if (imgDropzone && imgInput) {
-    imgDropzone.addEventListener('click', () => imgInput.click());
+    imgDropzone.addEventListener('click', (e) => {
+      if (e.target !== imgInput) imgInput.click();
+    });
+    imgInput.addEventListener('click', (e) => e.stopPropagation());
 
     imgInput.addEventListener('change', (e) => {
       if (e.target.files.length) {
@@ -517,6 +520,834 @@
   }
 
   // ==========================================
+  // 3b. TOOL: IMAGES TO ZIP CONVERTER (JSZip)
+  // ==========================================
+
+  let imagesToZipList = [];
+
+  const zipDropzone = document.getElementById('img2zip-dropzone');
+  const zipInput = document.getElementById('img2zip-input');
+  const zipListContainer = document.getElementById('img2zip-list');
+  const zipCountBadge = document.getElementById('img2zip-count');
+  const zipClearBtn = document.getElementById('img2zip-clear-btn');
+  const zipConvertBtn = document.getElementById('img2zip-convert-btn');
+  const zipProgressContainer = document.getElementById('img2zip-progress-wrap');
+  const zipProgressBar = document.getElementById('img2zip-progress-bar');
+  const zipProgressText = document.getElementById('img2zip-progress-text');
+  const zipFilenameInput = document.getElementById('img2zip-filename');
+  const zipCompressionSelect = document.getElementById('img2zip-compression');
+  const zipMetaBar = document.getElementById('img2zip-meta-bar');
+  const zipTotalMeta = document.getElementById('img2zip-total-meta');
+
+  function renderZipGrid() {
+    if (!zipListContainer) return;
+    zipListContainer.innerHTML = '';
+
+    if (imagesToZipList.length === 0) {
+      if (zipCountBadge) zipCountBadge.textContent = '0 images selected';
+      if (zipClearBtn) zipClearBtn.classList.add('hidden');
+      if (zipConvertBtn) zipConvertBtn.disabled = true;
+      if (zipMetaBar) zipMetaBar.classList.add('hidden');
+      return;
+    }
+
+    if (zipCountBadge) {
+      zipCountBadge.textContent = `${imagesToZipList.length} image${imagesToZipList.length > 1 ? 's' : ''} selected`;
+    }
+    if (zipClearBtn) zipClearBtn.classList.remove('hidden');
+    if (zipConvertBtn) zipConvertBtn.disabled = false;
+
+    let totalBytes = 0;
+
+    imagesToZipList.forEach((item, index) => {
+      totalBytes += item.file.size;
+      const card = document.createElement('div');
+      card.className = 'relative group bg-white dark:bg-slate-800 rounded-xl border border-slate-200 dark:border-slate-700 p-2.5 shadow-2xs hover:shadow-sm transition';
+      card.innerHTML = `
+        <div class="relative w-full h-28 rounded-lg overflow-hidden bg-slate-100 dark:bg-slate-900 flex items-center justify-center mb-2">
+          <img src="${item.previewUrl}" alt="${item.name}" class="w-full h-full object-cover" />
+          <span class="absolute top-1.5 left-1.5 px-1.5 py-0.5 rounded text-[10px] font-bold bg-slate-900/70 text-white backdrop-blur-xs uppercase font-mono">
+            ${item.ext}
+          </span>
+          <button data-zip-remove="${index}" type="button" class="cursor-pointer absolute top-1.5 right-1.5 w-6 h-6 rounded-md bg-rose-600/90 text-white flex items-center justify-center opacity-0 group-hover:opacity-100 transition hover:bg-rose-700" title="Remove image" aria-label="Remove image">
+            <i class="fa-solid fa-xmark text-xs"></i>
+          </button>
+        </div>
+        <p class="text-xs font-semibold text-slate-800 dark:text-slate-200 truncate" title="${item.name}">${item.name}</p>
+        <p class="text-[10px] text-slate-400 font-mono mt-0.5">${formatBytes(item.file.size)}</p>
+      `;
+
+      card.querySelector(`[data-zip-remove="${index}"]`).addEventListener('click', (e) => {
+        e.stopPropagation();
+        imagesToZipList.splice(index, 1);
+        renderZipGrid();
+      });
+
+      zipListContainer.appendChild(card);
+    });
+
+    if (zipMetaBar && zipTotalMeta) {
+      zipMetaBar.classList.remove('hidden');
+      zipTotalMeta.textContent = `${imagesToZipList.length} files • Total ${formatBytes(totalBytes)}`;
+    }
+  }
+
+  function handleZipFiles(files) {
+    const validImageTypes = ['image/jpeg', 'image/png', 'image/webp', 'image/gif', 'image/svg+xml', 'image/bmp', 'image/x-icon'];
+    const newFiles = Array.from(files).filter(
+      (f) => validImageTypes.includes(f.type) || /\.(jpe?g|png|webp|gif|svg|bmp|ico)$/i.test(f.name)
+    );
+
+    if (newFiles.length === 0) {
+      showToast('Please select valid image files (PNG, JPG, WebP, GIF, SVG, BMP).', 'error');
+      return;
+    }
+
+    let loadedCount = 0;
+    newFiles.forEach((file) => {
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        const ext = file.name.split('.').pop().toUpperCase();
+        imagesToZipList.push({
+          file: file,
+          name: file.name,
+          ext: ext,
+          previewUrl: e.target.result
+        });
+        loadedCount++;
+        if (loadedCount === newFiles.length) {
+          renderZipGrid();
+          showToast(`Added ${newFiles.length} image${newFiles.length > 1 ? 's' : ''} to ZIP queue.`, 'success');
+        }
+      };
+      reader.readAsDataURL(file);
+    });
+  }
+
+  if (zipInput) {
+    zipInput.addEventListener('change', (e) => {
+      if (e.target.files && e.target.files.length) {
+        handleZipFiles(e.target.files);
+      }
+      zipInput.value = '';
+    });
+  }
+
+  if (zipDropzone && zipInput) {
+    zipDropzone.addEventListener('click', (e) => {
+      // If clicking inside a label that has for="img2zip-input", the browser natively opens the file picker.
+      // Avoid calling .click() twice which cancels or breaks the dialog on mobile and modern browsers.
+      if (zipDropzone.tagName.toLowerCase() !== 'label' && e.target !== zipInput) {
+        zipInput.click();
+      }
+    });
+
+    ['dragenter', 'dragover'].forEach((ev) => {
+      zipDropzone.addEventListener(ev, (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        zipDropzone.classList.add('drag-active');
+      });
+    });
+
+    ['dragleave', 'drop'].forEach((ev) => {
+      zipDropzone.addEventListener(ev, (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        zipDropzone.classList.remove('drag-active');
+      });
+    });
+
+    zipDropzone.addEventListener('drop', (e) => {
+      const dt = e.dataTransfer;
+      if (dt && dt.files.length) handleZipFiles(dt.files);
+    });
+  }
+
+  if (zipClearBtn) {
+    zipClearBtn.addEventListener('click', () => {
+      imagesToZipList = [];
+      renderZipGrid();
+      showToast('Image archive queue cleared.', 'info');
+    });
+  }
+
+  if (zipConvertBtn) {
+    zipConvertBtn.addEventListener('click', async () => {
+      if (imagesToZipList.length === 0) return;
+
+      if (typeof JSZip === 'undefined') {
+        showToast('ZIP archiving engine is loading. Please retry in a few seconds.', 'error');
+        return;
+      }
+
+      zipConvertBtn.disabled = true;
+      if (zipProgressContainer) {
+        zipProgressContainer.classList.remove('hidden');
+        zipProgressBar.style.width = '10%';
+        zipProgressText.textContent = 'Initializing ZIP archive...';
+      }
+
+      try {
+        const zip = new JSZip();
+        const compressionLevel = parseInt(zipCompressionSelect ? zipCompressionSelect.value : '6', 10);
+        const compressionMethod = compressionLevel === 0 ? 'STORE' : 'DEFLATE';
+
+        // Add each file into zip
+        for (let i = 0; i < imagesToZipList.length; i++) {
+          const item = imagesToZipList[i];
+          const progressPercent = Math.round(10 + ((i + 1) / imagesToZipList.length) * 50);
+          if (zipProgressBar) zipProgressBar.style.width = `${progressPercent}%`;
+          if (zipProgressText) zipProgressText.textContent = `Packaging ${i + 1} of ${imagesToZipList.length}: ${item.name}`;
+
+          // Avoid duplicate filename collision inside zip
+          let finalName = item.name;
+          let counter = 1;
+          const baseName = item.name.substring(0, item.name.lastIndexOf('.')) || item.name;
+          const extName = item.name.substring(item.name.lastIndexOf('.')) || '';
+
+          while (zip.file(finalName)) {
+            finalName = `${baseName} (${counter})${extName}`;
+            counter++;
+          }
+
+          zip.file(finalName, item.file);
+          await new Promise((r) => setTimeout(r, 10));
+        }
+
+        if (zipProgressText) zipProgressText.textContent = 'Compressing and building .zip file...';
+
+        const zipBlob = await zip.generateAsync({
+          type: 'blob',
+          compression: compressionMethod,
+          compressionOptions: {
+            level: compressionLevel
+          }
+        }, (metadata) => {
+          if (zipProgressBar) {
+            const currentP = Math.round(60 + (metadata.percent * 0.4));
+            zipProgressBar.style.width = `${currentP}%`;
+          }
+        });
+
+        if (zipProgressBar) zipProgressBar.style.width = '100%';
+        if (zipProgressText) zipProgressText.textContent = 'ZIP download ready!';
+
+        const rawFilename = (zipFilenameInput && zipFilenameInput.value.trim()) || 'images-archive';
+        const cleanFilename = rawFilename.replace(/[^a-zA-Z0-9_-]/g, '_') || 'images-archive';
+        const finalZipName = `${cleanFilename}.zip`;
+
+        // Trigger browser download
+        const downloadUrl = URL.createObjectURL(zipBlob);
+        const a = document.createElement('a');
+        a.href = downloadUrl;
+        a.download = finalZipName;
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        setTimeout(() => URL.revokeObjectURL(downloadUrl), 5000);
+
+        setTimeout(() => {
+          if (zipProgressContainer) zipProgressContainer.classList.add('hidden');
+          zipConvertBtn.disabled = false;
+          showToast(`ZIP created successfully! (${formatBytes(zipBlob.size)})`, 'success');
+        }, 400);
+
+      } catch (err) {
+        console.error('ZIP Generation Error:', err);
+        showToast('Error generating ZIP archive. Please try again.', 'error');
+        if (zipProgressContainer) zipProgressContainer.classList.add('hidden');
+        zipConvertBtn.disabled = false;
+      }
+    });
+  }
+
+  // ==========================================
+  // 3c. TOOL: PDF TO ZIP CONVERTER (PDFLib + PDF.js + JSZip)
+  // ==========================================
+
+  let pdfToZipFiles = [];
+
+  const pdfZipDropzone = document.getElementById('pdf2zip-dropzone');
+  const pdfZipInput = document.getElementById('pdf2zip-input');
+  const pdfZipListContainer = document.getElementById('pdf2zip-list');
+  const pdfZipCountBadge = document.getElementById('pdf2zip-count');
+  const pdfZipClearBtn = document.getElementById('pdf2zip-clear-btn');
+  const pdfZipConvertBtn = document.getElementById('pdf2zip-convert-btn');
+  const pdfZipProgressContainer = document.getElementById('pdf2zip-progress-wrap');
+  const pdfZipProgressBar = document.getElementById('pdf2zip-progress-bar');
+  const pdfZipProgressText = document.getElementById('pdf2zip-progress-text');
+  const pdfZipFilenameInput = document.getElementById('pdf2zip-filename');
+  const pdfZipModeSelect = document.getElementById('pdf2zip-mode');
+  const pdfZipCompressionSelect = document.getElementById('pdf2zip-compression');
+  const pdfZipMetaBar = document.getElementById('pdf2zip-meta-bar');
+  const pdfZipTotalMeta = document.getElementById('pdf2zip-total-meta');
+
+  function renderPdfZipGrid() {
+    if (!pdfZipListContainer) return;
+    pdfZipListContainer.innerHTML = '';
+
+    if (pdfToZipFiles.length === 0) {
+      if (pdfZipCountBadge) pdfZipCountBadge.textContent = '0 PDFs selected';
+      if (pdfZipClearBtn) pdfZipClearBtn.classList.add('hidden');
+      if (pdfZipConvertBtn) pdfZipConvertBtn.disabled = true;
+      if (pdfZipMetaBar) pdfZipMetaBar.classList.add('hidden');
+      return;
+    }
+
+    if (pdfZipCountBadge) {
+      pdfZipCountBadge.textContent = `${pdfToZipFiles.length} PDF${pdfToZipFiles.length > 1 ? 's' : ''} selected`;
+    }
+    if (pdfZipClearBtn) pdfZipClearBtn.classList.remove('hidden');
+    if (pdfZipConvertBtn) pdfZipConvertBtn.disabled = false;
+
+    let totalBytes = 0;
+
+    pdfToZipFiles.forEach((item, index) => {
+      totalBytes += item.file.size;
+      const card = document.createElement('div');
+      card.className = 'relative group bg-white dark:bg-slate-800 rounded-xl border border-slate-200 dark:border-slate-700 p-3 shadow-2xs hover:shadow-sm transition flex items-center justify-between gap-3';
+      card.innerHTML = `
+        <div class="flex items-center gap-3 min-w-0">
+          <div class="w-10 h-10 rounded-lg bg-red-50 dark:bg-red-950/40 text-red-600 dark:text-red-400 flex items-center justify-center shrink-0">
+            <i class="fa-solid fa-file-pdf text-lg"></i>
+          </div>
+          <div class="min-w-0">
+            <p class="text-xs font-semibold text-slate-800 dark:text-slate-200 truncate" title="${item.name}">${item.name}</p>
+            <p class="text-[10px] text-slate-400 font-mono mt-0.5">${formatBytes(item.file.size)} ${item.pageCount ? '• ' + item.pageCount + ' pages' : ''}</p>
+          </div>
+        </div>
+        <button data-pdfzip-remove="${index}" type="button" class="cursor-pointer w-7 h-7 rounded-lg bg-slate-100 hover:bg-rose-50 text-slate-400 hover:text-rose-600 dark:bg-slate-700 dark:hover:bg-rose-950/50 flex items-center justify-center transition shrink-0" title="Remove PDF" aria-label="Remove PDF">
+          <i class="fa-solid fa-xmark text-xs"></i>
+        </button>
+      `;
+
+      card.querySelector(`[data-pdfzip-remove="${index}"]`).addEventListener('click', (e) => {
+        e.stopPropagation();
+        pdfToZipFiles.splice(index, 1);
+        renderPdfZipGrid();
+      });
+
+      pdfZipListContainer.appendChild(card);
+    });
+
+    if (pdfZipMetaBar && pdfZipTotalMeta) {
+      pdfZipMetaBar.classList.remove('hidden');
+      pdfZipTotalMeta.textContent = `${pdfToZipFiles.length} file${pdfToZipFiles.length > 1 ? 's' : ''} • Total ${formatBytes(totalBytes)}`;
+    }
+  }
+
+  async function handlePdfZipFiles(files) {
+    const newFiles = Array.from(files).filter(
+      (f) => f.type === 'application/pdf' || /\.pdf$/i.test(f.name)
+    );
+
+    if (newFiles.length === 0) {
+      showToast('Please select valid PDF files.', 'error');
+      return;
+    }
+
+    for (const file of newFiles) {
+      const item = {
+        file: file,
+        name: file.name,
+        pageCount: 0
+      };
+
+      // Try reading page count via PDFLib
+      try {
+        if (typeof PDFLib !== 'undefined') {
+          const buf = await file.arrayBuffer();
+          const doc = await PDFLib.PDFDocument.load(buf, { ignoreEncryption: true });
+          item.pageCount = doc.getPageCount();
+        }
+      } catch (err) {
+        console.warn('Could not read PDF page count:', err);
+      }
+
+      pdfToZipFiles.push(item);
+    }
+
+    renderPdfZipGrid();
+    showToast(`Added ${newFiles.length} PDF${newFiles.length > 1 ? 's' : ''} to queue.`, 'success');
+  }
+
+  if (pdfZipInput) {
+    pdfZipInput.addEventListener('change', (e) => {
+      if (e.target.files && e.target.files.length) {
+        handlePdfZipFiles(e.target.files);
+      }
+      pdfZipInput.value = '';
+    });
+  }
+
+  if (pdfZipDropzone && pdfZipInput) {
+    pdfZipDropzone.addEventListener('click', (e) => {
+      if (pdfZipDropzone.tagName.toLowerCase() !== 'label' && e.target !== pdfZipInput) {
+        pdfZipInput.click();
+      }
+    });
+
+    ['dragenter', 'dragover'].forEach((ev) => {
+      pdfZipDropzone.addEventListener(ev, (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        pdfZipDropzone.classList.add('drag-active');
+      });
+    });
+
+    ['dragleave', 'drop'].forEach((ev) => {
+      pdfZipDropzone.addEventListener(ev, (e) => {
+        e.preventDefault();
+        e.stopPropagation();
+        pdfZipDropzone.classList.remove('drag-active');
+      });
+    });
+
+    pdfZipDropzone.addEventListener('drop', (e) => {
+      const dt = e.dataTransfer;
+      if (dt && dt.files.length) handlePdfZipFiles(dt.files);
+    });
+  }
+
+  if (pdfZipClearBtn) {
+    pdfZipClearBtn.addEventListener('click', () => {
+      pdfToZipFiles = [];
+      renderPdfZipGrid();
+      showToast('PDF queue cleared.', 'info');
+    });
+  }
+
+  if (pdfZipConvertBtn) {
+    pdfZipConvertBtn.addEventListener('click', async () => {
+      if (pdfToZipFiles.length === 0) return;
+
+      if (typeof JSZip === 'undefined') {
+        showToast('ZIP archiving engine is loading. Please retry in a moment.', 'error');
+        return;
+      }
+
+      const mode = pdfZipModeSelect ? pdfZipModeSelect.value : 'pages-pdf';
+      const compressionLevel = parseInt(pdfZipCompressionSelect ? pdfZipCompressionSelect.value : '6', 10);
+      const compressionMethod = compressionLevel === 0 ? 'STORE' : 'DEFLATE';
+
+      pdfZipConvertBtn.disabled = true;
+      if (pdfZipProgressContainer) {
+        pdfZipProgressContainer.classList.remove('hidden');
+        pdfZipProgressBar.style.width = '10%';
+        pdfZipProgressText.textContent = 'Initializing ZIP archive...';
+      }
+
+      try {
+        const zip = new JSZip();
+
+        if (mode === 'batch-zip') {
+          // Mode: Bundle multiple raw PDF files directly into ZIP
+          for (let i = 0; i < pdfToZipFiles.length; i++) {
+            const item = pdfToZipFiles[i];
+            const p = Math.round(10 + ((i + 1) / pdfToZipFiles.length) * 50);
+            if (pdfZipProgressBar) pdfZipProgressBar.style.width = `${p}%`;
+            if (pdfZipProgressText) pdfZipProgressText.textContent = `Packaging PDF ${i + 1} of ${pdfToZipFiles.length}: ${item.name}`;
+
+            let finalName = item.name;
+            let counter = 1;
+            const baseName = item.name.replace(/\.pdf$/i, '');
+            while (zip.file(finalName)) {
+              finalName = `${baseName} (${counter}).pdf`;
+              counter++;
+            }
+
+            zip.file(finalName, item.file);
+            await new Promise((r) => setTimeout(r, 10));
+          }
+        } else if (mode === 'pages-pdf') {
+          // Mode: Split every page into an individual single-page PDF
+          if (typeof PDFLib === 'undefined') {
+            throw new Error('PDF-Lib engine is required for page splitting.');
+          }
+
+          let fileIndex = 0;
+          for (const item of pdfToZipFiles) {
+            fileIndex++;
+            const buf = await item.file.arrayBuffer();
+            const srcDoc = await PDFLib.PDFDocument.load(buf);
+            const totalPages = srcDoc.getPageCount();
+            const docBaseName = item.name.replace(/\.pdf$/i, '');
+
+            const folder = pdfToZipFiles.length > 1 ? zip.folder(docBaseName) : zip;
+
+            for (let pageIdx = 0; pageIdx < totalPages; pageIdx++) {
+              const singleDoc = await PDFLib.PDFDocument.create();
+              const [copiedPage] = await singleDoc.copyPages(srcDoc, [pageIdx]);
+              singleDoc.addPage(copiedPage);
+
+              const singleBytes = await singleDoc.save();
+              const pageNumStr = String(pageIdx + 1).padStart(Math.max(2, String(totalPages).length), '0');
+              const outPdfName = `${docBaseName}_page_${pageNumStr}.pdf`;
+
+              folder.file(outPdfName, singleBytes);
+
+              const overallProgress = Math.round(10 + ((pageIdx + 1) / totalPages) * 50);
+              if (pdfZipProgressBar) pdfZipProgressBar.style.width = `${overallProgress}%`;
+              if (pdfZipProgressText) pdfZipProgressText.textContent = `Extracting page ${pageIdx + 1} of ${totalPages} (${item.name})`;
+
+              await new Promise((r) => setTimeout(r, 5));
+            }
+          }
+        } else if (mode === 'pages-png' || mode === 'pages-jpg') {
+          // Mode: Export pages as rendered PNG or JPG images
+          if (typeof pdfjsLib === 'undefined') {
+            throw new Error('PDF.js renderer is required for page image export.');
+          }
+
+          const imgFormat = mode === 'pages-jpg' ? 'image/jpeg' : 'image/png';
+          const imgExt = mode === 'pages-jpg' ? 'jpg' : 'png';
+
+          for (let fIdx = 0; fIdx < pdfToZipFiles.length; fIdx++) {
+            const item = pdfToZipFiles[fIdx];
+            const buf = await item.file.arrayBuffer();
+            const pdfDoc = await pdfjsLib.getDocument({ data: buf }).promise;
+            const totalPages = pdfDoc.numPages;
+            const docBaseName = item.name.replace(/\.pdf$/i, '');
+            const folder = pdfToZipFiles.length > 1 ? zip.folder(docBaseName) : zip;
+
+            for (let pageNum = 1; pageNum <= totalPages; pageNum++) {
+              const page = await pdfDoc.getPage(pageNum);
+              const viewport = page.getViewport({ scale: 2.0 }); // 2x high-resolution rendering
+              const canvas = document.createElement('canvas');
+              const ctx = canvas.getContext('2d');
+              canvas.width = viewport.width;
+              canvas.height = viewport.height;
+
+              // White background for JPG
+              if (mode === 'pages-jpg') {
+                ctx.fillStyle = '#ffffff';
+                ctx.fillRect(0, 0, canvas.width, canvas.height);
+              }
+
+              await page.render({ canvasContext: ctx, viewport: viewport }).promise;
+
+              const imgBlob = await new Promise((resolve) => canvas.toBlob(resolve, imgFormat, 0.92));
+              const pageNumStr = String(pageNum).padStart(Math.max(2, String(totalPages).length), '0');
+              const outImgName = `${docBaseName}_page_${pageNumStr}.${imgExt}`;
+
+              folder.file(outImgName, imgBlob);
+
+              const overallP = Math.round(10 + (pageNum / totalPages) * 50);
+              if (pdfZipProgressBar) pdfZipProgressBar.style.width = `${overallP}%`;
+              if (pdfZipProgressText) pdfZipProgressText.textContent = `Rendering page ${pageNum} of ${totalPages} to ${imgExt.toUpperCase()}...`;
+
+              await new Promise((r) => setTimeout(r, 10));
+            }
+          }
+        }
+
+        if (pdfZipProgressText) pdfZipProgressText.textContent = 'Compressing and building .zip file...';
+
+        const zipBlob = await zip.generateAsync({
+          type: 'blob',
+          compression: compressionMethod,
+          compressionOptions: { level: compressionLevel }
+        }, (metadata) => {
+          if (pdfZipProgressBar) {
+            const currentP = Math.round(60 + (metadata.percent * 0.4));
+            pdfZipProgressBar.style.width = `${currentP}%`;
+          }
+        });
+
+        if (pdfZipProgressBar) pdfZipProgressBar.style.width = '100%';
+        if (pdfZipProgressText) pdfZipProgressText.textContent = 'ZIP download ready!';
+
+        const rawFilename = (pdfZipFilenameInput && pdfZipFilenameInput.value.trim()) || 'pdf-archive';
+        const cleanFilename = rawFilename.replace(/[^a-zA-Z0-9_-]/g, '_') || 'pdf-archive';
+        const finalZipName = `${cleanFilename}.zip`;
+
+        // Trigger browser download
+        const downloadUrl = URL.createObjectURL(zipBlob);
+        const a = document.createElement('a');
+        a.href = downloadUrl;
+        a.download = finalZipName;
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        setTimeout(() => URL.revokeObjectURL(downloadUrl), 5000);
+
+        setTimeout(() => {
+          if (pdfZipProgressContainer) pdfZipProgressContainer.classList.add('hidden');
+          pdfZipConvertBtn.disabled = false;
+          showToast(`PDF ZIP created successfully! (${formatBytes(zipBlob.size)})`, 'success');
+        }, 400);
+
+      } catch (err) {
+        console.error('PDF to ZIP Generation Error:', err);
+        showToast(err.message || 'Error creating PDF ZIP archive. Please retry.', 'error');
+        if (pdfZipProgressContainer) pdfZipProgressContainer.classList.add('hidden');
+        pdfZipConvertBtn.disabled = false;
+      }
+    });
+  }
+
+  // ==========================================
+  // 3d. TOOL: PDF COMPRESSOR & TARGET OPTIMIZER (PDF.js + PDFLib)
+  // ==========================================
+
+  let pdfCompOriginalFile = null;
+  let pdfCompCurrentBlob = null;
+  let pdfCompPageCount = 0;
+
+  const pdfCompDropzone = document.getElementById('pdfcomp-dropzone');
+  const pdfCompInput = document.getElementById('pdfcomp-input');
+  const pdfCompEmptyState = document.getElementById('pdfcomp-empty-state');
+  const pdfCompWorkspace = document.getElementById('pdfcomp-workspace');
+  const pdfCompResetBtn = document.getElementById('pdfcomp-reset-btn');
+
+  const pdfCompOrigName = document.getElementById('pdfcomp-orig-name');
+  const pdfCompOrigPages = document.getElementById('pdfcomp-orig-pages');
+  const pdfCompOrigSize = document.getElementById('pdfcomp-orig-size');
+
+  const pdfCompTargetInput = document.getElementById('pdfcomp-target-kb');
+  const pdfCompQualitySelect = document.getElementById('pdfcomp-quality-mode');
+  const pdfCompActionBtn = document.getElementById('pdfcomp-action-btn');
+
+  const pdfCompProgressWrap = document.getElementById('pdfcomp-progress-wrap');
+  const pdfCompProgressBar = document.getElementById('pdfcomp-progress-bar');
+  const pdfCompProgressText = document.getElementById('pdfcomp-progress-text');
+
+  const pdfCompResultWrap = document.getElementById('pdfcomp-result-wrap');
+  const pdfCompResultSize = document.getElementById('pdfcomp-result-size');
+  const pdfCompSavingsBadge = document.getElementById('pdfcomp-savings-badge');
+  const pdfCompDownloadBtn = document.getElementById('pdfcomp-download-btn');
+  const pdfCompStatusNote = document.getElementById('pdfcomp-status-note');
+
+  async function loadPdfToCompress(file) {
+    if (!file || (!file.type.includes('pdf') && !file.name.toLowerCase().endsWith('.pdf'))) {
+      showToast('Please select a valid PDF document.', 'error');
+      return;
+    }
+
+    pdfCompOriginalFile = file;
+    pdfCompCurrentBlob = null;
+
+    if (pdfCompOrigName) pdfCompOrigName.textContent = file.name;
+    if (pdfCompOrigSize) pdfCompOrigSize.textContent = formatBytes(file.size);
+
+    try {
+      if (typeof PDFLib !== 'undefined') {
+        const buf = await file.arrayBuffer();
+        const doc = await PDFLib.PDFDocument.load(buf, { ignoreEncryption: true });
+        pdfCompPageCount = doc.getPageCount();
+        if (pdfCompOrigPages) pdfCompOrigPages.textContent = `${pdfCompPageCount} page${pdfCompPageCount > 1 ? 's' : ''}`;
+      }
+    } catch (e) {
+      console.warn('Page count check error:', e);
+      pdfCompPageCount = 1;
+    }
+
+    if (pdfCompEmptyState) pdfCompEmptyState.classList.add('hidden');
+    if (pdfCompWorkspace) pdfCompWorkspace.classList.remove('hidden');
+    if (pdfCompResultWrap) pdfCompResultWrap.classList.add('hidden');
+
+    const pageTargetKb = parseInt(document.body.dataset.targetKb, 10);
+    if (pageTargetKb && pageTargetKb > 0 && pdfCompTargetInput) {
+      pdfCompTargetInput.value = pageTargetKb;
+      runPdfCompression(pageTargetKb);
+    } else {
+      showToast('PDF loaded. Choose your target size or click Compress.', 'success');
+    }
+  }
+
+  async function runPdfCompression(targetKbOverride) {
+    if (!pdfCompOriginalFile) return;
+
+    if (typeof pdfjsLib === 'undefined' || typeof PDFLib === 'undefined') {
+      showToast('PDF rendering engine is initializing. Please retry in a second.', 'error');
+      return;
+    }
+
+    const targetKb = targetKbOverride || (pdfCompTargetInput ? parseInt(pdfCompTargetInput.value, 10) : 200) || 200;
+    const mode = pdfCompQualitySelect ? pdfCompQualitySelect.value : 'recommended';
+
+    if (pdfCompActionBtn) {
+      pdfCompActionBtn.disabled = true;
+      pdfCompActionBtn.innerHTML = '<i class="fa-solid fa-spinner fa-spin mr-2"></i> Compressing PDF...';
+    }
+
+    if (pdfCompProgressWrap) pdfCompProgressWrap.classList.remove('hidden');
+    if (pdfCompProgressBar) pdfCompProgressBar.style.width = '5%';
+    if (pdfCompProgressText) pdfCompProgressText.textContent = 'Parsing PDF document structure...';
+
+    try {
+      const arrayBuf = await pdfCompOriginalFile.arrayBuffer();
+      const pdfDoc = await pdfjsLib.getDocument({ data: arrayBuf }).promise;
+      const numPages = pdfDoc.numPages;
+
+      const maxTotalBytes = targetKb * 1024;
+      const targetBudgetPerPage = Math.max(12 * 1024, Math.floor((maxTotalBytes * 0.90) / numPages));
+
+      let scale = 1.35;
+      let quality = 0.68;
+
+      if (mode === 'extreme' || targetBudgetPerPage < 30 * 1024) {
+        scale = 1.0;
+        quality = 0.45;
+      } else if (mode === 'high' && targetBudgetPerPage > 90 * 1024) {
+        scale = 1.75;
+        quality = 0.82;
+      } else if (targetBudgetPerPage < 60 * 1024) {
+        scale = 1.2;
+        quality = 0.58;
+      }
+
+      const { PDFDocument } = PDFLib;
+      const outDoc = await PDFDocument.create();
+
+      for (let p = 1; p <= numPages; p++) {
+        const pct = Math.round((p / numPages) * 85);
+        if (pdfCompProgressBar) pdfCompProgressBar.style.width = `${pct}%`;
+        if (pdfCompProgressText) pdfCompProgressText.textContent = `Optimizing page ${p} of ${numPages}...`;
+
+        const page = await pdfDoc.getPage(p);
+        const viewport = page.getViewport({ scale });
+        const canvas = document.createElement('canvas');
+        canvas.width = viewport.width;
+        canvas.height = viewport.height;
+        const ctx = canvas.getContext('2d');
+
+        ctx.fillStyle = '#ffffff';
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+        await page.render({ canvasContext: ctx, viewport }).promise;
+
+        const pageBlob = await new Promise((resolve) => canvas.toBlob(resolve, 'image/jpeg', quality));
+        const pageBuf = await pageBlob.arrayBuffer();
+
+        const img = await outDoc.embedJpg(pageBuf);
+        const outPage = outDoc.addPage([img.width, img.height]);
+        outPage.drawImage(img, { x: 0, y: 0, width: img.width, height: img.height });
+      }
+
+      if (pdfCompProgressText) pdfCompProgressText.textContent = 'Finalizing compressed PDF stream...';
+      if (pdfCompProgressBar) pdfCompProgressBar.style.width = '95%';
+
+      const compressedBytes = await outDoc.save();
+      const resultBlob = new Blob([compressedBytes], { type: 'application/pdf' });
+      pdfCompCurrentBlob = resultBlob;
+
+      if (pdfCompProgressBar) pdfCompProgressBar.style.width = '100%';
+      setTimeout(() => {
+        if (pdfCompProgressWrap) pdfCompProgressWrap.classList.add('hidden');
+      }, 500);
+
+      if (pdfCompResultWrap) pdfCompResultWrap.classList.remove('hidden');
+      if (pdfCompResultSize) pdfCompResultSize.textContent = formatBytes(resultBlob.size);
+
+      const origSize = pdfCompOriginalFile.size;
+      const diff = origSize - resultBlob.size;
+      const pctSaved = Math.round((diff / origSize) * 100);
+
+      if (pdfCompSavingsBadge) {
+        if (pctSaved > 0) {
+          pdfCompSavingsBadge.className = 'px-2.5 py-1 rounded-full text-xs font-bold bg-emerald-100 dark:bg-emerald-950/60 text-emerald-800 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-800/60';
+          pdfCompSavingsBadge.textContent = `-${pctSaved}% smaller (saved ${formatBytes(diff)})`;
+        } else {
+          pdfCompSavingsBadge.className = 'px-2.5 py-1 rounded-full text-xs font-bold bg-amber-100 dark:bg-amber-950/60 text-amber-800 dark:text-amber-300 border border-amber-200 dark:border-amber-800/60';
+          pdfCompSavingsBadge.textContent = 'Already highly compressed';
+        }
+      }
+
+      if (pdfCompStatusNote) {
+        if (resultBlob.size <= maxTotalBytes) {
+          pdfCompStatusNote.className = 'text-xs text-emerald-700 dark:text-emerald-300 flex items-center gap-1.5';
+          pdfCompStatusNote.innerHTML = `<i class="fa-solid fa-circle-check text-emerald-500"></i> File is strictly under ${targetKb} KB (${formatBytes(resultBlob.size)}) and ready for submission.`;
+        } else if (origSize <= maxTotalBytes) {
+          pdfCompStatusNote.className = 'text-xs text-blue-700 dark:text-blue-300 flex items-center gap-1.5';
+          pdfCompStatusNote.innerHTML = `<i class="fa-solid fa-circle-info text-blue-500"></i> Your original file was already under ${targetKb} KB (${formatBytes(origSize)}).`;
+        } else {
+          pdfCompStatusNote.className = 'text-xs text-amber-700 dark:text-amber-300 flex items-center gap-1.5';
+          pdfCompStatusNote.innerHTML = `<i class="fa-solid fa-triangle-exclamation text-amber-500"></i> Compressed to ${formatBytes(resultBlob.size)}. To shrink further, choose "Extreme Compression".`;
+        }
+      }
+
+      showToast(`PDF compressed to ${formatBytes(resultBlob.size)}!`, 'success');
+    } catch (err) {
+      console.error('PDF compression error:', err);
+      showToast('Error compressing PDF: ' + err.message, 'error');
+      if (pdfCompProgressWrap) pdfCompProgressWrap.classList.add('hidden');
+    } finally {
+      if (pdfCompActionBtn) {
+        pdfCompActionBtn.disabled = false;
+        pdfCompActionBtn.innerHTML = '<i class="fa-solid fa-compress mr-2"></i> Re-Compress PDF';
+      }
+    }
+  }
+
+  if (pdfCompDropzone && pdfCompInput) {
+    pdfCompDropzone.addEventListener('click', (e) => {
+      if (e.target !== pdfCompInput) pdfCompInput.click();
+    });
+    pdfCompInput.addEventListener('click', (e) => e.stopPropagation());
+    pdfCompInput.addEventListener('change', (e) => {
+      if (e.target.files.length) {
+        loadPdfToCompress(e.target.files[0]);
+        pdfCompInput.value = '';
+      }
+    });
+
+    ['dragenter', 'dragover'].forEach((eventName) => {
+      pdfCompDropzone.addEventListener(eventName, (e) => {
+        e.preventDefault();
+        pdfCompDropzone.classList.add('drag-active');
+      });
+    });
+
+    ['dragleave', 'drop'].forEach((eventName) => {
+      pdfCompDropzone.addEventListener(eventName, (e) => {
+        e.preventDefault();
+        pdfCompDropzone.classList.remove('drag-active');
+      });
+    });
+
+    pdfCompDropzone.addEventListener('drop', (e) => {
+      if (e.dataTransfer && e.dataTransfer.files.length) {
+        loadPdfToCompress(e.dataTransfer.files[0]);
+      }
+    });
+  }
+
+  if (pdfCompActionBtn) {
+    pdfCompActionBtn.addEventListener('click', () => runPdfCompression());
+  }
+
+  if (pdfCompResetBtn) {
+    pdfCompResetBtn.addEventListener('click', () => {
+      pdfCompOriginalFile = null;
+      pdfCompCurrentBlob = null;
+      if (pdfCompWorkspace) pdfCompWorkspace.classList.add('hidden');
+      if (pdfCompEmptyState) pdfCompEmptyState.classList.remove('hidden');
+      if (pdfCompResultWrap) pdfCompResultWrap.classList.add('hidden');
+      showToast('PDF selection cleared.', 'info');
+    });
+  }
+
+  if (pdfCompDownloadBtn) {
+    pdfCompDownloadBtn.addEventListener('click', () => {
+      if (!pdfCompCurrentBlob || !pdfCompOriginalFile) return;
+      const downloadUrl = URL.createObjectURL(pdfCompCurrentBlob);
+      const a = document.createElement('a');
+      const baseName = pdfCompOriginalFile.name.replace(/\.pdf$/i, '');
+      const targetKb = pdfCompTargetInput ? pdfCompTargetInput.value : 'compressed';
+      a.download = `${baseName}-${targetKb}kb.pdf`;
+      a.href = downloadUrl;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      setTimeout(() => URL.revokeObjectURL(downloadUrl), 5000);
+      showToast('Compressed PDF download started!', 'success');
+    });
+  }
+
+
+  // ==========================================
   // 4. TOOL 2: IMAGE COMPRESSOR & RESIZER
   // ==========================================
 
@@ -575,7 +1406,12 @@
         compEmptyState.classList.add('hidden');
         compWorkspace.classList.remove('hidden');
 
-        processImageCompression();
+        const targetKb = parseInt(document.body.dataset.targetKb, 10);
+        if (targetKb && targetKb > 0) {
+          autoCompressToTarget(targetKb);
+        } else {
+          processImageCompression();
+        }
         showToast('Image loaded into compressor!', 'success');
       };
       img.src = e.target.result;
@@ -672,6 +1508,79 @@
     );
   }
 
+  // Automatic binary-search optimizer to guarantee compression strictly under target KB
+  function autoCompressToTarget(targetKB) {
+    if (!compOriginalImage) return;
+    const maxBytes = targetKB * 1024;
+    let currentScale = 1.0;
+    let lowQ = 0.05, highQ = 0.95;
+    let bestBlob = null, bestQuality = 0.8;
+    let bestW = compOriginalImage.naturalWidth, bestH = compOriginalImage.naturalHeight;
+
+    function evaluateQuality(scale, step) {
+      const w = Math.round(compOriginalImage.naturalWidth * scale);
+      const h = Math.round(compOriginalImage.naturalHeight * scale);
+      const midQ = (lowQ + highQ) / 2;
+
+      const canvas = document.createElement('canvas');
+      canvas.width = w;
+      canvas.height = h;
+      const ctx = canvas.getContext('2d');
+      ctx.imageSmoothingEnabled = true;
+      ctx.imageSmoothingQuality = 'high';
+      ctx.fillStyle = '#ffffff';
+      ctx.fillRect(0, 0, w, h);
+      ctx.drawImage(compOriginalImage, 0, 0, w, h);
+
+      canvas.toBlob((blob) => {
+        if (!blob) return;
+        if (blob.size <= maxBytes) {
+          bestBlob = blob;
+          bestQuality = midQ;
+          bestW = w;
+          bestH = h;
+          lowQ = midQ;
+        } else {
+          highQ = midQ;
+        }
+
+        if (step < 7 && (highQ - lowQ) > 0.04) {
+          evaluateQuality(scale, step + 1);
+        } else if (bestBlob && bestBlob.size <= maxBytes) {
+          applyAutoResult(bestBlob, bestW, bestH, bestQuality);
+        } else if (scale > 0.25) {
+          currentScale *= 0.82;
+          lowQ = 0.05;
+          highQ = 0.95;
+          evaluateQuality(currentScale, 1);
+        } else {
+          applyAutoResult(blob, w, h, midQ);
+        }
+      }, 'image/jpeg', midQ);
+    }
+
+    function applyAutoResult(blob, w, h, q) {
+      compCurrentBlob = blob;
+      compWidthInput.value = w;
+      compHeightInput.value = h;
+      const qVal = Math.round(q * 100);
+      compQualitySlider.value = qVal;
+      compQualityDisplay.textContent = `${qVal}%`;
+
+      if (compResultPreview) compResultPreview.src = URL.createObjectURL(blob);
+      compResultDims.textContent = `${w} × ${h} px`;
+      compResultSize.textContent = formatBytes(blob.size);
+
+      const diff = compOriginalFile.size - blob.size;
+      const pct = Math.round((diff / compOriginalFile.size) * 100);
+      compSavingsBadge.className = 'px-2 py-0.5 rounded-full text-xs font-semibold bg-emerald-100 dark:bg-emerald-950/60 text-emerald-800 dark:text-emerald-300 border border-emerald-200 dark:border-emerald-800/60';
+      compSavingsBadge.textContent = `-${pct}% (under ${targetKB}KB)`;
+      showToast(`Optimized strictly under ${targetKB} KB (${formatBytes(blob.size)})`, 'success');
+    }
+
+    evaluateQuality(currentScale, 1);
+  }
+
   // Dimension inputs event listeners
   if (compWidthInput && compHeightInput) {
     compWidthInput.addEventListener('input', () => {
@@ -718,7 +1627,10 @@
   }
 
   if (compDropzone && compInput) {
-    compDropzone.addEventListener('click', () => compInput.click());
+    compDropzone.addEventListener('click', (e) => {
+      if (e.target !== compInput) compInput.click();
+    });
+    compInput.addEventListener('click', (e) => e.stopPropagation());
     compInput.addEventListener('change', (e) => {
       if (e.target.files.length) {
         loadCompressorImage(e.target.files[0]);
@@ -789,6 +1701,228 @@
       showToast(`Optimized image downloaded as .${ext}!`, 'success');
     });
   }
+
+  // ==========================================
+  // 4b. TOOL: EXAM PHOTO & SIGNATURE RESIZER (Canvas + Presets)
+  // ==========================================
+
+  const EXAM_PRESETS = {
+    'ssc-photo': { name: 'SSC Photo', w: 350, h: 450, minKb: 20, maxKb: 50, note: '3.5 × 4.5 cm' },
+    'ssc-sign': { name: 'SSC Signature', w: 400, h: 200, minKb: 10, maxKb: 20, note: '4.0 × 2.0 cm' },
+    'upsc-photo': { name: 'UPSC Photo', w: 350, h: 350, minKb: 20, maxKb: 300, note: 'Square 350×350 px min' },
+    'upsc-sign': { name: 'UPSC Signature', w: 350, h: 350, minKb: 20, maxKb: 300, note: 'Square 350×350 px min' },
+    'ibps-photo': { name: 'IBPS / SBI Photo', w: 200, h: 230, minKb: 20, maxKb: 50, note: '200 × 230 px' },
+    'ibps-sign': { name: 'IBPS / SBI Signature', w: 140, h: 60, minKb: 10, maxKb: 20, note: '140 × 60 px' },
+    'ibps-thumb': { name: 'IBPS Left Thumb', w: 240, h: 240, minKb: 20, maxKb: 50, note: '240 × 240 px' },
+    'neet-photo': { name: 'NTA NEET Photo', w: 350, h: 450, minKb: 10, maxKb: 200, note: 'Passport size' },
+    'neet-sign': { name: 'NTA NEET Signature', w: 400, h: 150, minKb: 4, maxKb: 30, note: 'White background' },
+    'rrb-photo': { name: 'Railway Photo', w: 350, h: 450, minKb: 20, maxKb: 50, note: '35 × 45 mm' },
+    'rrb-sign': { name: 'Railway Signature', w: 300, h: 120, minKb: 10, maxKb: 20, note: 'Black ink' }
+  };
+
+  let examOriginalImage = null;
+  let examOriginalFile = null;
+  let examCurrentBlob = null;
+
+  const examPresetSelect = document.getElementById('exam-preset-select');
+  const specDimsVal = document.getElementById('spec-dims-val');
+  const specKbVal = document.getElementById('spec-kb-val');
+  const specNoteVal = document.getElementById('spec-note-val');
+
+  const examDropzone = document.getElementById('exam-dropzone');
+  const examInput = document.getElementById('exam-input');
+  const examEmptyState = document.getElementById('exam-empty-state');
+  const examWorkspace = document.getElementById('exam-workspace');
+  const examResetBtn = document.getElementById('exam-reset-btn');
+
+  const examResultPreview = document.getElementById('exam-result-preview');
+  const examResultDims = document.getElementById('exam-result-dims');
+  const examResultSize = document.getElementById('exam-result-size');
+  const examCropMode = document.getElementById('exam-crop-mode');
+  const examQualitySlider = document.getElementById('exam-quality-slider');
+  const examQualityVal = document.getElementById('exam-quality-val');
+  const examComplianceBadge = document.getElementById('exam-compliance-badge');
+  const examDownloadBtn = document.getElementById('exam-download-btn');
+
+  function updateExamSpecInfo() {
+    if (!examPresetSelect) return;
+    const spec = EXAM_PRESETS[examPresetSelect.value] || EXAM_PRESETS['ssc-photo'];
+    if (specDimsVal) specDimsVal.textContent = `${spec.w} × ${spec.h} px`;
+    if (specKbVal) specKbVal.textContent = `${spec.minKb} KB – ${spec.maxKb} KB`;
+    if (specNoteVal) specNoteVal.textContent = spec.note;
+  }
+
+  function processExamResizing() {
+    if (!examOriginalImage || !examPresetSelect) return;
+    const spec = EXAM_PRESETS[examPresetSelect.value] || EXAM_PRESETS['ssc-photo'];
+    const crop = examCropMode ? examCropMode.value : 'cover';
+    let quality = examQualitySlider ? parseFloat(examQualitySlider.value) / 100 : 0.8;
+
+    const canvas = document.createElement('canvas');
+    canvas.width = spec.w;
+    canvas.height = spec.h;
+    const ctx = canvas.getContext('2d');
+
+    // Fill white background
+    ctx.fillStyle = '#ffffff';
+    ctx.fillRect(0, 0, spec.w, spec.h);
+    ctx.imageSmoothingEnabled = true;
+    ctx.imageSmoothingQuality = 'high';
+
+    const imgW = examOriginalImage.naturalWidth;
+    const imgH = examOriginalImage.naturalHeight;
+
+    if (crop === 'cover') {
+      const scale = Math.max(spec.w / imgW, spec.h / imgH);
+      const drawW = imgW * scale;
+      const drawH = imgH * scale;
+      const offsetX = (spec.w - drawW) / 2;
+      const offsetY = (spec.h - drawH) / 2;
+      ctx.drawImage(examOriginalImage, offsetX, offsetY, drawW, drawH);
+    } else {
+      const scale = Math.min(spec.w / imgW, spec.h / imgH);
+      const drawW = imgW * scale;
+      const drawH = imgH * scale;
+      const offsetX = (spec.w - drawW) / 2;
+      const offsetY = (spec.h - drawH) / 2;
+      ctx.drawImage(examOriginalImage, offsetX, offsetY, drawW, drawH);
+    }
+
+    // Auto-adjust quality to strictly respect maxKb
+    const maxBytes = spec.maxKb * 1024;
+    function attemptExport(q, step) {
+      canvas.toBlob((blob) => {
+        if (!blob) return;
+        if (blob.size > maxBytes && q > 0.15 && step < 6) {
+          attemptExport(q - 0.15, step + 1);
+          return;
+        }
+
+        examCurrentBlob = blob;
+        if (examResultPreview) examResultPreview.src = URL.createObjectURL(blob);
+        if (examResultDims) examResultDims.textContent = `${spec.w} × ${spec.h} px`;
+        if (examResultSize) examResultSize.textContent = formatBytes(blob.size);
+        if (examQualitySlider) {
+          const qVal = Math.round(q * 100);
+          examQualitySlider.value = qVal;
+          if (examQualityVal) examQualityVal.textContent = `${qVal}%`;
+        }
+
+        if (examComplianceBadge) {
+          const kb = blob.size / 1024;
+          if (kb <= spec.maxKb) {
+            examComplianceBadge.className = 'p-2.5 rounded-xl bg-emerald-50 dark:bg-emerald-950/40 border border-emerald-200 dark:border-emerald-800/60 text-xs text-emerald-700 dark:text-emerald-300 flex items-center gap-2';
+            examComplianceBadge.innerHTML = `<i class="fa-solid fa-circle-check text-emerald-500"></i> Complies strictly with ${spec.name} criteria (${formatBytes(blob.size)} &le; ${spec.maxKb} KB).`;
+          } else {
+            examComplianceBadge.className = 'p-2.5 rounded-xl bg-amber-50 dark:bg-amber-950/40 border border-amber-200 dark:border-amber-800/60 text-xs text-amber-700 dark:text-amber-300 flex items-center gap-2';
+            examComplianceBadge.innerHTML = `<i class="fa-solid fa-triangle-exclamation text-amber-500"></i> Slightly above limit (${formatBytes(blob.size)}). Drag quality slider lower.`;
+          }
+        }
+      }, 'image/jpeg', q);
+    }
+
+    attemptExport(quality, 1);
+  }
+
+  function loadExamImage(file) {
+    if (!file || !file.type.startsWith('image/')) {
+      showToast('Please select a valid image file (JPG, PNG, WEBP).', 'error');
+      return;
+    }
+
+    examOriginalFile = file;
+    const reader = new FileReader();
+    reader.onload = (e) => {
+      const img = new Image();
+      img.onload = () => {
+        examOriginalImage = img;
+        if (examEmptyState) examEmptyState.classList.add('hidden');
+        if (examWorkspace) examWorkspace.classList.remove('hidden');
+        processExamResizing();
+        showToast('Image loaded! Adjusted to exam specifications.', 'success');
+      };
+      img.src = e.target.result;
+    };
+    reader.readAsDataURL(file);
+  }
+
+  if (examPresetSelect) {
+    examPresetSelect.addEventListener('change', () => {
+      updateExamSpecInfo();
+      processExamResizing();
+    });
+    updateExamSpecInfo();
+  }
+
+  if (examCropMode) examCropMode.addEventListener('change', processExamResizing);
+  if (examQualitySlider) {
+    examQualitySlider.addEventListener('input', (e) => {
+      if (examQualityVal) examQualityVal.textContent = `${e.target.value}%`;
+      processExamResizing();
+    });
+  }
+
+  if (examDropzone && examInput) {
+    examDropzone.addEventListener('click', (e) => {
+      if (e.target !== examInput) examInput.click();
+    });
+    examInput.addEventListener('click', (e) => e.stopPropagation());
+    examInput.addEventListener('change', (e) => {
+      if (e.target.files.length) {
+        loadExamImage(e.target.files[0]);
+        examInput.value = '';
+      }
+    });
+
+    ['dragenter', 'dragover'].forEach((eventName) => {
+      examDropzone.addEventListener(eventName, (e) => {
+        e.preventDefault();
+        examDropzone.classList.add('drag-active');
+      });
+    });
+
+    ['dragleave', 'drop'].forEach((eventName) => {
+      examDropzone.addEventListener(eventName, (e) => {
+        e.preventDefault();
+        examDropzone.classList.remove('drag-active');
+      });
+    });
+
+    examDropzone.addEventListener('drop', (e) => {
+      if (e.dataTransfer && e.dataTransfer.files.length) {
+        loadExamImage(e.dataTransfer.files[0]);
+      }
+    });
+  }
+
+  if (examResetBtn) {
+    examResetBtn.addEventListener('click', () => {
+      examOriginalImage = null;
+      examOriginalFile = null;
+      examCurrentBlob = null;
+      if (examWorkspace) examWorkspace.classList.add('hidden');
+      if (examEmptyState) examEmptyState.classList.remove('hidden');
+      showToast('Exam file cleared.', 'info');
+    });
+  }
+
+  if (examDownloadBtn) {
+    examDownloadBtn.addEventListener('click', () => {
+      if (!examCurrentBlob || !examOriginalFile) return;
+      const downloadUrl = URL.createObjectURL(examCurrentBlob);
+      const a = document.createElement('a');
+      const spec = EXAM_PRESETS[examPresetSelect.value] || EXAM_PRESETS['ssc-photo'];
+      const examSlug = examPresetSelect.value;
+      a.download = `${examSlug}-${spec.w}x${spec.h}.jpg`;
+      a.href = downloadUrl;
+      document.body.appendChild(a);
+      a.click();
+      document.body.removeChild(a);
+      setTimeout(() => URL.revokeObjectURL(downloadUrl), 5000);
+      showToast('Exam photo downloaded!', 'success');
+    });
+  }
+
 
   // ==========================================
   // 5. TOOL 3: TEXT / MARKDOWN TO PDF CONVERTER
@@ -1518,7 +2652,10 @@
   }
 
   if (fmtDropzone && fmtFileInput) {
-    fmtDropzone.addEventListener('click', () => fmtFileInput.click());
+    fmtDropzone.addEventListener('click', (e) => {
+      if (e.target !== fmtFileInput) fmtFileInput.click();
+    });
+    fmtFileInput.addEventListener('click', (e) => e.stopPropagation());
 
     fmtDropzone.addEventListener('dragover', (e) => {
       e.preventDefault();
@@ -2099,6 +3236,372 @@
     generateQRCode();
     refreshPassword();
   }
+
+  
+  // ==========================================
+  // 12. TOOL: ONLINE GST CALCULATOR (Inclusive & Exclusive)
+  // ==========================================
+  (function() {
+    const amountInput = document.getElementById('gst-amount-input');
+    if (!amountInput) return;
+
+    const amountLabel = document.getElementById('gst-amount-label');
+    const amountHelp = document.getElementById('gst-amount-help');
+    const modeExclusiveBtn = document.getElementById('gst-mode-exclusive');
+    const modeInclusiveBtn = document.getElementById('gst-mode-inclusive');
+    const rateBtns = document.querySelectorAll('.gst-rate-btn');
+    const customRateInput = document.getElementById('gst-rate-custom');
+
+    const resNet = document.getElementById('gst-res-net');
+    const resTax = document.getElementById('gst-res-tax');
+    const resCgst = document.getElementById('gst-res-cgst');
+    const resSgst = document.getElementById('gst-res-sgst');
+    const resGross = document.getElementById('gst-res-gross');
+    const resTotalLabel = document.getElementById('gst-res-total-label');
+    const copyBtn = document.getElementById('gst-copy-btn');
+    const resetBtn = document.getElementById('gst-reset-btn');
+
+    let isExclusive = true;
+    let currentRate = 18;
+
+    function formatInr(val) {
+      return '₹' + Number(val).toLocaleString('en-IN', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+    }
+
+    function calculateGst() {
+      const enteredAmount = parseFloat(amountInput.value) || 0;
+      const rate = parseFloat(customRateInput && customRateInput.value ? customRateInput.value : currentRate) || 0;
+
+      let netAmount = 0;
+      let gstAmount = 0;
+      let grossAmount = 0;
+
+      if (isExclusive) {
+        netAmount = enteredAmount;
+        gstAmount = (netAmount * rate) / 100;
+        grossAmount = netAmount + gstAmount;
+      } else {
+        grossAmount = enteredAmount;
+        netAmount = grossAmount / (1 + (rate / 100));
+        gstAmount = grossAmount - netAmount;
+      }
+
+      const cgst = gstAmount / 2;
+      const sgst = gstAmount / 2;
+
+      if (resNet) resNet.textContent = formatInr(netAmount);
+      if (resTax) resTax.textContent = formatInr(gstAmount);
+      if (resCgst) resCgst.textContent = formatInr(cgst);
+      if (resSgst) resSgst.textContent = formatInr(sgst);
+      if (resGross) resGross.textContent = formatInr(grossAmount);
+    }
+
+    function setMode(exclusive) {
+      isExclusive = exclusive;
+      if (isExclusive) {
+        if (modeExclusiveBtn) modeExclusiveBtn.className = 'gst-mode-btn py-2.5 px-4 rounded-xl text-xs sm:text-sm font-bold transition flex items-center justify-center gap-2 bg-white dark:bg-slate-900 text-brand-600 dark:text-brand-400 shadow-sm';
+        if (modeInclusiveBtn) modeInclusiveBtn.className = 'gst-mode-btn py-2.5 px-4 rounded-xl text-xs sm:text-sm font-bold transition flex items-center justify-center gap-2 text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white';
+        if (amountLabel) amountLabel.textContent = 'Net / Base Amount (₹)';
+        if (amountHelp) amountHelp.textContent = 'Base transaction value before tax is added.';
+        if (resTotalLabel) resTotalLabel.textContent = 'Total Invoiced Amount (Gross)';
+      } else {
+        if (modeInclusiveBtn) modeInclusiveBtn.className = 'gst-mode-btn py-2.5 px-4 rounded-xl text-xs sm:text-sm font-bold transition flex items-center justify-center gap-2 bg-white dark:bg-slate-900 text-brand-600 dark:text-brand-400 shadow-sm';
+        if (modeExclusiveBtn) modeExclusiveBtn.className = 'gst-mode-btn py-2.5 px-4 rounded-xl text-xs sm:text-sm font-bold transition flex items-center justify-center gap-2 text-slate-600 dark:text-slate-300 hover:text-slate-900 dark:hover:text-white';
+        if (amountLabel) amountLabel.textContent = 'Gross / MRP Invoiced Amount (₹)';
+        if (amountHelp) amountHelp.textContent = 'Total bill amount already inclusive of tax.';
+        if (resTotalLabel) resTotalLabel.textContent = 'Final Gross Bill (Unchanged)';
+      }
+      calculateGst();
+    }
+
+    if (modeExclusiveBtn) modeExclusiveBtn.addEventListener('click', () => setMode(true));
+    if (modeInclusiveBtn) modeInclusiveBtn.addEventListener('click', () => setMode(false));
+
+    rateBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        rateBtns.forEach(b => {
+          b.className = 'gst-rate-btn py-2 rounded-xl text-xs font-bold border border-slate-200 dark:border-slate-700 hover:border-brand-500 dark:hover:border-brand-500 text-slate-700 dark:text-slate-200 transition';
+        });
+        btn.className = 'gst-rate-btn py-2 rounded-xl text-xs font-bold border border-brand-500 bg-brand-50 dark:bg-brand-950/40 text-brand-600 dark:text-brand-400 transition';
+        const r = parseFloat(btn.dataset.rate);
+        currentRate = r;
+        if (customRateInput) customRateInput.value = r;
+        calculateGst();
+      });
+    });
+
+    if (customRateInput) {
+      customRateInput.addEventListener('input', () => {
+        rateBtns.forEach(b => {
+          if (parseFloat(b.dataset.rate) === parseFloat(customRateInput.value)) {
+            b.className = 'gst-rate-btn py-2 rounded-xl text-xs font-bold border border-brand-500 bg-brand-50 dark:bg-brand-950/40 text-brand-600 dark:text-brand-400 transition';
+          } else {
+            b.className = 'gst-rate-btn py-2 rounded-xl text-xs font-bold border border-slate-200 dark:border-slate-700 hover:border-brand-500 dark:hover:border-brand-500 text-slate-700 dark:text-slate-200 transition';
+          }
+        });
+        calculateGst();
+      });
+    }
+
+    if (amountInput) amountInput.addEventListener('input', calculateGst);
+
+    if (copyBtn) {
+      copyBtn.addEventListener('click', () => {
+        const text = `QuickConvert GST Breakdown:\n` +
+          `Mode: ${isExclusive ? 'GST Exclusive' : 'GST Inclusive'}\n` +
+          `Rate: ${customRateInput ? customRateInput.value : currentRate}%\n` +
+          `Net Price: ${resNet ? resNet.textContent : ''}\n` +
+          `GST Tax: ${resTax ? resTax.textContent : ''}\n` +
+          `CGST: ${resCgst ? resCgst.textContent : ''}\n` +
+          `SGST: ${resSgst ? resSgst.textContent : ''}\n` +
+          `Total: ${resGross ? resGross.textContent : ''}`;
+        navigator.clipboard.writeText(text).then(() => {
+          if (typeof showToast === 'function') showToast('GST breakdown copied to clipboard!', 'success');
+        });
+      });
+    }
+
+    if (resetBtn) {
+      resetBtn.addEventListener('click', () => {
+        amountInput.value = 10000;
+        if (customRateInput) customRateInput.value = 18;
+        setMode(true);
+        calculateGst();
+      });
+    }
+
+    calculateGst();
+  })();
+
+  // ==========================================
+  // 13. TOOL: LOAN EMI CALCULATOR & AMORTIZATION
+  // ==========================================
+  (function() {
+    const amountInput = document.getElementById('emi-amount-input');
+    if (!amountInput) return;
+
+    const amountRange = document.getElementById('emi-amount-range');
+    const rateInput = document.getElementById('emi-rate-input');
+    const rateRange = document.getElementById('emi-rate-range');
+    const tenureInput = document.getElementById('emi-tenure-input');
+    const tenureRange = document.getElementById('emi-tenure-range');
+    const tenureTypeYrBtn = document.getElementById('emi-tenure-type-yr');
+    const tenureTypeMoBtn = document.getElementById('emi-tenure-type-mo');
+
+    const resMonthly = document.getElementById('emi-res-monthly');
+    const resPrincipal = document.getElementById('emi-res-principal');
+    const resInterest = document.getElementById('emi-res-interest');
+    const resTotal = document.getElementById('emi-res-total');
+    const barPrincipal = document.getElementById('emi-bar-principal');
+    const barInterest = document.getElementById('emi-bar-interest');
+    const pctPrincipal = document.getElementById('emi-pct-principal');
+    const pctInterest = document.getElementById('emi-pct-interest');
+    const tbody = document.getElementById('emi-amortization-tbody');
+    const copyBtn = document.getElementById('emi-copy-btn');
+    const resetBtn = document.getElementById('emi-reset-btn');
+    const presetBtns = document.querySelectorAll('.emi-preset-btn');
+
+    let isTenureInYears = true;
+
+    function formatInr(val) {
+      return '₹' + Math.round(val).toLocaleString('en-IN');
+    }
+
+    function calculateEmi() {
+      const P = parseFloat(amountInput.value) || 0;
+      const annualRate = parseFloat(rateInput.value) || 0;
+      const rawTenure = parseFloat(tenureInput.value) || 0;
+      const months = isTenureInYears ? (rawTenure * 12) : rawTenure;
+
+      if (P <= 0 || annualRate <= 0 || months <= 0) {
+        if (resMonthly) resMonthly.textContent = '₹0';
+        return;
+      }
+
+      const r = (annualRate / 12) / 100;
+      const emi = (P * r * Math.pow(1 + r, months)) / (Math.pow(1 + r, months) - 1);
+      const totalPayment = emi * months;
+      const totalInterest = totalPayment - P;
+
+      const pPct = ((P / totalPayment) * 100).toFixed(1);
+      const iPct = ((totalInterest / totalPayment) * 100).toFixed(1);
+
+      if (resMonthly) resMonthly.textContent = formatInr(emi);
+      if (resPrincipal) resPrincipal.textContent = formatInr(P);
+      if (resInterest) resInterest.textContent = formatInr(totalInterest);
+      if (resTotal) resTotal.textContent = formatInr(totalPayment);
+
+      if (barPrincipal) barPrincipal.style.width = pPct + '%';
+      if (barInterest) barInterest.style.width = iPct + '%';
+      if (pctPrincipal) pctPrincipal.textContent = `Principal: ${pPct}%`;
+      if (pctInterest) pctInterest.textContent = `Interest: ${iPct}%`;
+
+      if (tbody) {
+        let balance = P;
+        let html = '';
+        const totalYears = Math.ceil(months / 12);
+
+        for (let y = 1; y <= totalYears; y++) {
+          const opening = balance;
+          let yearlyInterest = 0;
+          let yearlyPrincipal = 0;
+
+          for (let m = 1; m <= 12; m++) {
+            const currentMonth = (y - 1) * 12 + m;
+            if (currentMonth > months || balance <= 0) break;
+            const interestMonth = balance * r;
+            const principalMonth = emi - interestMonth;
+            yearlyInterest += interestMonth;
+            yearlyPrincipal += principalMonth;
+            balance -= principalMonth;
+            if (balance < 0) balance = 0;
+          }
+
+          const yearlyEmi = yearlyPrincipal + yearlyInterest;
+
+          html += `<tr class="hover:bg-slate-50 dark:hover:bg-slate-800/60 transition">
+            <td class="py-2 px-3 font-bold">${y}</td>
+            <td class="py-2 px-3">${formatInr(opening)}</td>
+            <td class="py-2 px-3 font-semibold">${formatInr(yearlyEmi)}</td>
+            <td class="py-2 px-3 text-brand-600 dark:text-brand-400 font-semibold">${formatInr(yearlyPrincipal)}</td>
+            <td class="py-2 px-3 text-amber-600 dark:text-amber-400 font-semibold">${formatInr(yearlyInterest)}</td>
+            <td class="py-2 px-3 font-bold">${formatInr(balance)}</td>
+          </tr>`;
+        }
+        tbody.innerHTML = html;
+      }
+    }
+
+    if (amountInput && amountRange) {
+      amountInput.addEventListener('input', () => {
+        amountRange.value = amountInput.value;
+        calculateEmi();
+      });
+      amountRange.addEventListener('input', () => {
+        amountInput.value = amountRange.value;
+        calculateEmi();
+      });
+    }
+
+    if (rateInput && rateRange) {
+      rateInput.addEventListener('input', () => {
+        rateRange.value = rateInput.value;
+        calculateEmi();
+      });
+      rateRange.addEventListener('input', () => {
+        rateInput.value = rateRange.value;
+        calculateEmi();
+      });
+    }
+
+    if (tenureInput && tenureRange) {
+      tenureInput.addEventListener('input', () => {
+        tenureRange.value = tenureInput.value;
+        calculateEmi();
+      });
+      tenureRange.addEventListener('input', () => {
+        tenureInput.value = tenureRange.value;
+        calculateEmi();
+      });
+    }
+
+    function setTenureType(years) {
+      if (isTenureInYears === years) return;
+      isTenureInYears = years;
+      const raw = parseFloat(tenureInput.value) || 20;
+
+      if (isTenureInYears) {
+        if (tenureTypeYrBtn) tenureTypeYrBtn.className = 'px-2.5 py-1 rounded-md bg-white dark:bg-slate-700 text-brand-600 dark:text-brand-400 shadow-xs';
+        if (tenureTypeMoBtn) tenureTypeMoBtn.className = 'px-2.5 py-1 rounded-md text-slate-500 dark:text-slate-400';
+        tenureRange.min = 1;
+        tenureRange.max = 30;
+        tenureRange.step = 1;
+        const yrs = Math.max(1, Math.min(30, Math.round(raw / 12)));
+        tenureInput.value = yrs;
+        tenureRange.value = yrs;
+      } else {
+        if (tenureTypeMoBtn) tenureTypeMoBtn.className = 'px-2.5 py-1 rounded-md bg-white dark:bg-slate-700 text-brand-600 dark:text-brand-400 shadow-xs';
+        if (tenureTypeYrBtn) tenureTypeYrBtn.className = 'px-2.5 py-1 rounded-md text-slate-500 dark:text-slate-400';
+        tenureRange.min = 12;
+        tenureRange.max = 360;
+        tenureRange.step = 6;
+        const mos = Math.max(12, Math.min(360, Math.round(raw * 12)));
+        tenureInput.value = mos;
+        tenureRange.value = mos;
+      }
+      calculateEmi();
+    }
+
+    if (tenureTypeYrBtn) tenureTypeYrBtn.addEventListener('click', () => setTenureType(true));
+    if (tenureTypeMoBtn) tenureTypeMoBtn.addEventListener('click', () => setTenureType(false));
+
+    presetBtns.forEach(btn => {
+      btn.addEventListener('click', () => {
+        const type = btn.dataset.preset;
+        setTenureType(true);
+        if (type === 'home') {
+          amountInput.value = 3000000;
+          amountRange.value = 3000000;
+          rateInput.value = 8.5;
+          rateRange.value = 8.5;
+          tenureInput.value = 20;
+          tenureRange.value = 20;
+        } else if (type === 'car') {
+          amountInput.value = 800000;
+          amountRange.value = 800000;
+          rateInput.value = 9.2;
+          rateRange.value = 9.2;
+          tenureInput.value = 5;
+          tenureRange.value = 5;
+        } else if (type === 'personal') {
+          amountInput.value = 300000;
+          amountRange.value = 300000;
+          rateInput.value = 12.0;
+          rateRange.value = 12.0;
+          tenureInput.value = 3;
+          tenureRange.value = 3;
+        } else if (type === 'education') {
+          amountInput.value = 1500000;
+          amountRange.value = 1500000;
+          rateInput.value = 9.5;
+          rateRange.value = 9.5;
+          tenureInput.value = 7;
+          tenureRange.value = 7;
+        }
+        calculateEmi();
+      });
+    });
+
+    if (copyBtn) {
+      copyBtn.addEventListener('click', () => {
+        const text = `QuickConvert Loan EMI Summary:\n` +
+          `Loan Amount: ${resPrincipal ? resPrincipal.textContent : ''}\n` +
+          `Interest Rate: ${rateInput ? rateInput.value : ''}%\n` +
+          `Tenure: ${tenureInput ? tenureInput.value : ''} ${isTenureInYears ? 'Years' : 'Months'}\n` +
+          `Monthly EMI: ${resMonthly ? resMonthly.textContent : ''}\n` +
+          `Total Interest: ${resInterest ? resInterest.textContent : ''}\n` +
+          `Total Payment: ${resTotal ? resTotal.textContent : ''}`;
+        navigator.clipboard.writeText(text).then(() => {
+          if (typeof showToast === 'function') showToast('Loan EMI summary copied to clipboard!', 'success');
+        });
+      });
+    }
+
+    if (resetBtn) {
+      resetBtn.addEventListener('click', () => {
+        setTenureType(true);
+        amountInput.value = 2500000;
+        amountRange.value = 2500000;
+        rateInput.value = 8.75;
+        rateRange.value = 8.75;
+        tenureInput.value = 20;
+        tenureRange.value = 20;
+        calculateEmi();
+      });
+    }
+
+    calculateEmi();
+  })();
 
   // Run on DOM ready
   if (document.readyState === 'loading') {

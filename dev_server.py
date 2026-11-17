@@ -3,7 +3,7 @@ import socketserver
 import os
 from pathlib import Path
 
-ROOT = Path(r"C:/Users/Zexox/Desktop/QuickConvert")
+ROOT = Path(__file__).parent.resolve()
 PORT = 3000
 
 class CleanURLHandler(http.server.SimpleHTTPRequestHandler):
